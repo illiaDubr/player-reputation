@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "login": "Login failed. Please check your credentials.",
+    "registration": "Registration failed. Please try again.",
+    "logout": "Logout failed. Please try again.",
+    "checkAuth": "Authentication check failed.",
+    "verification": "Verification failed. Please try again."
+  }
+}
