@@ -1,0 +1,69 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+
+// === Styles === //
+
+.header__wrap {
+  width: 90px;
+  height: 100%;
+  transition: width .4s ease;
+
+  .header {
+    width: 90px;
+    height: calc(100vh - 50px);
+    max-height: 848px;
+    box-shadow: 2px 4px 16px 0 rgba(0, 0, 0, 0.5);
+    background: #121317;
+    border-radius: 5px;
+    position: relative;
+    transition: width .4s ease;
+    padding: 2.5em 0px;
+
+    .navigation {
+      .navigation__list {
+        .navigation__list-item {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+
+    .header__btn {
+      width: 24px;
+      height: 52px;
+      border-radius: 4px;
+      background: #181817;
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .svg {
+        transition: all .4s ease;
+      }
+    }
+  }
+}
+
+.header__wrap-width {
+  width: 200px;
+
+  .header-width {
+    width: 200px;
+
+    .header__btn {
+      .svg {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+}
+
+// === / Styles === //
