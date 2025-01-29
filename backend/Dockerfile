@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# Установка необходимых пакетов
+# Установка необходимых пакетов и зависимостей
 RUN apt-get update && apt-get install -y \
     libzip-dev zip unzip git && \
     docker-php-ext-install pdo pdo_mysql
@@ -14,14 +14,11 @@ WORKDIR /var/www
 # Копирование файлов проекта
 COPY . .
 
-# Установка зависимостей
-RUN composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
+# Установка зависимостей через Composer
+RUN composer install
 
 # Установка прав доступа
-RUN chown -R www-data:www-data /var/www && chmod -R 775 /var/www
+RUN chown -R www-data:www-data /var/www
 
-# Expose порт для PHP-FPM
+# Expose порт для веб-сервера
 EXPOSE 9000
-
-# Команда для запуска
-CMD ["php-fpm"]
