@@ -61,9 +61,7 @@ class ProcessJsonStepByStep extends Command
                     $this->info("Object " . ($index + 1) . " processed successfully.");
                 }
 
-                // Add delay between requests
-                $this->info("Waiting 20 seconds before the next request...");
-                sleep(20);
+
 
             } catch (\Exception $e) {
                 $this->error("Error processing object " . ($index + 1) . ": " . $e->getMessage());
