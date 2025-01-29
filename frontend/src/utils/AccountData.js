@@ -18,7 +18,6 @@ export const addData = {
     chikoPoker: "",
     discord: "",
     comment: "",
-
 }
 
 export const useAddPlayerData = () => {
