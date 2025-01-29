@@ -22,11 +22,15 @@ const AccountForm = ({slideType}) => {
 
     const submitForm = async (e) => {
         e.preventDefault();
-        try {
-            await store.addPlayer(formData);
-            console.log("Данные успешно отправлены:", formData);
-        } catch (error) {
-            console.error("Ошибка при отправке данных:", error);
+        if (activeIndex < slides.length - 1) {
+            setActiveIndex((prevIndex) => prevIndex + 1);
+        } else {
+            try {
+                await store.addPlayer(formData);
+                console.log("Данные успешно отправлены:", formData);
+            } catch (error) {
+                console.error("Ошибка при отправке данных:", error);
+            }
         }
     }
 
@@ -66,12 +70,9 @@ const AccountForm = ({slideType}) => {
                     ></span>
                 ))}
             </div>
-            {/*<div className="slide__btn-next">
-                Next
-            </div>*/}
 
-            <button type="submit" className="slide__btn-next">
-                Отправить
+            <button type="submit" className="slide__btn-next" onClick={submitForm}>
+                {activeIndex < slides.length - 1 ? "Далее" : "Отправить"}
             </button>
         </form>
     )

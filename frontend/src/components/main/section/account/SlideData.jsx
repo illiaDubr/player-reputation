@@ -103,7 +103,7 @@ const SlideData = (slideType, formData, setFormData) => {
                                 <div className="slide__label">
                                     Ваш развернутый комментарий по сложившейся ситуации
                                 </div>
-                                <textarea className="slide__textarea" value={formData.comment || ""}>
+                                <textarea className="slide__textarea" value={formData.comment || ""}   onChange={(e) => handleChange("comment", e.target.value)}>
                                 </textarea>
                             </div>
                             <div className="slide__input-wrap">

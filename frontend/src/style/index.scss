@@ -151,9 +151,9 @@ body {
     gap: 32px;
     border-radius: 20px;
     box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(129, 129, 129, .7);
     background: url("../assets/image/grid.webp") center center / 23% repeat #01030b;
     overflow: hidden;
+    border: 1px solid rgba(129, 129, 129, .7);
 
     &:after {
       content: '';
