@@ -49,10 +49,10 @@ class PlayerAddController extends Controller
             'telegram' => 'nullable|string|max:255',
             'discord' => 'nullable|string|max:255',
             'skype' => 'nullable|string|max:255',
-            'kyc_status' => 'required|boolean',
+            'kyc_status' => 'nullable|boolean',
             'kyc_verified_at' => 'nullable|date',
             'backer_tag' => 'nullable|string|max:255',
-            'created_by' => 'required|integer',
+            'created_by' => 'nullable|integer',
         ]);
 
         // Автоматическая генерация player_id на основе количества записей
