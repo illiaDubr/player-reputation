@@ -148,17 +148,17 @@ export default class Store {
         }
     }
 
-    async addPlayer(event, formData) {
-        await this.handleFormSubmission(
-            event,
-            AddPlayerService.addPlayer,
-            formData,
-            (data) => {
-                console.log("Игрок добавлен успешно", data);
-            },
-            (error) => {
-                console.log("Ошибка при добавлении игрока", error);
-            }
-        );
+    async addPlayer(formData, event) {
+        event.preventDefault();
+        this.setLoading(true);
+        try {
+            const response = await AddPlayerService.addPlayer(formData);
+            this.setResults(response.data);
+            console.log(response.data);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            this.setLoading(false);
+        }
     }
 }

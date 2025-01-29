@@ -77,7 +77,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                   @include mixin.font-style(500, 14, 130, #565656)
                 }
 
-                .slide__date {
+                .slide__custom-input {
                   display: flex;
                   gap: 8px;
                   @include mixin.font-style(500, 14, 130, #565656);
@@ -94,6 +94,26 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                     }
                   }
                 }
+
+                .slide__amount {
+                  input {
+                    width: auto;
+                  }
+                }
+              }
+
+              .slide__textarea {
+                all: unset;
+                border-radius: 8px;
+                padding: 18px 24px;
+                cursor: text;
+                caret-color: #FFFFFF;
+                background: #080808;
+                transition: all 0.4s ease;
+                field-sizing: content;
+                resize: none;
+                min-height: 6lh;
+                @include mixin.font-style(500, 16, 130, #FFFFFF);
               }
             }
           }

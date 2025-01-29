@@ -12,11 +12,13 @@ export const addData = {
     TigerGaming: "",
     PartyPoker: "",
     Pokerstars_es: "",
-    //888poker: "",
     WPNpoker: "",
     Stretchpoker: "",
     Coinpoker: "",
     chikoPoker: "",
+    discord: "",
+    comment: "",
+
 }
 
 export const useAddPlayerData = () => {
@@ -55,4 +57,10 @@ export const fourthSlideDataPlayer = [
     { label: "Gipsyteam", id: "GipsyTeam", placeholder: "Введите имя", type: "text" },
     { label: "Luxon", id: "Luxon", placeholder: "Введите имя", type: "text" },
     { label: "Telegram", id: "telegram", placeholder: "Введите имя", type: "text" },
+    { label: "Discord", id: "discord", placeholder: "Введите имя", type: "text" },
 ];
+
+export const fifthSlideDataPlayer = [
+    { label: "Сумма ущерба", id: "damage", placeholder: "Введите сумму", type: "text" },
+    { label: "Сумма мейкапа", id: "makeUp", placeholder: "Введите сумму", type: "text" },
+]

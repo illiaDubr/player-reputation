@@ -50,7 +50,7 @@ const DateInput = (formData, setFormData) => {
 
     return (
         <div className="slide__input" style={{display: 'flex', gap: '8px'}} onClick={handleClick}>
-            <span className="slide__date">
+            <span className="slide__custom-input">
                 Д
                 <input
                     ref={dayRef}
@@ -61,7 +61,7 @@ const DateInput = (formData, setFormData) => {
                 />
             </span>
             /
-            <span className="slide__date">
+            <span className="slide__custom-input">
                 М
                 <input
                     ref={monthRef}
@@ -72,7 +72,7 @@ const DateInput = (formData, setFormData) => {
                 />
             </span>
             /
-            <span className="slide__date">
+            <span className="slide__custom-input">
                 Г
                 <input
                     ref={yearRef}
