@@ -17,7 +17,6 @@ class PlayerAddController extends Controller
     {
         // Валидация входных данных
         $validated = $request->validate([
-            'player_id' => 'required|integer',
             'user_id' => 'required|integer',
             'old_id' => 'nullable|integer',
             'first_name' => 'nullable|string|max:255',
@@ -56,7 +55,9 @@ class PlayerAddController extends Controller
             'created_by' => 'required|integer',
         ]);
 
-        // Попытка сохранения данных
+        // Автоматическая генерация player_id на основе количества записей
+        $validated['player_id'] = Player::count() + 1;
+
         try {
             $player = Player::create($validated);
 
