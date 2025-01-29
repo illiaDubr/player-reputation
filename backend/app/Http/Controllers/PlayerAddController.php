@@ -17,7 +17,7 @@ class PlayerAddController extends Controller
     {
         // Валидация входных данных
         $validated = $request->validate([
-            'user_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
             'old_id' => 'nullable|integer',
             'first_name' => 'nullable|string|max:255',
             'last_name' => 'nullable|string|max:255',
