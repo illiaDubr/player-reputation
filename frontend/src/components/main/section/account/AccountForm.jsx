@@ -20,8 +20,14 @@ const AccountForm = ({slideType}) => {
         }
     };
 
-    const submitForm = async (formData) => {
-        await store.addPlayer(formData);
+    const submitForm = async (e) => {
+        e.preventDefault();
+        try {
+            await store.addPlayer(formData);
+            console.log("Данные успешно отправлены:", formData);
+        } catch (error) {
+            console.error("Ошибка при отправке данных:", error);
+        }
     }
 
     return (

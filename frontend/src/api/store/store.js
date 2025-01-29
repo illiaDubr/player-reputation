@@ -148,8 +148,7 @@ export default class Store {
         }
     }
 
-    async addPlayer(formData, event) {
-        event.preventDefault();
+    async addPlayer(formData) {
         this.setLoading(true);
         try {
             const response = await AddPlayerService.addPlayer(formData);
