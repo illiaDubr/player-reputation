@@ -20,10 +20,15 @@ const AccountForm = ({slideType}) => {
         }
     };
 
-    const submitForm = async (formData) => {
-        await store.addPlayer(formData);
+    const submitForm = async (e) => {
+        e.preventDefault();
+        try {
+            await store.addPlayer(formData); // Отправляем данные на сервер
+            console.log("Данные успешно отправлены:", formData);
+        } catch (error) {
+            console.error("Ошибка при отправке данных:", error);
+        }
     }
-    console.log(store.addPlayer())
 
     return (
         <form className="modal__body" method="POST" onSubmit={submitForm}>
