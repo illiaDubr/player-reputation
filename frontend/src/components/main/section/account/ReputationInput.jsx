@@ -5,7 +5,6 @@ const ReputationInput = ({ info, formData, setFormData }) => {
             [key]: value,
         }));
     };
-    console.log(formData);
 
     return (
         <>

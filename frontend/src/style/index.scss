@@ -142,17 +142,18 @@ body {
   align-items: center;
 
   .modal-content {
+    max-height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
     transition: .5s ease-in-out;
     position: relative;
-    overflow: hidden;
-    padding: 40px;
+    padding: 40px 32px;
     gap: 32px;
     border-radius: 20px;
     box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(129, 129, 129, .7);
     background: url("../assets/image/grid.webp") center center / 23% repeat #01030b;
+    overflow: hidden;
 
     &:after {
       content: '';
@@ -185,8 +186,11 @@ body {
       display: flex;
       flex-direction: column;
       gap: 24px;
+      padding: 0px 7px;
       position: relative;
       z-index: 2;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       .modal__input-box {
         display: flex;
@@ -247,7 +251,6 @@ body {
         }
       }
 
-
       .modal__form-btn {
         width: 100%;
         height: 58px;
@@ -264,6 +267,22 @@ body {
         &:hover {
           background: #03f;
         }
+      }
+
+      &::-webkit-scrollbar {
+        background: #121317;
+        border-radius:8px;
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #2750F2;
+        border-radius: 5px;
+      }
+
+      &:root {
+        scrollbar-width: thin;
+        scrollbar-color: #2750F2 #121317;
       }
     }
   }
@@ -316,7 +335,7 @@ h1 {
 @media (width < 1024px) {
   .modal {
     .modal-content {
-      padding: 24px;
+      padding: 24px 16px;
       gap: 20px;
 
       .modal__body {

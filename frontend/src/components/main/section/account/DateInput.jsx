@@ -1,14 +1,15 @@
-import React, {useRef} from 'react';
+import React from 'react';
 
-const DateInput = () => {
-    const dayRef = useRef(null);
-    const monthRef = useRef(null);
-    const yearRef = useRef(null);
+const DateInput = (formData, setFormData) => {
+    const dayRef = React.useRef(null);
+    const monthRef = React.useRef(null);
+    const yearRef = React.useRef(null);
+    const [formattedDate, setFormattedDate] = React.useState('');
 
     const handleInput = (e, maxLength, nextRef) => {
         const { value } = e.target;
         if (!/^\d*$/.test(value)) {
-            e.target.value = value.slice(0, -1); // Удаляем нечисловые символы
+            e.target.value = value.slice(0, -1);
             return;
         }
         if (value.length >= maxLength) {
@@ -16,6 +17,8 @@ const DateInput = () => {
                 nextRef.current.focus();
             }
         }
+
+        updateDate();
     };
 
     const handleBackspace = (e, prevRef) => {
@@ -24,6 +27,8 @@ const DateInput = () => {
         if (e.key === 'Backspace' && value === '' && prevRef && prevRef.current) {
             prevRef.current.focus();
         }
+
+        updateDate();
     };
 
     const handleClick = () => {
@@ -34,6 +39,13 @@ const DateInput = () => {
         } else {
             yearRef.current.focus();
         }
+    };
+
+    const updateDate = () => {
+        const day = dayRef.current.value.padStart(2, '0'); // Дополняем до 2 цифр
+        const month = monthRef.current.value.padStart(2, '0'); // Дополняем до 2 цифр
+        const year = yearRef.current.value.padStart(4, '0'); // Дополняем до 4 цифр
+        setFormattedDate(`${day}-${month}-${year}`);
     };
 
     return (

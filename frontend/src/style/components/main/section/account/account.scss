@@ -51,6 +51,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               display: flex;
               flex-direction: column;
               gap: 8px;
+              position: relative;
 
               .slide__label {
                 @include mixin.font-style(400, null, 130, #959595);
