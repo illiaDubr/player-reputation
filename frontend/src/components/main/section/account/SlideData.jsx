@@ -1,10 +1,24 @@
 import React from "react";
-import DateInput from "./DateInput.jsx";
+//import DateInput from "./DateInput.jsx";
 import CountrySelect from "../../components/CountrySelect.jsx";
 import ReputationInput from "./ReputationInput.jsx";
-import {firstSlideData, secSlideData} from "../../../../utils/AccountData.js";
+import {firstSlideDataPlayer, secSlideDataPlayer, thirdSlideDataPlayer, fourthSlideDataPlayer} from "../../../../utils/AccountData.js";
 
 const SlideData = (slideType, formData, setFormData) => {
+
+    const handlePhoneNumberChange = React.useCallback((phoneNumber) => {
+        setFormData((prevData) => ({...prevData, phonenumber: phoneNumber}));
+    }, [setFormData]);
+
+    const handleChange = (key, value) => {
+        setFormData((prev) => ({
+            ...prev,
+            [key]: value, // Обновляем значение по ключу
+        }));
+    };
+
+    console.log(formData);
+
     switch (slideType) {
         case "addPlayer":
             return [
@@ -17,19 +31,20 @@ const SlideData = (slideType, formData, setFormData) => {
                             </div>
                             <div className="slide__content">
                                 <div className="slide__box">
-                                    <ReputationInput info={firstSlideData} formData={formData} setFormData={setFormData} />
+                                    <ReputationInput info={firstSlideDataPlayer} formData={formData}
+                                                     setFormData={setFormData}/>
                                     {/*<div className="slide__input-wrap">
-                                <div className="slide__label">
-                                    Год рождения
-                                </div>
-                                <DateInput />
-                            </div>
-                            <div className="slide__input-wrap">
-                                <div className="slide__label">
-                                    Номер телефона
-                                </div>
-                                <CountrySelect />
-                            </div>*/}
+                                        <div className="slide__label">
+                                            Год рождения
+                                        </div>
+                                        <DateInput formData={formData} setFormData={setFormData}/>
+                                    </div>*/}
+                                    <div className="slide__input-wrap">
+                                        <div className="slide__label">
+                                            Номер телефона
+                                        </div>
+                                        <CountrySelect onPhoneNumberChange={handlePhoneNumberChange}/>
+                                    </div>
                                 </div>
                             </div>
 
@@ -43,17 +58,28 @@ const SlideData = (slideType, formData, setFormData) => {
                             <div className='slide__title'>
                                 Ники в румах
                             </div>
-                            {/*<div className="slide__content">
-                        <div className="slide__box">
-                            <ReputationInput info={secSlideData} />
-                        </div>
-                        <div className="slide__input-wrap">
-                            <label className="slide__label">
-                                Ник в сети Stretchpoker (vbet, grompoker, RPTbet)
-                            </label>
-                            <input className="slide__input" placeholder="Введите Имя" type="text"/>
-                        </div>
-                    </div>*/}
+                            <div className="slide__content">
+                                <div className="slide__box">
+                                    <ReputationInput info={secSlideDataPlayer} formData={formData}
+                                                     setFormData={setFormData}/>
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label">
+                                        Ник в сети Stretchpoker (vbet, grompoker, RPTbet)
+                                    </label>
+                                    <input
+                                        className="slide__input"
+                                        placeholder="Введите Имя"
+                                        type="text"
+                                        value={formData.Stretchpoker || ""}
+                                        onChange={(e) => handleChange("Stretchpoker", e.target.value)}
+                                    />
+                                </div>
+                                <div className="slide__box">
+                                    <ReputationInput info={thirdSlideDataPlayer} formData={formData}
+                                                     setFormData={setFormData}/>
+                                </div>
+                            </div>
                         </>
                     ),
                 },
@@ -63,6 +89,12 @@ const SlideData = (slideType, formData, setFormData) => {
                         <>
                             <div className='slide__title'>
                                 Контактная информация
+                            </div>
+                            <div className="slide__content">
+                                <div className="slide__box">
+                                    <ReputationInput info={fourthSlideDataPlayer} formData={formData}
+                                                     setFormData={setFormData}/>
+                                </div>
                             </div>
                         </>
                     ),

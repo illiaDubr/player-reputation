@@ -39,6 +39,8 @@ export default class Store {
         this.results = results;
     }
 
+    //<<== Authorization ==>>//
+
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
@@ -61,10 +63,10 @@ export default class Store {
             const response = await AuthService.registration(email, password, password_confirmation);
             console.log('Ответ сервера:', response.data);
 
-            const token = response.data.accessToken; // Убедись, что токен есть в ответе
+            const token = response.data.accessToken;
             if (token) {
-                localStorage.setItem('token', token); // Сохраняем токен
-                this.setAuth(true); // Обновляем состояние
+                localStorage.setItem('token', token);
+                this.setAuth(true);
                 this.setUser(response.data.user);
             } else {
                 console.error('Токен отсутствует в ответе!');
@@ -110,6 +112,28 @@ export default class Store {
         }
     }
 
+    //<<== Form submission ==>>//
+
+    async handleFormSubmission(event, serviceFunction, formData, onSuccess, onError) {
+        event.preventDefault();
+        this.setLoading(true);
+
+        try {
+            const response = await serviceFunction(formData);
+            console.log(response.data);
+            if (onSuccess) {
+                onSuccess(response.data);
+            }
+        } catch (e) {
+            console.error(e);
+            if (onError) {
+                onError(e);
+            }
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
     async search(formData) {
         this.setLoading(true);
         try {
@@ -124,15 +148,17 @@ export default class Store {
         }
     }
 
-    async addPlayer(formData) {
-        this.setLoading(true);
-        try {
-            const response = await AddPlayerService.addPlayer(formData);
-            console.log(response);
-        } catch (e) {
-            console.log(e);
-        } finally {
-            this.setLoading(false);
-        }
+    async addPlayer(event, formData) {
+        await this.handleFormSubmission(
+            event,
+            AddPlayerService.addPlayer,
+            formData,
+            (data) => {
+                console.log("Игрок добавлен успешно", data);
+            },
+            (error) => {
+                console.log("Ошибка при добавлении игрока", error);
+            }
+        );
     }
 }
