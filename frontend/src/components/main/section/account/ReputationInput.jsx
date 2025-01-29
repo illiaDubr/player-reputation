@@ -11,7 +11,9 @@ const ReputationInput = ({ info, formData, setFormData }) => {
         <>
             {info.map((item) => (
                 <div className="slide__input-wrap" key={item.id}>
-                    <label className="slide__label" htmlFor={item.id}>{item.label}</label>
+                    <label className="slide__label" htmlFor={item.id}>
+                        {item.label}
+                    </label>
                     <input
                         id={item.id}
                         className="slide__input"

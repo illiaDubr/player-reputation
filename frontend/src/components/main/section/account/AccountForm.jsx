@@ -2,7 +2,6 @@ import React from "react";
 import IconSvg from "../../components/IconSvg.jsx";
 import SlideData from "./SlideData.jsx";
 import {useAddPlayerData} from "../../../../utils/AccountData.js";
-
 import {Context} from "../../../../api/store/storeContext.js";
 
 const AccountForm = ({slideType}) => {
@@ -24,6 +23,7 @@ const AccountForm = ({slideType}) => {
     const submitForm = async (formData) => {
         await store.addPlayer(formData);
     }
+    console.log(store.addPlayer())
 
     return (
         <form className="modal__body" method="POST" onSubmit={submitForm}>
