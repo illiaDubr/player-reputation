@@ -30,7 +30,9 @@ function Login() {
     });
 
     const submitForm = async (e) => {
-        await store.login(email, password, e);
+        e.preventDefault();
+        await store.login(email, password);
+        reset();
     };
 
     const openNewPasswordModal = () => {
