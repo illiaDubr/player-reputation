@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Modal, useModal} from "../../../components/Modal.jsx";
 import IconSvg from "../../../components/IconSvg.jsx";
 import {Context} from "../../../../../api/store/storeContext.js";
@@ -38,10 +38,14 @@ function Auth() {
         openModal("TwoFAModal");
     }
 
+    const openRole = () => {
+        openModal("role");
+    }
+
     const submitForm = async (e) => {
         await store.registration(email, password, confirmPassword, e);
-        await store.verification(email);
-        openTwoFAModal();
+        //await store.verification(email);
+        //openTwoFAModal();
         reset();
     }
 
@@ -111,6 +115,12 @@ function Auth() {
                         {isSubmitting ? 'Регистрация...' : 'Зарегистрироваться'}
                     </button>
                 </form>
+            </Modal>
+            <Modal modalName="role">
+                <div className="modal__title">
+                    Выберите как вы будете использовать
+                    сервис Player Reputation
+                </div>
             </Modal>
             <Login />
             <TwoFA />
