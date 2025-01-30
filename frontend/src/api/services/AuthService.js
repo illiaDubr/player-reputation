@@ -13,7 +13,7 @@ export default class AuthService {
     static async login(email, password) {
         await getCsrfToken();
         try {
-            const response = await $api.post('/api/login', { email, password });
+            const response = await $api.post('/api/login', { email, password }, {withCredentials: true});
             console.log('Server response login:', response.data);
             return response.data;
         } catch (error) {
