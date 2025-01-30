@@ -1,5 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {Modal, useModal} from "../../../components/Modal.jsx";
+import {useNavigate} from "react-router-dom";
+import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
 import IconSvg from "../../../components/IconSvg.jsx";
 import {Context} from "../../../../../api/store/storeContext.js";
 import { useForm } from 'react-hook-form';
@@ -9,13 +11,13 @@ import Login from "./Login.jsx";
 import TwoFA from "./TwoFA.jsx";
 
 function Auth() {
-    const {store} = useContext(Context);
-
+    const {store} = React.useContext(Context);
+    const navigate = useNavigate();
     const {openModal, closeAllModals} = useModal();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
 
     const {
         register,
@@ -43,10 +45,14 @@ function Auth() {
     }
 
     const submitForm = async (e) => {
-        await store.registration(email, password, confirmPassword, e);
-        //await store.verification(email);
-        //openTwoFAModal();
-        reset();
+        e.preventDefault();
+        try {
+            await store.registration(email, password, confirmPassword);
+        } catch (error) {
+            reset();
+        } finally {
+            navigate(ACCOUNT_ROUTE);
+        }
     }
 
     return (
