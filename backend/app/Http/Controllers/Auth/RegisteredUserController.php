@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Http\JsonResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): Response
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
@@ -43,10 +44,12 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-
         event(new Registered($user));
         Auth::login($user);
 
-        return response()->noContent();
+        return response()->json([
+            'message' => 'User registered successfully',
+            'user_id' => $user->id
+        ], 201);
     }
 }
