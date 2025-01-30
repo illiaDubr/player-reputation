@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Backer;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,19 +22,29 @@ class RegisteredUserController extends Controller
     public function store(Request $request): Response
     {
         $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'string', 'max:255'], // Указываем валидные значения для role
+            'role' => ['required', 'string'], // Ограничиваем возможные роли
         ]);
 
         $user = User::create([
             'email' => $request->email,
-            'password' => Hash::make($request->string('password')),
-            'role' => $request->role, // Добавляем роль
+            'password' => Hash::make($request->input('password')),
+            'role' => $request->role,
         ]);
 
-        event(new Registered($user));
+        // Если роль пользователя - backer, создаём запись в таблице backers
+        if ($user->role === 'backer') {
+            \Log::info('Creating Backer for user ID: ' . $user->id);
+            Backer::create([
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'name' => 'Default Backer Name', // Убедитесь, что значение не null
+            ]);
+        }
 
+
+        event(new Registered($user));
         Auth::login($user);
 
         return response()->noContent();

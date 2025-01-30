@@ -71,17 +71,17 @@ class PlayerController extends Controller
             ->when($request->filled('nickname'), function ($query) use ($request) {
                 return $query->where(function ($q) use ($request) {
                     $nickname = $request->input('nickname');
-                    $q->orWhere('nickPS', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickGG', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickRedStar', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickTigerGaming', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickPartyPoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickPokerstars', 'like', '%' . $nickname . '%')
-                        ->orWhere('nick888poker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickWPNpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickStretchpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickCoinpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickchikoPoker', 'like', '%' . $nickname . '%')
+                    $q->orWhere('PS', 'like', '%' . $nickname . '%')
+                        ->orWhere('GG', 'like', '%' . $nickname . '%')
+                        ->orWhere('RedStar', 'like', '%' . $nickname . '%')
+                        ->orWhere('TigerGaming', 'like', '%' . $nickname . '%')
+                        ->orWhere('PartyPoker', 'like', '%' . $nickname . '%')
+                        ->orWhere('Pokerstars', 'like', '%' . $nickname . '%')
+                        ->orWhere('888poker', 'like', '%' . $nickname . '%')
+                        ->orWhere('WPNpoker', 'like', '%' . $nickname . '%')
+                        ->orWhere('Stretchpoker', 'like', '%' . $nickname . '%')
+                        ->orWhere('Coinpoker', 'like', '%' . $nickname . '%')
+                        ->orWhere('chikoPoker', 'like', '%' . $nickname . '%')
                         ->orWhere('nickiPoker', 'like', '%' . $nickname . '%');
                 });
             });

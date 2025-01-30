@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 class BackerAddController extends Controller
 {
     /**
-     * Handle the storage of backer data.
+     * Handle the update of backer data.
      *
      * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
         // Валидация данных
         $validated = $request->validate([
             'user_id' => 'nullable|integer',
-            'old_backer' => 'nullable|string|max:255|unique:backers',
+            'old_backer' => 'nullable|string|max:255|unique:backers,old_backer,' . $id,
             'name' => 'required|string|max:255',
             'managers' => 'nullable|array',
             'users' => 'nullable|array',
@@ -43,17 +44,20 @@ class BackerAddController extends Controller
             'email' => 'nullable|email|max:255',
         ]);
 
-        // Сохранение данных
         try {
-            $backer = Backer::create($validated);
+            // Поиск существующей записи
+            $backer = Backer::findOrFail($id);
+
+            // Обновление данных
+            $backer->update($validated);
 
             return response()->json([
-                'message' => 'Backer created successfully',
+                'message' => 'Backer updated successfully',
                 'backer' => $backer,
-            ], 201);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Failed to create backer',
+                'message' => 'Failed to update backer',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -108,5 +112,4 @@ class BackerAddController extends Controller
             ], 500);
         }
     }
-
 }

@@ -13,11 +13,14 @@ use App\Http\Controllers\JsonProcessingController;
 use App\Http\Controllers\PlayerAddController;
 use App\Http\Controllers\BackerAddController;
 
-Route::get('/backers/approved/no', [BackerAddController::class, 'getUnapprovedBackers']);
-
-Route::post('/backerAdd', [\App\Http\Controllers\BackerAddController::class, 'store']);
-
-Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']);
+//Route::get('/backers/approved/no', [BackerAddController::class, 'getUnapprovedBackers']);
+//
+//Route::post('/backerAdd', [\App\Http\Controllers\BackerAddController::class, 'store']);
+//
+//Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']);
+Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обновление существующего Backer
+Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
+Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
 
 
 Route::post('/playerAdd', [\App\Http\Controllers\PlayerAddController::class, 'store']);
