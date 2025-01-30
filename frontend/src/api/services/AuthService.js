@@ -14,7 +14,7 @@ export default class AuthService {
         try {
             await ensureCsrfToken();
             const response = await $api.post('/api/login', { email, password });
-            return response.data;
+            return response;
         } catch (error) {
             console.error('Ошибка авторизации:', error.response?.data || error.message);
             throw error;
