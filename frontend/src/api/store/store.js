@@ -43,15 +43,15 @@ export default class Store {
 
 
     updateAuthState(response) {
-        const token = response.data?.accessToken;
+        const token = response?.accessToken;
         if (!token) {
             console.error('Токен отсутствует в ответе!');
             return false;
         }
         localStorage.setItem('token', token);
         this.setAuth(true);
-        this.setUser(response.data.user);
-        console.log('Пользователь успешно авторизован:', response.data.user);
+        this.setUser(response.user);
+        console.log('Пользователь успешно авторизован:', response.user);
         return true;
     }
 
