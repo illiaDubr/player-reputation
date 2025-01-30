@@ -41,58 +41,53 @@ export default class Store {
 
     //<<== Authorization ==>>//
 
+
+    updateAuthState(response) {
+        const token = response.data?.accessToken;
+        if (!token) {
+            console.error('Токен отсутствует в ответе!');
+            return false;
+        }
+        localStorage.setItem('token', token);
+        this.setAuth(true);
+        this.setUser(response.data.user);
+        console.log('Пользователь успешно авторизован:', response.data.user);
+        return true;
+    }
+
+    handleError(error, defaultMessage) {
+        const message = error.response?.data?.message || defaultMessage;
+        console.error(message);
+        alert(message); // Или замени на toast
+    }
+
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
-
-            const token = response.data?.accessToken;
-            if (!token) {
-                console.error('Токен не получен!');
-                return;
-            }
-
-            // Сохраняем токен и обновляем состояние
-            localStorage.setItem('token', token);
-            this.setAuth(true);
-            this.setUser(response.data.user);
-
-            console.log('Пользователь успешно авторизован:', response.data.user);
+            this.updateAuthState(response);
         } catch (error) {
-            // Улучшенная обработка ошибок
-            const errorMessage = error.response?.data?.message || 'Ошибка авторизации';
-            console.error(errorMessage);
-            alert(errorMessage); // Можно заменить на более красивое уведомление
+            this.handleError(error, 'Ошибка авторизации');
         }
     }
 
     async registration(email, password, password_confirmation) {
         try {
             const response = await AuthService.registration(email, password, password_confirmation);
-            console.log('Ответ сервера:', response.data);
-
-            const token = response.data.accessToken;
-            if (token) {
-                localStorage.setItem('token', token);
-                this.setAuth(true);
-                this.setUser(response.data.user);
-            } else {
-                console.error('Токен отсутствует в ответе!');
-            }
-        } catch (e) {
-            console.error('Ошибка регистрации:', e.response?.data?.message || e.message);
+            this.updateAuthState(response);
+        } catch (error) {
+            this.handleError(error, 'Ошибка регистрации');
         }
     }
 
     async logout() {
+        this.setAuth(false);
+        this.setUser({});
+        this.setResults([]);
+        localStorage.removeItem('token');
         try {
             await AuthService.logout();
-        } catch (e) {
-            console.log(e.response?.data?.message || 'Ошибка логаута');
-        } finally {
-            localStorage.removeItem('token');
-            this.setAuth(false);
-            this.setUser({});
-            this.setResults([]);
+        } catch (error) {
+            console.error('Ошибка логаута:', error.response?.data?.message || error.message);
         }
     }
 
