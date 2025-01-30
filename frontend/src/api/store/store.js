@@ -66,6 +66,7 @@ export default class Store {
             const response = await AuthService.login(email, password);
             console.log('AuthService login returned:', response);
             this.updateAuthState(response);
+            console.log(this.isAuth);
         } catch (error) {
             this.handleError(error, 'Ошибка авторизации');
         }
