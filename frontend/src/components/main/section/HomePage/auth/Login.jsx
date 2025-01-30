@@ -32,7 +32,6 @@ function Login() {
 
     const submitForm = async (data) => {
         try {
-            await getCsrfToken();
             await store.login(data.email, data.password);
         } catch (error) {
             reset();

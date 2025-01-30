@@ -11,6 +11,7 @@ async function ensureCsrfToken() {
 
 export default class AuthService {
     static async login(email, password) {
+        await getCsrfToken();
         try {
             const response = await $api.post('/api/login', { email, password });
             console.log('Server response login:', response.data);
@@ -22,8 +23,8 @@ export default class AuthService {
     }
 
     static async registration(email, password, password_confirmation) {
+        await getCsrfToken();
         try {
-            await ensureCsrfToken();
             const response = await $api.post('/api/register', { email, password, password_confirmation });
             return response.data;
         } catch (error) {

@@ -1,15 +1,9 @@
 import $api from "../http/index.js";
-import Cookies from 'js-cookie';
 
 export async function getCsrfToken() {
     try {
-        const csrfToken = Cookies.get('XSRF-TOKEN');
-        if (!csrfToken) {
-            await $api.get('/sanctum/csrf-cookie', { withCredentials: true });
-            console.log("CSRF-токен успешно получен.");
-        } else {
-            console.log("CSRF-токен уже установлен.");
-        }
+        await $api.get('/sanctum/csrf-cookie', { withCredentials: true });
+        console.log("CSRF-токен успешно получен.");
     } catch (error) {
         console.error("Ошибка получения CSRF-токена:", error);
         throw error;
