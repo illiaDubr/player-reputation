@@ -29,42 +29,9 @@ function Login() {
         mode: 'onChange',
     });
 
-    const submitForm = async (data) => {
-        try {
-            await store.login(data.email, data.password);
-        } catch (error) {
-            console.error("Ошибка при логине:", error);
-            if (error.response?.data) {
-                const { emailError, passwordError } = error.response.data;
-
-                if (emailError) {
-                    setError("email", {
-                        type: "server",
-                        message: emailError,
-                    });
-                }
-
-                if (passwordError) {
-                    setError("password", {
-                        type: "server",
-                        message: passwordError,
-                    });
-                }
-            } else {
-                setError("email", {
-                    type: "server",
-                    message: "Произошла ошибка на сервере. Попробуйте позже.",
-                });
-            }
-        } finally {
-            openRole();
-            reset();
-        }
+    const submitForm = async (e) => {
+        await store.login(email, password, e);
     };
-
-    const openRole = () => {
-        openModal("role");
-    }
 
     const openNewPasswordModal = () => {
         openModal("NewPassword")
@@ -111,20 +78,15 @@ function Login() {
                         <p className="input__error-text">{errors.password?.message}</p>
                     </div>
                     <p className="modal__text">
-                        Забыли пароль?{/* <button className="modal__text" type="button" onClick={openNewPasswordModal}>Востановить</button>*/}
+                        Забыли
+                        пароль?{/* <button className="modal__text" type="button" onClick={openNewPasswordModal}>Востановить</button>*/}
                     </p>
                     <button className="modal__form-btn" type="submit">
                         {isSubmitting ? 'Загрузка...' : 'Войти'}
                     </button>
                 </form>
             </Modal>
-            <Modal modalName="role">
-                <div className="modal__title">
-                    Выберите как вы будете использовать
-                    сервис Player Reputation
-                </div>
-            </Modal>
-            <NewPassword />
+            <NewPassword/>
         </>
     )
 }
