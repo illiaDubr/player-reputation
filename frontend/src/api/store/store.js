@@ -44,17 +44,24 @@ export default class Store {
     async login(email, password) {
         try {
             const response = await AuthService.login(email, password);
-            console.log('Ответ сервера:', response.data);
-            const token = response.data.accessToken;
-            if (token) {
-                localStorage.setItem('token', token);
-                this.setAuth(true);
-                this.setUser(response.data.user);
-            } else {
+
+            const token = response.data?.accessToken;
+            if (!token) {
                 console.error('Токен не получен!');
+                return;
             }
-        } catch (e) {
-            console.error(e.response?.data?.message || 'Ошибка логина');
+
+            // Сохраняем токен и обновляем состояние
+            localStorage.setItem('token', token);
+            this.setAuth(true);
+            this.setUser(response.data.user);
+
+            console.log('Пользователь успешно авторизован:', response.data.user);
+        } catch (error) {
+            // Улучшенная обработка ошибок
+            const errorMessage = error.response?.data?.message || 'Ошибка авторизации';
+            console.error(errorMessage);
+            alert(errorMessage); // Можно заменить на более красивое уведомление
         }
     }
 
@@ -113,26 +120,6 @@ export default class Store {
     }
 
     //<<== Form submission ==>>//
-
-    async handleFormSubmission(event, serviceFunction, formData, onSuccess, onError) {
-        event.preventDefault();
-        this.setLoading(true);
-
-        try {
-            const response = await serviceFunction(formData);
-            console.log(response.data);
-            if (onSuccess) {
-                onSuccess(response.data);
-            }
-        } catch (e) {
-            console.error(e);
-            if (onError) {
-                onError(e);
-            }
-        } finally {
-            this.setLoading(false);
-        }
-    }
 
     async search(formData) {
         this.setLoading(true);
