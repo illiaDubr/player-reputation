@@ -44,10 +44,9 @@ function Auth() {
         openModal("role");
     }
 
-    const submitForm = async (e) => {
-        e.preventDefault();
+    const submitForm = async (data) => {
         try {
-            await store.registration(email, password, confirmPassword);
+            await store.registration(data.email, data.password, data.confirmPassword);
         } catch (error) {
             reset();
         } finally {
