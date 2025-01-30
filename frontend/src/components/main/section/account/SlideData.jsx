@@ -11,11 +11,16 @@ import {
 } from "../../../../utils/AccountData.js";
 import SlideContentWrap from "./SlideContentWrap.jsx";
 import CustomInput from "./CustomInput.jsx";
+import MarkSelect from "./MarkSelect.jsx";
 
 const SlideData = (slideType, formData, setFormData) => {
 
     const handlePhoneNumberChange = React.useCallback((phoneNumber) => {
         setFormData((prevData) => ({...prevData, phonenumber: phoneNumber}));
+    }, [setFormData]);
+
+    const handleMarkChange = React.useCallback((backer_tag) => {
+        setFormData((prevData) => ({...prevData, backer_tag: backer_tag}));
     }, [setFormData]);
 
     const handleChange = (key, value) => {
@@ -110,6 +115,7 @@ const SlideData = (slideType, formData, setFormData) => {
                                 <div className="slide__label">
                                     Маркер
                                 </div>
+                                <MarkSelect onMarkChange={handleMarkChange}/>
                             </div>
                         </SlideContentWrap>
                     ),

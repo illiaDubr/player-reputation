@@ -6,12 +6,17 @@ import {SEARCH_ROUTE} from "../../../utils/const.js";
 import {Modal, useModal} from "../../../components/main/components/Modal.jsx";
 import IconSvg from "../../../components/main/components/IconSvg.jsx";
 import AccountForm from "../../../components/main/section/account/AccountForm.jsx";
+import Images from "../../../assets/image/image.js";
 
 function PersonalAccount() {
-    const {openModal} = useModal();
+    const {openModal, closeAllModals} = useModal();
 
     const openReputationModal = () => {
         openModal("reputation");
+    }
+
+    const openSuccessfullyModal = () => {
+        openModal("addedSuccessfully");
     }
 
     return (
@@ -23,11 +28,24 @@ function PersonalAccount() {
             </Helmet>
             <Main secClassName="account__wrap" secID="account">
                 <div className="account__nav">
-                    <Link className="account__link" to={SEARCH_ROUTE}>
-                        Осуществить поиск по базе
+                    <Link className="account__link-wrap" to={SEARCH_ROUTE}>
+                        <span className="account__link">
+                            <span className="account__link-title">
+                                Осуществить поиск по базе
+                            </span>
+                            <img src={Images.big__grid} alt="" className="account__img" />
+                            <img src={Images["account_computer-1"]} alt="Account Computer" className="account__img-1" />
+                            <IconSvg width={246} height={253} id="Ellipse" />
+                        </span>
                     </Link>
-                    <button className="account__link" type="button" onClick={openReputationModal}>
-                        Внести информацию репутации своего игрока
+                    <button className="account__link-wrap" type="button" onClick={openReputationModal}>
+                        <span className="account__link">
+                            <span className="account__link-title">
+                                Внести информацию репутации своего игрока
+                            </span>
+                            <img src={Images.big__grid} alt="" className="account__img"/>
+                            <img src={Images["account_computer-2"]} alt="Account Computer" className="account__img-2" />
+                        </span>
                     </button>
                     <div className="grid__item verification">
                         <div className="">
@@ -39,7 +57,22 @@ function PersonalAccount() {
                     <div className="modal__title">
                         Внесение информации по игроку
                     </div>
-                    <AccountForm slideType="addPlayer"/>
+                    <AccountForm slideType="addPlayer" modalOpen={openSuccessfullyModal}/>
+                </Modal>
+                <Modal modalName="addedSuccessfully">
+                    <div className="modal__title slide__title-modal">
+                        <button className="modal__btn" type="button" onClick={closeAllModals}>
+                            <IconSvg width="36" height="36" id="close-menu"/>
+                        </button>
+                    </div>
+                    <div className="modal__body">
+                        <p className="modal__text slide__text">
+                            Информация о игроке успешно внесена!
+                        </p>
+                        <button className="modal__form-btn" type="button" onClick={closeAllModals}>
+                            Закрыть
+                        </button>
+                    </div>
                 </Modal>
             </Main>
         </>
