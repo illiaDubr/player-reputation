@@ -17,7 +17,7 @@ export default class Store {
     }
 
     initializeAuth() {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (token) {
             this.checkAuth();
         }
