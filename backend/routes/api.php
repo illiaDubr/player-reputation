@@ -45,10 +45,8 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->name('register');
 
 
-Route::middleware(['web'])->group(function () {
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-        ->middleware('guest')
-        ->name('login');
+Route::middleware('guest')->group(function () {
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 });
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
