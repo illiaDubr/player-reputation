@@ -41,7 +41,7 @@ Route::controller(\App\Http\Controllers\PlayerController::class)
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest')
+    ->middleware('api')
     ->name('register');
 
 
