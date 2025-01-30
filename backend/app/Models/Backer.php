@@ -9,7 +9,8 @@ class Backer extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'backer_id';
+    protected $table = 'backers';
+    protected $primaryKey = 'backer_id'; // Указываем кастомный первичный ключ
 
     protected $fillable = [
         'user_id',
@@ -35,7 +36,7 @@ class Backer extends Model
         'fundDescr',
         'country',
         'approved',
-        'email',
+        'email'
     ];
 
     protected $casts = [
@@ -44,13 +45,8 @@ class Backer extends Model
         'readonlys' => 'array',
     ];
 
-    public function reputationRecords()
-    {
-        return $this->hasMany(ReputationRecord::class, 'backer_id');
-    }
-
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
