@@ -32,7 +32,7 @@ function Login() {
     const submitForm = async (e) => {
         e.preventDefault();
         try {
-            await store.login(email, password);
+            await store.login(email, password, e);
         } catch (error) {
             reset();
         }
