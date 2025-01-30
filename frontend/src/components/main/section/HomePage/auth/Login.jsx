@@ -8,7 +8,7 @@ import IconSvg from "../../../components/IconSvg.jsx";
 import {Context} from "../../../../../api/store/storeContext.js";
 //import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
 import NewPassword from "./NewPassword.jsx";
-import {data} from "autoprefixer";
+import {getCsrfToken} from "../../../../../api/services/csrf.js";
 
 function Login() {
     //const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Login() {
     const {
         register,
         handleSubmit,
-        setError,
+        //setError,
         reset,
         formState: {errors, isSubmitting},
     } = useForm({
@@ -32,6 +32,7 @@ function Login() {
 
     const submitForm = async (data) => {
         try {
+            await getCsrfToken();
             await store.login(data.email, data.password);
         } catch (error) {
             reset();
