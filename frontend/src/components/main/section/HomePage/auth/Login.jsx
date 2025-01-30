@@ -29,10 +29,9 @@ function Login() {
         mode: 'onChange',
     });
 
-    const submitForm = async (e) => {
-        e.preventDefault();
+    const submitForm = async (data) => {
         try {
-            await store.login(email, password, e);
+            await store.login(data.email, data.password);
         } catch (error) {
             reset();
         }
