@@ -1,16 +1,16 @@
 import React, {useContext, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+//import {useNavigate} from "react-router-dom";
 import {Modal, useModal} from "../../../components/Modal.jsx";
 import {useForm} from 'react-hook-form';
 import {schemaLogin} from "./schema.js";
 import {yupResolver} from "@hookform/resolvers/yup";
 import IconSvg from "../../../components/IconSvg.jsx";
 import {Context} from "../../../../../api/store/storeContext.js";
-import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
+//import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
 import NewPassword from "./NewPassword.jsx";
 
 function Login() {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const {openModal, closeAllModals} = useModal();
 
@@ -21,6 +21,7 @@ function Login() {
     const {
         register,
         handleSubmit,
+        setError,
         reset,
         formState: {errors, isSubmitting},
     } = useForm({
@@ -28,11 +29,41 @@ function Login() {
         mode: 'onChange',
     });
 
-    const submitForm = async () => {
-        await store.login(email, password);
-        navigate(ACCOUNT_ROUTE);
-        closeAllModals();
-        reset();
+    const submitForm = async (data) => {
+        try {
+            await store.login(data.email, data.password);
+        } catch (error) {
+            console.error("Ошибка при логине:", error);
+            if (error.response?.data) {
+                const { emailError, passwordError } = error.response.data;
+
+                if (emailError) {
+                    setError("email", {
+                        type: "server",
+                        message: emailError,
+                    });
+                }
+
+                if (passwordError) {
+                    setError("password", {
+                        type: "server",
+                        message: passwordError,
+                    });
+                }
+            } else {
+                setError("email", {
+                    type: "server",
+                    message: "Произошла ошибка на сервере. Попробуйте позже.",
+                });
+            }
+        } finally {
+            openRole();
+            reset();
+        }
+    };
+
+    const openRole = () => {
+        openModal("role");
     }
 
     const openNewPasswordModal = () => {
@@ -86,6 +117,12 @@ function Login() {
                         {isSubmitting ? 'Загрузка...' : 'Войти'}
                     </button>
                 </form>
+            </Modal>
+            <Modal modalName="role">
+                <div className="modal__title">
+                    Выберите как вы будете использовать
+                    сервис Player Reputation
+                </div>
             </Modal>
             <NewPassword />
         </>
