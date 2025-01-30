@@ -60,4 +60,20 @@
         <path d="M12.5 17V11" stroke="#FF2D31" stroke-width="1.5" stroke-linecap="round"></path>
         <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11.5 9)" fill="#FF2D31"></circle>
     </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246 253" id="Ellipse">
+        <g filter="url(#filter0_d_477_5603)">
+            <circle cx="24" cy="222" r="125.505" stroke="#2A4BFB" stroke-width="26.9903" shape-rendering="crispEdges"></circle>
+        </g>
+        <defs>
+            <filter id="filter0_d_477_5603" x="-197.86" y="0.139801" width="443.72" height="443.72" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset></feOffset>
+                <feGaussianBlur stdDeviation="41.4301"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="out"></feComposite>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_477_5603"></feBlend>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_477_5603" result="shape"></feBlend>
+            </filter>
+        </defs>
+    </symbol>
 </svg>

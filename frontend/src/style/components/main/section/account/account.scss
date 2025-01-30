@@ -13,6 +13,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
 .account__wrap {
 
   .modal-content {
+    .slide__title-modal {
+      justify-content: flex-end;
+    }
+
     .modal__body {
       align-items: center;
       gap: 32px !important;
@@ -102,6 +106,11 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                 }
               }
 
+              .slide__input-focus {
+                box-shadow: inset 0 4px 16px -8px rgba(125, 140, 161, 0.04);
+                background: #0e0e11;
+              }
+
               .slide__textarea {
                 all: unset;
                 border-radius: 8px;
@@ -144,7 +153,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         align-items: center;
         gap: 16px;
         position: relative;
-        overflow: hidden;
+        //overflow: hidden;
 
         p {
           @include mixin.font-style(500, 16, 140, #FFFFFF);
@@ -155,6 +164,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           position: relative;
         }
 
+        /*
         &:after {
           position: absolute;
           content: '';
@@ -166,6 +176,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           z-index: 1;
           transform: translate(50%, 50%);
         }
+         */
       }
 
       .slide__btn-prev {
@@ -207,6 +218,12 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         @include mixin.font-size(20, 16);
         letter-spacing: -0.01em;
       }
+
+      .slide__text {
+        @include mixin.font-style(500, null, 130, #FFFFFF);
+        @include mixin.font-size(24, 18);
+
+      }
     }
 
     &:after {
@@ -222,18 +239,86 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
     justify-items: center;
     padding: 20px;
 
-    .account__link {
+    .account__link-wrap {
       width: 100%;
-      height: 500px;
+      aspect-ratio: 2 / 2;
       border-radius: 20px;
       padding: 60px;
-      display: flex;
-      @include mixin.font-style(600, null, 120, #FFFFFF);
-      @include mixin.font-size(28, 19);
-      text-align: left;
-      text-wrap: balance;
       @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+      position: relative;
       border: 1px solid transparent;
+      overflow: hidden;
+
+      .account__link {
+        display: flex;
+        height: 100%;
+
+        .account__link-title {
+          @include mixin.font-style(600, null, 120, #FFFFFF);
+          @include mixin.font-size(28, 19);
+          text-align: left;
+          text-wrap: balance;
+          position: relative;
+          z-index: 3;
+        }
+
+        .svg {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
+
+        .account__img {
+          position: absolute;
+          object-fit: cover;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
+
+        .account__img-1 {
+          position: absolute;
+          width: 54%;
+          height: auto;
+          right: 0;
+          bottom: 2%;
+        }
+
+        .account__img-2 {
+          position: absolute;
+          width: 70%;
+          height: auto;
+          right: 0;
+          bottom: 4%;
+        }
+
+        &:after {
+          content: '';
+          width: 100%;
+          height: 50%;
+          position: absolute;
+          left: -50%;
+          top: 2%;
+          border-radius: 100%;
+          background: #2a4bfb;
+          filter: blur(197.6988067626953px);
+          z-index: 2;
+        }
+      }
+
+      &:nth-child(2) {
+        .account__link {
+          &:after {
+            left: inherit;
+            right: -50%;
+          }
+        }
+      }
+
+      :hover {
+
+      }
     }
 
     .verification {

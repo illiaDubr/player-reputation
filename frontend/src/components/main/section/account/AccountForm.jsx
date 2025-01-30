@@ -4,7 +4,7 @@ import SlideData from "./SlideData.jsx";
 import {useAddPlayerData} from "../../../../utils/AccountData.js";
 import {Context} from "../../../../api/store/storeContext.js";
 
-const AccountForm = ({slideType}) => {
+const AccountForm = ({slideType, modalOpen}) => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [formData, setFormData] = useAddPlayerData();
     const slides = SlideData(slideType, formData, setFormData);
@@ -30,6 +30,8 @@ const AccountForm = ({slideType}) => {
                 console.log("Данные успешно отправлены:", formData);
             } catch (error) {
                 console.error("Ошибка при отправке данных:", error);
+            } finally {
+                modalOpen();
             }
         }
     }

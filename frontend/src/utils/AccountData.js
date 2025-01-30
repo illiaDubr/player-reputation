@@ -63,3 +63,11 @@ export const fifthSlideDataPlayer = [
     { label: "Сумма ущерба", id: "damage", placeholder: "Введите сумму", type: "text" },
     { label: "Сумма мейкапа", id: "makeUp", placeholder: "Введите сумму", type: "text" },
 ]
+
+export const markData = [
+    { name: "Арбитраж", value: "arbitrage" },
+    { name: "", value: "ProblematicPlayer" },
+    { name: "", value: "MultiArbitrage" },
+    { name: "", value: "PlayerOnPause" },
+    { name: "", value: "no tag" },
+]
