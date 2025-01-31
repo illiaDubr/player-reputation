@@ -46,8 +46,7 @@ export default class Store {
 
     async login(email, password) {
         try {
-            await AuthService.login(email, password); // внутри с { withCredentials: true }
-            // Проверяем, дал ли сервер сессию и получаем user
+            await AuthService.login(email, password);
             await this.checkAuth();
         } catch (error) {
             this.handleError(error, "Ошибка авторизации");

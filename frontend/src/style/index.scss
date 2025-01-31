@@ -158,7 +158,7 @@ body {
     &:after {
       content: '';
       inset: 0;
-      right: 67%;
+      transform: translate(-85%, 0%);
       position: absolute;
       filter: blur(300px);
       border-radius: 50%;
@@ -253,7 +253,7 @@ body {
 
       .modal__form-btn {
         width: 100%;
-        height: 58px;
+        padding: 16px 14px;
         border-radius: 8px;
         background: #2750f2;
         transition: all .4s ease;
@@ -285,11 +285,89 @@ body {
         scrollbar-color: #2750F2 #121317;
       }
     }
-  }
 
-  .modal-content:has(.slide__wrap) {
-    width: 100%;
-    max-width: 741px;
+    .modal-custom {
+      .modal__checkbox-wrap {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-gap: clamp(1rem, 3vw, 1rem);
+
+        .modal__checkbox-box {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+          border: 1px solid transparent;
+          border-radius: 20px;
+          padding: 30px;
+          position: relative;
+
+          .modal__checkbox-photo {
+            width: 100px;
+            aspect-ratio: 1 / 1;
+            @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+            border: 1px solid transparent;
+            border-radius: 20px;
+          }
+
+          .modal__checkbox-title {
+            @include mixin.font-style(600, 20, 130, #FFFFFF);
+            letter-spacing: -0.01em;
+          }
+
+          .modal__checkbox-text {
+            @include mixin.font-style(400, 16, 130, #FFFFFF);
+            text-align: left;
+          }
+
+          .modal__checkbox {
+            width: 25px;
+            aspect-ratio: 1 / 1;
+            appearance: none;
+            position: absolute;
+            right: 30px;
+            @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+            border: 1px solid transparent;
+            border-radius: 8px;
+
+            &:checked::after {
+              content: '';
+            }
+          }
+        }
+      }
+    }
+
+    &:has(.modal-custom) {
+      width: 100%;
+      max-width: 1024px;
+      align-items: center;
+
+      .modal__title {
+        text-wrap: balance;
+        text-align: center;
+      }
+
+      .modal__body {
+        align-items: center;
+        gap: 48px;
+
+        .modal__text {
+          @include mixin.font-style(500, null, 140, #FFFFFF);
+          @include mixin.font-size(16, 14);
+        }
+
+        .modal__form-btn {
+          width: fit-content;
+        }
+      }
+    }
+
+    &:has(.slide__wrap) {
+      width: 100%;
+      max-width: 741px;
+    }
   }
 }
 
