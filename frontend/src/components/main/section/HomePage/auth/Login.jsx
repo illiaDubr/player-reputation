@@ -30,8 +30,6 @@ function Login() {
         mode: 'onChange',
     });
 
-    console.log(store.isAuth);
-
     const submitForm = async (data) => {
         try {
             await store.login(data.email, data.password);
