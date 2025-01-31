@@ -7,9 +7,12 @@ import {Modal, useModal} from "../../../components/main/components/Modal.jsx";
 import IconSvg from "../../../components/main/components/IconSvg.jsx";
 import AccountForm from "../../../components/main/section/account/AccountForm.jsx";
 import Images from "../../../assets/image/image.js";
+import React from "react";
+import {Context} from "../../../api/store/storeContext.js";
 
 function PersonalAccount() {
     const {openModal, closeAllModals} = useModal();
+    const {store} = React.useContext(Context);
 
     const openReputationModal = () => {
         openModal("reputation");
@@ -18,6 +21,8 @@ function PersonalAccount() {
     const openSuccessfullyModal = () => {
         openModal("addedSuccessfully");
     }
+
+    console.log(store.user);
 
     return (
         <>
@@ -51,6 +56,7 @@ function PersonalAccount() {
                         <div className="">
                             <IconSvg width={20} height={20} id="red_notification"/>
                         </div>
+                        {store.user}
                     </div>
                 </div>
                 <Modal modalName="reputation">
