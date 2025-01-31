@@ -22,6 +22,10 @@ function PersonalAccount() {
         openModal("addedSuccessfully");
     }
 
+    console.log(store.user.email)
+    console.log(store.user.user_id)
+    console.log(store.isAuth)
+
     return (
         <>
             <Helmet>
@@ -55,6 +59,7 @@ function PersonalAccount() {
                             <IconSvg width={20} height={20} id="red_notification"/>
                             {store.user.email}
                             {store.user.user_id}
+                            {store.isAuth ? `${store.user.email} ${store.user.user_id}` : 'АВТОРИЗУЙТЕСЬ'}
                         </div>
                     </div>
                 </div>
