@@ -59,7 +59,7 @@ return new class extends Migration
             $table->boolean('kyc_status')->default(false);
             $table->timestamp('kyc_verified_at')->nullable();
             $table->string('backer_tag')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps(); // created_at, updated_at
 
 
