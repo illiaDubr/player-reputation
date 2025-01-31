@@ -1,13 +1,5 @@
 import $api from "../http/index.js";
 import {getCsrfToken} from "./csrf.js";
-import Cookies from 'js-cookie';
-
-async function ensureCsrfToken() {
-    const csrfToken = Cookies.get('XSRF-TOKEN');
-    if (!csrfToken) {
-        await getCsrfToken();
-    }
-}
 
 export default class AuthService {
     static async login(email, password) {
@@ -34,16 +26,9 @@ export default class AuthService {
     }
 
     static async logout() {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            console.warn('Токен отсутствует, логаут невозможен. Перенаправление на страницу входа...');
-            //window.location.href = '/login';
-            return;
-        }
         try {
-            await ensureCsrfToken();
-            await $api.post('/api/logout');
-            localStorage.removeItem('token');
+            await getCsrfToken();
+            await $api.post('/api/logout', {}, { withCredentials: true });
         } catch (error) {
             console.error('Ошибка при выходе из системы:', error.response?.data || error.message);
             throw error;
