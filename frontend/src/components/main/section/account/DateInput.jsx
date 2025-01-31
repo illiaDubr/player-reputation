@@ -50,6 +50,7 @@ const DateInput = (formData, setFormData) => {
 
     return (
         <div className="slide__input" style={{display: 'flex', gap: '8px'}} onClick={handleClick}>
+            <></>
             <span className="slide__custom-input">
                 Д
                 <input

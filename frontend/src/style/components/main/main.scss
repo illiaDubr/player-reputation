@@ -7,6 +7,10 @@
 
 // === Styles === //
 
+.hidden {
+  display: none;
+}
+
 .main {
   flex-grow: 1;
 
@@ -88,5 +92,49 @@
     }
   }
 }
+
+.case {
+  width: 90px;
+  height: 100vh;
+  //background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: text;
+}
+
+.ll {
+  @include mixin.font-style(500, 12, 130, #FFFFFF);
+  position: absolute;
+  transform: translate(20%, 300%);
+}
+
+.qq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 56px;
+  background: rgba(8, 8, 8, 1);
+  transition: all .3s ease;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  @include mixin.font-style(500, 16, 130, #FFFFFF);
+}
+
+label.qq:has(input:checked) {
+  @include mixin.gradient-box(rgba(0, 24, 122, 1), linear-gradient(to left, #818181, #36373E));
+}
+
+.row-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .row {
+    @include mixin.font-style(500, 16, 130, #FFFFFF);
+  }
+}
+
 
 // === / Styles === //

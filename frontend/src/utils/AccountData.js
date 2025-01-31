@@ -71,3 +71,15 @@ export const markData = [
     { name: "", value: "PlayerOnPause" },
     { name: "", value: "no tag" },
 ]
+
+export const test1 = [
+    { label: "Название Фонда", id: "1", placeholder: "Введите название", type: "text" },
+    { label: "Ссылка на сайт", id: "2", placeholder: "Введите ссылку на сайт", type: "text" },
+    { label: "Ссылка на гостевой домик в Discord", id: "3", placeholder: "Введите ссылку на Discord", type: "text" },
+    { label: "Контакт представителя в Discord", id: "4", placeholder: "Введите контакт", type: "text" },
+]
+
+export const test2 = [
+    { label: "Сколько у вас тренеров", id: "1", placeholder: "Введите количество", type: "text" },
+    { label: "Количество игроков в команде", id: "2", placeholder: "Введите количество", type: "text" },
+]
