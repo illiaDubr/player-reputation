@@ -22,8 +22,6 @@ function PersonalAccount() {
         openModal("addedSuccessfully");
     }
 
-    console.log(store.user);
-
     return (
         <>
             <Helmet>
@@ -55,8 +53,9 @@ function PersonalAccount() {
                     <div className="grid__item verification">
                         <div className="">
                             <IconSvg width={20} height={20} id="red_notification"/>
+                            {store.user.email}
+                            {store.user.user_id}
                         </div>
-                        {store.user}
                     </div>
                 </div>
                 <Modal modalName="reputation">
