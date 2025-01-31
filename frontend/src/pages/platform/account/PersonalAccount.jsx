@@ -22,6 +22,21 @@ function PersonalAccount() {
         openModal("addedSuccessfully");
     }
 
+    const openAuthorizationModal = () => {
+        openModal("authorization");
+    }
+
+    const openVerificationModal = () => {
+        openModal("verification");
+    }
+
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    // Функция для переключения видимости
+    const toggleVisibility = () => {
+        setIsVisible((prev) => !prev);
+    };
+
     console.log(store.user.email)
     console.log(store.user.user_id)
     console.log(store.isAuth)
@@ -34,6 +49,10 @@ function PersonalAccount() {
                 </title>
             </Helmet>
             <Main secClassName="account__wrap" secID="account">
+                <button type={"button"} onClick={openAuthorizationModal} className="case">
+                </button>
+                <button type={"button"} onClick={toggleVisibility} className="case" style={{left: "inherit", right: "0"}}>
+                </button>
                 <div className="account__nav">
                     <Link className="account__link-wrap" to={SEARCH_ROUTE}>
                         <span className="account__link">
@@ -54,14 +73,14 @@ function PersonalAccount() {
                             <img src={Images["account_computer-2"]} alt="Account Computer" className="account__img-2" />
                         </span>
                     </button>
-                    <div className="grid__item verification">
-                        <div className="">
+                    {isVisible && (
+                        <div className="grid__item verification">
                             <IconSvg width={20} height={20} id="red_notification"/>
-                            {store.user.email}
-                            {store.user.user_id}
-                            {store.isAuth ? `${store.user.email} ${store.user.user_id}` : 'АВТОРИЗУЙТЕСЬ'}
+                            <p>
+                                Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
+                            </p>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <Modal modalName="reputation">
                     <div className="modal__title">
@@ -82,6 +101,24 @@ function PersonalAccount() {
                         <button className="modal__form-btn" type="button" onClick={closeAllModals}>
                             Закрыть
                         </button>
+                    </div>
+                </Modal>
+                <Modal modalName="authorization">
+                    <div className="modal__title">
+                        Заполни полную авторизацию бэкера
+                    </div>
+                    <AccountForm slideType="addBaker" modalOpen={openVerificationModal}/>
+                </Modal>
+                <Modal modalName="verification">
+                    <div className="modal__title slide__title-modal">
+                        <button className="modal__btn" type="button" onClick={closeAllModals}>
+                            <IconSvg width="36" height="36" id="close-menu"/>
+                        </button>
+                    </div>
+                    <div className="modal__body">
+                        <p className="modal__text slide__text">
+                            Вы успешно завершили регистрацию! Ваша заявка на рассмотрении, мы рассмотрим ее в течении 1 рабочего дня
+                        </p>
                     </div>
                 </Modal>
             </Main>
