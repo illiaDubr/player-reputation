@@ -10,8 +10,6 @@ import {observer} from "mobx-react-lite";
 const HomePage = observer(() => {
     const {store} = React.useContext(Context);
 
-    console.log(store.isAuth);
-
     return (
         <>
             <Helmet>
