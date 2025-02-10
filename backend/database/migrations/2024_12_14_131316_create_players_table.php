@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             // Внешние ключи
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->string('created_by')->nullable();
 
 
 
