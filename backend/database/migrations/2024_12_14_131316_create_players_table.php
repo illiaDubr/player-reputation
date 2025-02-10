@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             // Внешние ключи
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->string('created_by')->references('id')->on('users')->onDelete('set null');
 
 
 
@@ -59,7 +59,6 @@ return new class extends Migration
             $table->boolean('kyc_status')->default(false);
             $table->timestamp('kyc_verified_at')->nullable();
             $table->string('backer_tag')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps(); // created_at, updated_at
 
 
