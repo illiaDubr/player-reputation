@@ -8,6 +8,7 @@ import {useForm} from 'react-hook-form';
 import {schemaAuth} from "./schema.js";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Login from "./Login.jsx";
+import Images from "../../../../../assets/image/image.js";
 
 function Auth() {
     const {store} = React.useContext(Context);
@@ -156,8 +157,8 @@ function Auth() {
                 </form>
             </Modal>
             <Modal modalName="role">
-                <div className="modal__title">
-                    Выберите как вы будете использовать
+                <div className="modal__title-role">
+                    Выберите как вы будете использовать<br/>
                     сервис Player Reputation
                 </div>
                 <form
@@ -165,10 +166,11 @@ function Auth() {
                     onSubmit={handleSubmitStep2(onSubmitStep2)}
                     autoComplete="off"
                 >
-                    {/* Чекбоксы ролей (пример простой логики) */}
                     <div className="modal__checkbox-wrap">
                         <label className="modal__checkbox-box">
-                            <div className="modal__checkbox-photo"></div>
+                            <div className="modal__checkbox-photo">
+                                <img src={Images["role-1"]} alt="" className=""/>
+                            </div>
                             <p className="modal__checkbox-title">Как игрок</p>
                             <p className="modal__checkbox-text">
                                 Для просмотра своей репутации, подбора бэкера и анализа базы
@@ -183,7 +185,9 @@ function Auth() {
                         </label>
 
                         <label className="modal__checkbox-box">
-                            <div className="modal__checkbox-photo"></div>
+                            <div className="modal__checkbox-photo">
+                                <img src={Images["role-2"]} alt="" className=""/>
+                            </div>
                             <p className="modal__checkbox-title">Как бэкер</p>
                             <p className="modal__checkbox-text">
                                 Для анализа репутации игроков, прогнозов и добавления данных

@@ -232,7 +232,7 @@ const SlideData = (slideType, formData, setFormData) => {
                                 <div className="slide__label">
                                     Информация о фонде
                                 </div>
-                                <textarea className="slide__textarea" value={formData.comment || ""}   onChange={(e) => handleChange("comment", e.target.value)}>
+                                <textarea placeholder="Информация будет использоваться на сайте PR в раздела о вашем фонде. В будущем вы сможете скорректировать инфорацию в личном кабинете" className="slide__textarea" value={formData.comment || ""}   onChange={(e) => handleChange("comment", e.target.value)}>
                                 </textarea>
                             </div>
                         </SlideContentWrap>
