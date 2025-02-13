@@ -3,10 +3,10 @@ import IconSvg from "../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
 
 const backerTagConfig = {
-    arbitrage: {text: "Спорный случай", color: "red"},
-    MultiArbitrage: {text: "Ушел из покера", color: "orange"},
-    ProblematicPlayer: {text: "Погашает долг", color: "yellow"},
-    PlayerOnPause: {text: "Рассчитался", color: "green"},
+    arbitrage: {text: "Арбитраж", color: "red"},
+    MultiArbitrage: {text: "Мульти арбитраж", color: "orange"},
+    ProblematicPlayer: {text: "Проблемный игрок", color: "yellow"},
+    PlayerOnPause: {text: "Игрок на паузе", color: "green"},
     default: {text: "Нет метки", color: "gray"},
 };
 
