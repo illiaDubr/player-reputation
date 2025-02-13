@@ -96,7 +96,7 @@ function PersonalAccount() {
                     </div>
                     <div className="modal__body">
                         <p className="modal__text slide__text">
-                            Информация о игроке успешно внесена!
+                            Информация об игроке успешно внесена!
                         </p>
                         <button className="modal__form-btn" type="button" onClick={closeAllModals}>
                             Закрыть
@@ -117,7 +117,7 @@ function PersonalAccount() {
                     </div>
                     <div className="modal__body">
                         <p className="modal__text slide__text">
-                            Вы успешно завершили регистрацию! Ваша заявка на рассмотрении, мы рассмотрим ее в течении 1 рабочего дня
+                            Ваша заявке отправлена модератору PR время на рассмотрение заявки 1 рабочий день. Информацию о вашем статусе можете просмотреть в личном кабинете
                         </p>
                     </div>
                 </Modal>
