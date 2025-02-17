@@ -145,7 +145,7 @@ const ResultItemList = ({results = []}) => {
 
                         <div className="result result-right">
                             <div className="result__title">
-                                <IconSvg width={48} height={48} id={fund_name}/>
+                                <IconSvg width={48} height={48} id={fund_name} variant="funds"/>
                                 <div>
                                     запись от
                                     <br/>
