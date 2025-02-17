@@ -5,17 +5,23 @@ export const addData = {
     first_name: "",
     middle_name: "",
     Email: "",
-    Pokerstars_com: "",
     Ggpokerok: "",
+    Ggnetwork: "",
+    Pokerstars_com: "",
+    Pokerstars_es: "",
+    Winamax_fr: "",
     Winamax_es: "",
+    PS: "",
+    GG: "",
     RedStar: "",
     TigerGaming: "",
     PartyPoker: "",
-    Pokerstars_es: "",
+    Pokerstars: "",
     WPNpoker: "",
     Stretchpoker: "",
     Coinpoker: "",
     chikoPoker: "",
+    nickiPoker: "",
     discord: "",
     comment: "",
 }
@@ -34,20 +40,27 @@ export const firstSlideDataPlayer = [
 ];
 
 export const secSlideDataPlayer = [
-    { label: "Ник на Pokerstars", id: "Pokerstars_com", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на GGpoker", id: "Ggpokerok", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на Winamax", id: "Winamax_es", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на RedStar", id: "RedStar", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на TigerGaming", id: "TigerGaming", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на PartyPoker", id: "PartyPoker", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на Pokerstars.es", id: "Pokerstars_es", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Ggpokerok", id: "Ggpokerok", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Ggnetwork", id: "Ggnetwork", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Pokerstars_com", id: "Pokerstars_com", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Pokerstars_es", id: "Pokerstars_es", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Winamax_fr", id: "Winamax_fr", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на Winamax_es", id: "Winamax_es", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на PS", id: "PS", placeholder: "Введите Имя", type: "text" },
     { label: "Ник на 888poker", id: "888poker", placeholder: "Введите Имя", type: "text" },
-    { label: "Ник на WPNpoker", id: "WPNpoker", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на GG", id: "GG", placeholder: "Введите Имя", type: "text" },
+    { label: "Ник на RedStar", id: "RedStar", placeholder: "Введите Имя", type: "text" },
 ];
 
 export const thirdSlideDataPlayer = [
+    { label: "Ник на TigerGaming", id: "TigerGaming", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на PartyPoker", id: "PartyPoker", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на Pokerstars", id: "Pokerstars", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на WPNpoker", id: "WPNpoker", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на Stretchpoker", id: "Stretchpoker", placeholder: "Введите имя", type: "text" },
     { label: "Ник на Coinpoker", id: "Coinpoker", placeholder: "Введите имя", type: "text" },
-    { label: "Ник на ChicoPoker", id: "chikoPoker", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на chikoPoker", id: "chikoPoker", placeholder: "Введите имя", type: "text" },
+    { label: "Ник на nickiPoker", id: "nickiPoker", placeholder: "Введите имя", type: "text" },
 ];
 
 export const fourthSlideDataPlayer = [
@@ -66,10 +79,10 @@ export const fifthSlideDataPlayer = [
 
 export const markData = [
     { name: "Арбитраж", value: "arbitrage" },
-    { name: "", value: "ProblematicPlayer" },
-    { name: "", value: "MultiArbitrage" },
-    { name: "", value: "PlayerOnPause" },
-    { name: "", value: "no tag" },
+    { name: "Мульти арбитраж", value: "MultiArbitrage" },
+    { name: "Проблемный игрок", value: "ProblematicPlayer" },
+    { name: "Игрок на паузе", value: "PlayerOnPause" },
+    { name: "Нет метки", value: "no tag" },
 ]
 
 export const test1 = [
