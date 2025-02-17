@@ -136,7 +136,7 @@
           border: 2px solid #000729;
           border-radius: 8px;
           backdrop-filter: blur(10px);
-          background: rgba(0, 0, 0, 0.1);
+          background: rgba(0, 37, 68, 0.35);
           overflow: hidden;
           transition: all 0.3s ease;
 
@@ -287,30 +287,32 @@
 
           .result__user-status {
             position: absolute;
-            right: 24px;
-            border-radius: 100px;
-            padding: 4px 16px;
+            top: 0px;
+            right: 16px;
+            border-radius: 0 0 8px 8px;
+            padding: 12px 16px 4px 16px;
             @include mixin.font-style(500, 14, 143, #121317);
           }
 
           .result__user-status--red {
-            background-color: #f8d7da;
+            background: linear-gradient(180deg, #ff2828 0%, #ff3838 27.89%);
+            color: #FFFFFF;
           }
 
           .result__user-status--orange {
-            background-color: #ffe5b4;
+            background: linear-gradient(180deg, #f80 0%, #f79e1b 27.89%);
           }
 
           .result__user-status--yellow {
-            background-color: #fff3cd;
+            background: linear-gradient(180deg, #fb0 0%, #fc0 27.89%);
           }
 
           .result__user-status--green {
-            background-color: #d4edda;
+            background: linear-gradient(180deg, #00d928 0%, #0f5 27.89%);
           }
 
           .result__user-status--gray {
-            background-color: #e2e3e5;
+            background: linear-gradient(180deg, #7c7c7c 0%, #9d9d9d 27.89%);
           }
 
           .result__info {
