@@ -45,10 +45,13 @@ const dynamicFields = [
 ];
 
 const ResultItemList = ({results = []}) => {
-    const [resultInfo, setResultInfo] = React.useState(false);
+    const [openItems, setOpenItems] = React.useState({});
 
-    const toggleClass = () => {
-        setResultInfo((prevState) => !prevState);
+    const toggleClass = (id) => {
+        setOpenItems((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id],
+        }));
     };
 
     return (
@@ -130,7 +133,7 @@ const ResultItemList = ({results = []}) => {
                             {remainingFields.length > 0 && (
                                 <>
                                     <div
-                                        className={`result__info ${resultInfo ? "result__info-active" : "result__info-close"}`}>
+                                        className={`result__info ${openItems[id] ? "result__info-active" : "result__info-close"}`}>
                                         {remainingFields.map(({key, content, label}) => (
                                             <ResultItem
                                                 key={key}
@@ -139,9 +142,9 @@ const ResultItemList = ({results = []}) => {
                                             />
                                         ))}
                                     </div>
-                                    <button className={`result__btn ${resultInfo ? "result__btn-active" : ""}`}
-                                            type="button" onClick={toggleClass}>
-                                        {`${resultInfo ? "Свернуть" : "Показать еще"}`}
+                                    <button className={`result__btn ${openItems[id] ? "result__btn-active" : ""}`}
+                                            type="button" onClick={() => toggleClass(id)}>
+                                        {`${openItems[id] ? "Свернуть" : "Показать еще"}`}
                                         <IconSvg width={20} height={20} id="arrow"/>
                                     </button>
                                 </>
