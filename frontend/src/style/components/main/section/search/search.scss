@@ -268,7 +268,6 @@
         }
 
         .result-right {
-          background: #0a0c1b;
           flex: 1 1 440px;
           flex-direction: row;
           position: relative;
@@ -280,7 +279,7 @@
             align-items: center;
             flex-direction: column;
             justify-content: center;
-            gap: 10px;
+            gap: 4px;
             @include mixin.font-style(500, 14, 130, #FFFFFF);
             text-align: center;
           }
