@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Player;
+use App\Models\ReputationRecord;
 use Illuminate\Http\Request;
 
 class PlayerAddController extends Controller
@@ -53,13 +54,38 @@ class PlayerAddController extends Controller
             'kyc_verified_at' => 'nullable|date',
             'backer_tag' => 'nullable|string|max:255',
             'created_by' => 'nullable|integer',
+            // Поля для репутации
+            'comment' => 'required|string|max:2000',
+            'backer_id' => 'nullable|integer',
+            'old_backer_id' => 'nullable|string|max:255',
+            'fund_name' => 'nullable|string|max:255',
+            'damage' => 'nullable|string|max:255',
+            'makeUp' => 'nullable|string|max:255',
+            'source' => 'nullable|string|max:255',
+
         ]);
 
         // Автоматическая генерация player_id на основе количества записей
-        $validated['player_id'] = Player::count() + 1;
+
 
         try {
+            $playerId = Player::max('player_id') + 1;
+            $validated['player_id']= $playerId;
+            // Создаем игрока
             $player = Player::create($validated);
+
+            // Добавляем запись в reputation_records
+            ReputationRecord::create([
+                'player_id' => $playerId,
+                'backer_id' => $validated['backer_id'] ?? null,
+                'old_player_id' => $validated['old_id'] ?? null,
+                'old_backer_id' => $validated['old_backer_id'] ?? null,
+                'fund_name' => $validated['fund_name'] ?? null,
+                'comment' => $validated['comment'],
+                'damage' => $validated['damage'] ?? null,
+                'makeUp' => $validated['makeUp'] ?? null,
+                'source' => $validated['source'] ?? 'Автоматически создано при регистрации игрока',
+            ]);
 
             return response()->json([
                 'message' => 'Player created successfully',
