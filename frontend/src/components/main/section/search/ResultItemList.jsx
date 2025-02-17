@@ -83,9 +83,13 @@ const ResultItemList = ({results = []}) => {
                 const remainingFields = dynamicFieldItems.slice(3);
 
                 const formatAmount = (amount) => {
-                    if (!amount || amount.length < 2) return amount; // Проверка на пустое значение
+                    if (!amount || amount.length < 2) return amount;
                     return `${amount[0]} ${amount.slice(1)}`;
                 };
+
+                console.log(dynamicFieldItems);
+                console.log(firstThreeFields);
+                console.log(remainingFields);
 
                 return (
                     <div className="result__box" key={id}>
