@@ -187,9 +187,9 @@ const ResultItemList = ({results = []}) => {
                                         </div>
                                     </div>
                                     <div className="result__content">
-                                        {comment && comment.length > 300 && !expandedComments[player_id] ? (
+                                        {comment && comment.length > 150 && !expandedComments[player_id] ? (
                                             <>
-                                                {comment.slice(0, 300)}...
+                                                {comment.slice(0, 150)}...
                                                 <button
                                                     className="result__toggle-btn"
                                                     onClick={() => toggleComment(player_id)}
@@ -200,7 +200,7 @@ const ResultItemList = ({results = []}) => {
                                         ) : (
                                             <>
                                                 {comment || "Комментарий отсутствует"}
-                                                {comment && comment.length > 300 && (
+                                                {comment && comment.length > 150 && (
                                                     <button
                                                         className="result__toggle-btn"
                                                         onClick={() => toggleComment(player_id)}
