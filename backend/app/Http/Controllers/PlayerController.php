@@ -26,7 +26,7 @@ class PlayerController extends Controller
                 $record = $player->reputationRecords->first(); // Если нужно использовать только первую запись
                 $playerData['fund_name'] = $record->fund_name;
                 $playerData['comment'] = $record->comment;
-                $playerData['amount'] = $record->amount;
+                $playerData['damage'] = $record->damage;
                 $playerData['source'] = $record->source;
                 $playerData['created_at_reputation'] = $record->created_at->toISOString();
                 $playerData['updated_at_reputation'] = $record->updated_at->toISOString();
