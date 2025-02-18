@@ -69,7 +69,7 @@ class PlayerAddController extends Controller
 
 
         try {
-            $playerId = Player::max('player_id') + 1;
+            $playerId = (int) Player::max('player_id') + 1;
             $validated['player_id']= $playerId;
             // Создаем игрока
             $player = Player::create($validated);
