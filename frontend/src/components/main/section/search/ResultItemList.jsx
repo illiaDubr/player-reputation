@@ -193,8 +193,11 @@ const ResultItemList = ({results = []}) => {
                                         </div>
                                     </div>
                                     <div className={`result__content ${expandedComments[player_id] ? "result__content--expanded" : ""}`}>
-                                        {comment.length > 300 && !expandedComments[player_id] ? `${comment.slice(0, 300)}...` : comment}
-                                        {comment.length > 300 && (
+                                        {comment && comment.length > 300 && !expandedComments[player_id]
+                                            ? `${comment.slice(0, 300)}...`
+                                            : comment || "Комментарий отсутствует"}
+
+                                        {comment && comment.length > 300 && (
                                             <button
                                                 className="result__toggle-btn"
                                                 onClick={() => toggleComment(player_id)}
