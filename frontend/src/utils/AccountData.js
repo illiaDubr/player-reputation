@@ -57,7 +57,6 @@ export const thirdSlideDataPlayer = [
     { label: "Ник на PartyPoker", id: "PartyPoker", placeholder: "Введите имя", type: "text" },
     { label: "Ник на Pokerstars", id: "Pokerstars", placeholder: "Введите имя", type: "text" },
     { label: "Ник на WPNpoker", id: "WPNpoker", placeholder: "Введите имя", type: "text" },
-    { label: "Ник на Stretchpoker", id: "Stretchpoker", placeholder: "Введите имя", type: "text" },
     { label: "Ник на Coinpoker", id: "Coinpoker", placeholder: "Введите имя", type: "text" },
     { label: "Ник на chikoPoker", id: "chikoPoker", placeholder: "Введите имя", type: "text" },
     { label: "Ник на nickiPoker", id: "nickiPoker", placeholder: "Введите имя", type: "text" },

@@ -48,10 +48,15 @@ const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
 
     const toggleClass = (id) => {
-        setOpenItems((prevState) => ({
-            ...prevState,
-            [id]: !prevState[id],
-        }));
+        setOpenItems((prevState) => {
+            const newState = {
+                ...prevState,
+                [id]: !prevState[id],
+            };
+            console.log(`ID: ${id}, предыдущее состояние:`, prevState);
+            console.log(`ID: ${id}, новое состояние:`, newState);
+            return newState;
+        });
     };
 
     return (
@@ -91,15 +96,12 @@ const ResultItemList = ({results = []}) => {
                     return `${amount[0]} ${amount.slice(1)}`;
                 };
 
-                console.log(dynamicFieldItems);
-                console.log(firstThreeFields);
-                console.log(remainingFields);
-
                 return (
-                    <div className="result__box" key={id}>
+                    <div className="result__box" key={id} id={id}>
                         <div className="result result-left">
-                            <div className="result__title">{fullName}</div>
-
+                            <div className="result__title">
+                                {fullName}
+                            </div>
                             <div className="result__info">
                                 {phonenumber && (
                                     <ResultItem
@@ -129,7 +131,6 @@ const ResultItemList = ({results = []}) => {
                                     />
                                 ))}
                             </div>
-
                             {remainingFields.length > 0 && (
                                 <>
                                     <div
