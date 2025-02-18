@@ -69,8 +69,8 @@ class PlayerAddController extends Controller
 
 
         try {
-            $playerId = (int) Player::max('player_id') + 1;
-            $validated['player_id']= $playerId;
+            $playerId = (int) Player::count('player_id') + 1;
+            $validated['player_id'] = $playerId;
             // Создаем игрока
             $player = Player::create($validated);
 
@@ -93,9 +93,8 @@ class PlayerAddController extends Controller
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Failed to create player and reputation record',
+                'message' => 'Failed to create player',
                 'error' => $e->getMessage(),
-                'trace' => $e->getTrace()
             ], 500);
         }
     }
