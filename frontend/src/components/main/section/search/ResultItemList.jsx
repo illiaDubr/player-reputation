@@ -48,15 +48,10 @@ const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
 
     const toggleClass = (player_id) => {
-        setOpenItems((prevState) => {
-            const newState = {
-                ...prevState,
-                [player_id]: !prevState[player_id],
-            };
-            console.log(`ID: ${player_id}, предыдущее состояние:`, prevState);
-            console.log(`ID: ${player_id}, новое состояние:`, newState);
-            return newState;
-        });
+        setOpenItems((prevState) => ({
+            ...prevState,
+            [player_id]: !prevState[player_id],
+        }));
     };
 
     return (
@@ -73,7 +68,7 @@ const ResultItemList = ({results = []}) => {
                     discord,
                     fund_name,
                     created_at,
-                    amount,
+                    damage,
                     comment,
                 } = item;
 
@@ -91,13 +86,13 @@ const ResultItemList = ({results = []}) => {
                 const firstThreeFields = dynamicFieldItems.slice(0, 3);
                 const remainingFields = dynamicFieldItems.slice(3);
 
-                const formatAmount = (amount) => {
-                    if (!amount || amount.length < 2) return amount;
-                    return `${amount[0]} ${amount.slice(1)}`;
+                const formatDamage = (damage) => {
+                    if (!damage || damage.length < 2) return damage;
+                    return `${damage[0]} ${damage.slice(1)}`;
                 };
 
                 return (
-                    <div className="result__box" key={player_id} id={player_id}>
+                    <div className="result__box" key={player_id}>
                         <div className="result result-left">
                             <div className="result__title">
                                 {fullName}
@@ -168,7 +163,7 @@ const ResultItemList = ({results = []}) => {
 
                             <div className="result__info">
                                 <ResultItem
-                                    content={formatAmount(amount)}
+                                    content={formatDamage(damage)}
                                     label="Сумма ущерба:"
                                     hideIcon
                                     placeholder="Нет данных"
