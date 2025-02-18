@@ -47,14 +47,14 @@ const dynamicFields = [
 const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
 
-    const toggleClass = (id) => {
+    const toggleClass = (player_id) => {
         setOpenItems((prevState) => {
             const newState = {
                 ...prevState,
-                [id]: !prevState[id],
+                [player_id]: !prevState[player_id],
             };
-            console.log(`ID: ${id}, предыдущее состояние:`, prevState);
-            console.log(`ID: ${id}, новое состояние:`, newState);
+            console.log(`ID: ${player_id}, предыдущее состояние:`, prevState);
+            console.log(`ID: ${player_id}, новое состояние:`, newState);
             return newState;
         });
     };
@@ -63,7 +63,7 @@ const ResultItemList = ({results = []}) => {
         <div className="result__wrapper">
             {results.map((item) => {
                 const {
-                    id,
+                    player_id,
                     backer_tag,
                     first_name,
                     last_name,
@@ -97,7 +97,7 @@ const ResultItemList = ({results = []}) => {
                 };
 
                 return (
-                    <div className="result__box" key={id} id={id}>
+                    <div className="result__box" key={player_id} id={player_id}>
                         <div className="result result-left">
                             <div className="result__title">
                                 {fullName}
@@ -134,7 +134,7 @@ const ResultItemList = ({results = []}) => {
                             {remainingFields.length > 0 && (
                                 <>
                                     <div
-                                        className={`result__info ${openItems[id] ? "result__info-active" : "result__info-close"}`}>
+                                        className={`result__info ${openItems[player_id] ? "result__info-active" : "result__info-close"}`}>
                                         {remainingFields.map(({key, content, label}) => (
                                             <ResultItem
                                                 key={key}
@@ -143,9 +143,9 @@ const ResultItemList = ({results = []}) => {
                                             />
                                         ))}
                                     </div>
-                                    <button className={`result__btn ${openItems[id] ? "result__btn-active" : ""}`}
-                                            type="button" onClick={() => toggleClass(id)}>
-                                        {`${openItems[id] ? "Свернуть" : "Показать еще"}`}
+                                    <button className={`result__btn ${openItems[player_id] ? "result__btn-active" : ""}`}
+                                            type="button" onClick={() => toggleClass(player_id)}>
+                                        {`${openItems[player_id] ? "Свернуть" : "Показать еще"}`}
                                         <IconSvg width={20} height={20} id="arrow"/>
                                     </button>
                                 </>
