@@ -93,8 +93,9 @@ class PlayerAddController extends Controller
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Failed to create player',
+                'message' => 'Failed to create player and reputation record',
                 'error' => $e->getMessage(),
+                'trace' => $e->getTrace()
             ], 500);
         }
     }
