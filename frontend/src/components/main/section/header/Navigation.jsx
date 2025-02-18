@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import IconSvg from "../../components/IconSvg.jsx";
+import {HOMEPAGE_ROUTE} from "../../../../utils/const.js";
 
 const Navigation = ({onButtonClick}) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -15,7 +16,7 @@ const Navigation = ({onButtonClick}) => {
             <nav className="navigation">
                 <ul className="navigation__list">
                     <li className="navigation__list-item">
-                        <Link to="/">
+                        <Link to={HOMEPAGE_ROUTE}>
                             <IconSvg width={70} height={44} id={'logo'}/>
                         </Link>
                     </li>
