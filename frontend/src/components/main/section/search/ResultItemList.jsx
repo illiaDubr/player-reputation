@@ -180,30 +180,35 @@ const ResultItemList = ({results = []}) => {
                                     hideIcon
                                     placeholder="Нет данных"
                                 />
-                                <ResultItem
-                                    content={comment}
-                                    label="Комментарий от фонда:"
-                                    hideIcon
-                                    placeholder="Комментарий отсутствует"
-                                />
                                 <div className="result__text">
                                     <div className="result__head">
                                         <div className="result__label">
                                             Комментарий от фонда:
                                         </div>
                                     </div>
-                                    <div className={`result__content ${expandedComments[player_id] ? "result__content--expanded" : ""}`}>
-                                        {comment && comment.length > 300 && !expandedComments[player_id]
-                                            ? `${comment.slice(0, 300)}...`
-                                            : comment || "Комментарий отсутствует"}
-
-                                        {comment && comment.length > 300 && (
-                                            <button
-                                                className="result__toggle-btn"
-                                                onClick={() => toggleComment(player_id)}
-                                            >
-                                                {expandedComments[player_id] ? "Скрыть" : "Показать еще"}
-                                            </button>
+                                    <div className="result__content">
+                                        {comment && comment.length > 300 && !expandedComments[player_id] ? (
+                                            <>
+                                                {comment.slice(0, 300)}...
+                                                <button
+                                                    className="result__toggle-btn"
+                                                    onClick={() => toggleComment(player_id)}
+                                                >
+                                                    Показать еще
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {comment || "Комментарий отсутствует"}
+                                                {comment && comment.length > 300 && (
+                                                    <button
+                                                        className="result__toggle-btn"
+                                                        onClick={() => toggleComment(player_id)}
+                                                    >
+                                                        Скрыть
+                                                    </button>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </div>

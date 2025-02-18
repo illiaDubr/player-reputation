@@ -330,6 +330,18 @@
               .result__content {
                 display: flex;
                 align-items: center;
+
+                .result__toggle-btn {
+                  border: none;
+                  background: none;
+                  color: #ffffff;
+                  font-size: inherit;
+                  font-weight: bold;
+                  cursor: pointer;
+                  display: inline;
+                  padding: 0;
+                  margin-left: 5px;
+                }
               }
 
               &:first-child {
