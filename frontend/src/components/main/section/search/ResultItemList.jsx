@@ -46,11 +46,19 @@ const dynamicFields = [
 
 const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
+    const [expandedComments, setExpandedComments] = React.useState({});
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
             ...prevState,
             [player_id]: !prevState[player_id],
+        }));
+    };
+
+    const toggleComment = (player_id) => {
+        setExpandedComments((prev) => ({
+            ...prev,
+            [player_id]: !prev[player_id],
         }));
     };
 
@@ -86,10 +94,14 @@ const ResultItemList = ({results = []}) => {
                 const firstThreeFields = dynamicFieldItems.slice(0, 3);
                 const remainingFields = dynamicFieldItems.slice(3);
 
-                const formatDamage = (damage) => {
-                    if (!damage || damage.length < 2) return damage;
-                    return `${damage[0]} ${damage.slice(1)}`;
-                };
+                function formatDamage(damage) {
+                    if (!damage) return "$0";
+
+                    const number = parseInt(damage, 10);
+                    if (isNaN(number)) return damage;
+
+                    return `$${number.toLocaleString("ru-RU").replace(/,/g, " ")}`;
+                }
 
                 return (
                     <div className="result__box" key={player_id}>
@@ -174,6 +186,24 @@ const ResultItemList = ({results = []}) => {
                                     hideIcon
                                     placeholder="Комментарий отсутствует"
                                 />
+                                <div className="result__text">
+                                    <div className="result__head">
+                                        <div className="result__label">
+                                            Комментарий от фонда:
+                                        </div>
+                                    </div>
+                                    <div className={`result__content ${expandedComments[player_id] ? "result__content--expanded" : ""}`}>
+                                        {comment.length > 300 && !expandedComments[player_id] ? `${comment.slice(0, 300)}...` : comment}
+                                        {comment.length > 300 && (
+                                            <button
+                                                className="result__toggle-btn"
+                                                onClick={() => toggleComment(player_id)}
+                                            >
+                                                {expandedComments[player_id] ? "Скрыть" : "Показать еще"}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
