@@ -10,8 +10,10 @@ class PlayerController extends Controller
     public function search(Request $request)
     {
         // Получаем данные с фильтрацией
-        $results = $this->filterPlayers($request)->with('reputationRecords')->paginate(15);
-
+        $results = $this->filterPlayers($request)
+            ->with('reputationRecords')
+            ->orderBy('created_at', 'desc') // Сортировка по дате создания (можно заменить на updated_at)
+            ->paginate(15);
         // Проверяем, есть ли данные
         if ($results->isEmpty()) {
             return response()->json(['message' => 'User not found'], 200);
