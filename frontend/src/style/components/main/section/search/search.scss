@@ -307,7 +307,7 @@
           }
 
           .result__user-status--green {
-            background: linear-gradient(180deg, #00d928 0%, #0f5 27.89%);
+            background: linear-gradient(180deg, #01d9ff 0%, #0fe 27.89%);
           }
 
           .result__user-status--gray {
@@ -357,6 +357,7 @@
               .result__head {
                 .result__label {
                   @include mixin.font-style(600, 16, 130, #FFFFFF);
+                  width: 133px;
                 }
               }
 
