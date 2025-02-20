@@ -1,25 +1,39 @@
 import { Link, useLocation } from "react-router-dom";
+import { HOMEPAGE_ROUTE, ACCOUNT_ROUTE, SEARCH_ROUTE } from "../../../utils/const.js";
+
+const routeNames = {
+    [HOMEPAGE_ROUTE]: "Player`s Reputation",
+    [SEARCH_ROUTE]: "Поиск игроков",
+    [ACCOUNT_ROUTE]: "Личный кабинет",
+};
 
 const Breadcrumbs = () => {
     const location = useLocation();
-
-    const routeNames = {
-        "/": "Player`s Reputation",
-        "/main/section/search": "Поиск игроков",
-        "/main/section/PersonalAccount": "Личный кабинет",
-    };
-
-    const currentPath = location.pathname;
-    const currentPage = routeNames[currentPath] || "Страница не найдена";
+    const pathSegments = location.pathname
+        .split("/")
+        .filter((segment) => segment && segment !== "platform"); // Исключаем "platform"
 
     return (
         <nav className="breadcrumbs">
-            {currentPath !== "/" && (
-                <>
-                    <Link className="previous__page" to="/">Player`s Reputation</Link> / <span className="current__page">{currentPage}</span>
-                </>
-            )}
-            {currentPath === "/" && <span>Player`s Reputation</span>}
+            <Link className="previous__page" to={HOMEPAGE_ROUTE}>Player`s Reputation</Link>
+            {pathSegments.map((segment, index) => {
+                const path = `/${pathSegments.slice(0, index + 1).join("/")}`;
+                const isLast = index === pathSegments.length - 1;
+
+                // Проверяем, есть ли путь в routeNames
+                const name = Object.keys(routeNames).find((key) => key.endsWith(path))
+                    ? routeNames[Object.keys(routeNames).find((key) => key.endsWith(path))]
+                    : decodeURIComponent(segment);
+
+                return isLast ? (
+                    <span key={path} className="current__page"> / {name}</span>
+                ) : (
+                    <span key={path}>
+                        {" / "}
+                        <Link className="breadcrumb__link" to={path}>{name}</Link>
+                    </span>
+                );
+            })}
         </nav>
     );
 };

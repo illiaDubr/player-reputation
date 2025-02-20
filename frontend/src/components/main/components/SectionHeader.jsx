@@ -9,7 +9,7 @@ import Breadcrumbs from "./Breadcrumbs.jsx";
 const SectionHeader = () => {
     return (
         <div className="section__header-wrap">
-            {/*<Breadcrumbs />
+            <Breadcrumbs />
             <Resize width={801}
                     fallback={
                         <>
@@ -32,9 +32,7 @@ const SectionHeader = () => {
                         <IconSvg width={24} height={24} id={'arrow'}/>
                     </button>
                 </div>
-
             </Resize>
-             */}
         </div>
     )
 }

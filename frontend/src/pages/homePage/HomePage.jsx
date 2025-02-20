@@ -1,6 +1,7 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import "../../style/helpers/fonts.scss";
+import "../../style/components/main/section/HomePage/homePage.scss";
 import { Context } from "../../api/store/storeContext.js";
 import LogoutBtn from "../../components/main/components/LogoutBtn.jsx";
 import Auth from "../../components/main/section/HomePage/auth/Auth.jsx";
