@@ -7,6 +7,7 @@ const backerTagConfig = {
     MultiArbitrage: {text: "Мульти арбитраж", color: "orange"},
     ProblematicPlayer: {text: "Проблемный игрок", color: "yellow"},
     PlayerOnPause: {text: "Игрок на паузе", color: "green"},
+    ExArbitrage: {text: "Экс Арбитраж", color: "gray"},
     default: {text: "Нет метки", color: "gray"},
 };
 
