@@ -5,13 +5,6 @@ import Search from "./pages/platform/search/Search.jsx";
 import Admin from "./pages/admin/admin.jsx";
 
 export const authRoutes = [
-]
-
-export const publicRoutes = [
-    {
-        path: HOMEPAGE_ROUTE,
-        Component: HomePage
-    },
     {
         path: ACCOUNT_ROUTE,
         Component: PersonalAccount
@@ -19,6 +12,13 @@ export const publicRoutes = [
     {
         path: SEARCH_ROUTE,
         Component: Search
+    },
+]
+
+export const publicRoutes = [
+    {
+        path: HOMEPAGE_ROUTE,
+        Component: HomePage
     },
     {
         path: ADMIN_ROUTE,

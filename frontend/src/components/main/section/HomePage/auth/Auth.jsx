@@ -52,26 +52,36 @@ function Auth() {
     };
 
     const onSubmitStep1 = (data) => {
+        console.log("Данные для первого шага (Step 1):", data); // Выводим данные в консоль
+
         setUserData((prev) => ({
             ...prev,
             email: data.email,
             password: data.password,
         }));
-
         openRoleModal();
-
         resetStep1();
     };
 
     const onSubmitStep2 = async (data) => {
+        const requestData = {
+            email: userData.email,
+            password: userData.password,
+            confirmPassword: data.confirmPassword,
+            role: userData.role || data.role,
+        };
+
+        console.log("Данные, отправляемые на сервер:", requestData); // Вывод в консоль
+
         try {
             await store.registration(
-                userData.email,
-                userData.password,
-                data.confirmPassword,
-                userData.role || data.role
+                requestData.email,
+                requestData.password,
+                requestData.confirmPassword,
+                requestData.role
             );
         } catch (error) {
+            console.error("Ошибка регистрации:", error);
             resetStep2();
         } finally {
             navigate(ACCOUNT_ROUTE);
@@ -149,7 +159,7 @@ function Auth() {
                     </div>
                     <div className="auth__toggle-wrap">
                         <div className="auth__toggle auth__toggle-left">
-                            <div className="">
+                            <div>
                                 Добро пожаловать!
                             </div>
                             <p>
@@ -160,8 +170,12 @@ function Auth() {
                             </button>
                         </div>
                         <div className="auth__toggle auth__toggle-right">
-                            <div>Здравствуйте, добро пожаловать!</div>
-                            <p>У вас уже есть аккаунт?</p>
+                            <div>
+                                Здравствуйте, добро пожаловать!
+                            </div>
+                            <p>
+                                У вас уже есть аккаунт?
+                            </p>
                             <button className="auth__btn" type="button" onClick={() => setIsActive(false)}>
                                 Login
                             </button>
