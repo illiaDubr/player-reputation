@@ -58,6 +58,7 @@ function Auth() {
             ...prev,
             email: data.email,
             password: data.password,
+            confirmPassword: data.confirmPassword,
         }));
         openRoleModal();
         resetStep1();
@@ -67,7 +68,7 @@ function Auth() {
         const requestData = {
             email: userData.email,
             password: userData.password,
-            confirmPassword: data.confirmPassword,
+            confirmPassword: userData.confirmPassword,
             role: userData.role || data.role,
         };
 
