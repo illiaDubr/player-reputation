@@ -1,5 +1,4 @@
 import axios from "axios";
-import {HOMEPAGE_ROUTE} from "../../utils/const.js";
 
 export const API_URl = 'http://203.0.113.10';
 
@@ -8,7 +7,6 @@ const $api = axios.create({
     baseURL: API_URl,
 })
 
-// 2. Переписываем перехватчик ответа
 $api.interceptors.response.use(
     (response) => response,
     async (error) => {
