@@ -47,9 +47,9 @@ export default class Store {
         }
     }
 
-    async registration(email, password, password_confirmation) {
+    async registration(email, password, password_confirmation, role) {
         try {
-            await AuthService.registration(email, password, password_confirmation);
+            await AuthService.registration(email, password, password_confirmation, role);
             await this.checkAuth();
         } catch (error) {
             this.handleError(error, "Ошибка регистрации");

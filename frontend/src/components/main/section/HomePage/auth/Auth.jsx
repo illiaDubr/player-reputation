@@ -72,7 +72,7 @@ function Auth() {
             role: userData.role || data.role,
         };
 
-        console.log("Данные, отправляемые на сервер:", requestData); // Вывод в консоль
+        console.log("Данные, отправляемые на сервер:", requestData);
 
         try {
             await store.registration(
