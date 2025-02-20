@@ -1,24 +1,21 @@
 import { makeAutoObservable } from "mobx";
 import axios from "axios";
-import { API_URl } from "../http/index.js"; // проверьте, что здесь withCredentials: true по умолчанию
+import { API_URl } from "../http/index.js";
 import AuthService from "../services/AuthService.js";
 import SearchService from "../services/SearchService.js";
 import AddPlayerService from "../services/AddPlayerService.js";
 
 export default class Store {
     user = {};
-    results = [];
     isAuth = false;
     isLoading = false;
+    results = [];
 
     constructor() {
         makeAutoObservable(this);
-        // Если хотите проверять авторизованность сразу при старте
-        // можно вызвать checkAuth() в конструкторе
         this.checkAuth();
     }
 
-    // ----- setters -----
     setAuth(bool) {
         this.isAuth = bool;
     }
@@ -35,14 +32,11 @@ export default class Store {
         this.results = results;
     }
 
-    // ----- handleError -----
     handleError(error, defaultMessage) {
         const message = error.response?.data?.message || defaultMessage;
         console.error(message);
-        alert(message); // Или toast-уведомление
+        alert(message);
     }
-
-    // ----- Авторизация -----
 
     async login(email, password) {
         try {
@@ -56,7 +50,6 @@ export default class Store {
     async registration(email, password, password_confirmation) {
         try {
             await AuthService.registration(email, password, password_confirmation);
-            // Если бэк сразу логинит — тогда проверяем
             await this.checkAuth();
         } catch (error) {
             this.handleError(error, "Ошибка регистрации");
@@ -66,13 +59,11 @@ export default class Store {
     async checkAuth() {
         this.setLoading(true);
         try {
-            const response = await axios.get(`${API_URl}/me`, { withCredentials: true });
-            // Если запрос прошёл, значит сессия валидна
+            const response = await axios.get(`${API_URl}/api/user`, { withCredentials: true });
             this.setAuth(true);
-            this.setUser(response.data?.user || {});
+            this.setUser(response.data);
         } catch (error) {
-            // Если 401, 403 или другая ошибка — значит не авторизован
-            console.log(error.response?.data?.message || error.message);
+            console.warn("Пользователь не авторизован:", error);
             this.setAuth(false);
             this.setUser({});
         } finally {
@@ -81,16 +72,15 @@ export default class Store {
     }
 
     async logout() {
-        this.setAuth(false);
-        this.setUser({});
-        this.setResults([]);
+        this.setLoading(true);
         try {
             await AuthService.logout();
+            this.setAuth(false);
+            this.setUser({});
         } catch (error) {
-            console.error(
-                "Ошибка логаута:",
-                error.response?.data?.message || error.message
-            );
+            console.error("Ошибка выхода:", error);
+        } finally {
+            this.setLoading(false);
         }
     }
 
@@ -103,7 +93,6 @@ export default class Store {
         }
     }
 
-    // ----- Пример других запросов -----
     async search(formData) {
         this.setLoading(true);
         try {
