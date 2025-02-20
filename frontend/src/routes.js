@@ -1,5 +1,5 @@
 import {ACCOUNT_ROUTE, HOMEPAGE_ROUTE, SEARCH_ROUTE, ADMIN_ROUTE} from "./utils/const.js";
-import HomePage from "./pages/landing/HomePage.jsx";
+import HomePage from "./pages/homePage/HomePage.jsx";
 import PersonalAccount from "./pages/platform/account/PersonalAccount.jsx";
 import Search from "./pages/platform/search/Search.jsx";
 import Admin from "./pages/admin/admin.jsx";

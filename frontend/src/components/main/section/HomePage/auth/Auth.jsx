@@ -2,7 +2,6 @@ import React from 'react';
 import {Modal, useModal} from "../../../components/Modal.jsx";
 import {useNavigate} from "react-router-dom";
 import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
-import IconSvg from "../../../components/IconSvg.jsx";
 import {Context} from "../../../../../api/store/storeContext.js";
 import {useForm} from 'react-hook-form';
 import {schemaAuth} from "./schema.js";
@@ -13,14 +12,15 @@ import Images from "../../../../../assets/image/image.js";
 function Auth() {
     const {store} = React.useContext(Context);
     const navigate = useNavigate();
-    const {openModal, closeAllModals} = useModal();
+    const {openModal} = useModal();
+    const [isActive, setIsActive] = React.useState(false);
 
 
     const [userData, setUserData] = React.useState({
         email: '',
         password: '',
         confirmPassword: '',
-        role: '', // или массив roles: []
+        role: '',
     });
 
     const {
@@ -45,10 +45,6 @@ function Auth() {
 
     const openFirstModal = () => {
         openModal("FirstModal");
-    };
-
-    const openLoginModal = () => {
-        openModal("Login");
     };
 
     const openRoleModal = () => {
@@ -96,75 +92,90 @@ function Auth() {
             </button>
 
             <Modal modalName="FirstModal">
-                <div className="modal__title">
-                    Регистрация
-                    <button className="modal__btn" type="button" onClick={closeAllModals}>
-                        <IconSvg width="36" height="36" id="close-menu"/>
-                    </button>
+                <div className={`auth__wrap ${isActive ? "active" : ""}`}>
+                    <div className="form__box login">
+                        <Login />
+                    </div>
+                    <div className="form__box register">
+                        <div className="auth__title">
+                            Регистрация
+                        </div>
+                        <form className="auth__form" onSubmit={handleSubmitStep1(onSubmitStep1)} autoComplete="off">
+                            <div className="auth__input-box">
+                                <label htmlFor="email" className="label">Почта</label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Введите почту"
+                                    className={`input ${errorsStep1.email ? 'input__error' : ''}`}
+                                    {...registerStep1('email')}
+                                />
+                                <p className={`auth__input-error ${errorsStep1.email ? "active" : ""}`}>
+                                    {errorsStep1.email?.message}
+                                </p>
+                            </div>
+                            <div className="auth__input-box">
+                                <label htmlFor="password" className="label">Пароль</label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    placeholder="Пароль"
+                                    className={`input ${errorsStep1.password ? 'input__error' : ''}`}
+                                    {...registerStep1('password')}
+                                />
+                                <p className={`auth__input-error ${errorsStep1.password ? "active" : ""}`}>
+                                    {errorsStep1.password?.message}
+                                </p>
+                            </div>
+                            <div className="auth__input-box">
+                                <label htmlFor="confirmPassword" className="label">
+                                    Повторите пароль
+                                </label>
+                                <input
+                                    id="confirmPassword"
+                                    type="password"
+                                    placeholder="Пароль"
+                                    className={`input ${errorsStep1.confirmPassword ? 'input__error' : ''}`}
+                                    {...registerStep1('confirmPassword')}
+                                />
+                                <p className={`auth__input-error ${errorsStep1.confirmPassword ? "active" : ""}`}>
+                                    {errorsStep1.confirmPassword?.message}
+                                </p>
+                            </div>
+                            <button className="auth__form-btn" type="submit">
+                                {isSubmittingStep1 ? 'Далее...' : 'Далее'}
+                            </button>
+                        </form>
+                    </div>
+                    <div className="auth__toggle-wrap">
+                        <div className="auth__toggle auth__toggle-left">
+                            <div className="">
+                                Добро пожаловать!
+                            </div>
+                            <p>
+                                У вас нет учетной записи?
+                            </p>
+                            <button className="auth__btn" type="button" onClick={() => setIsActive(true)}>
+                                Register
+                            </button>
+                        </div>
+                        <div className="auth__toggle auth__toggle-right">
+                            <div>Здравствуйте, добро пожаловать!</div>
+                            <p>У вас уже есть аккаунт?</p>
+                            <button className="auth__btn" type="button" onClick={() => setIsActive(false)}>
+                                Login
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <form className="modal__body" onSubmit={handleSubmitStep1(onSubmitStep1)} autoComplete="off">
-                    <div className="modal__input-box">
-                        <label htmlFor="email" className="label">Почта</label>
-                        <input
-                            id="email"
-                            type="email"
-                            placeholder="Введите почту"
-                            className={`input ${errorsStep1.email ? 'input__error' : ''}`}
-                            {...registerStep1('email')}
-                        />
-                        <p className="input__error-text">
-                            {errorsStep1.email?.message}
-                        </p>
-                    </div>
-                    <div className="modal__input-box">
-                        <label htmlFor="password" className="label">Пароль</label>
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="Пароль"
-                            className={`input ${errorsStep1.password ? 'input__error' : ''}`}
-                            {...registerStep1('password')}
-                        />
-                        <p className="input__error-text">
-                            {errorsStep1.password?.message}
-                        </p>
-                    </div>
-                    <div className="modal__input-box">
-                        <label htmlFor="confirmPassword" className="label">
-                            Повторите пароль
-                        </label>
-                        <input
-                            id="confirmPassword"
-                            type="password"
-                            placeholder="Пароль"
-                            className={`input ${errorsStep1.confirmPassword ? 'input__error' : ''}`}
-                            {...registerStep1('confirmPassword')}
-                        />
-                        <p className="input__error-text">
-                            {errorsStep1.confirmPassword?.message}
-                        </p>
-                    </div>
-                    <p className="modal__text">
-                        Уже есть аккаунт?{' '}
-                        <button className="modal__text" type="button" onClick={openLoginModal}>
-                            Войти
-                        </button>
-                    </p>
-
-                    <button className="modal__form-btn" type="submit">
-                        {isSubmittingStep1 ? 'Далее...' : 'Далее'}
-                    </button>
-                </form>
             </Modal>
             <Modal modalName="role">
                 <div className="modal__title-role">
                     Выберите как вы будете использовать<br/>
                     сервис Player Reputation
                 </div>
-                <form
-                    className="modal__body modal-custom"
-                    onSubmit={handleSubmitStep2(onSubmitStep2)}
-                    autoComplete="off"
+                <form className="modal__body modal-custom" onSubmit={handleSubmitStep2(onSubmitStep2)}
+                      autoComplete="off"
                 >
                     <div className="modal__checkbox-wrap">
                         <label className="modal__checkbox-box">
@@ -209,9 +220,6 @@ function Auth() {
                     </button>
                 </form>
             </Modal>
-
-
-            <Login/>
         </>
     )
 }
