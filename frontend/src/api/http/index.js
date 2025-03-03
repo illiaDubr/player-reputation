@@ -1,4 +1,5 @@
 import axios from "axios";
+import {HOMEPAGE_ROUTE} from "../../utils/const.js";
 
 export const API_URl = 'http://203.0.113.10';
 
@@ -14,7 +15,7 @@ $api.interceptors.response.use(
         if (error.response && error.response.status === 401 && !originalRequest._isRetry) {
             originalRequest._isRetry = true;
             console.warn("Пользователь не авторизован. Перенаправляем на /login");
-            //window.location.href = HOMEPAGE_ROUTE;
+            window.location.href = HOMEPAGE_ROUTE;
         }
         else if (!error.response) {
             console.error("Ошибка сети:", error.message);

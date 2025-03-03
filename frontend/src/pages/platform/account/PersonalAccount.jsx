@@ -1,11 +1,11 @@
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
-import "../../../style/components/main/section/account/account.scss";
+import "../../../style/platform/account/account.scss";
 import Main from "../../../components/main/Main.jsx";
 import {SEARCH_ROUTE} from "../../../utils/const.js";
-import {Modal, useModal} from "../../../components/main/components/Modal.jsx";
-import IconSvg from "../../../components/main/components/IconSvg.jsx";
-import AccountForm from "../../../components/main/section/account/AccountForm.jsx";
+import {Modal, useModal} from "../../../components/platform/components/Modal.jsx";
+import IconSvg from "../../../components/platform/components/IconSvg.jsx";
+import AccountForm from "../../../components/platform/section/account/AccountForm.jsx";
 import Images from "../../../assets/image/image.js";
 import React from "react";
 import {Context} from "../../../api/store/storeContext.js";

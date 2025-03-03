@@ -1,13 +1,14 @@
 import React from 'react';
-import {Modal, useModal} from "../../../components/Modal.jsx";
+import {Modal, useModal} from "../../../platform/components/Modal.jsx";
 import {useNavigate} from "react-router-dom";
-import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
-import {Context} from "../../../../../api/store/storeContext.js";
+import {ACCOUNT_ROUTE} from "../../../../utils/const.js";
+import {Context} from "../../../../api/store/storeContext.js";
 import {useForm} from 'react-hook-form';
 import {schemaAuth} from "./schema.js";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Login from "./Login.jsx";
-import Images from "../../../../../assets/image/image.js";
+import Images from "../../../../assets/image/image.js";
+import "../../../../style/HomePage/main/auth.scss";
 
 function Auth() {
     const {store} = React.useContext(Context);
@@ -42,10 +43,6 @@ function Auth() {
     } = useForm({
         mode: 'onChange',
     });
-
-    const openFirstModal = () => {
-        openModal("FirstModal");
-    };
 
     const openRoleModal = () => {
         openModal("role");
@@ -98,11 +95,7 @@ function Auth() {
 
     return (
         <>
-            <button type="button" onClick={openFirstModal} className="temporary">
-                Регистрация (Шаг 1)
-            </button>
-
-            <Modal modalName="FirstModal">
+            <Modal modalName="Auth">
                 <div className={`auth__wrap ${isActive ? "active" : ""}`}>
                     <div className="form__box login">
                         <Login />

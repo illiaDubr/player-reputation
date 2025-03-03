@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {schemaLogin} from "./schema.js";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Context} from "../../../../../api/store/storeContext.js";
+import {Context} from "../../../../api/store/storeContext.js";
 
 function Login() {
     const [email, setEmail] = React.useState('');

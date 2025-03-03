@@ -1,0 +1,210 @@
+// === Include your styles here === //
+
+@use "../../helpers/mixin";
+@use "sass:math";
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+body:has(.title__section) {
+  background: #0a0618;
+
+  .wrapper {
+    max-width: 1440px;
+    padding: 0px;
+
+    .main {
+
+    }
+  }
+}
+
+.main {
+  .title__section {
+    padding: 149px 0px 19px 0px;
+
+    .title__wrap {
+      max-width: 448px;
+      padding: 31px 0px 0px 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .title__box {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        .info__switch-wrap {
+          padding: 0px 0px 12px 0px;
+
+          .info__switch-box {
+            padding: 8px;
+            gap: 24px;
+
+            .info__switch {
+              padding: 8px 24px;
+            }
+          }
+        }
+
+        h1 {
+          @include mixin.font-style(600, 64, 100, #FFFFFF);
+          text-wrap: balance;
+          margin: 0px;
+        }
+
+        .title__subtitle {
+          @include mixin.font-style(400, 20, 130, #FFFFFF);
+        }
+      }
+
+      .auth__button {
+        max-width: 371px;
+        padding: 16px 32px;
+      }
+    }
+  }
+
+  .role__section {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    padding: 80px 0px 0px 0px;
+
+    .info__wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 48px;
+
+      .info__switch-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        .info__switch-box {
+          padding: 12px;
+          gap: 48px;
+
+          .info__switch {
+            padding: 12px 32px;
+          }
+        }
+      }
+
+      .info__title {
+        @include mixin.font-style(600, 48, 100, #FFFFFF);
+        text-align: center;
+      }
+
+      .tasks__title {
+        max-width: 700px;
+        @include mixin.font-style(600, 32, 140, #FFFFFF);
+        text-align: center;
+        text-wrap: balance;
+
+        .tasks__title-block {
+          padding: 6px 11px;
+          position: relative;
+
+          &:before, &:after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            position: absolute;
+            background: #FFFFFF;
+          }
+
+          &:before {
+            left: -2px;
+            top: -3px;
+          }
+
+          &:after {
+            right: -2px;
+            top: -3px;
+          }
+
+          span {
+            &:before, &:after {
+              content: '';
+              width: 5px;
+              height: 5px;
+              position: absolute;
+              background: #FFFFFF;
+            }
+
+            &:before {
+              left: -2px;
+              bottom: -3px;
+            }
+
+            &:after {
+              right: -2px;
+              bottom: -3px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.backer {
+  .role__section {
+    .info__wrap {
+      .tasks__title {
+        .tasks__title-block {
+          border: 1.50px solid #2750f2;
+        }
+      }
+    }
+  }
+}
+
+.player {
+  .role__section {
+    .info__wrap {
+      .tasks__title {
+        .tasks__title-block {
+          border: 1.50px solid #be69ff;
+        }
+      }
+    }
+  }
+}
+
+.gradient-text {
+  @include mixin.font-style(500, 20, 130, transparent);
+  letter-spacing: -0.01em;
+  background: linear-gradient(7deg, #6145ff 0%, #ba9dff 100%);
+  background-clip: text;
+}
+
+.info__switch-wrap {
+  .info__switch-box {
+    width: fit-content;
+    @include mixin.gradient-box(#0a0618, linear-gradient(to left, #818181, #36373E));
+    border: 1px solid transparent;
+    border-radius: 100px;
+    display: flex;
+
+    .info__switch {
+      cursor: pointer;
+      @include mixin.font-style(600, 20, 130, #FFFFFF);
+      border-radius: 100px;
+      border: 1px solid transparent;
+    }
+
+    .active {
+      background: linear-gradient(180deg, #282828 0%, #101010 100%);
+      border: 1px solid #fff;
+    }
+  }
+}
+
+// === / Styles === //
