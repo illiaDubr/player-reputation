@@ -1,10 +1,12 @@
 import React from 'react';
 import Auth from "../auth/Auth.jsx";
+import Switcher from "../components/Switcher.jsx";
 
 const Title = () => {
     return (
         <div className="title__wrap">
             <div className="title__box">
+                <Switcher />
                 <span className="gradient-text">
                     Players Reputation
                 </span>

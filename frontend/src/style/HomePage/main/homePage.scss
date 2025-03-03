@@ -1,0 +1,24 @@
+// === Include your styles here === //
+
+@use "../../helpers/mixin";
+@use "sass:math";
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.wrapper:has(.title__section) {
+  padding: 0px;
+}
+
+.main:has(.title__section) {
+
+}
+
+.main {
+  .title__section {
+
+  }
+}
+
+// === / Styles === //

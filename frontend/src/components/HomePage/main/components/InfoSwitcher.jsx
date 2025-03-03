@@ -70,16 +70,6 @@ const InfoSwitcher = ({player, backer}) => {
                 </div>
             )}
 
-
-            {/*<div className="tasks__switch-box">
-                {selectedRole === "backer" ? (
-                    <div className="tasks__switch backer"></div>
-                ) : (
-                    <div className="tasks__switch player"></div>
-                )}
-            </div>
-            */}
-
             {backer && (
                 <Auth/>
             )}
