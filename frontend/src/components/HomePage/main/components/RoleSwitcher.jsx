@@ -1,45 +1,27 @@
 import React from "react";
-import Auth from "../auth/Auth.jsx";
 import {RoleContext} from "./RoleContext.jsx";
-import RoleData from "../switchSection/RoleData.jsx";
-import TasksData from "../switchSection/TasksData.jsx";
+import RoleData from "../roleSection/RoleData.jsx";
+import TasksData from "../roleSection/TasksData.jsx";
+import AuthBtn from "../auth/AuthBtn.jsx";
 
-const InfoSwitcher = ({player, backer}) => {
+const RoleSwitcher = ({player, backer, children}) => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
 
     return (
         <div className="info__wrap" id={backer ? "tasks__section" : "role__section"}>
             {player && selectedRole === "player" && (
-                <div className="info__player-title">
+                <h2 className="info__title">
                     Возможности <br />
                     Player Reputation
-                </div>
+                </h2>
             )}
 
-            <div className="info__switch-wrap">
-                <div className="gradient-text">
-                    Выберите свою роль
-                </div>
-                <div className="info__switch-box">
-                    <div
-                        className={`info__switch ${selectedRole === "backer" ? "active" : ""}`}
-                        onClick={() => setSelectedRole("backer")}
-                    >
-                        Я бэкер
-                    </div>
-                    <div
-                        className={`info__switch ${selectedRole === "player" ? "active" : ""}`}
-                        onClick={() => setSelectedRole("player")}
-                    >
-                        Я игрок
-                    </div>
-                </div>
-            </div>
+            {children}
 
             {backer && (
-                <div className="tasks__title">
+                <>
                     {selectedRole === "backer" ? (
-                        <div className="tasks__title-backer">
+                        <div className="tasks__title">
                             <span className="tasks__title-block">
                                 Задачи Pr
                                 <span></span>
@@ -48,7 +30,7 @@ const InfoSwitcher = ({player, backer}) => {
                             полный обзор репутации
                         </div>
                     ) : (
-                        <div className="tasks__title-player">
+                        <div className="tasks__title">
                             <span className="tasks__title-block">
                                 Задачи Pr
                                 <span></span>
@@ -56,7 +38,7 @@ const InfoSwitcher = ({player, backer}) => {
                             - облегчить процесс поиска бекера, а также возможность рассказать свою сторону истории
                         </div>
                     )}
-                </div>
+                </>
             )}
 
             {player  && (
@@ -71,10 +53,10 @@ const InfoSwitcher = ({player, backer}) => {
             )}
 
             {backer && (
-                <Auth/>
+                <AuthBtn />
             )}
         </div>
     )
 }
 
-export default InfoSwitcher;
+export default RoleSwitcher;

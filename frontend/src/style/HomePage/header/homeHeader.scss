@@ -35,6 +35,12 @@
           align-items: center;
           @include mixin.font-style(500, 20, 130, #FFFFFF);
         }
+
+        .auth__button {
+          max-width: 280px;
+          height: 100%;
+          padding: 0px 14px;
+        }
       }
 
       .home__nav-list {

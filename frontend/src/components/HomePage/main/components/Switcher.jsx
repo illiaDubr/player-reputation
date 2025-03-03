@@ -1,14 +1,16 @@
 import React from "react";
 import {RoleContext} from "./RoleContext.jsx";
 
-const Switcher = () => {
+const Switcher = ({text}) => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
 
     return (
         <div className="info__switch-wrap">
-            <div className="gradient-text">
-                Выберите свою роль
-            </div>
+            {text && (
+                <div className="gradient-text">
+                    Выберите свою роль
+                </div>
+            )}
             <div className="info__switch-box">
                 <div
                     className={`info__switch ${selectedRole === "backer" ? "active" : ""}`}

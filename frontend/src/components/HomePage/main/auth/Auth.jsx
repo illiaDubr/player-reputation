@@ -44,10 +44,6 @@ function Auth() {
         mode: 'onChange',
     });
 
-    const openFirstModal = () => {
-        openModal("FirstModal");
-    };
-
     const openRoleModal = () => {
         openModal("role");
     };
@@ -99,11 +95,7 @@ function Auth() {
 
     return (
         <>
-            <button type="button" onClick={openFirstModal} className="auth__button">
-                Регистрация
-            </button>
-
-            <Modal modalName="FirstModal">
+            <Modal modalName="Auth">
                 <div className={`auth__wrap ${isActive ? "active" : ""}`}>
                     <div className="form__box login">
                         <Login />
