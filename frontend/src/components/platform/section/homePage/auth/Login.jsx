@@ -1,6 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {schemaLogin} from "./schema.js";
+import {ACCOUNT_ROUTE} from "../../../../../utils/const.js";
+import {useNavigate} from "react-router-dom";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Context} from "../../../../../api/store/storeContext.js";
 
@@ -8,6 +10,7 @@ function Login() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = useState('');
     const {store} = useContext(Context);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,6 +28,8 @@ function Login() {
             await store.login(data.email, data.password);
         } catch (error) {
             reset();
+        } finally {
+            navigate(ACCOUNT_ROUTE);
         }
     };
 

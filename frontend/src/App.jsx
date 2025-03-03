@@ -1,5 +1,5 @@
 import {Helmet} from "react-helmet-async";
-import {ModalProvider} from "./components/main/components/Modal.jsx";
+import {ModalProvider} from "./components/platform/components/Modal.jsx";
 import AppRouter from "./components/AppRouter.jsx";
 
 function App() {

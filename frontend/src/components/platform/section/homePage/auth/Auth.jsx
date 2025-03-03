@@ -167,7 +167,7 @@ function Auth() {
                                 У вас нет учетной записи?
                             </p>
                             <button className="auth__btn" type="button" onClick={() => setIsActive(true)}>
-                                Register
+                                Регистрация
                             </button>
                         </div>
                         <div className="auth__toggle auth__toggle-right">
@@ -178,7 +178,7 @@ function Auth() {
                                 У вас уже есть аккаунт?
                             </p>
                             <button className="auth__btn" type="button" onClick={() => setIsActive(false)}>
-                                Login
+                                Вход
                             </button>
                         </div>
                     </div>
