@@ -1,6 +1,6 @@
 import React from 'react';
 import StickyBox from "react-sticky-box";
-import "../../../../style/components/main/section/header/header.scss";
+import "../../../../style/platform/header/header.scss";
 import Navigation from "./Navigation.jsx";
 
 const Header = () => {

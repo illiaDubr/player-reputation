@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
-import "../../../style/components/main/section/account/account.scss";
+import "../../../style/platform/account/account.scss";
 import Main from "../../../components/main/Main.jsx";
 import {SEARCH_ROUTE} from "../../../utils/const.js";
 import {Modal, useModal} from "../../../components/platform/components/Modal.jsx";

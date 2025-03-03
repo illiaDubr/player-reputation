@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../style/components/main/section/search/search.scss";
+import "../../../style/platform/search/search.scss";
 import {Helmet} from "react-helmet-async";
 import Main from "../../../components/main/Main.jsx";
 import SearchForm from "../../../components/platform/section/search/SearchForm.jsx";

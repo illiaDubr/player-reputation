@@ -1,6 +1,6 @@
 import SectionHeader from "../platform/components/SectionHeader.jsx";
 import Resize from "../platform/components/Resize.jsx";
-import "../../style/components/main/main.scss";
+import "../../style/platform/main.scss";
 import Header from "../platform/section/header/Header.jsx";
 
 const Main = ({ children, secClassName, secID }) => (
