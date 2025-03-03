@@ -49,7 +49,7 @@ const HomePage = observer(() => {
                         <Switcher text={true}/>
                     </RoleSwitcher>
                 </section>
-                <section className="" id="subscription_section">
+                <section className="subscription__section" id="subscription_section">
 
                 </section>
                 <Auth />
