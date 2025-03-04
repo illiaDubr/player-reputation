@@ -11,6 +11,8 @@ import RoleSwitcher from "../../components/HomePage/main/components/RoleSwitcher
 import Auth from "../../components/HomePage/main/auth/Auth.jsx";
 import HomeHeader from "../../components/HomePage/header/HomeHeader.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
+import Footer from "../../components/HomePage/footer/Footer.jsx";
+import ContactForm from "../../components/HomePage/main/subscriptionSection/form/ContactForm.jsx";
 
 const HomePage = observer(() => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
@@ -50,10 +52,16 @@ const HomePage = observer(() => {
                     </RoleSwitcher>
                 </section>
                 <section className="subscription__section" id="subscription_section">
-
+                    <div className="subscription__content-wrap">
+                        <h2>
+                            Как мы работаем, условия
+                        </h2>
+                    </div>
+                    <ContactForm />
                 </section>
                 <Auth />
             </main>
+            <Footer />
         </>
     )
 })

@@ -1,8 +1,9 @@
 import React from 'react';
+import "../../../style/HomePage/footer/footer.scss";
 
 const Footer = () => {
     return (
-        <footer className="footer" style={{ display: "none" }}>
+        <footer className="footer">
 
         </footer>
     )

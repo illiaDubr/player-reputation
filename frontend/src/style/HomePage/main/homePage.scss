@@ -11,8 +11,9 @@ body:has(.title__section) {
   background: #0a0618;
 
   .wrapper {
-    max-width: 1440px;
+    max-width: 1530px;
     padding: 0px;
+    flex-direction: column;
 
     .main {
 
@@ -71,7 +72,7 @@ body:has(.title__section) {
     display: flex;
     flex-direction: column;
     gap: 120px;
-    padding: 80px 0px 0px 0px;
+    padding: 80px 45px 0px 45px;
 
     .info__wrap {
       width: 100%;
@@ -150,6 +151,91 @@ body:has(.title__section) {
           }
         }
       }
+
+      .auth__button {
+        max-width: 371px;
+        padding: 16px 32px;
+        height: 68px;
+      }
+    }
+  }
+
+  .subscription__section {
+    padding: 120px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+
+    .subscription__content-wrap {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 48px;
+      padding: 0px 35px;
+
+      h2 {
+        @include mixin.font-style(600, 56, 120, #FFFFFF);
+        text-align: center;
+        margin: 0px;
+      }
+    }
+
+    .contact__form-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 40px;
+      border: 3px solid #2750f2;
+      border-radius: 20px;
+
+      h3 {
+        width: 100%;
+        max-width: 550px;
+        margin: 0px;
+        @include mixin.font-style(600, null, 120, #FFFFFF);
+        @include mixin.font-size(56, 32);
+      }
+
+      .contact__form {
+        width: 100%;
+        max-width: 755px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .contact__form-field {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          label {
+            @include mixin.font-style(400, 16, 130, #FFFFFF);
+          }
+
+          input {
+            width: 100%;
+            backdrop-filter: blur(20px);
+            background: rgba(8, 8, 8, 0.5);
+            border: 1px solid #121317;
+            border-radius: 10px;
+            padding: 18px 24px;
+            caret-color: #FFFFFF;
+            @include mixin.font-style(500, 14, 130, #FFFFFF);
+          }
+        }
+
+        .contact__btn {
+          max-width: 371px;
+          width: 100%;
+          padding: 16px 32px;
+          border-radius: 8px;
+          background: #2750f2;
+          @include mixin.font-style(600, 28, 130, #FFFFFF);
+          letter-spacing: -0.01em;
+        }
+      }
     }
   }
 }
@@ -203,6 +289,22 @@ body:has(.title__section) {
     .active {
       background: linear-gradient(180deg, #282828 0%, #101010 100%);
       border: 1px solid #fff;
+    }
+  }
+}
+
+@media (max-width: 864px) {
+  .main {
+    .subscription__section {
+
+      .contact__form-wrap {
+        flex-direction: column;
+        gap: 40px;
+
+        h3 {
+          text-align: center;
+        }
+      }
     }
   }
 }
