@@ -152,6 +152,43 @@ body:has(.title__section) {
         }
       }
 
+      .role__switch-box {
+
+      }
+
+      .tasks__switch-box {
+        width: 100%;
+
+        .tasks__content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+          grid-gap: clamp(1rem, 3vw, 1rem);
+          border: 2px solid #fff;
+          border-radius: 24px;
+          padding: 20px;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 1px 100px 0 rgba(0, 0, 0, 0.15);
+          background: rgba(255, 255, 255, 0.2);
+
+          .tasks__item {
+            background: #0a0618;
+            border-radius: 20px;
+            padding: 40px;
+
+            .tasks__item-title {
+              @include mixin.font-style(600, null, 130, #FFFFFF);
+              @include mixin.font-size(32, 28);
+              letter-spacing: -0.01em;
+              padding: 0px 0px 64px 0px;
+            }
+
+            .tasks__item-description {
+              @include mixin.font-style(400, 20, 130, #FFFFFF);
+            }
+          }
+        }
+      }
+
       .auth__button {
         max-width: 371px;
         padding: 16px 32px;

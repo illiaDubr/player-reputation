@@ -47,9 +47,7 @@ const RoleSwitcher = ({player, backer, children}) => {
                 </div>
             )}
             {backer  && (
-                <div className="tasks__switch-box">
-                    <TasksData tasksType={selectedRole} />
-                </div>
+                <TasksData tasksType={selectedRole} />
             )}
 
             {backer && (
