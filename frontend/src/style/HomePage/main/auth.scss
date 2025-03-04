@@ -17,6 +17,7 @@
 }
 
 .auth__button {
+  width: 100%;
   border-radius: 8px;
   background: #FFFFFF;
   @include mixin.font-style(600, null, 130, #000000);

@@ -4,6 +4,10 @@ import {Link} from "react-router-dom";
 import {HOMEPAGE_ROUTE} from "../../../utils/const.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import AuthBtn from "../main/auth/AuthBtn.jsx";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const navLinks = [
     {to: "#role__section", label: "Выбрать роль"},
@@ -12,8 +16,26 @@ const navLinks = [
 ];
 
 const HomeHeader = () => {
+    const headerRef = React.useRef(null);
+
+    React.useEffect(() => {
+        gsap.to(headerRef.current, {
+            backdropFilter: "blur(40px)",
+            borderRadius: "1000px",
+            border: "1px solid #FFFFFF",
+            padding: "24px 36px",
+            duration: 0.6,
+            scrollTrigger: {
+                trigger: document.body,
+                start: "top top",
+                end: "+=150",
+                scrub: true,
+            },
+        })
+    }, [])
+
     return (
-        <header className="home__header">
+        <header ref={headerRef} className="home__header">
             <nav className="home__nav-wrap" aria-label="Главная навигация">
                 <ul className="home__nav">
                     <li className="home__nav-item">
