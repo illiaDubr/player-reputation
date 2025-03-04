@@ -24,6 +24,8 @@ const ContactForm = () => {
                     Отправить
                 </button>
             </form>
+            <span className="filter">
+            </span>
         </div>
     )
 }

@@ -185,14 +185,38 @@ body:has(.title__section) {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
       gap: 20px;
       padding: 40px;
-      border: 3px solid #2750f2;
       border-radius: 20px;
+      background: url("../../../assets/image/grid.webp") center / 15% repeat;
+      overflow: hidden;
+
+      &:before, &:after {
+        content: "";
+        width: 278px;
+        height: 278px;
+        background: #0a0618;
+        position: absolute;
+        z-index: 2;
+        border-radius: 50%;
+      }
+
+      &:before {
+        left: -159px;
+        bottom: -192px;
+      }
+
+      &:after {
+        top: -204px;
+        left: 17%;
+      }
 
       h3 {
         width: 100%;
         max-width: 550px;
+        position: relative;
+        z-index: 3;
         margin: 0px;
         @include mixin.font-style(600, null, 120, #FFFFFF);
         @include mixin.font-size(56, 32);
@@ -200,6 +224,8 @@ body:has(.title__section) {
 
       .contact__form {
         width: 100%;
+        position: relative;
+        z-index: 3;
         max-width: 755px;
         display: flex;
         flex-direction: column;
@@ -231,9 +257,34 @@ body:has(.title__section) {
           width: 100%;
           padding: 16px 32px;
           border-radius: 8px;
-          background: #2750f2;
           @include mixin.font-style(600, 28, 130, #FFFFFF);
           letter-spacing: -0.01em;
+        }
+      }
+
+      .filter {
+        position: absolute;
+        pointer-events: none;
+        inset: 0;
+        z-index: 2;
+
+        &:before, &:after {
+          content: "";
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+          filter: blur(150px);
+        }
+
+        &:before {
+          left: 50px;
+          top: 50px;
+        }
+
+        &:after {
+          right: 20px;
+          top: 20px;
         }
       }
     }
@@ -250,6 +301,33 @@ body:has(.title__section) {
       }
     }
   }
+
+  .subscription__section {
+    .contact__form-wrap {
+      border: 3px solid #2750f2;
+
+      &:before, &:after {
+        border: 27px solid #2a4bfb;
+        box-shadow: 0 0 83px 0 #2a4bfb;
+      }
+
+      .contact__form {
+        .contact__btn {
+          background: #2750f2;
+        }
+      }
+
+      .filter {
+        &:before {
+          background: #2750f2;
+        }
+
+        &:after {
+          background: #2750f2;
+        }
+      }
+    }
+  }
 }
 
 .player {
@@ -258,6 +336,33 @@ body:has(.title__section) {
       .tasks__title {
         .tasks__title-block {
           border: 1.50px solid #be69ff;
+        }
+      }
+    }
+  }
+
+  .subscription__section {
+    .contact__form-wrap {
+      border: 3px solid #9000ff;
+
+      &:before, &:after {
+        border: 27px solid #9000ff;
+        box-shadow: 0 0 83px 0 #9000ff;
+      }
+
+      .contact__form {
+        .contact__btn {
+          background: #9000ff;
+        }
+      }
+
+      .filter {
+        &:before {
+          background: #9000ff;
+        }
+
+        &:after {
+          background: #9000ff;
         }
       }
     }
@@ -300,6 +405,7 @@ body:has(.title__section) {
       .contact__form-wrap {
         flex-direction: column;
         gap: 40px;
+        background: url("../../../assets/image/grid.webp") center / 30% repeat;
 
         h3 {
           text-align: center;
