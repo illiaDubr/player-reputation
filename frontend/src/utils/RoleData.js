@@ -26,5 +26,19 @@ export const PLAYER_LIST = [
         description: "Редактируй информацию, изменяй настройки конфиденциальности и персонализации.",
         image: "/images/profile-settings.png",
         link: "#profile-settings"
-    }
+    },
+    {
+        id: 5,
+        title: "Анализ игровых метрик",
+        description: "Отслеживай свою статистику, сравнивай с другими игроками и улучшай стратегию.",
+        image: "/images/stats.png",
+        link: "#analyze-metrics"
+    },
+    {
+        id: 6,
+        title: "Анализ игровых метрик",
+        description: "Отслеживай свою статистику, сравнивай с другими игроками и улучшай стратегию.",
+        image: "/images/stats.png",
+        link: "#analyze-metrics"
+    },
 ];

@@ -37,7 +37,7 @@ const HomePage = observer(() => {
                     Player`s Reputation
                 </title>
             </Helmet>
-            <HomeHeader />
+
             <main className={`main ${selectedRole}`}>
                 <section className="title__section">
                     <Title />

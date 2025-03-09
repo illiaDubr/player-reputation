@@ -1,7 +1,10 @@
 import React from "react";
 import {PLAYER_LIST} from "../../../../utils/RoleData.js";
 import gsap from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
 
 const chunkArray = (array, size) => {
     return array.reduce((acc, _, index) => {
@@ -12,37 +15,41 @@ const chunkArray = (array, size) => {
     }, []);
 };
 
-gsap.registerPlugin(ScrollTrigger);
-
-const TasksData = ({tasksType}) => {
+const TasksData = ({tasksType, totalHeight, setTotalHeight}) => {
     const groupedTasks = chunkArray(PLAYER_LIST, 2);
 
     const sectionRef = React.useRef(null);
     const itemsRef = React.useRef([]);
 
+    const spacing = 115;
+
     React.useEffect(() => {
+
         const section = sectionRef.current;
         const items = itemsRef.current;
 
-        const tl = gsap.timeline({
+        setTimeout(() => {
+            const numElements = items.length;
+            const lastSpacing = (numElements - 1) * spacing;
+
+            const lastItemHeight = items[numElements - 1]?.offsetHeight || 0;
+
+            const finalHeight = lastItemHeight + lastSpacing;
+
+            setTotalHeight(finalHeight);
+        }, 100);
+
+
+        gsap.to(items, {
             scrollTrigger: {
-                trigger: section,
-                start: "top top",
-                end: `+=${items.length * 100}%`, // Длина анимации зависит от количества блоков
-                pin: true, // Фиксируем секцию
-                scrub: 1, // Плавная прокрутка
-                anticipatePin: 1,
+                manual: true,
+                scrub: true,
             },
-        });
-        items.forEach((item, index) => {
-            tl.fromTo(
-                item,
-                { opacity: 0, y: 50 },
-                { opacity: 1, y: 0, duration: 0.5 },
-                index * 0.5 // Каждая анимация запускается с небольшим отставанием
-            );
-        });
+            opacity: 1, y: 0,
+        })
     }, [])
+
+    console.log(totalHeight)
 
     switch (tasksType) {
         case "backer":
@@ -56,9 +63,9 @@ const TasksData = ({tasksType}) => {
             return (
                 <div className="tasks__switch-box" ref={sectionRef}>
                     {groupedTasks.map((taskGroup, index) => (
-                        <div className="tasks__content" key={index}>
+                        <div className="tasks__content" key={index}   ref={(el) => (itemsRef.current[index] = el)}>
                             {taskGroup.map((task) => (
-                                <div className="tasks__item" key={task.id}>
+                                <div className="tasks__item" key={task.id} >
                                     <div className="tasks__item-title">{task.title}</div>
                                     <div className="tasks__item-description">{task.description}</div>
                                 </div>

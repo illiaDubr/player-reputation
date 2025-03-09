@@ -16,7 +16,6 @@ body:has(.title__section) {
     flex-direction: column;
 
     .main {
-
     }
   }
 }
@@ -156,34 +155,51 @@ body:has(.title__section) {
 
       }
 
-      .tasks__switch-box {
+      .tasks__switch-wrap {
         width: 100%;
 
-        .tasks__content {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-          grid-gap: clamp(1rem, 3vw, 1rem);
-          border: 2px solid #fff;
-          border-radius: 24px;
-          padding: 20px;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 1px 100px 0 rgba(0, 0, 0, 0.15);
-          background: rgba(255, 255, 255, 0.2);
+        .tasks__switch-box {
+          width: 100%;
+          height: 100%;
+          position: relative;
 
-          .tasks__item {
-            background: #0a0618;
-            border-radius: 20px;
-            padding: 40px;
+          .tasks__content {
+            width: 100%;
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            grid-gap: clamp(1rem, 3vw, 1rem);
+            border: 2px solid #fff;
+            border-radius: 24px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 100px 0 rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.2);
+            transition: all ease;
 
-            .tasks__item-title {
-              @include mixin.font-style(600, null, 130, #FFFFFF);
-              @include mixin.font-size(32, 28);
-              letter-spacing: -0.01em;
-              padding: 0px 0px 64px 0px;
+            .tasks__item {
+              background: #0a0618;
+              border-radius: 20px;
+              padding: 40px;
+
+              .tasks__item-title {
+                @include mixin.font-style(600, null, 130, #FFFFFF);
+                @include mixin.font-size(32, 28);
+                letter-spacing: -0.01em;
+                padding: 0px 0px 64px 0px;
+              }
+
+              .tasks__item-description {
+                @include mixin.font-style(400, 20, 130, #FFFFFF);
+              }
             }
 
-            .tasks__item-description {
-              @include mixin.font-style(400, 20, 130, #FFFFFF);
+            $step: 115px;
+
+            @for $i from 1 through 10 {
+              &:nth-child(#{$i}) {
+                top: ($i - 1) * $step;
+              }
             }
           }
         }

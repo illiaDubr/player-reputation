@@ -6,6 +6,7 @@ import AuthBtn from "../auth/AuthBtn.jsx";
 
 const RoleSwitcher = ({player, backer, children}) => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
+    const [totalHeight, setTotalHeight] = React.useState(0);
 
     return (
         <div className="info__wrap" id={backer ? "tasks__section" : "role__section"}>
@@ -47,7 +48,9 @@ const RoleSwitcher = ({player, backer, children}) => {
                 </div>
             )}
             {backer  && (
-                <TasksData tasksType={selectedRole} />
+                <div className="tasks__switch-wrap" style={{height: totalHeight + "px"}}>
+                    <TasksData tasksType={selectedRole} totalHeight={totalHeight} setTotalHeight={setTotalHeight} />
+                </div>
             )}
 
             {backer && (
