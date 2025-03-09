@@ -63,7 +63,7 @@ const HomePage = observer(() => {
                 </section>
                 <Auth />
             </main>
-            <Footer />
+            <Footer selectedRole={selectedRole} />
         </>
     )
 })
