@@ -92,6 +92,7 @@ body:has(.title__section) {
 
           .info__switch {
             padding: 12px 32px;
+            @include mixin.font-size(20, 14);
           }
         }
       }
@@ -272,7 +273,7 @@ body:has(.title__section) {
         z-index: 3;
         margin: 0px;
         @include mixin.font-style(600, null, 120, #FFFFFF);
-        @include mixin.font-size(56, 32);
+        @include mixin.font-size(56, 24);
       }
 
       .contact__form {
