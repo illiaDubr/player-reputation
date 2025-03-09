@@ -55,37 +55,127 @@
         height: 36px;
         border-radius: 50%;
         background: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        svg {
-          .burger-line {
-            transform-box: fill-box; // или border-box
-            transform-origin: center; // вращаем/скалируем относительно центра линии
-            stroke-dasharray: 24; // длина «штриха» (чуть больше длины линии)
-            stroke-dashoffset: 0; // изначально полностью видна
-            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-            stroke 0.7s ease,
-            stroke-width 0.7s ease,
-            stroke-dashoffset 0.7s ease;
-          }
+        .round {
+          height: 40px;
+          width: 40px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border: 1px solid #3b3b48;
+          border-radius: 20px;
+          transition: all .25s ease;
+        }
+
+        .bar-1 {
+          position: absolute;
+          top: 6px;
+          right: 0px;
+          width: 20px;
+          height: 3px;
+          border-radius: 2px;
+          background-color: #3b3b48;
+          transition: all .25s ease;
+        }
+
+        .bar-2 {
+          position: absolute;
+          bottom: 6px;
+          left: 0px;
+          width: 20px;
+          height: 3px;
+          border-radius: 2px;
+          background-color: #3b3b48;
+          -webkit-transition: all .25s ease;
+          -moz-transition: all .25s ease;
+          -ms-transition: all .25s ease;
+          -o-transition: all .25s ease;
+          transition: all .25s ease;
+        }
+
+        .bar-cross-1 {
+          width: 32px;
+          height: 3px;
+          background-color: #3b3b48;
+          border-radius: 2px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+
+          -webkit-transition: all .5s ease;
+          -moz-transition: all .5s ease;
+          -ms-transition: all .5s ease;
+          -o-transition: all .5s ease;
+          transition: all .5s ease;
+        }
+
+        .bar-cross-2 {
+          width: 32px;
+          height: 3px;
+          background-color: #3b3b48;
+          border-radius: 2px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+
+          -webkit-transition: all .5s ease;
+          -moz-transition: all .5s ease;
+          -ms-transition: all .5s ease;
+          -o-transition: all .5s ease;
+          transition: all .5s ease;
         }
 
         &--open {
-          svg {
-            .burger-line--top {
-              // Сдвигаем вниз, поворачиваем на 45°, слегка искажаем по X/Y
-              transform: translateY(4px) rotate(45deg) scale(1.1, 0.9) skew(10deg, 5deg);
-              stroke: #cc0033;             // цвет становится ярко-красным
-              stroke-width: 3;            // линия чуть толще
-              stroke-dashoffset: 8;       // «укорачиваем» визуально
-            }
+          .round {
+            -webkit-transform: translate(-50%, -50%) scale(1);
+            -ms-transform: translate(-50%, -50%) scale(1);
+            -o-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+          }
 
-            .burger-line--bottom {
-              // Сдвигаем вверх, поворачиваем на -45°, искажаем
-              transform: translateY(-4px) rotate(-45deg) scale(1.1, 0.9) skew(10deg, -5deg);
-              stroke: #cc0033;
-              stroke-width: 3;
-              stroke-dashoffset: 8;
-            }
+          .bar-1 {
+            opacity: 0;
+            -webkit-transform: translateX(100%);
+            -moz-transform: translateX(100%);
+            -ms-transform: translateX(100%);
+            -o-transform: translateX(100%);
+            transform: translateX(100%);
+          }
+
+          .bar-2 {
+            opacity: 0;
+            -webkit-transform: translateX(-100%);
+            -moz-transform: translateX(-100%);
+            -ms-transform: translateX(-100%);
+            -o-transform: translateX(-100%);
+            transform: translateX(-100%);
+          }
+
+          .bar-cross-1
+          {
+            -webkit-transform: translate(-50%,-50%) rotate(135deg) scale(0.3);
+            -ms-transform: translate(-50%,-50%) rotate(135deg) scale(0.3);
+            -o-transform: translate(-50%,-50%) rotate(135deg) scale(0.3);
+            transform: translate(-50%,-50%) rotate(135deg) scale(0.3);
+          }
+
+          .bar-cross-2
+          {
+            -webkit-transform: translate(-50%,-50%) rotate(-135deg) scale(0.3);
+            -ms-transform: translate(-50%,-50%) rotate(-135deg) scale(0.3);
+            -o-transform: translate(-50%,-50%) rotate(-135deg) scale(0.3);
+            transform: translate(-50%,-50%) rotate(-135deg) scale(0.3);
           }
         }
       }

@@ -78,11 +78,16 @@ const HomeHeader = () => {
                         </Link>
                     </li>
                     <Resize width={880} fallback={
-                        <button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`} type="button" onClick={toggleBtn}>
-                            <svg width="24" height="10" viewBox="0 0 24 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path className="burger-line burger-line--top" d="M22 2L2 2" stroke="#0A0618" stroke-width="2.25" stroke-linecap="round" />
-                                <path className="burger-line burger-line--bottom" d="M22 8L2 8" stroke="#0A0618" stroke-width="2.25" stroke-linecap="round" />
-                            </svg>
+                        <button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`}
+                                type="button" onClick={toggleBtn}>
+                            <span className="round"></span>
+
+                            <span className="bar-1"></span>
+
+                            <span className="bar-cross-1"></span>
+                            <span className="bar-cross-2"></span>
+
+                            <span className="bar-2"></span>
                         </button>
                     }>
                         <NavHeader/>
