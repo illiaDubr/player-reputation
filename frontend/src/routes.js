@@ -5,20 +5,17 @@ import Search from "./pages/platform/search/Search.jsx";
 import Admin from "./pages/admin/admin.jsx";
 
 export const authRoutes = [
-    {
-        path: ACCOUNT_ROUTE,
-        Component: PersonalAccount
-    },
-    {
-        path: SEARCH_ROUTE,
-        Component: Search
-    },
+
 ]
 
 export const publicRoutes = [
     {
         path: HOMEPAGE_ROUTE,
         Component: HomePage
+    },
+    {
+        path: ACCOUNT_ROUTE,
+        Component: PersonalAccount
     },
     {
         path: ADMIN_ROUTE,

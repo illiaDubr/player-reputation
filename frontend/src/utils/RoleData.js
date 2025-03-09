@@ -1,3 +1,5 @@
+import Images from "../assets/image/image.js";
+
 export const PLAYER_LIST = [
     {
         id: 1,
@@ -75,3 +77,44 @@ export const BACKER_LIST = [
         link: "#check-reputation"
     },
 ];
+
+export const BACKER_ROLE_LIST = [
+    {
+        id: 1,
+        title: "Проверить репутационную историю игрока",
+        image: Images["account_computer-1"],
+    },
+    {
+        id: 2,
+        title: "Внести информацию об игроке в общую базу",
+        image: Images["account_computer-2"],
+    },
+    {
+        id: 3,
+        title: "Поиск новых игроков",
+        image: Images["account_computer-3"],
+    },
+]
+
+export const PLAYER_ROLE_LIST = [
+    {
+        id: 1,
+        title: "Проверить репутацию",
+        image: Images["landing_computer-1"],
+    },
+    {
+        id: 2,
+        title: "Анализ своих игровых метрик",
+        image: Images["landing_computer-2"],
+    },
+    {
+        id: 3,
+        title: "Найти бэкера",
+        image: Images["landing_computer-3"],
+    },
+    {
+        id: 4,
+        title: "Рассказать свою сторону репутационной записи",
+        image: Images["landing_computer-4"],
+    },
+]
