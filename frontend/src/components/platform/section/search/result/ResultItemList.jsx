@@ -1,5 +1,5 @@
 import React from "react";
-import IconSvg from "../../components/IconSvg.jsx";
+import IconSvg from "../../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
 
 const backerTagConfig = {

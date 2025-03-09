@@ -1,5 +1,5 @@
 import {useState} from "react";
-import IconSvg from "../../components/IconSvg.jsx";
+import IconSvg from "../../../components/IconSvg.jsx";
 import {Tooltip} from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 

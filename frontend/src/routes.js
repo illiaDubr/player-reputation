@@ -24,4 +24,8 @@ export const publicRoutes = [
         path: ADMIN_ROUTE,
         Component: Admin
     },
+    {
+        path: SEARCH_ROUTE,
+        Component: Search
+    },
 ]

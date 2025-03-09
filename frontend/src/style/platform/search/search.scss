@@ -15,9 +15,133 @@
     background: url("../../../../../assets/image/grid.webp") center center / calc(20% - 30px) repeat rgba(8, 8, 8, 0.7);
     border: 1px solid #000b48;
     border-radius: 20px;
-    padding: 44px 60px;
+    padding: 40px;
     position: relative;
     overflow: hidden;
+
+    .search__title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 35px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      padding: 0px 0px 24px 0px;
+
+      .search__title {
+        @include mixin.font-style(500, 24, 130, #FFFFFF);
+        margin: 0px;
+      }
+
+      .search__control {
+        display: flex;
+        flex-direction: column;
+        gap: 17.5px;
+
+        .search__switch-wrap {
+          display: flex;
+          gap: 24px;
+          @include mixin.font-style(400, 16, 130, #FFFFFF);
+
+          input[type=checkbox] {
+            height: 0;
+            width: 0;
+            visibility: hidden;
+          }
+
+          .search__switch {
+            width: 60px;
+            height: 24px;
+            cursor: pointer;
+            background: #13236e;
+            display: block;
+            border-radius: 100px;
+            position: relative;
+            transition: all .3s ease;
+
+            &:after {
+              content: '';
+              position: absolute;
+              width: 24px;
+              height: 24px;
+              background: #2750f2;
+              border-radius: 50%;
+              transition: all .3s ease;
+            }
+
+            &:active:after {
+              width: 50px;
+            }
+          }
+
+          input:checked + label {
+            background: #2a4bfb;
+          }
+
+          input:checked + label:after {
+            right: 0;
+            background: #FFFFFF;
+          }
+        }
+
+        .search__checkbox-wrap {
+
+          .search__checkbox {
+            position: absolute;
+            opacity: 0;
+
+            & + label {
+              display: flex;
+              gap: 8px;
+              align-items: center;
+              position: relative;
+              cursor: pointer;
+              padding: 0;
+              @include mixin.font-style(500, 16, 140, #959595);
+              transition: all .3s ease;
+            }
+
+            & + label:before {
+              content: '';
+              width: 16px;
+              height: 16px;
+              display: inline-block;
+              border: 1px solid #959595;
+              border-radius: 2px;
+              transition: all .3s ease;
+            }
+
+            &:checked + label:before {
+              border: 1px solid #FFFFFF;
+            }
+
+            &:checked + label {
+              color: #FFFFFF;
+            }
+
+            // Checkmark. Could be replaced with an image
+            &:checked + label:after {
+              content: '';
+              position: absolute;
+              left: 5px;
+              top: 9px;
+              background: white;
+              width: 2px;
+              height: 2px;
+              box-shadow:
+                      2px 0 0 white,
+                      4px 0 0 white,
+                      4px -2px 0 white,
+                      4px -4px 0 white,
+                      4px -6px 0 white,
+                      4px -8px 0 white;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+    }
 
     .search__wrapper {
       display: flex;
@@ -492,6 +616,7 @@
           .result-left {
             max-width: 100%;
           }
+
           .result-right {
             align-items: flex-start;
             flex-direction: column;

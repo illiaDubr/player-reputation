@@ -9,7 +9,7 @@
 
 .home__header {
   width: 100%;
-  max-width: 1880px;
+  max-width: 1530px;
   height: fit-content;
   min-height: 48px;
   position: fixed;
@@ -53,7 +53,7 @@
   }
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1530px) {
   .home__header {
     width: auto;
     inset: 32px 20px 0px 20px;

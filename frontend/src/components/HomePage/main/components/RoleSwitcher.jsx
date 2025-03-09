@@ -1,17 +1,18 @@
 import React from "react";
 import {RoleContext} from "./RoleContext.jsx";
 import RoleData from "../roleSection/RoleData.jsx";
-import TasksData from "../roleSection/TasksData.jsx";
+import Tasks from "../roleSection/Tasks.jsx";
 import AuthBtn from "../auth/AuthBtn.jsx";
 
 const RoleSwitcher = ({player, backer, children}) => {
-    const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
+    const {selectedRole, setSelectedRole} = React.useContext(RoleContext);
+    const [totalHeight, setTotalHeight] = React.useState(0);
 
     return (
         <div className="info__wrap" id={backer ? "tasks__section" : "role__section"}>
             {player && selectedRole === "player" && (
                 <h2 className="info__title">
-                    Возможности <br />
+                    Возможности <br/>
                     Player Reputation
                 </h2>
             )}
@@ -41,19 +42,19 @@ const RoleSwitcher = ({player, backer, children}) => {
                 </>
             )}
 
-            {player  && (
+            {player && (
                 <div className="role__switch-box">
-                    <RoleData roleType={selectedRole} />
+                    <RoleData roleType={selectedRole}/>
                 </div>
             )}
-            {backer  && (
-                <div className="tasks__switch-box">
-                    <TasksData tasksType={selectedRole} />
+            {backer && (
+                <div className="tasks__switch-wrap" style={{height: totalHeight + "px"}}>
+                    <Tasks tasksType={selectedRole} totalHeight={totalHeight} setTotalHeight={setTotalHeight}/>
                 </div>
             )}
 
             {backer && (
-                <AuthBtn />
+                <AuthBtn/>
             )}
         </div>
     )

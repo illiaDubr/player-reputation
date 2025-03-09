@@ -2,7 +2,7 @@ import React from "react";
 import SearchLoader from "./SearchLoader.jsx";
 import SearchWarning from "./SearchWarning.jsx";
 import {observer} from "mobx-react-lite";
-import {Context} from "../../../../api/store/storeContext.js";
+import {Context} from "../../../../../api/store/storeContext.js";
 import ResultItemList from "./ResultItemList.jsx";
 
 

@@ -13,6 +13,7 @@ import HomeHeader from "../../components/HomePage/header/HomeHeader.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../components/HomePage/footer/Footer.jsx";
 import ContactForm from "../../components/HomePage/main/subscriptionSection/form/ContactForm.jsx";
+import Subscribe from "../../components/HomePage/main/subscriptionSection/subscription/Subscription.jsx";
 
 const HomePage = observer(() => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
@@ -56,12 +57,13 @@ const HomePage = observer(() => {
                         <h2>
                             Как мы работаем, условия
                         </h2>
+                        <Subscribe />
                     </div>
                     <ContactForm />
                 </section>
                 <Auth />
             </main>
-            <Footer />
+            <Footer selectedRole={selectedRole} />
         </>
     )
 })
