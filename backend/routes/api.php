@@ -22,6 +22,10 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обно
 Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
 Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
 
+// Обновление информации игрока
+Route::put('/players/{playerId}', [PlayerController::class, 'update']);
+// Обновление записи репутации (например, комментария) игрока
+Route::patch('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
 
 Route::post('/playerAdd', [\App\Http\Controllers\PlayerAddController::class, 'store']);
 
