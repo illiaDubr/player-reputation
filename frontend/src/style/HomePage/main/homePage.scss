@@ -2,6 +2,7 @@
 
 @use "../../helpers/mixin";
 @use "sass:math";
+@use "sass:list";
 
 // === / Include your styles here === //
 
@@ -73,6 +74,26 @@ body:has(.title__section) {
     flex-direction: column;
     gap: 120px;
     padding: 80px 45px 0px 45px;
+    position: relative;
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(150px);
+    }
+
+    &:before {
+      top: 20%;
+      left: -15%;
+    }
+
+    &:after {
+      top: 20%;
+      right: -15%;
+    }
 
     .info__wrap {
       width: 100%;
@@ -154,7 +175,76 @@ body:has(.title__section) {
       }
 
       .role__switch-box {
+        width: 100%;
 
+        .swiper {
+          width: 100%;
+        }
+
+        .role__card {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid transparent;
+          border-radius: 20px;
+          @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+          @include mixin.font-style(600, 32, 120, #FFFFFF);
+          position: relative;
+          overflow: hidden;
+
+          .role__card-title {
+            padding: 40px 40px 15px 40px;
+            position: relative;
+            z-index: 2;
+          }
+
+          figure {
+            display: flex;
+            flex-grow: 1;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin: 0px;
+            position: relative;
+            z-index: 2;
+
+            img {
+              width: 50%;
+              border-radius: 0px 0px 20px 0px;
+              object-fit: cover;
+            }
+          }
+
+          span {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            z-index: 1;
+            filter: blur(127px);
+          }
+        }
+
+        .role__card-backer {
+          &:nth-of-type(2) {
+            figure {
+              img {
+                width: 70%;
+              }
+            }
+          }
+        }
+      }
+
+      .role__switch-box--backer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        grid-gap: clamp(1rem, 3vw, 1rem);
+      }
+
+      .role__switch-box--player {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(475px, 1fr));
+        grid-gap: clamp(1rem, 3vw, 1rem);
       }
 
       .tasks__switch-wrap {
@@ -438,10 +528,26 @@ body:has(.title__section) {
 
 .backer {
   .role__section {
+    &:before {
+      background: #2750f2;
+    }
+
+    &:after {
+      background: #2750f2;
+    }
+
     .info__wrap {
       .tasks__title {
         .tasks__title-block {
           border: 1.50px solid #2750f2;
+        }
+      }
+
+      .role__switch-box {
+        .role__card {
+          span {
+            background: #2750f2;
+          }
         }
       }
     }
@@ -499,10 +605,26 @@ body:has(.title__section) {
 
 .player {
   .role__section {
+    &:before {
+      background: #9000ff;
+    }
+
+    &:after {
+      background: #9000ff;
+    }
+
     .info__wrap {
       .tasks__title {
         .tasks__title-block {
           border: 1.50px solid #be69ff;
+        }
+      }
+
+      .role__switch-box {
+        .role__card {
+          span {
+            background: #9000ff;
+          }
         }
       }
     }

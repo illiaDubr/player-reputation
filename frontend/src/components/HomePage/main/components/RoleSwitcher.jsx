@@ -1,6 +1,6 @@
 import React from "react";
 import {RoleContext} from "./RoleContext.jsx";
-import RoleData from "../roleSection/RoleData.jsx";
+import Role from "../roleSection/Role.jsx";
 import Tasks from "../roleSection/Tasks.jsx";
 import AuthBtn from "../auth/AuthBtn.jsx";
 
@@ -43,8 +43,9 @@ const RoleSwitcher = ({player, backer, children}) => {
             )}
 
             {player && (
-                <div className="role__switch-box">
-                    <RoleData roleType={selectedRole}/>
+                <div
+                    className={`role__switch-box ${selectedRole === "player" ? "role__switch-box--player" : "role__switch-box--backer"}`}>
+                    <Role roleType={selectedRole}/>
                 </div>
             )}
             {backer && (
