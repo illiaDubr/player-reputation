@@ -49,6 +49,46 @@
         display: flex;
         gap: 32px;
       }
+
+      .header__btn-burger {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #FFFFFF;
+
+        svg {
+          .burger-line {
+            transform-box: fill-box; // или border-box
+            transform-origin: center; // вращаем/скалируем относительно центра линии
+            stroke-dasharray: 24; // длина «штриха» (чуть больше длины линии)
+            stroke-dashoffset: 0; // изначально полностью видна
+            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+            stroke 0.7s ease,
+            stroke-width 0.7s ease,
+            stroke-dashoffset 0.7s ease;
+          }
+        }
+
+        &--open {
+          svg {
+            .burger-line--top {
+              // Сдвигаем вниз, поворачиваем на 45°, слегка искажаем по X/Y
+              transform: translateY(4px) rotate(45deg) scale(1.1, 0.9) skew(10deg, 5deg);
+              stroke: #cc0033;             // цвет становится ярко-красным
+              stroke-width: 3;            // линия чуть толще
+              stroke-dashoffset: 8;       // «укорачиваем» визуально
+            }
+
+            .burger-line--bottom {
+              // Сдвигаем вверх, поворачиваем на -45°, искажаем
+              transform: translateY(-4px) rotate(-45deg) scale(1.1, 0.9) skew(10deg, -5deg);
+              stroke: #cc0033;
+              stroke-width: 3;
+              stroke-dashoffset: 8;
+            }
+          }
+        }
+      }
     }
   }
 }
