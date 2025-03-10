@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormCorrect = ({user}) => {
+const UserEdit = ({user}) => {
     console.log(user);
 
     return (
@@ -10,4 +10,4 @@ const FormCorrect = ({user}) => {
     )
 }
 
-export default FormCorrect;
+export default UserEdit;
