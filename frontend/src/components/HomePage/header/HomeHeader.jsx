@@ -65,7 +65,7 @@ const HomeHeader = () => {
     }, []);
 
     return (
-        <header ref={headerRef} className="home__header">
+        <header ref={headerRef} className={`home__header ${isBtnOpen ? "home__header--open" : ""}`}>
             <nav className="home__nav-wrap" aria-label="Главная навигация">
                 <ul className="home__nav">
                     <li className="home__nav-item">
@@ -80,14 +80,13 @@ const HomeHeader = () => {
                     <Resize width={880} fallback={
                         <button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`}
                                 type="button" onClick={toggleBtn}>
-                            <span className="round"></span>
 
-                            <span className="bar-1"></span>
 
-                            <span className="bar-cross-1"></span>
-                            <span className="bar-cross-2"></span>
 
-                            <span className="bar-2"></span>
+                            <span className="line top-line"></span>
+                            <span className="line bottom-line"></span>
+
+
                         </button>
                     }>
                         <NavHeader/>
