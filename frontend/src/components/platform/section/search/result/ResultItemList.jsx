@@ -2,7 +2,7 @@ import React from "react";
 import IconSvg from "../../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
 import {Modal, useModal} from "../../../components/Modal.jsx";
-import FormCorrect from "./FormCorrect.jsx";
+import UserEdit from "./UserEdit.jsx";
 
 const backerTagConfig = {
     arbitrage: {text: "Арбитраж", color: "red"},
@@ -54,7 +54,7 @@ const ResultItemList = ({results = []}) => {
 
     const {closeAllModals, openModal} = useModal();
 
-    const openCorrectModal = () => {
+    const openCorrectModal = (user) => {
         setSelectedUser(user);
         openModal("correct");
     }
@@ -233,7 +233,7 @@ const ResultItemList = ({results = []}) => {
             })}
 
             <Modal modalName="correct" >
-                <FormCorrect user={selectedUser}/>
+                <UserEdit user={selectedUser}/>
             </Modal>
         </div>
     );
