@@ -1,6 +1,8 @@
 import React from "react";
 import IconSvg from "../../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
+import {Modal, useModal} from "../../../components/Modal.jsx";
+import FormCorrect from "./FormCorrect.jsx";
 
 const backerTagConfig = {
     arbitrage: {text: "Арбитраж", color: "red"},
@@ -48,6 +50,14 @@ const dynamicFields = [
 const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
+    const [selectedUser, setSelectedUser] = React.useState(null);
+
+    const {closeAllModals, openModal} = useModal();
+
+    const openCorrectModal = () => {
+        setSelectedUser(user);
+        openModal("correct");
+    }
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -168,6 +178,9 @@ const ResultItemList = ({results = []}) => {
                                     <br/>
                                     {date}
                                 </div>
+                                <button type="button" onClick={() => openCorrectModal(item)}>
+                                    коректировать
+                                </button>
                             </div>
 
                             <div className={`result__user-status result__user-status--${color}`}>
@@ -218,6 +231,10 @@ const ResultItemList = ({results = []}) => {
                     </div>
                 );
             })}
+
+            <Modal modalName="correct" >
+                <FormCorrect user={selectedUser}/>
+            </Modal>
         </div>
     );
 };

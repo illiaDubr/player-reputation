@@ -44,7 +44,7 @@ const Tasks = ({tasksType, totalHeight, setTotalHeight}) => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    start: "top top",
+                    start: "top-=200 top",
                     end: `+=${PIN_DURATION}`,
                     pin: true,
                     scrub: 1,
@@ -56,7 +56,7 @@ const Tasks = ({tasksType, totalHeight, setTotalHeight}) => {
                     opacity: 0,
                     y: 50,
                     duration: 0.5,
-                }, index * 2);
+                }, index * 1.5);
             });
         }, sectionRef);
 
