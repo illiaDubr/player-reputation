@@ -14,7 +14,7 @@ const UserEdit = ({user}) => {
         const payload = {
             comment,
             player_id: user.player_id,
-            reputation_records: user.reputation_records?.[0]?.id,
+            id: user.reputation_records?.[0]?.id,
         };
         console.log(payload);
         store.userEdit(payload);
