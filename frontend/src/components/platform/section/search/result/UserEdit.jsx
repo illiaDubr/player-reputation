@@ -7,13 +7,10 @@ const UserEdit = ({user}) => {
 
     return (
         <form method="PUT" className="">
-            {user.map(user => (
-                <div key={user.id}>
-                    <label>
-                        Комментарий
-                    </label>
-                    <textarea placeholder={user.comment}>
-                    </textarea>
+            {(user || []).map(u => (
+                <div key={u.id}>
+                    <label>Комментарий</label>
+                    <textarea placeholder={u.comment} />
                 </div>
             ))}
         </form>
