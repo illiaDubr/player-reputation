@@ -11,11 +11,8 @@ const UserEdit = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Создаём обновлённый объект пользователя
         const updatedUser = { ...user, comment };
-
         console.log(updatedUser);
-        // Вызываем метод userEdit из store
         store.userEdit(updatedUser);
     };
 
@@ -29,7 +26,7 @@ const UserEdit = ({user}) => {
                     {user.comment}
                 </textarea>
             </div>
-            <button type="button" className="modal__form-btn">
+            <button type="submit" className="modal__form-btn">
                 Изменить
             </button>
         </form>
