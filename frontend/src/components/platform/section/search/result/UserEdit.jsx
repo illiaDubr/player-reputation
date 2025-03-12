@@ -7,10 +7,12 @@ const UserEdit = ({user}) => {
     if (!user) return null;
 
     return (
-        <form method="PUT" className="">
-            <div key={user.id}>
-                <label>Комментарий</label>
-                <textarea placeholder={user.first_name} />
+        <form method="PUT" className="modal__body">
+            <div className="modal__input-box" key={user.id}>
+                <label className="label" htmlFor="comment">
+                    Комментарий
+                </label>
+                <textarea className="textarea" id="comment" placeholder={user.comment} />
             </div>
         </form>
     )

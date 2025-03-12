@@ -52,7 +52,7 @@ const ResultItemList = ({results = []}) => {
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
 
-    const {closeAllModals, openModal} = useModal();
+    const {openModal, closeAllModals} = useModal();
 
     const openCorrectModal = (user) => {
         setSelectedUser(user);
@@ -233,6 +233,12 @@ const ResultItemList = ({results = []}) => {
             })}
 
             <Modal modalName="correct" >
+                <div className="modal__title">
+                    Изменить комментарий
+                    <button className="modal__btn" type="button" onClick={closeAllModals}>
+                        <IconSvg width="36" height="36" id="close-menu"/>
+                    </button>
+                </div>
                 <UserEdit user={selectedUser}/>
             </Modal>
         </div>
