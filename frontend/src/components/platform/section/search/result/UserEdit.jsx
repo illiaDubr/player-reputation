@@ -10,7 +10,7 @@ const UserEdit = ({user}) => {
             {(user || []).map(u => (
                 <div key={u.id}>
                     <label>Комментарий</label>
-                    <textarea placeholder={u.comment} />
+                    <textarea placeholder={u.first_name} />
                 </div>
             ))}
         </form>
