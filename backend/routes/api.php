@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\JsonProcessingController;
 use App\Http\Controllers\PlayerAddController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\BackerAddController;
 
 //Route::get('/backers/approved/no', [BackerAddController::class, 'getUnapprovedBackers']);
