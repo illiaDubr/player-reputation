@@ -3,7 +3,7 @@ import {Context} from "../../../../../api/store/storeContext.js";
 
 const UserEdit = ({user}) => {
     console.log(user);
-    const store = React.useContext(Context);
+    const {store} = React.useContext(Context);
 
     const [comment, setComment] = React.useState(user?.comment || "");
 
