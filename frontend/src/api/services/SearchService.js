@@ -8,12 +8,12 @@ export default class SearchService {
         return $api.post('/api/search-players', formData);
     }
 
-    static async userEdit(user) {
+    static async userEdit(payload) {
         await getCsrfToken();
 
-        const playerId = user.player_id;
-        const repId = user.reputation_records?.[0]?.id;
+        const playerId = payload.player_id;
+        const repId = payload.id;
 
-        return $api.patch(`/api/players/${playerId}/reputation/${repId}`, user);
+        return $api.patch(`/api/players/${playerId}/reputation/${repId}`, payload);
     }
 }

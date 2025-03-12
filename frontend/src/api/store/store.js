@@ -108,10 +108,10 @@ export default class Store {
         }
     }
 
-    async userEdit(user) {
+    async userEdit(payload) {
         this.setLoading(true);
         try {
-            const response = await UserService.userEdit(user);
+            const response = await UserService.userEdit(payload);
         } catch (error) {
             console.log(error);
         } finally {
