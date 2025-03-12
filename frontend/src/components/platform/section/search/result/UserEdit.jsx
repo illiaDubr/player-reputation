@@ -11,7 +11,11 @@ const UserEdit = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const payload = { comment };
+        const payload = {
+            comment,
+            player_id: user.player_id,
+            reputation_records: user.reputation_records?.[0]?.id,
+        };
         console.log(payload);
         store.userEdit(payload);
     };
