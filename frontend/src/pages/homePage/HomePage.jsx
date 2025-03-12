@@ -48,9 +48,9 @@ const HomePage = observer(() => {
                     <RoleSwitcher player={true}>
                         <Switcher text={true}/>
                     </RoleSwitcher>
-                    <RoleSwitcher backer={true}>
+                    {/*<RoleSwitcher backer={true}>
                         <Switcher text={true}/>
-                    </RoleSwitcher>
+                    </RoleSwitcher>*/}
                 </section>
                 <section className="subscription__section" id="subscription_section">
                     <div className="subscription__content-wrap">

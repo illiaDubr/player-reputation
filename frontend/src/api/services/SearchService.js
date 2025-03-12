@@ -7,4 +7,10 @@ export default class SearchService {
 
         return $api.post('/api/search-players', formData);
     }
+
+    static async userEdit(user) {
+        await getCsrfToken();
+
+        return $api.put(`/api/players/${user.id}/reputation/`, user);
+    }
 }

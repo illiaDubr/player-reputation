@@ -4,6 +4,7 @@ import { API_URl } from "../http/index.js";
 import AuthService from "../services/AuthService.js";
 import SearchService from "../services/SearchService.js";
 import AddPlayerService from "../services/AddPlayerService.js";
+import UserService from "../services/SearchService.js";
 
 export default class Store {
     user = {};
@@ -102,6 +103,17 @@ export default class Store {
         } catch (error) {
             console.log(error);
             this.setResults([]);
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
+    async userEdit(user) {
+        this.setLoading(true);
+        try {
+            const response = await UserService.userEdit(user);
+        } catch (error) {
+            console.log(error);
         } finally {
             this.setLoading(false);
         }
