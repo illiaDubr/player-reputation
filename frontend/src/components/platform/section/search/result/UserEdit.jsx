@@ -11,9 +11,9 @@ const UserEdit = ({user}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedUser = { ...user, comment };
-        console.log(updatedUser);
-        store.userEdit(updatedUser);
+        const payload = { comment };
+        console.log(payload);
+        store.userEdit(payload);
     };
 
     return (
