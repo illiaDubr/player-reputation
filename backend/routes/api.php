@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\JsonProcessingController;
 use App\Http\Controllers\PlayerAddController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\BackerAddController;
 
 //Route::get('/backers/approved/no', [BackerAddController::class, 'getUnapprovedBackers']);
@@ -22,6 +23,10 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обно
 Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
 Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
 
+// Обновление информации игрока
+Route::put('/players/{playerId}', [PlayerController::class, 'update']);
+// Обновление записи репутации (например, комментария) игрока
+Route::patch('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
 
 Route::post('/playerAdd', [\App\Http\Controllers\PlayerAddController::class, 'store']);
 
