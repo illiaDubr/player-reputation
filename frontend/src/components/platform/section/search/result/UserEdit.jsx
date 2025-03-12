@@ -5,10 +5,6 @@ const UserEdit = ({user}) => {
     console.log(user);
     const store = React.useContext(Context);
 
-    React.useEffect(() => {
-        store.checkAuth();
-    })
-
     return (
         <form method="PUT" className="">
             {user.map(user => (
