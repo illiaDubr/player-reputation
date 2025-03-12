@@ -11,9 +11,9 @@ export default class SearchService {
     static async userEdit(user) {
         await getCsrfToken();
 
-
+        const playerId = user.player_id;
         const repId = user.reputation_records?.[0]?.id;
 
-        return $api.patch(`/api/players/${user.player_id}/reputation/${repId}`, user);
+        return $api.patch(`/api/players/${playerId}/reputation/${repId}`, user);
     }
 }
