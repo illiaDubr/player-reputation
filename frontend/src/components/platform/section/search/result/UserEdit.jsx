@@ -12,7 +12,7 @@ const UserEdit = ({user}) => {
                 <label className="label" htmlFor="comment">
                     Комментарий
                 </label>
-                <textarea id="comment" placeholder={user.comment} />
+                <textarea className="textarea" id="comment" placeholder={user.comment} />
             </div>
         </form>
     )
