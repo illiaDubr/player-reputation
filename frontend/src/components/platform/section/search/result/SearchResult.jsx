@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../../../../api/store/storeContext.js";
 import ResultItemList from "./ResultItemList.jsx";
 
-const SearchResult = observer(() => {
+const SearchResult = observer(({backer}) => {
     const {store} = React.useContext(Context);
     const {results, isLoading} = store;
 
@@ -27,7 +27,7 @@ const SearchResult = observer(() => {
         );
     } else {
         content = (
-            <ResultItemList results={results} />
+            <ResultItemList results={results} backer={backer}/>
         );
     }
 
