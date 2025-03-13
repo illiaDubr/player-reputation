@@ -507,6 +507,7 @@
               gap: 4px;
               border: 1px solid #2750f2;
               border-radius: 4px;
+              @include mixin.font-style(400, 14, 143, #FFFFFF);
             }
           }
         }
