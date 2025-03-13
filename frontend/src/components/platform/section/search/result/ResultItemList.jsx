@@ -4,6 +4,7 @@ import ResultItem from "./ResultItem.jsx";
 import {Modal, useModal} from "../../../components/Modal.jsx";
 import UserEdit from "./UserEdit.jsx";
 import Report from "./Report.jsx";
+import {Context} from "../../../../../api/store/storeContext.js";
 
 const backerTagConfig = {
     arbitrage: {text: "Арбитраж", color: "red"},
@@ -52,6 +53,13 @@ const ResultItemList = ({results = []}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
+    const {store} = React.useContext(Context);
+
+    React.useEffect(() => {
+        store.checkAuth().then(() => {
+            console.log("Данные пользователя:", store.user);
+        });
+    }, [store]);
 
     const {openModal, closeAllModals} = useModal();
 
