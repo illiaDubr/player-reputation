@@ -59,7 +59,7 @@ const ResultItemList = ({results = []}) => {
         store.checkAuth().then(() => {
             console.log("Данные пользователя:", store.user);
         });
-    }, [store]);
+    }, []);
 
     const {openModal, closeAllModals} = useModal();
 
