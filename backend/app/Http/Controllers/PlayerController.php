@@ -48,7 +48,7 @@ class PlayerController extends Controller
     {
         // Валидация полей для обновления записи репутации.
         $validated = $request->validate([
-            'player_id'      => 'sometimes|required|integer',
+            'player_id'      => 'sometimes|required|string',
             'backer_id'      => 'sometimes|required|integer',
             'old_player_id'  => 'sometimes|nullable|integer',
             'old_backer_id'  => 'sometimes|nullable|integer',
