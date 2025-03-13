@@ -178,9 +178,6 @@ const ResultItemList = ({results = []}) => {
                                     <br/>
                                     {date}
                                 </div>
-                                <button type="button" onClick={() => openCorrectModal(item)}>
-                                    коректировать
-                                </button>
                             </div>
 
                             <div className={`result__user-status result__user-status--${color}`}>
@@ -226,6 +223,15 @@ const ResultItemList = ({results = []}) => {
                                         )}
                                     </div>
                                 </div>
+                            </div>
+
+                            <div className="result__edit-wrap">
+                                <button className="result__edit" type="button">
+                                    <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки
+                                </button>
+                                <button className="result__edit" type="button" onClick={() => openCorrectModal(item)}>
+                                   <IconSvg width={16} height={16} id="pen"/>
+                                </button>
                             </div>
                         </div>
                     </div>

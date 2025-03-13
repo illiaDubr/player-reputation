@@ -443,6 +443,7 @@
             flex-direction: column;
             gap: 6px;
             flex-grow: 1;
+            padding: 0px 0px 20px 0px;
 
             .result__text {
               display: flex;
@@ -488,6 +489,25 @@
               .react-tooltip {
                 display: none !important;
               }
+            }
+          }
+
+          .result__edit-wrap {
+            display: flex;
+            gap: 8px;
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+
+            .result__edit {
+              height: 28px;
+              padding: 0px 10px;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              border: 1px solid #2750f2;
+              border-radius: 4px;
+              @include mixin.font-style(400, 14, 143, #FFFFFF);
             }
           }
         }
