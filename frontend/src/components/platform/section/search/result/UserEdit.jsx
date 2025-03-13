@@ -15,8 +15,8 @@ const UserEdit = ({user}) => {
             comment,
             player_id: user.player_id,
             id: user.reputation_records?.[0]?.id,
-            damage: "50",
-            makeUp: "20",
+            damage: 50,
+            makeUp: 20,
         };
         console.log(payload);
         store.userEdit(payload);

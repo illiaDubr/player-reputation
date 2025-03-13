@@ -48,7 +48,7 @@ const dynamicFields = [
     {key: "nickiPoker", label: "nickiPoker:"},
 ];
 
-const ResultItemList = ({results = []}) => {
+const ResultItemList = ({results = [], backer}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -226,7 +226,7 @@ const ResultItemList = ({results = []}) => {
                             </div>
 
                             <div className="result__edit-wrap">
-                                <Report />
+                                <Report backer={backer} />
                                 <button className="result__edit" type="button" onClick={() => openCorrectModal(item)}>
                                    <IconSvg width={16} height={16} id="pen"/>
                                 </button>
