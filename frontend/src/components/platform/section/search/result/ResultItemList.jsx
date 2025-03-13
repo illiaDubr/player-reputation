@@ -3,6 +3,7 @@ import IconSvg from "../../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
 import {Modal, useModal} from "../../../components/Modal.jsx";
 import UserEdit from "./UserEdit.jsx";
+import Report from "./Report.jsx";
 
 const backerTagConfig = {
     arbitrage: {text: "Арбитраж", color: "red"},
@@ -226,9 +227,7 @@ const ResultItemList = ({results = []}) => {
                             </div>
 
                             <div className="result__edit-wrap">
-                                <button className="result__edit" type="button">
-                                    <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки
-                                </button>
+                                <Report user={selectedUser}/>
                                 <button className="result__edit" type="button" onClick={() => openCorrectModal(item)}>
                                    <IconSvg width={16} height={16} id="pen"/>
                                 </button>
