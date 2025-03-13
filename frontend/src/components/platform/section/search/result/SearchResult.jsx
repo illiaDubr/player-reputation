@@ -5,10 +5,15 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../../../../api/store/storeContext.js";
 import ResultItemList from "./ResultItemList.jsx";
 
-
 const SearchResult = observer(() => {
     const {store} = React.useContext(Context);
     const {results, isLoading} = store;
+
+    React.useEffect(() => {
+        store.checkAuth().then(() => {
+            console.log("Данные пользователя:", store.user);
+        });
+    }, [store]);
 
     let content;
 
