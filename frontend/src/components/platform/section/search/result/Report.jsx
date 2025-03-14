@@ -3,7 +3,7 @@ import IconSvg from "../../../components/IconSvg.jsx";
 
 const Report = ({backer, user}) => {
 
-
+    console.log(user.player_id);
 
     const handleSubmit = (e) => {
         e.preventDefault();
