@@ -2,20 +2,33 @@ import React from "react";
 import {Context} from "../../../../../api/store/storeContext.js";
 
 const UserEdit = ({user}) => {
-    console.log(user);
     const {store} = React.useContext(Context);
-
-    const [comment, setComment] = React.useState(user?.comment || "");
+    const [formData, setFormData] = React.useState({
+        comment: user?.comment || "",
+        damage: user?.damage || "",
+    });
 
     if (!user) return null;
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const finalComment = formData.comment.trim() ? formData.comment : user.comment;
+        const finalDamage = formData.damage.trim() ? formData.damage : user.damage;
+
         const payload = {
-            comment,
+            comment: finalComment,
+            damage: finalDamage,
             player_id: user.player_id,
             id: user.reputation_records?.[0]?.id,
-            damage: 50,
             makeUp: 20,
         };
         console.log(payload);
@@ -24,12 +37,17 @@ const UserEdit = ({user}) => {
 
     return (
         <form method="PATCH" className="modal__body" onSubmit={handleSubmit}>
-            <div className="modal__input-box" key={user.id}>
+            <div className="modal__input-box">
+                <label htmlFor="damage" className="label">
+                    Сумма ущерба
+                </label>
+                <input id="damage" className="input" placeholder={user.damage} value={formData.damage} onChange={handleChange}/>
+            </div>
+            <div className="modal__input-box">
                 <label className="label" htmlFor="comment">
                     Комментарий
                 </label>
-                <textarea className="textarea" id="comment" value={comment} onChange={(e) => setComment(e.target.value)}>
-                    {user.comment}
+                <textarea className="textarea" id="comment" value={formData.comment} onChange={handleChange} placeholder={user.comment}>
                 </textarea>
             </div>
             <button type="submit" className="modal__form-btn">
