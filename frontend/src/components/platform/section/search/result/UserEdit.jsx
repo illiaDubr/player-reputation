@@ -11,7 +11,7 @@ const UserEdit = ({user}) => {
     if (!user) return null;
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value,
@@ -29,7 +29,7 @@ const UserEdit = ({user}) => {
             damage: finalDamage,
             player_id: user.player_id,
             id: user.reputation_records?.[0]?.id,
-            makeUp: 20,
+            makeUp: 0,
         };
         console.log(payload);
         store.userEdit(payload);
@@ -41,13 +41,15 @@ const UserEdit = ({user}) => {
                 <label htmlFor="damage" className="label">
                     Сумма ущерба
                 </label>
-                <input id="damage" className="input" placeholder={user.damage} value={formData.damage} onChange={handleChange}/>
+                <input id="damage" name="damage" className="input" placeholder={user.damage} value={formData.damage}
+                       onChange={handleChange}/>
             </div>
             <div className="modal__input-box">
                 <label className="label" htmlFor="comment">
                     Комментарий
                 </label>
-                <textarea className="textarea" id="comment" value={formData.comment} onChange={handleChange} placeholder={user.comment}>
+                <textarea name="comment" className="textarea" id="comment" value={formData.comment}
+                          onChange={handleChange} placeholder={user.comment}>
                 </textarea>
             </div>
             <button type="submit" className="modal__form-btn">
