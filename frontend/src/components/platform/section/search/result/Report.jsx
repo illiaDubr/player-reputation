@@ -3,11 +3,19 @@ import IconSvg from "../../../components/IconSvg.jsx";
 
 const Report = ({backer}) => {
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const report = {
+            id: backer.id,
+        }
+    }
 
     return (
-        <button className="result__edit" type="button">
-            <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки {backer.id}
-        </button>
+        <form method="POST" onSubmit={handleSubmit}>
+            <button className="result__edit" type="submit">
+                <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки {backer.id}
+            </button>
+        </form>
     )
 }
 
