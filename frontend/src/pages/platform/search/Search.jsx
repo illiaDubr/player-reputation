@@ -11,7 +11,7 @@ function Search() {
 
     React.useEffect(() => {
         store.checkAuth().then(() => {
-            console.log("Данные пользователя:", store.user);
+            console.log("Данные пользователя:", store.user.id);
         });
     }, [store]);
 
@@ -24,7 +24,7 @@ function Search() {
             </Helmet>
             <Main secClassName="search__wrap" secID="search">
                 <SearchForm/>
-                <SearchResult backer={store.user}/>
+                <SearchResult backer={store.user.id}/>
             </Main>
         </>
     );
