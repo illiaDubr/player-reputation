@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import IconSvg from "../../components/IconSvg.jsx";
 import {HOMEPAGE_ROUTE} from "../../../../utils/const.js";
+import LogoutBtn from "../../components/LogoutBtn.jsx";
 
 const Navigation = ({onButtonClick}) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -17,8 +18,11 @@ const Navigation = ({onButtonClick}) => {
                 <ul className="navigation__list">
                     <li className="navigation__list-item">
                         <Link to={HOMEPAGE_ROUTE}>
-                            <IconSvg width={70} height={44} id={'logo'}/>
+                            <IconSvg width={70} height={44} id="logo"/>
                         </Link>
+                    </li>
+                    <li className="navigation__list-item">
+                        <LogoutBtn />
                     </li>
                 </ul>
             </nav>

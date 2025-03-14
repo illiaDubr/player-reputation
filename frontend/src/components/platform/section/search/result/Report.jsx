@@ -9,11 +9,13 @@ const Report = ({backer, user}) => {
         e.preventDefault();
         const report = {
             id: backer.id,
+            player_id: user.player_id,
         }
+        console.log(report);
     }
 
     return (
-        <form method="POST" >
+        <form method="POST" onSubmit={handleSubmit}>
             <button className="result__edit" type="submit">
                 <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки {backer.id}
             </button>
