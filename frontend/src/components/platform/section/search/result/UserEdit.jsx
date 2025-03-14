@@ -1,5 +1,6 @@
 import React from "react";
 import {Context} from "../../../../../api/store/storeContext.js";
+import {useModal} from "../../../components/Modal.jsx";
 
 const UserEdit = ({user}) => {
     const {store} = React.useContext(Context);
@@ -7,6 +8,7 @@ const UserEdit = ({user}) => {
         comment: user?.comment || "",
         damage: user?.damage || "",
     });
+    const {closeAllModals} = useModal();
 
     if (!user) return null;
 
@@ -33,6 +35,7 @@ const UserEdit = ({user}) => {
         };
         console.log(payload);
         store.userEdit(payload);
+        closeAllModals();
     };
 
     return (

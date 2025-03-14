@@ -226,7 +226,7 @@ const ResultItemList = ({results = [], backer}) => {
                             </div>
 
                             <div className="result__edit-wrap">
-                                <Report backer={backer} />
+                                <Report backer={backer} user={selectedUser} />
                                 <button className="result__edit" type="button" onClick={() => openCorrectModal(item)}>
                                    <IconSvg width={16} height={16} id="pen"/>
                                 </button>
