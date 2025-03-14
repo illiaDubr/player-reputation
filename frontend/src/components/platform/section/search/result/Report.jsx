@@ -15,7 +15,7 @@ const Report = ({backer, user}) => {
     }
 
     return (
-        <form method="POST" onSubmit={handleSubmit}>
+        <form method="POST" >
             <button className="result__edit" type="submit">
                 <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки {backer.id}
             </button>
