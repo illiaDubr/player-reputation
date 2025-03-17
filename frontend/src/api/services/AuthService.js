@@ -20,9 +20,7 @@ export default class AuthService {
             const response = await $api.post('/api/register', authorizationData);
             return response.data;
         } catch (error) {
-            if (error.response && error.response.status === 422) {
-                throw new Error("Такой email уже существует");
-            }
+            console.error('Ошибка регистрации - service:', error.response?.data || error.message);
             throw error;
         }
     }

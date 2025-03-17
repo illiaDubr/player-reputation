@@ -75,7 +75,7 @@ function Auth() {
             await store.registration(authorizationData);
             navigate(ACCOUNT_ROUTE);
         } catch (error) {
-            console.error("Ошибка регистрации:", error);
+            console.error("Ошибка регистрации - auth:", error);
             resetStep2();
             openModal("Auth");
         }
