@@ -62,22 +62,17 @@ function Auth() {
     };
 
     const onSubmitStep2 = async (data) => {
-        const requestData = {
+        const authorizationData = {
             email: userData.email,
             password: userData.password,
             confirmPassword: userData.confirmPassword,
             role: userData.role || data.role,
         };
 
-        console.log("Данные, отправляемые на сервер:", requestData);
+        console.log("Данные, отправляемые на сервер:", authorizationData);
 
         try {
-            await store.registration(
-                requestData.email,
-                requestData.password,
-                requestData.confirmPassword,
-                requestData.role
-            );
+            await store.registration(authorizationData);
             navigate(ACCOUNT_ROUTE);
         } catch (error) {
             console.error("Ошибка регистрации:", error);

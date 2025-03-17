@@ -14,13 +14,15 @@ export default class AuthService {
         }
     }
 
-    static async registration(email, password, password_confirmation, role) {
+    static async registration(authorizationData) {
         await getCsrfToken();
         try {
-            const response = await $api.post('/api/register', { email, password, password_confirmation, role });
+            const response = await $api.post('/api/register', authorizationData);
             return response.data;
         } catch (error) {
-            console.error('Ошибка регистрации:', error.response?.data || error.message);
+            if (error.response && error.response.status === 422) {
+                throw new Error("Такой email уже существует");
+            }
             throw error;
         }
     }
