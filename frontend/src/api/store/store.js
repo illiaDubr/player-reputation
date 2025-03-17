@@ -76,9 +76,9 @@ export default class Store {
 
     // --- Методы авторизации / регистрации ---
 
-    async login(email, password) {
+    async login(loginData) {
         await this.request(
-            () => AuthService.login(email, password),
+            () => AuthService.login(loginData),
             "Ошибка авторизации",
             () => this.checkAuth()
         )

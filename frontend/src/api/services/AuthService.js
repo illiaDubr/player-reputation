@@ -2,10 +2,10 @@ import $api from "../http/index.js";
 import {getCsrfToken} from "./csrf.js";
 
 export default class AuthService {
-    static async login(email, password) {
+    static async login(loginData) {
         await getCsrfToken();
         try {
-            const response = await $api.post('/api/login', { email, password }, {withCredentials: true});
+            const response = await $api.post('/api/login', loginData, {withCredentials: true});
             console.log('Server response login:', response.data);
             return response.data;
         } catch (error) {
