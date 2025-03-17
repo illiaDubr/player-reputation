@@ -18,6 +18,8 @@ export default class Store {
         this.checkAuth();
     }
 
+    // --- Setters / State management ---
+
     setError(message) {
         this.error = message;
     }
@@ -42,30 +44,66 @@ export default class Store {
         this.results = results;
     }
 
+    // --- Обработка ошибок ---
     handleError(error, defaultMessage) {
         const message = error.response?.data?.message || defaultMessage;
         console.error(message);
         this.setError(message);
     }
 
-    async login(email, password) {
+    /**
+     * Универсальный метод для асинхронных операций
+     * @param {Function} asyncFn - функция, возвращающая промис (запрос к API)
+     * @param {String} defaultMessage - сообщение об ошибке по умолчанию
+     * @param {Function} [onSuccess] - колбэк, вызываемый при успешном ответе
+     */
+
+    async request(asyncFn, defaultMessage, onSuccess) {
+        this.setLoading(true);
         try {
-            await AuthService.login(email, password);
-            await this.checkAuth();
+            const response = await asyncFn();
+            if (typeof onSuccess === "function") {
+                onSuccess(response);
+            }
+            return response;
         } catch (error) {
-            this.handleError(error, "Ошибка авторизации");
+            this.handleError(error, defaultMessage);
+            throw error;
+        } finally {
+            this.setLoading(false);
         }
     }
 
+    // --- Методы авторизации / регистрации ---
+
+    async login(email, password) {
+        await this.request(
+            () => AuthService.login(email, password),
+            "Ошибка авторизации",
+            () => this.checkAuth()
+        )
+    }
+
     async registration(authorizationData) {
-        try {
-            await AuthService.registration(authorizationData);
-            this.resetError();
-            await this.checkAuth();
-        } catch (error) {
-            this.handleError(error, "Ошибка регистрации - store");
-            throw error;
-        }
+        await this.request(
+            () => AuthService.registration(authorizationData),
+            "Ошибка регистрации - store",
+            () => {
+                this.resetError();
+                this.checkAuth();
+            }
+        );
+    }
+
+    async logout() {
+        await this.request(
+            () => AuthService.logout(),
+            "Ошибка выхода",
+            () => {
+                this.setAuth(false);
+                this.setUser({});
+            }
+        );
     }
 
     async checkAuth() {
@@ -83,65 +121,39 @@ export default class Store {
         }
     }
 
-    async logout() {
-        this.setLoading(true);
-        try {
-            await AuthService.logout();
-            this.setAuth(false);
-            this.setUser({});
-        } catch (error) {
-            console.error("Ошибка выхода:", error);
-        } finally {
-            this.setLoading(false);
-        }
-    }
-
-    async verification(email) {
-        try {
-            const response = await AuthService.verification(email);
-            console.log(response);
-        } catch (error) {
-            console.log(error.response?.data?.message || error.message);
-        }
-    }
+    // --- Методы поиска / редактирования ---
 
     async search(formData) {
-        this.setLoading(true);
-        try {
-            const response = await SearchService.search(formData);
-            this.setResults(response.data);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
-            this.setResults([]);
-        } finally {
-            this.setLoading(false);
-        }
+        // Пример через универсальный request
+        await this.request(
+            () => SearchService.search(formData),
+            "Ошибка поиска",
+            (response) => {
+                this.setResults(response.data);
+                console.log(response.data);
+            }
+        );
     }
 
     async userEdit(payload) {
-        this.setLoading(true);
-        try {
-            const response = await UserService.userEdit(payload);
-        } catch (error) {
-            console.log(error);
-            this.handleError(error);
-        } finally {
-            this.setLoading(false);
-        }
+        // Аналогично
+        await this.request(
+            () => SearchService.userEdit(payload),
+            "Ошибка редактирования",
+            (response) => {
+                console.log("userEdit success:", response?.data);
+            }
+        );
     }
 
     async addPlayer(formData) {
-        this.setLoading(true);
-        try {
-            const response = await AddPlayerService.addPlayer(formData);
-            this.setResults(response.data);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
-            this.handleError(error);
-        } finally {
-            this.setLoading(false);
-        }
+        await this.request(
+            () => AddPlayerService.addPlayer(formData),
+            "Ошибка добавления игрока",
+            (response) => {
+                this.setResults(response.data);
+                console.log(response.data);
+            }
+        );
     }
 }
