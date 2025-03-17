@@ -54,6 +54,7 @@ export default class Store {
             await this.checkAuth();
         } catch (error) {
             this.handleError(error, "Ошибка регистрации");
+            throw error;
         }
     }
 

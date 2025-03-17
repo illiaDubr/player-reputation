@@ -6,6 +6,9 @@ export const API_URl = 'http://203.0.113.10';
 const $api = axios.create({
     withCredentials: true,
     baseURL: API_URl,
+    validateStatus: function (status) {
+        return status >= 200 && status < 300;
+    },
 })
 
 $api.interceptors.response.use(
