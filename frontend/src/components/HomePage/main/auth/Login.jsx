@@ -1,13 +1,18 @@
 import React, {useContext, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {schemaLogin} from "./schema.js";
+import {useNavigate} from "react-router-dom";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Context} from "../../../../api/store/storeContext.js";
+import {useModal} from "../../../platform/components/Modal.jsx";
+import {ACCOUNT_ROUTE} from "../../../../utils/const.js";
 
 function Login() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = useState('');
     const {store} = useContext(Context);
+    const {openModal} = useModal();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -21,10 +26,17 @@ function Login() {
     });
 
     const submitForm = async (data) => {
+        const loginData = {
+            email: data.email,
+            password: data.password,
+        }
+
         try {
-            await store.login(data.email, data.password);
+            await store.login(loginData);
+            navigate(ACCOUNT_ROUTE);
         } catch (error) {
             reset();
+            openModal("Auth");
         }
     };
 
