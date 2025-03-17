@@ -78,11 +78,11 @@ function Auth() {
                 requestData.confirmPassword,
                 requestData.role
             );
+            navigate(ACCOUNT_ROUTE);
         } catch (error) {
             console.error("Ошибка регистрации:", error);
             resetStep2();
-        } finally {
-            navigate(ACCOUNT_ROUTE);
+            openModal("Auth");
         }
     };
 
