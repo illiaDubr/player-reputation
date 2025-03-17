@@ -20,7 +20,7 @@ export const schemaAuth = yup.object().shape({
         //.matches(regExpPassword, 'Пароль должен содержать минимум одну заглавную букву, одну строчную, одну цифру и один специальный символ')
         .notOneOf(commonPasswords, 'Этот пароль слишком простой. Пожалуйста, выберите другой пароль'),
 
-    confirmPassword: yup
+    password_confirmation: yup
         .string()
         .oneOf([yup.ref('password'), null], 'Пароли должны совпадать')
         .required('Обязательное поле'),
