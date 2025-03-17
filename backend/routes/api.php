@@ -13,36 +13,65 @@ use App\Http\Controllers\JsonProcessingController;
 use App\Http\Controllers\PlayerAddController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\BackerAddController;
-
-//Route::get('/backers/approved/no', [BackerAddController::class, 'getUnapprovedBackers']);
-//
-//Route::post('/backerAdd', [\App\Http\Controllers\BackerAddController::class, 'store']);
-//
-//Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']);
-Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обновление существующего Backer
-Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
-Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
-
-// Обновление информации игрока
-Route::put('/players/{playerId}', [PlayerController::class, 'update']);
-// Обновление записи репутации (например, комментария) игрока
-Route::patch('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
-
-Route::post('/playerAdd', [\App\Http\Controllers\PlayerAddController::class, 'store']);
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AdminController;
 
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+//Роуты для игроков
+
+
+
+
+
+
+//Роуты для бекеров
+
+Route::middleware(['auth', 'check.role:backer'])
+    ->group(function () {
+        Route::post('/reports', [ReportController::class, 'store']);
+    });
+Route::prefix('search-players')->group(function () {
+    Route::post('/', [PlayerController::class, 'search']);
+});
+
+Route::prefix('players')->group(function () {
+    Route::put('/{playerId}', [PlayerController::class, 'update']);
+    Route::patch('/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
+    Route::post('/add', [PlayerAddController::class, 'store']);
 });
 
 
+//роуты для админов и суперадминов
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+    // Просмотреть список уведомлений
+    Route::get('/admin/notifications', [AdminController::class, 'notifications']);
+
+    // Посмотреть конкретное уведомление и информацию о репорте
+    Route::get('/admin/notifications/{id}', [AdminController::class, 'showNotification']);
+
+    // Пометить все как прочитанные
+    Route::patch('/admin/notifications/markAllAsRead', [AdminController::class, 'markAllAsRead']);
+
+    Route::get('/reports/{report}', [ReportController::class, 'show']);
+});
+Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
+Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
+Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обновление существующего Backer
+Route::middleware(['auth', 'check.role:admin,superadmin'])
+    ->group(function () {
+        Route::get('/reports', [ReportController::class, 'index']);
+        Route::patch('/reports/{report}', [ReportController::class, 'update']);
+        // Можно добавить delete, show и т. д. при необходимости.
+    });
+
+//роуты для суперадминов
+
+
+//произвольные роуты
 Route::post('/process-json', [JsonProcessingController::class, 'processJson']);
 
-
-Route::controller(\App\Http\Controllers\PlayerController::class)
-    ->prefix('search-players')
-    ->group(function (){
-        Route::post('', [\App\Http\Controllers\PlayerController::class, 'search']);
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
