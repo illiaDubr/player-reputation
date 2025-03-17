@@ -2,7 +2,7 @@ import React from "react";
 import {Context} from "../../../../../api/store/storeContext.js";
 import {useModal} from "../../../components/Modal.jsx";
 
-const UserEdit = ({user}) => {
+const  UserEdit = ({user}) => {
     const {store} = React.useContext(Context);
     const [formData, setFormData] = React.useState({
         comment: user?.comment || "",
