@@ -36,7 +36,7 @@ export default class Store {
     handleError(error, defaultMessage) {
         const message = error.response?.data?.message || defaultMessage;
         console.error(message);
-        alert(message);
+        //alert(message);
     }
 
     async login(email, password) {
@@ -48,9 +48,9 @@ export default class Store {
         }
     }
 
-    async registration(email, password, password_confirmation, role) {
+    async registration(authorizationData) {
         try {
-            await AuthService.registration(email, password, password_confirmation, role);
+            await AuthService.registration(authorizationData);
             await this.checkAuth();
         } catch (error) {
             this.handleError(error, "Ошибка регистрации");
@@ -114,6 +114,7 @@ export default class Store {
             const response = await UserService.userEdit(payload);
         } catch (error) {
             console.log(error);
+            this.handleError(error);
         } finally {
             this.setLoading(false);
         }
@@ -127,6 +128,7 @@ export default class Store {
             console.log(response.data);
         } catch (error) {
             console.log(error);
+            this.handleError(error);
         } finally {
             this.setLoading(false);
         }
