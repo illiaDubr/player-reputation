@@ -11,10 +11,19 @@ export default class Store {
     isAuth = false;
     isLoading = false;
     results = [];
+    error = "";
 
     constructor() {
         makeAutoObservable(this);
         this.checkAuth();
+    }
+
+    setError(message) {
+        this.error = message;
+    }
+
+    resetError() {
+        this.error = "";
     }
 
     setAuth(bool) {
@@ -36,7 +45,7 @@ export default class Store {
     handleError(error, defaultMessage) {
         const message = error.response?.data?.message || defaultMessage;
         console.error(message);
-        //alert(message);
+        this.setError(message);
     }
 
     async login(email, password) {
@@ -51,9 +60,10 @@ export default class Store {
     async registration(authorizationData) {
         try {
             await AuthService.registration(authorizationData);
+            this.resetError();
             await this.checkAuth();
         } catch (error) {
-            this.handleError(error, "Ошибка регистрации");
+            this.handleError(error, "Ошибка регистрации - store");
             throw error;
         }
     }
