@@ -20,7 +20,7 @@ function Auth() {
     const [userData, setUserData] = React.useState({
         email: '',
         password: '',
-        confirmPassword: '',
+        password_confirmation: '',
         role: '',
     });
 
@@ -55,7 +55,7 @@ function Auth() {
             ...prev,
             email: data.email,
             password: data.password,
-            confirmPassword: data.confirmPassword,
+            password_confirmation: data.password_confirmation,
         }));
         openRoleModal();
         resetStep1();
@@ -65,7 +65,7 @@ function Auth() {
         const authorizationData = {
             email: userData.email,
             password: userData.password,
-            confirmPassword: userData.confirmPassword,
+            password_confirmation: userData.password_confirmation,
             role: userData.role || data.role,
         };
 
@@ -127,18 +127,18 @@ function Auth() {
                                 </p>
                             </div>
                             <div className="auth__input-box">
-                                <label htmlFor="confirmPassword" className="label">
+                                <label htmlFor="password_confirmation" className="label">
                                     Повторите пароль
                                 </label>
                                 <input
-                                    id="confirmPassword"
+                                    id="password_confirmation"
                                     type="password"
                                     placeholder="Пароль"
-                                    className={`input ${errorsStep1.confirmPassword ? 'input__error' : ''}`}
-                                    {...registerStep1('confirmPassword')}
+                                    className={`input ${errorsStep1.password_confirmation ? 'input__error' : ''}`}
+                                    {...registerStep1('password_confirmation')}
                                 />
-                                <p className={`auth__input-error ${errorsStep1.confirmPassword ? "active" : ""}`}>
-                                    {errorsStep1.confirmPassword?.message}
+                                <p className={`auth__input-error ${errorsStep1.password_confirmation ? "active" : ""}`}>
+                                    {errorsStep1.password_confirmation?.message}
                                 </p>
                             </div>
                             <button className="auth__form-btn" type="submit">
