@@ -3,15 +3,17 @@ import {editData} from "../../../../../utils/EditData.js";
 import IconSvg from "../../../components/IconSvg.jsx";
 import {useModal} from "../../../components/Modal.jsx";
 
-const PlayerManagement = ({user}) => {
+const PlayerManagement = ({user, setSelectedUser}) => {
     const {openModal} = useModal();
     //const [selectedUser, setSelectedUser] = React.useState(null);
 
     const openEditModal = (user) => {
+        setSelectedUser(user);
         openModal("edit");
     }
 
     const openReportModal = (user) => {
+        setSelectedUser(user);
         openModal("report");
     }
 

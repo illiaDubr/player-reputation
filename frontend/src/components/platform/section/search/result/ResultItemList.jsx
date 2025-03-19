@@ -2,8 +2,6 @@ import React from "react";
 import IconSvg from "../../../components/IconSvg.jsx";
 import ResultItem from "./ResultItem.jsx";
 import {Modal, useModal} from "../../../components/Modal.jsx";
-import UserEdit from "./UserEdit.jsx";
-import Report from "./Report.jsx";
 import PlayerManagement from "./PlayerManagement.jsx";
 import {editModalData} from "../../../../../utils/EditData.js";
 import PlayerManagementForm from "./PlayerManagementForm.jsx";
@@ -55,12 +53,7 @@ const ResultItemList = ({results = [], backer}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
-    const {openModal, closeAllModals} = useModal();
-
-    const openCorrectModal = (user) => {
-        setSelectedUser(user);
-        openModal("correct");
-    }
+    const {closeAllModals} = useModal();
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -229,21 +222,21 @@ const ResultItemList = ({results = [], backer}) => {
                                 </div>
                             </div>
 
-                            <PlayerManagement user={item}/>
+                            <PlayerManagement user={item} setSelectedUser={setSelectedUser}/>
                         </div>
                     </div>
                 );
             })}
 
-            {editModalData.map((item, index) => (
-                <Modal modalName={item.name} key={index}>
+            {editModalData.map((modalItem, index) => (
+                <Modal modalName={modalItem.name} key={index}>
                     <div className="modal__title">
-                        {item.title}
+                        {modalItem.title}
                         <button className="modal__btn" type="button" onClick={closeAllModals}>
                             <IconSvg width="36" height="36" id="close-menu"/>
                         </button>
                     </div>
-                    <PlayerManagementForm currentModal={item.name} backer={backer} user={item}/>
+                    <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser}/>
                 </Modal>
             ))}
 
