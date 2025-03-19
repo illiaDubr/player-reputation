@@ -240,7 +240,7 @@ const ResultItemList = ({results = [], backer}) => {
                                 </button>
                             </div>
                             */}
-                            <PlayerManagement/>
+                            <PlayerManagement user={item}/>
                         </div>
                     </div>
                 );
