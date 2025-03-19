@@ -4,12 +4,11 @@ import {authRoutes, publicRoutes} from "../routes.js";
 import NotFoundPage from "../pages/platform/404/NotFoundPage.jsx";
 import {Context} from "../api/store/storeContext.js";
 import {observer} from "mobx-react-lite";
-import {ADMIN_ROUTE} from "../utils/const.js";
 import Admin from "../pages/admin/admin.jsx";
 
 function CatchAll() {
     const location = useLocation();
-    if (location.pathname.endsWith(ADMIN_ROUTE)) {
+    if (location.pathname.endsWith("/admin")) {
         return <Admin />;
     }
 
