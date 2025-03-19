@@ -255,6 +255,8 @@ body {
           field-sizing: content;
           resize: none;
           min-height: 6lh;
+          width: 820px;
+          max-width: 100%;
           @include mixin.font-style(500, 16, 130, #FFFFFF);
 
           &:focus {
