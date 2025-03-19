@@ -229,17 +229,6 @@ const ResultItemList = ({results = [], backer}) => {
                                 </div>
                             </div>
 
-                            {/*
-                            <div className="result__edit-wrap">
-                                <Report backer={backer} user={item}/>
-                                <button className="result__edit" type="submit">
-                                    <IconSvg width={16} height={16} id="danger_triangle"/> Репорт метки
-                                </button>
-                                <button className="result__edit" type="button" onClick={() => openCorrectModal(item)}>
-                                   <IconSvg width={16} height={16} id="pen"/>
-                                </button>
-                            </div>
-                            */}
                             <PlayerManagement user={item}/>
                         </div>
                     </div>
@@ -254,7 +243,7 @@ const ResultItemList = ({results = [], backer}) => {
                             <IconSvg width="36" height="36" id="close-menu"/>
                         </button>
                     </div>
-                    <PlayerManagementForm currentModal={item.name}/>
+                    <PlayerManagementForm currentModal={item.name} backer={backer} user={item}/>
                 </Modal>
             ))}
 

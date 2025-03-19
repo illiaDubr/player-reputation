@@ -5,6 +5,7 @@ import {useModal} from "../../../components/Modal.jsx";
 
 const PlayerManagement = ({user}) => {
     const {openModal} = useModal();
+    //const [selectedUser, setSelectedUser] = React.useState(null);
 
     const openEditModal = (user) => {
         openModal("edit");
