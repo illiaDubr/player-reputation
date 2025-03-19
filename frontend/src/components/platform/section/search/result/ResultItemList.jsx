@@ -6,6 +6,7 @@ import UserEdit from "./UserEdit.jsx";
 import Report from "./Report.jsx";
 import PlayerManagement from "./PlayerManagement.jsx";
 import {editModalData} from "../../../../../utils/EditData.js";
+import PlayerManagementForm from "./PlayerManagementForm.jsx";
 
 const backerTagConfig = {
     arbitrage: {text: "Арбитраж", color: "red"},
@@ -163,8 +164,9 @@ const ResultItemList = ({results = [], backer}) => {
                                             />
                                         ))}
                                     </div>
-                                    <button className={`result__btn ${openItems[player_id] ? "result__btn-active" : ""}`}
-                                            type="button" onClick={() => toggleClass(player_id)}>
+                                    <button
+                                        className={`result__btn ${openItems[player_id] ? "result__btn-active" : ""}`}
+                                        type="button" onClick={() => toggleClass(player_id)}>
                                         {`${openItems[player_id] ? "Свернуть" : "Показать еще"}`}
                                         <IconSvg width={20} height={20} id="arrow"/>
                                     </button>
@@ -238,7 +240,7 @@ const ResultItemList = ({results = [], backer}) => {
                                 </button>
                             </div>
                             */}
-                            <PlayerManagement user={item}/>
+                            <PlayerManagement/>
                         </div>
                     </div>
                 );
@@ -252,6 +254,7 @@ const ResultItemList = ({results = [], backer}) => {
                             <IconSvg width="36" height="36" id="close-menu"/>
                         </button>
                     </div>
+                    <PlayerManagementForm currentModal={item.name}/>
                 </Modal>
             ))}
 

@@ -1,4 +1,3 @@
-
 export const editModalData = [
     {
         name: "report",
@@ -25,7 +24,13 @@ export const editData = [
 
 export const editFormData = [
     {
-        method: "",
-
+        name: "report",
+        method: "POST",
+        button: "Отправить",
+    },
+    {
+        name: "edit",
+        method: "PATCH",
+        button: "Изменить",
     }
 ]
