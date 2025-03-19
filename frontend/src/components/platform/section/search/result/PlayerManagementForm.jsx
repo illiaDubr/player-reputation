@@ -1,9 +1,11 @@
 import React from "react";
 import {editFormData} from "../../../../../utils/EditData.js";
 import {Context} from "../../../../../api/store/storeContext.js";
+import {useModal} from "../../../components/Modal.jsx";
 
 const PlayerManagementForm = ({currentModal, backer, user}) => {
     const {store} = React.useContext(Context);
+    const {closeAllModals} = useModal();
 
     if (!user) return null;
 
@@ -23,6 +25,7 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                 }
                 console.log("Отправляем report:", report);
                 store.report(report);
+                closeAllModals();
             } else if (currentModal === "edit") {
                 const finalComment = data.comment.trim() ? data.comment : user.comment;
                 const finalDamage = data.damage.trim() ? data.damage : user.damage;
@@ -36,6 +39,7 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                 }
                 console.log("Отправляем payload:", payload);
                 store.userEdit(payload);
+                closeAllModals();
             }
         } catch (error) {
             console.error(error);
