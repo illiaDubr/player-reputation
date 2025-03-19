@@ -16,4 +16,10 @@ export default class SearchService {
 
         return $api.patch(`/api/players/${playerId}/reputation/${repId}`, payload);
     }
+
+    static async report(report) {
+        await getCsrfToken();
+
+        return $api.post(`/api/reports`, report);
+    }
 }

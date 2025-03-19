@@ -136,13 +136,19 @@ export default class Store {
     }
 
     async userEdit(payload) {
-        // Аналогично
         await this.request(
             () => SearchService.userEdit(payload),
             "Ошибка редактирования",
             (response) => {
                 console.log("userEdit success:", response?.data);
             }
+        );
+    }
+
+    async report(report) {
+        await this.request(
+            () => SearchService.report(report),
+            "Ошибка отправки репорта",
         );
     }
 
