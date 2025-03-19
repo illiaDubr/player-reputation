@@ -239,10 +239,6 @@ const ResultItemList = ({results = [], backer}) => {
                     <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser}/>
                 </Modal>
             ))}
-
-
-            {/*<UserEdit user={selectedUser}/>*/}
-
         </div>
     );
 };
