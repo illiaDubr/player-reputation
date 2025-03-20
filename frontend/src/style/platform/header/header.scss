@@ -1,6 +1,7 @@
 // === Include your styles here === //
 
-
+@use "../../helpers/mixin";
+@use "sass:math";
 
 // === / Include your styles here === //
 
@@ -37,6 +38,7 @@
 
           &:last-child {
             flex-grow: 1;
+            align-items: flex-end;
           }
         }
       }
@@ -44,17 +46,34 @@
       .navigation__list-box {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         padding: 56px 0px 0px 0px;
         gap: 28px;
 
         .navigation__list-item {
-          height: 44px;
           align-items: center;
 
           .navigation__list-item__link {
             width: 100%;
-            height: 100%;
+            height: 44px;
             transition: all .6s ease;
+            position: relative;
+            overflow: hidden;
+
+            .svg-box {
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              top: 12px;
+            }
+
+            .navigation__text {
+              width: 140px;
+              position: absolute;
+              top: 12px;
+              @include mixin.font-style(500, 14, 143, #FFFFFF);
+              text-align: left;
+            }
 
             &:hover {
               background: #080808;
@@ -96,7 +115,9 @@
           justify-content: flex-start;
 
           .navigation__list-item__link {
-            padding: 0px 0px 0px 16px;
+            .svg {
+              //transform: translate(-40px, -50%);
+            }
           }
         }
       }

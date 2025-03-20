@@ -6,11 +6,11 @@ import LogoutBtn from "../../components/LogoutBtn.jsx";
 import NavAdminList from "../../../admin/components/NavAdminList.jsx";
 import NavList from "./NavList.jsx";
 
-function AdminRoutes() {
+function AdminRoutes({isOpen}) {
     const location = useLocation();
     const allowedSuffixes = ["/admin", "/report"];
     if (allowedSuffixes.some(suffix => location.pathname.endsWith(suffix))) {
-        return <NavAdminList />;
+        return <NavAdminList isOpen={isOpen} />;
     }
     return <NavList />
 }
@@ -27,15 +27,7 @@ const Navigation = ({onButtonClick}) => {
         <>
             <nav className="navigation">
                 <ul className="navigation__list">
-                    <li className="navigation__list-item">
-                        <Link to={HOMEPAGE_ROUTE}>
-                            <IconSvg width={70} height={44} id="logo"/>
-                        </Link>
-                    </li>
-                    <AdminRoutes />
-                    <li className="navigation__list-item">
-                        <LogoutBtn />
-                    </li>
+                    <AdminRoutes isOpen={isOpen} />
                 </ul>
             </nav>
             <button className="header__btn" onClick={handleButtonClick}>
