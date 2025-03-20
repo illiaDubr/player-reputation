@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(AdminAndBackerSeeder::class);
         // Пример: создадим 2 пользователей, и к каждому привяжем по одному Player и Backer
 
         // 1) Создадим user
