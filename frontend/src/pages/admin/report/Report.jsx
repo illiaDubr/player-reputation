@@ -3,7 +3,7 @@ import AdminMain from "../../../components/admin/AdminMain.jsx";
 
 const Report = () => {
     return (
-        <AdminMain>
+        <AdminMain pageTitle="Репорт метки">
 
         </AdminMain>
     )

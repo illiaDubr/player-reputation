@@ -1,0 +1,19 @@
+// === Include your styles here === //
+
+@use "../helpers/mixin";
+
+// === / Include your styles here === //
+
+
+// === Styles === //
+
+.admin__page-title {
+  @include mixin.font-style(600, 32, 120, #FFFFFF);
+  text-align: center;
+}
+
+.admin__content {
+
+}
+
+// === / Styles === //
