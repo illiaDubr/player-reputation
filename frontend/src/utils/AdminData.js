@@ -9,7 +9,7 @@ export const NavListData = [
     {
         link: ADMIN_REP_ROUTE,
         icon: "link_report",
-        text: "",
+        text: "Репорт метки",
     },
     {
         link: "",
