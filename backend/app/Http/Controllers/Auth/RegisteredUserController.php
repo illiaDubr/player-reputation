@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
                 'name' => 'Default Backer Name', // Убедитесь, что значение не null
             ]);
         }
-
+//Пишу комент что бы создать todo
         event(new Registered($user));
         Auth::login($user);
 
