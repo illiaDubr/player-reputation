@@ -15,7 +15,7 @@ class ReportController extends Controller
     {
         // Валидация входных данных
         $data = $request->validate([
-            'player_id' => 'required|integer|exists:players,player_id',
+            'player_id' => 'required|string|exists:players,player_id',
             'tag'       => 'nullable|string',
             'comment'   => 'nullable|string',
         ]);
