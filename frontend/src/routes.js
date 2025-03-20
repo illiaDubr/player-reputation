@@ -1,8 +1,8 @@
-import {ACCOUNT_ROUTE, HOMEPAGE_ROUTE, SEARCH_ROUTE, ADMIN_ROUTE} from "./utils/const.js";
+import {ACCOUNT_ROUTE, HOMEPAGE_ROUTE, SEARCH_ROUTE, ADMIN_REP_ROUTE} from "./utils/const.js";
 import HomePage from "./pages/homePage/HomePage.jsx";
 import PersonalAccount from "./pages/platform/account/PersonalAccount.jsx";
 import Search from "./pages/platform/search/Search.jsx";
-import Admin from "./pages/admin/admin.jsx";
+import Report from "./pages/admin/report/Report.jsx";
 
 export const authRoutes = [
     {
@@ -13,15 +13,15 @@ export const authRoutes = [
         path: SEARCH_ROUTE,
         Component: Search
     },
-    {
-        path: ADMIN_ROUTE,
-        Component: Admin
-    },
 ]
 
 export const publicRoutes = [
     {
         path: HOMEPAGE_ROUTE,
-        Component: HomePage
+        Component: HomePage,
     },
+    {
+        path: ADMIN_REP_ROUTE,
+        Component: Report,
+    }
 ]
