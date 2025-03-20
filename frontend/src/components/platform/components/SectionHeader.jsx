@@ -3,9 +3,6 @@ import Resize from "./Resize.jsx";
 import IconSvg from "./IconSvg.jsx";
 import Breadcrumbs from "./Breadcrumbs.jsx";
 
-
-
-
 const SectionHeader = () => {
     return (
         <div className="section__header-wrap">
