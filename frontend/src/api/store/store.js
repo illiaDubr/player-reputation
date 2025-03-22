@@ -4,7 +4,7 @@ import { API_URl } from "../http/index.js";
 import AuthService from "../services/AuthService.js";
 import SearchService from "../services/SearchService.js";
 import AddPlayerService from "../services/AddPlayerService.js";
-import UserService from "../services/SearchService.js";
+import AdminService from "../services/AdminService.js";
 
 export default class Store {
     user = {};
@@ -161,5 +161,12 @@ export default class Store {
                 console.log(response.data);
             }
         );
+    }
+
+    async AdminData(){
+        await this.request(
+            () => AdminService.getAdminData(),
+            "Ошибка получения данных админа"
+        )
     }
 }

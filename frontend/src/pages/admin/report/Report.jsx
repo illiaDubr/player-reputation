@@ -1,12 +1,24 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import AdminMain from "../../../components/admin/AdminMain.jsx";
+import {Context} from "../../../api/store/storeContext.js";
 
-const Report = () => {
+const Report = observer(() => {
+    const { store } = React.useContext(Context);
+    const [adminData, setAdminData] = React.useState(null);
+
+    React.useEffect(() => {
+        store.AdminData().then((response) => {
+            setAdminData(response.data);
+            console.log("Полученные данные админа:", response.data);
+        })
+    }, [store]);
+
     return (
-        <AdminMain>
+        <AdminMain pageTitle="Репорт метки">
 
         </AdminMain>
     )
-}
+})
 
 export default Report;
