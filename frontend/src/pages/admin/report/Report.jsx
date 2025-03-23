@@ -21,8 +21,19 @@ const Report = observer(() => {
         <AdminMain pageTitle="Репорт метки">
             <div className="report__wrap">
                 {adminData.map((item, index) => (
-                    <div className="" key={index}>
-                        {item.data.comment}
+                    <div className="report__box" key={index}>
+                        <div className="report report-left">
+                        </div>
+                        <div className="report report-right">
+                            <div className="">
+                            </div>
+                            <div className="report__text">
+                                <div className="report__text-title">
+                                    Причина репорта:
+                                </div>
+                                {item.data.comment}
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
