@@ -16,7 +16,7 @@ use App\Http\Controllers\BackerAddController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StatsController;
-
+use App\Http\Controllers\ChangeController;
 
 //Роуты для игроков
 
@@ -44,6 +44,24 @@ Route::prefix('players')->group(function () {
 
 
 //роуты для админов и суперадминов
+
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+
+    // Откат изменений
+    Route::post('/changes/{id}/rollback', [ChangeController::class, 'rollback']);
+
+});
+
+
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+
+    // Список изменений с фильтрацией по статусу
+    Route::get('/changes', [ChangeController::class, 'index']);
+
+    // Обновить статус изменения
+    Route::patch('/changes/{id}', [ChangeController::class, 'updateStatus']);
+
+});
 Route::middleware(['auth', 'check.role:admin,superadmin'])
     ->get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {

@@ -9,11 +9,7 @@ class Change extends Model
     protected $table = 'changes';
 
     protected $fillable = [
-        'model_type',
-        'model_id',
-        'old_data',
-        'new_data',
-        'user_id',
+        'model_type', 'model_id', 'old_data', 'new_data', 'user_id', 'status'
     ];
 
     protected $casts = [

@@ -6,6 +6,7 @@ use App\Models\Player;
 use App\Models\ReputationRecord;
 use Illuminate\Http\Request;
 use App\Models\RouteCounter;
+use App\Models\Change;
 
 class PlayerController extends Controller
 {
@@ -47,7 +48,12 @@ class PlayerController extends Controller
      */
     public function updateReputation(Request $request, $playerId, $recordId)
     {
-        // Валидация полей для обновления записи репутации.
+        $reputationRecord = ReputationRecord::where('player_id', $playerId)
+            ->where('id', $recordId)
+            ->firstOrFail();
+
+        $oldData = $reputationRecord->toArray();
+
         $validated = $request->validate([
             'player_id'      => 'sometimes|required|string',
             'backer_id'      => 'sometimes|required|integer',
@@ -58,30 +64,25 @@ class PlayerController extends Controller
             'damage'         => 'sometimes|nullable|numeric',
             'makeUp'         => 'sometimes|nullable|numeric',
             'source'         => 'sometimes|nullable|string|max:255',
-            // Если нужны другие поля — добавьте их сюда.
         ]);
 
-        try {
-            // Проверяем, существует ли игрок.
-            $player = Player::findOrFail($playerId);
+        $reputationRecord->update($validated);
 
-            // Находим конкретную запись репутации, привязанную к данному игроку.
-            $reputationRecord = ReputationRecord::where('player_id', $player->player_id)
-                ->where('id', $recordId)
-                ->firstOrFail();
+        $newData = $reputationRecord->fresh()->toArray();
 
-            $reputationRecord->update($validated);
+        // Записываем в лог изменений
+        Change::create([
+            'model_type' => ReputationRecord::class,
+            'model_id'   => $recordId,
+            'old_data'   => $oldData,
+            'new_data'   => $newData,
+            'user_id'    => auth()->id(),
+        ]);
 
-            return response()->json([
-                'message'          => 'Reputation record updated successfully',
-                'reputationRecord' => $reputationRecord,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to update reputation record',
-                'error'   => $e->getMessage(),
-            ], 500);
-        }
+        return response()->json([
+            'message' => 'Reputation record updated successfully',
+            'reputationRecord' => $reputationRecord,
+        ], 200);
     }
 
 
