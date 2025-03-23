@@ -15,11 +15,12 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\BackerAddController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
-
-
+use App\Http\Controllers\StatsController;
+use App\Http\Controllers\ChangeController;
+use App\Http\Controllers\BackupController;
 //Роуты для игроков
 
-
+Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
 
 
 
@@ -34,6 +35,7 @@ Route::prefix('search-players')->group(function () {
     Route::post('/', [PlayerController::class, 'search']);
 });
 
+
 Route::prefix('players')->group(function () {
     Route::put('/{playerId}', [PlayerController::class, 'update']);
     Route::patch('/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
@@ -42,8 +44,31 @@ Route::prefix('players')->group(function () {
 
 
 //роуты для админов и суперадминов
+
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
-    // Просмотреть список уведомлений
+
+    // Откат изменений
+    Route::post('/changes/{id}/rollback', [ChangeController::class, 'rollback']);
+
+});
+
+
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+
+    // Список изменений с фильтрацией по статусу
+    Route::get('/changes', [ChangeController::class, 'index']);
+
+    // Обновить статус изменения
+    Route::patch('/changes/{id}', [ChangeController::class, 'updateStatus']);
+
+});
+Route::middleware(['auth', 'check.role:admin,superadmin'])
+    ->get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+
+    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
+
+        // Просмотреть список уведомлений
     Route::get('/admin/notifications', [AdminController::class, 'notifications']);
 
     // Посмотреть конкретное уведомление и информацию о репорте
@@ -65,7 +90,13 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])
     });
 
 //роуты для суперадминов
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+    // Скачать бекап
+    Route::get('/backup/download', [BackupController::class, 'downloadBackup']);
 
+    // Загрузить бекап для восстановления
+    Route::post('/backup/upload', [BackupController::class, 'uploadBackup']);
+});
 
 //произвольные роуты
 Route::post('/process-json', [JsonProcessingController::class, 'processJson']);
