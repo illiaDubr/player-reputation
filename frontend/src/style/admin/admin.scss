@@ -22,6 +22,50 @@
     position: relative;
     overflow: hidden;
 
+    .report__box {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+
+      .report {
+        border: 2px solid #000729;
+        border-radius: 8px;
+        padding: 24px;
+        backdrop-filter: blur(10px);
+        background: rgba(0, 37, 68, 0.49);
+      }
+
+      .report-left {
+        flex: 1 1 350px;
+      }
+
+      .report-right {
+        flex: 1 1 440px;
+
+        .report__text {
+          margin-bottom: 16px;
+          border-bottom: 1px solid #121317;
+          padding: 0px 0px 4px 0px;
+          @include mixin.font-style(400, 16, 130, #FFFFFF);
+
+          .report__text-title {
+            @include mixin.font-style(600, 18, null, null);
+          }
+
+          &:first-child {
+            margin-top: 32px;
+          }
+
+          &:last-child {
+            margin-bottom: 0px;
+            border-bottom: 1px solid transparent;
+          }
+        }
+      }
+    }
+
     &:before, &:after {
       content: "";
       width: 150px;
