@@ -9,7 +9,7 @@ const Report = observer(() => {
 
     React.useEffect(() => {
         store.AdminData().then((response) => {
-            setAdminData(response.data);
+            setAdminData(response.data.notifications);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
@@ -22,6 +22,7 @@ const Report = observer(() => {
             <div className="report__wrap">
                 {adminData.map((item, index) => (
                     <div className="" key={index}>
+                        {item.data.comment}
                     </div>
                 ))}
             </div>
