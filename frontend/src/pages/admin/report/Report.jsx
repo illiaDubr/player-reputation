@@ -9,7 +9,7 @@ const Report = observer(() => {
 
     React.useEffect(() => {
         store.AdminData().then((response) => {
-            setAdminData(response.data);
+            setAdminData(response);
             console.log("Полученные данные админа:", response);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
