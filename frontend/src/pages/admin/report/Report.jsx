@@ -10,15 +10,21 @@ const Report = observer(() => {
     React.useEffect(() => {
         store.AdminData().then((response) => {
             setAdminData(response.data);
-            console.log("Полученные данные админа:", response.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
     }, [store]);
 
+    console.log(adminData);
+
     return (
         <AdminMain pageTitle="Репорт метки">
-
+            <div className="report__wrap">
+                {adminData.map((item, index) => (
+                    <div className="" key={index}>
+                    </div>
+                ))}
+            </div>
         </AdminMain>
     )
 })
