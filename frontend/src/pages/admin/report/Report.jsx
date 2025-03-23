@@ -11,7 +11,9 @@ const Report = observer(() => {
         store.AdminData().then((response) => {
             setAdminData(response.data);
             console.log("Полученные данные админа:", response.data);
-        })
+        }).catch((error) => {
+            console.error("Ошибка запроса:", error);
+        });
     }, [store]);
 
     return (
