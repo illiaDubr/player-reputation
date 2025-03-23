@@ -164,7 +164,7 @@ export default class Store {
     }
 
     async AdminData(){
-        await this.request(
+        return await this.request(
             () => AdminService.getAdminData(),
             "Ошибка получения данных админа"
         )
