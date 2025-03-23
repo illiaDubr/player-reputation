@@ -26,17 +26,19 @@ class Report extends Model
     // protected $primaryKey = '...';
 
     // Связь с моделью Player (если у вас есть соответствующая модель Player)
-    public function player()
+public function player()
+{
+    return $this->belongsTo(Player::class, 'player_id', 'player_id');
+}
+
+    public function reputationRecord()
     {
-        // Связывается по "reports.player_id" = "players.player_id"
-        return $this->belongsTo(Player::class, 'player_id', 'player_id');
+        return $this->hasOne(ReputationRecord::class, 'player_id', 'player_id');
     }
 
-    // Связь с моделью User (тот, кто репортит)
     public function reporter()
     {
-        // "reports.reporter_id" = "users.id"
-        return $this->belongsTo(User::class, 'reporter_id', 'id');
+        return $this->belongsTo(User::class, 'reporter_id');
     }
 
     public function show(Report $report)

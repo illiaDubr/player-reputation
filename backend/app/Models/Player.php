@@ -71,4 +71,9 @@ class Player extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+    public function reporter()
+    {
+        return $this->belongsTo(User::class, 'reporter_id');
+    }
+
 }

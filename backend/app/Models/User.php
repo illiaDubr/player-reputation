@@ -92,4 +92,8 @@ class User extends Authenticatable
     {
         return $query->where('email', 'like', "%@$domain%");
     }
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reporter_id');
+    }
 }

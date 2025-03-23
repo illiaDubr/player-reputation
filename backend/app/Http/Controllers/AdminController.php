@@ -11,20 +11,40 @@ class AdminController extends Controller
     /**
      * Список уведомлений для админа
      */
-    public function notifications(Request $request)
+    public function notifications()
     {
-        // Админ залогинен
-        $user = $request->user();
+        $notifications = Report::with([
+            'player',
+            'reputationRecord',
+            'reporter'
+        ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
-        // Например, только непрочитанные уведомления:
-        $notifications = $user->unreadNotifications()->get();
-
-        // Или если хотим все, включая прочитанные:
-        // $notifications = $user->notifications()->get();
+        $formattedNotifications = $notifications->map(function ($report) {
+            return [
+                'id' => $report->id,
+                'player_first_name' => optional($report->player)->first_name,
+                'player_last_name' => optional($report->player)->last_name,
+                'reputation_comment' => optional($report->reputationRecord)->comment, // комментарий репутации
+                'damage' => optional($report->reputationRecord)->damage, // сумма ущерба
+                'report_comment' => $report->comment, // комментарий к репорту
+                'reporter_name' => optional($report->reporter)->name, // имя отправителя
+                'backer_tag' => $report->tag,
+                'status' => $report->status,
+                'created_at' => $report->created_at,
+            ];
+        });
 
         return response()->json([
-            'success'       => true,
-            'notifications' => $notifications,
+            'success' => true,
+            'notifications' => $formattedNotifications,
+            'pagination' => [
+                'total' => $notifications->total(),
+                'current_page' => $notifications->currentPage(),
+                'per_page' => $notifications->perPage(),
+                'last_page' => $notifications->lastPage(),
+            ],
         ]);
     }
 
