@@ -27,7 +27,7 @@ Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount
 
 //Роуты для бекеров
 
-Route::middleware(['auth', 'check.role:backer'])
+Route::middleware(['auth', 'check.role:backer,admin,superadmin'])
     ->group(function () {
         Route::post('/reports', [ReportController::class, 'store']);
     });
