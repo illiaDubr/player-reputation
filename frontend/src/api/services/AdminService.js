@@ -5,6 +5,6 @@ export default class AdminService {
     static async getAdminData() {
         await getCsrfToken();
 
-        return $api.get(`/admin/notifications`);
+        return $api.get(`/api/admin/notifications`);
     }
 }
