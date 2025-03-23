@@ -17,7 +17,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\ChangeController;
-
+use App\Http\Controllers\BackupController;
 //Роуты для игроков
 
 Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
@@ -90,7 +90,13 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])
     });
 
 //роуты для суперадминов
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+    // Скачать бекап
+    Route::get('/backup/download', [BackupController::class, 'downloadBackup']);
 
+    // Загрузить бекап для восстановления
+    Route::post('/backup/upload', [BackupController::class, 'uploadBackup']);
+});
 
 //произвольные роуты
 Route::post('/process-json', [JsonProcessingController::class, 'processJson']);
