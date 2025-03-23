@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Player;
 use App\Models\ReputationRecord;
 use Illuminate\Http\Request;
+use App\Models\RouteCounter;
 
 class PlayerController extends Controller
 {
@@ -83,8 +84,34 @@ class PlayerController extends Controller
         }
     }
 
-    public function search(Request $request)
+
+    public function updateBackerTag(Request $request, $playerId)
     {
+        // Проверяем, есть ли такой игрок
+        $player = Player::where('player_id', $playerId)->firstOrFail();
+
+        // Валидация входных данных
+        $data = $request->validate([
+            'backer_tag' => 'required|string|max:255', // например, ограничение
+        ]);
+
+        // Меняем тег
+        $player->backer_tag = $data['backer_tag'];
+        $player->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Backer tag updated',
+            'player' => $player,
+        ]);
+    }
+
+        public function search(Request $request)
+    {
+
+        // 1. Увеличиваем счётчик
+        $counter = RouteCounter::firstOrCreate(['route' => 'search-players']);
+        $counter->increment('count');
         // Получаем данные с фильтрацией
         $results = $this->filterPlayers($request)
             ->with('reputationRecords')

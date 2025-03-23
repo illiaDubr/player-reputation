@@ -15,11 +15,12 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\BackerAddController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StatsController;
 
 
 //Роуты для игроков
 
-
+Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
 
 
 
@@ -34,6 +35,7 @@ Route::prefix('search-players')->group(function () {
     Route::post('/', [PlayerController::class, 'search']);
 });
 
+
 Route::prefix('players')->group(function () {
     Route::put('/{playerId}', [PlayerController::class, 'update']);
     Route::patch('/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
@@ -42,8 +44,13 @@ Route::prefix('players')->group(function () {
 
 
 //роуты для админов и суперадминов
+Route::middleware(['auth', 'check.role:admin,superadmin'])
+    ->get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
-    // Просмотреть список уведомлений
+
+    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
+
+        // Просмотреть список уведомлений
     Route::get('/admin/notifications', [AdminController::class, 'notifications']);
 
     // Посмотреть конкретное уведомление и информацию о репорте
