@@ -5,7 +5,7 @@ import {Context} from "../../../api/store/storeContext.js";
 
 const Report = observer(() => {
     const { store } = React.useContext(Context);
-    const [adminData, setAdminData] = React.useState(null);
+    const [adminData, setAdminData] = React.useState([]);
 
     React.useEffect(() => {
         store.AdminData().then((response) => {
