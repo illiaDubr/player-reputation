@@ -2,6 +2,7 @@ import React from 'react';
 import {Context} from "../../../api/store/storeContext.js";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
+import DeleteRecord from "../../../components/admin/records/DeleteRecord.jsx";
 
 const Records = observer(() => {
     const { store } = React.useContext(Context);
@@ -27,27 +28,38 @@ const Records = observer(() => {
                                 <div className="record__text-title">
                                     Ущерб:
                                 </div>
-                                {item.old_data.damage}
+                                <div className="record__text-desc">
+                                    {item.old_data.damage}$
+                                </div>
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
                                     Комментарий:
                                 </div>
-                                {item.old_data.comment}
+                                <div className="record__text-desc">
+                                    {item.old_data.comment}
+                                </div>
                             </div>
                         </div>
                         <div className="record record-record">
+                            <div className="record__top">
+                                <DeleteRecord id={item.id}/>
+                            </div>
                             <div className="record__text">
                                 <div className="record__text-title">
                                     Ущерб:
                                 </div>
-                                {item.new_data.damage}
+                                <div className="record__text-desc">
+                                    {item.new_data.damage}$
+                                </div>
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
                                     Комментарий:
                                 </div>
-                                {item.new_data.comment}
+                                <div className="record__text-desc">
+                                    {item.new_data.comment}
+                                </div>
                             </div>
                         </div>
                     </div>

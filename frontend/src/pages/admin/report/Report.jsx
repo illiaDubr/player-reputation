@@ -26,7 +26,7 @@ const Report = observer(() => {
                         <div className="record report-left">
                         </div>
                         <div className="record report-right">
-                            <div className="report__top">
+                            <div className="record__top">
                                 <div className="">
                                 </div>
                                 <ReportEdit tag={item.backer_tag} player_id={item.player_id} recordId={item.id} />
