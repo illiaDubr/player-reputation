@@ -29,7 +29,7 @@ export default class AdminService {
     static async deleteRecord(deleteData) {
         await getCsrfToken();
 
-        const id = deleteData.recordId;
+        const id = deleteData.id;
 
         return $api.delete(`/api/reports/${id}`, deleteData);
     }
