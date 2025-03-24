@@ -69,5 +69,26 @@ class ReportController extends Controller
             'report'  => $report,
         ]);
     }
+    public function deleteVerifiedReport($id)
+    {
+        try {
+            $report = Report::findOrFail($id);
+
+
+
+            // Удаляем репорт
+            $report->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Репорт успешно удален.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ошибка при удалении репорта: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 }
 

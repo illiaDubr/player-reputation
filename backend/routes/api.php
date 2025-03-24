@@ -44,7 +44,10 @@ Route::prefix('players')->group(function () {
 
 
 //роуты для админов и суперадминов
-
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+    // Удаление проверенного репорта
+    Route::delete('/reports/{id}', [ReportController::class, 'deleteVerifiedReport']);
+});
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 
     // Откат изменений
