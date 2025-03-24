@@ -9,7 +9,7 @@ const SearchLogs = observer(() => {
 
     React.useEffect(() => {
         store.searchLogs().then((response) => {
-            setLogsData(response.data.data);
+            setLogsData(response.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
