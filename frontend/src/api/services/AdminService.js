@@ -22,6 +22,12 @@ export default class AdminService {
         return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
     }
 
+    static async getSearchLogs() {
+        await getCsrfToken();
+
+        return $api.get(`api/stats/search-players`);
+    }
+
 
 
 
