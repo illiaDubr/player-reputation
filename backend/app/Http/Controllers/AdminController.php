@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Report;
+use App\Models\Player;
 
 class AdminController extends Controller
 {
@@ -26,6 +27,7 @@ class AdminController extends Controller
                 'id' => $report->id,
                 'player_first_name' => optional($report->player)->first_name,
                 'player_last_name' => optional($report->player)->last_name,
+                'player_id' => optional($report->player)->player_id,
                 'reputation_comment' => optional($report->reputationRecord)->comment, // комментарий репутации
                 'damage' => optional($report->reputationRecord)->damage, // сумма ущерба
                 'report_comment' => $report->comment, // комментарий к репорту
