@@ -184,9 +184,9 @@ export default class Store {
         )
     }
 
-    async deleteRecord(recordId) {
+    async deleteRecord(deleteData) {
         await this.request(
-            () => AdminService.deleteRecord(recordId),
+            () => AdminService.deleteRecord(deleteData),
             "Ошибка удаления"
         )
     }
