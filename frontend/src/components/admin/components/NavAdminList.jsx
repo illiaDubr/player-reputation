@@ -5,8 +5,11 @@ import IconSvg from "../../platform/components/IconSvg.jsx";
 import { animated, useSpring } from '@react-spring/web'
 import LogoutBtn from "../../platform/components/LogoutBtn.jsx";
 import {HOMEPAGE_ROUTE} from "../../../utils/const.js";
+import {Context} from "../../../api/store/storeContext.js";
 
 const NavAdminList = ({isOpen}) => {
+    const { store } = React.useContext(Context);
+
     const iconAnimation = useSpring({
         left: isOpen ? '15px' : '35px',
         from: { left: '35px' },
@@ -27,8 +30,8 @@ const NavAdminList = ({isOpen}) => {
                 </Link>
             </li>
             <ul className="navigation__list-box">
-                {NavListData.map((item, index) => (
-                    <li className="navigation__list-item" key={index}>
+                {NavListData.map((item) => (
+                    <li className="navigation__list-item" key={item.icon}>
                         <Link to={item.link} className="navigation__list-item__link">
                             <animated.span className="svg-box" style={iconAnimation}>
                                 <IconSvg width={20} height={20} id={item.icon}/>
@@ -47,4 +50,4 @@ const NavAdminList = ({isOpen}) => {
     )
 }
 
-export default NavAdminList;
+export default React.memo(NavAdminList);
