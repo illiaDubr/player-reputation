@@ -4,8 +4,10 @@ import "../../style/admin/admin.scss"
 
 const Admin = () => {
     return (
-        <AdminMain>
+        <AdminMain pageTitle="Изменения записей">
+            <div className="admin__wrap">
 
+            </div>
         </AdminMain>
     );
 };
