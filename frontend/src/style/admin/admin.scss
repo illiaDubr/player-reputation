@@ -66,7 +66,19 @@
         width: 50%;
 
         .record__text {
-          align-items: flex-start;
+          container-type: inline-size;
+        }
+        
+        @container (max-height: 30px) {
+          .record__text {
+            align-items: center;
+          }
+        }
+
+        @container (min-height: 31px) {
+          .record__text {
+            align-items: flex-start;
+          }
         }
       }
 
