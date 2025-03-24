@@ -4,7 +4,7 @@ export const NavListData = [
     {
         link: ADMIN_RECORDS_ROUTE,
         icon: "link_notification",
-        text: "Измененные записи",
+        text: "Записи",
     },
     {
         link: ADMIN_REP_ROUTE,

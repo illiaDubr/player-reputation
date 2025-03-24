@@ -36,6 +36,12 @@
           display: flex;
           justify-content: center;
 
+          .navigation__list-item__link-logo {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+
           &:last-child {
             flex-grow: 1;
             align-items: flex-end;
@@ -78,6 +84,10 @@
             &:hover {
               background: #080808;
             }
+          }
+
+          &:first-child {
+            margin-bottom: 15px;
           }
         }
       }

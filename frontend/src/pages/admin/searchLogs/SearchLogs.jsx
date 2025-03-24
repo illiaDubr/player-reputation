@@ -22,7 +22,7 @@ const SearchLogs = observer(() => {
             <div className="admin__wrap">
                 {logsData && (
                     <div className="count__wrap">
-                        {logsData.count} поисков по маршруту
+                        {logsData.count} поисков
                     </div>
                 )}
             </div>
