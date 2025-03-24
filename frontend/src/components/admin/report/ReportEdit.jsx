@@ -23,6 +23,8 @@ const ReportEdit = ({tag, player_id, recordId}) => {
         setIsOpen(false);
     };
 
+    console.log(recordId)
+
     const deleteRecord = () => {
         const deleteData = {
             id: recordId,
@@ -43,7 +45,7 @@ const ReportEdit = ({tag, player_id, recordId}) => {
 
         store.editReport(editReportData)
             .then(() => {
-                deleteRecord(deleteData);
+                deleteRecord();
             })
     }
 
