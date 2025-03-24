@@ -163,10 +163,17 @@ export default class Store {
         );
     }
 
-    async AdminData(){
+    async returnRecords() {
         return await this.request(
-            () => AdminService.getAdminData(),
-            "Ошибка получения данных админа"
+            () => AdminService.getReturnRecords(),
+            "Ошибка получения данных"
+        )
+    }
+
+    async reports(){
+        return await this.request(
+            () => AdminService.getReports(),
+            "Ошибка получения данных"
         )
     }
 
