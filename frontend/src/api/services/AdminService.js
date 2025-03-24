@@ -2,7 +2,13 @@ import $api from "../http/index.js"
 import {getCsrfToken} from "./csrf.js";
 
 export default class AdminService {
-    static async getAdminData() {
+    static async getReturnRecords() {
+        await getCsrfToken();
+
+        return $api.get(`/api/changes?status=unread`);
+    }
+
+    static async getReports() {
         await getCsrfToken();
 
         return $api.get(`/api/admin/notifications`);

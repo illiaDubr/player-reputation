@@ -6,22 +6,22 @@ import ReportEdit from "../../../components/admin/report/ReportEdit.jsx";
 
 const Report = observer(() => {
     const { store } = React.useContext(Context);
-    const [adminData, setAdminData] = React.useState([]);
+    const [reportData, setReportData] = React.useState([]);
 
     React.useEffect(() => {
-        store.AdminData().then((response) => {
-            setAdminData(response.data.notifications);
+        store.reports().then((response) => {
+            setReportData(response.data.notifications);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
     }, [store]);
 
-    console.log(adminData);
+    console.log(reportData);
 
     return (
         <AdminMain pageTitle="Репорт метки">
             <div className="admin__wrap">
-                {adminData.map((item, index) => (
+                {reportData.map((item, index) => (
                     <div className="report__box" key={index}>
                         <div className="report report-left">
                         </div>
