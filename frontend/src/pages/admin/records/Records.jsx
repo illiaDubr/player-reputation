@@ -20,7 +20,26 @@ const Records = observer(() => {
     return (
         <AdminMain pageTitle="Измененные записи">
             <div className="admin__wrap">
-
+                {recordsData.map((item, index) => (
+                    <div className="admin__box" key={index}>
+                        <div className="record">
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Причина репорта:
+                                </div>
+                                {item.old_data.comment}
+                            </div>
+                        </div>
+                        <div className="record">
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Причина репорта:
+                                </div>
+                                {item.new_data.comment}
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </AdminMain>
     );
