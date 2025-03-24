@@ -56,7 +56,7 @@ const Report = observer(() => {
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
-                                    Причина смены:
+                                    Причина смены метки:
                                 </div>
                                 <div className="record__text-desc">
                                     {item.report_comment}

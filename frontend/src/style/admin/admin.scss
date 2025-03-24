@@ -44,6 +44,7 @@
 
         .record__top {
           display: flex;
+          align-items: center;
           justify-content: space-between;
           gap: 16px;
           flex-wrap: wrap;
@@ -144,6 +145,7 @@
               border-radius: 4px;
               padding: 4px 10px;
               @include mixin.font-style(400, 14, 143, #FFFFFF);
+              transition: all .4s ease;
 
               span {
                 width: 16px;
@@ -173,6 +175,10 @@
                   transform: translate(-50%, -50%) rotate(-45deg);
                 }
               }
+
+              &:disabled {
+                filter: invert(50%) sepia(6%) saturate(234%) hue-rotate(182deg) brightness(89%) contrast(89%);
+              }
             }
           }
         }
@@ -180,7 +186,7 @@
         .record__text {
           min-height: 29px;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 6px;
           margin-bottom: 16px;
           border-bottom: 1px solid #121317;
@@ -228,7 +234,6 @@
         }
 
         .record__text {
-          align-items: flex-start;
 
           .record__text-desc {
             display: flex;

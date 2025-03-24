@@ -22,10 +22,8 @@ const NavAdminList = ({isOpen}) => {
     return (
         <>
             <li className="navigation__list-item">
-                <Link to={HOMEPAGE_ROUTE} style={{position: 'relative', width: '100%'}}>
-                    <animated.span style={iconAnimation}>
-                        <IconSvg width={70} height={44} id="logo"/>
-                    </animated.span>
+                <Link to={HOMEPAGE_ROUTE} className="navigation__list-item__link-logo">
+                    <IconSvg width={70} height={44} id="logo"/>
                 </Link>
             </li>
             <ul className="navigation__list-box">

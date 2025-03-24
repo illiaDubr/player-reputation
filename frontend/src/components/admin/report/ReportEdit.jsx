@@ -47,6 +47,8 @@ const ReportEdit = ({tag, player_id, recordId}) => {
             })
     }
 
+    const isChanged = selected !== tag;
+
     return (
         <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
             <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
@@ -68,7 +70,7 @@ const ReportEdit = ({tag, player_id, recordId}) => {
                     </div>
                 )}
             </div>
-            <button className="report__btn" type="submit">
+            <button className="report__btn" type="submit" disabled={isChanged}>
                 Обновить метку
             </button>
         </form>
