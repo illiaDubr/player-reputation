@@ -43,7 +43,7 @@ const ReportEdit = ({tag, player_id, recordId}) => {
 
         store.editReport(editReportData)
             .then(() => {
-                deleteRecord();
+                deleteRecord(deleteData);
             })
     }
 
