@@ -1,8 +1,8 @@
-import {ADMIN_REP_ROUTE, ADMIN_ROUTE, ADMIN_LOGS_ROUTE} from "./const.js";
+import {ADMIN_REP_ROUTE, ADMIN_ROUTE, ADMIN_LOGS_ROUTE, ADMIN_RECORDS_ROUTE} from "./const.js";
 
 export const NavListData = [
     {
-        link: ADMIN_ROUTE,
+        link: ADMIN_RECORDS_ROUTE,
         icon: "link_notification",
         text: "Измененные записи",
     },
