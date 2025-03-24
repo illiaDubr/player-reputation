@@ -23,9 +23,7 @@ const ReportEdit = ({tag, player_id, recordId}) => {
         setIsOpen(false);
     };
 
-    const deleteRecord = (e) => {
-        e.preventDefault();
-
+    const deleteRecord = () => {
         const deleteData = {
             id: recordId,
         }
