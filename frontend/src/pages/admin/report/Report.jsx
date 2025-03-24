@@ -27,13 +27,13 @@ const Report = observer(() => {
                         </div>
                         <div className="report report-right">
                             <div className="report__top">
-                                <ReportEdit tag={item.data.tag}/>
+                                <ReportEdit tag={item.backer_tag}/>
                             </div>
                             <div className="report__text">
                                 <div className="report__text-title">
                                     Причина репорта:
                                 </div>
-                                {item.data.comment}
+                                {item.report_comment}
                             </div>
                         </div>
                     </div>
