@@ -1,8 +1,10 @@
 import React from "react";
 import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
+import {Context} from "../../../api/store/storeContext.js";
 
-const ReportEdit = ({tag}) => {
+const ReportEdit = ({tag, id}) => {
+    const { store } = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -21,12 +23,25 @@ const ReportEdit = ({tag}) => {
         setIsOpen(false);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const editReportData = {
+            playerId: id,
+            backer_tag: selected,
+        }
+
+        console.log(editReportData);
+
+        store.editReport(editReportData);
+    }
+
     return (
-        <form method="PATCH" className="report__form">
+        <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
             <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
                 <div className={`report__select-title report__select-text-${displayedColor}`} onClick={toggleDropdown}>
                     {displayedName}
-                    <IconSvg width={20} height={6} id="arrow"/>
+                    <IconSvg width={15} height={15} id="arrow"/>
                 </div>
                 {isOpen && (
                     <div className="report__select-options">

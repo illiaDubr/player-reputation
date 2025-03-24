@@ -169,4 +169,10 @@ export default class Store {
             "Ошибка получения данных админа"
         )
     }
+
+    async editReport(editReportData) {
+        await this.report(
+            () => AdminService.editReport(editReportData),
+        )
+    }
 }
