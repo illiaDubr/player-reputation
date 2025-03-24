@@ -20,11 +20,11 @@ const SearchLogs = observer(() => {
     return (
         <AdminMain pageTitle="Отчёт о поисках">
             <div className="admin__wrap">
-                {logsData.map((item, index) => (
-                    <div key={index} className="count__wrap">
-                        {item.count} поисков
+                {logsData && (
+                    <div className="count__wrap">
+                        {logsData.count} поисков по маршруту {logsData.route}
                     </div>
-                ))}
+                )}
             </div>
         </AdminMain>
     )
