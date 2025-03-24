@@ -23,19 +23,44 @@ const Report = observer(() => {
             <div className="admin__wrap">
                 {reportData.map((item, index) => (
                     <div className="admin__box" key={index}>
-                        <div className="record report-left">
-                        </div>
-                        <div className="record report-right">
+                        <div className="record report">
                             <div className="record__top">
-                                <div className="">
+                                <div className="record__title">
+                                    {item.reporter_name}
                                 </div>
                                 <ReportEdit tag={item.backer_tag} player_id={item.player_id} recordId={item.id} />
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
-                                    Причина репорта:
+                                    Имя игрока:
                                 </div>
-                                {item.report_comment}
+                                <div className="record__text-desc">
+                                    {item.player_last_name} {item.player_first_name}
+                                </div>
+                            </div>
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Ущерб:
+                                </div>
+                                <div className="record__text-desc">
+                                    {item.damage} $
+                                </div>
+                            </div>
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Комментарий:
+                                </div>
+                                <div className="record__text-desc">
+                                    {item.reputation_comment}
+                                </div>
+                            </div>
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Причина смены:
+                                </div>
+                                <div className="record__text-desc">
+                                    {item.report_comment}
+                                </div>
                             </div>
                         </div>
                     </div>

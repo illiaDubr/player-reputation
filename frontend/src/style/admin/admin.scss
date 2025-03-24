@@ -49,6 +49,10 @@
           flex-wrap: wrap;
           padding: 0px 0px 32px 0px;
 
+          .record__title {
+            @include mixin.font-style(600, 20, 120, #FFFFFF);
+          }
+
           .report__form {
             display: flex;
             gap: 8px;
@@ -174,6 +178,7 @@
         }
 
         .record__text {
+          min-height: 29px;
           display: flex;
           align-items: center;
           gap: 6px;
@@ -183,7 +188,16 @@
           @include mixin.font-style(400, 16, 130, #FFFFFF);
 
           .record__text-title {
+            min-height: 29px;
+            display: flex;
+            align-items: center;
             @include mixin.font-style(600, 18, null, null);
+          }
+
+          .record__text-desc {
+            min-height: 29px;
+            display: flex;
+            align-items: center;
           }
 
           &:last-child {
@@ -223,12 +237,8 @@
         }
       }
 
-      .report-left {
-        flex: 1 1 350px;
-      }
-
-      .report-right {
-        flex: 1 1 440px;
+      .report {
+        width: 100%;
       }
 
       &:has(.record-record) {
