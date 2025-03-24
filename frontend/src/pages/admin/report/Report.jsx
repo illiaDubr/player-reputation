@@ -27,6 +27,8 @@ const Report = observer(() => {
                         </div>
                         <div className="report report-right">
                             <div className="report__top">
+                                <div className="">
+                                </div>
                                 <ReportEdit tag={item.backer_tag}/>
                             </div>
                             <div className="report__text">

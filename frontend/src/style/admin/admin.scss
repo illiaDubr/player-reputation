@@ -13,6 +13,8 @@
 }
 
 .admin__content {
+  padding: 48px 0px 0px 0px;
+
   .report__wrap {
     border-radius: 20px;
     padding: 36px;
@@ -50,6 +52,7 @@
           justify-content: space-between;
           gap: 16px;
           flex-wrap: wrap;
+          padding: 0px 0px 32px 0px;
 
           .report__form {
             display: flex;
