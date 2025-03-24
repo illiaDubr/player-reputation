@@ -171,8 +171,9 @@ export default class Store {
     }
 
     async editReport(editReportData) {
-        await this.report(
+        await this.request(
             () => AdminService.editReport(editReportData),
+            "Ошибка отправки репорта"
         )
     }
 }
