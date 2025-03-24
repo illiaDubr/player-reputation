@@ -16,6 +16,9 @@
   padding: 48px 0px 0px 0px;
 
   .report__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
     border-radius: 20px;
     padding: 36px;
     border: 1px solid transparent;
@@ -59,8 +62,22 @@
             gap: 8px;
 
             .report__select {
+              display: flex;
+              align-items: center;
+              padding: 5px;
+              position: relative;
+              border: 1px solid transparent;
+              border-radius: 8px;
+
               .report__select-title {
+                display: flex;
+                align-items: center;
+                gap: 6px;
                 @include mixin.font-style(400, 16, 125, null);
+
+                .svg {
+                  rotate: 90deg;
+                }
               }
 
               .report__select-options {
@@ -91,7 +108,9 @@
             }
 
             .report__select-open {
-
+              border: 1px solid #ffffff;
+              backdrop-filter: blur(40px);
+              background: rgba(8, 8, 8, 0.7);
             }
 
             .report__btn {

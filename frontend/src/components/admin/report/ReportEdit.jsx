@@ -26,7 +26,7 @@ const ReportEdit = ({tag}) => {
             <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
                 <div className={`report__select-title report__select-text-${displayedColor}`} onClick={toggleDropdown}>
                     {displayedName}
-                    <IconSvg width={12} height={6} id="arrow"/>
+                    <IconSvg width={20} height={6} id="arrow"/>
                 </div>
                 {isOpen && (
                     <div className="report__select-options">
