@@ -30,7 +30,7 @@ class AdminController extends Controller
                 'damage' => optional($report->reputationRecord)->damage, // сумма ущерба
                 'report_comment' => $report->comment, // комментарий к репорту
                 'reporter_name' => optional($report->reporter)->name, // имя отправителя
-                'backer_tag' => $report->tag,
+                'backer_tag' => optional($report->player)->backer_tag,
                 'status' => $report->status,
                 'created_at' => $report->created_at,
             ];
