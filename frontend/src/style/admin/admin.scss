@@ -68,18 +68,6 @@
         .record__text {
           container-type: inline-size;
         }
-        
-        @container (max-height: 30px) {
-          .record__text {
-            align-items: center;
-          }
-        }
-
-        @container (min-height: 31px) {
-          .record__text {
-            align-items: flex-start;
-          }
-        }
       }
 
       .report-left {
@@ -255,6 +243,18 @@
       right: 0px;
       bottom: 0px;
     }
+  }
+}
+
+@container (max-height: 30px) {
+  .record__text {
+    align-items: center;
+  }
+}
+
+@container (min-height: 31px) {
+  .record__text {
+    align-items: flex-start;
   }
 }
 
