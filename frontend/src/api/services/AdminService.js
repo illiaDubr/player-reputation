@@ -7,4 +7,12 @@ export default class AdminService {
 
         return $api.get(`/api/admin/notifications`);
     }
+
+    static async editReport(editReportData) {
+        await getCsrfToken();
+
+        const playerId = editReportData.player_id;
+
+        return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
+    }
 }

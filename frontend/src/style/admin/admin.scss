@@ -62,17 +62,23 @@
             gap: 8px;
 
             .report__select {
+              min-width: 150px;
               display: flex;
               align-items: center;
+              justify-content: center;
               padding: 5px;
               position: relative;
-              border: 1px solid transparent;
-              border-radius: 8px;
+              border-top: 1px solid transparent;
+              border-right: 1px solid transparent;
+              border-left: 1px solid transparent;
+              border-bottom: none;
+              border-radius: 8px 8px 0px 0px;
 
               .report__select-title {
                 display: flex;
                 align-items: center;
                 gap: 6px;
+                cursor: pointer;
                 @include mixin.font-style(400, 16, 125, null);
 
                 .svg {
@@ -81,8 +87,27 @@
               }
 
               .report__select-options {
+                width: calc(100% + 2px);
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                padding: 12px;
+                border-radius: 0px 0px 8px 8px;
+                border-top: none;
+                border-right: 1px solid #ffffff;
+                border-left: 1px solid #ffffff;
+                border-bottom: 1px solid #ffffff;
+                backdrop-filter: blur(40px);
+                background: rgba(8, 8, 8, 0.7);
+                position: absolute;
+                top: 30px;
+                left: -1px;
+                z-index: 3;
+
                 .report__select-item {
                   @include mixin.font-style(400, 16, 125, null);
+                  text-align: center;
+                  cursor: pointer;
                 }
               }
 
@@ -108,7 +133,10 @@
             }
 
             .report__select-open {
-              border: 1px solid #ffffff;
+              border-top: 1px solid #ffffff;
+              border-right: 1px solid #ffffff;
+              border-left: 1px solid #ffffff;
+              border-bottom: none;
               backdrop-filter: blur(40px);
               background: rgba(8, 8, 8, 0.7);
             }
