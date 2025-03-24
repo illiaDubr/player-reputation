@@ -70,7 +70,7 @@ const ReportEdit = ({tag, player_id, recordId}) => {
                     </div>
                 )}
             </div>
-            <button className="report__btn" type="submit" disabled={isChanged}>
+            <button className="report__btn" type="submit" disabled={!isChanged}>
                 Обновить метку
             </button>
         </form>
