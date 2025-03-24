@@ -20,7 +20,7 @@ const Report = observer(() => {
 
     return (
         <AdminMain pageTitle="Репорт метки">
-            <div className="report__wrap">
+            <div className="admin__wrap">
                 {adminData.map((item, index) => (
                     <div className="report__box" key={index}>
                         <div className="report report-left">
@@ -29,7 +29,7 @@ const Report = observer(() => {
                             <div className="report__top">
                                 <div className="">
                                 </div>
-                                <ReportEdit tag={item.backer_tag} id={item.id} />
+                                <ReportEdit tag={item.backer_tag} id={item.player_id} />
                             </div>
                             <div className="report__text">
                                 <div className="report__text-title">

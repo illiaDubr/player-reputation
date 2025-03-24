@@ -1,10 +1,10 @@
-import {ADMIN_REP_ROUTE} from "./const.js";
+import {ADMIN_REP_ROUTE, ADMIN_ROUTE} from "./const.js";
 
 export const NavListData = [
     {
-        link: "",
+        link: ADMIN_ROUTE,
         icon: "link_notification",
-        text: "",
+        text: "Уведомления и бэкеры",
     },
     {
         link: ADMIN_REP_ROUTE,
