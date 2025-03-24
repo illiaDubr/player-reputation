@@ -21,4 +21,16 @@ export default class AdminService {
 
         return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
     }
+
+
+
+
+
+    static async deleteRecord(deleteData) {
+        await getCsrfToken();
+
+        const id = deleteData.recordId;
+
+        return $api.delete(`/api/reports/${id}`, deleteData);
+    }
 }
