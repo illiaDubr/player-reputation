@@ -1,6 +1,5 @@
 import React from 'react';
 import {Context} from "../../../api/store/storeContext.js";
-import "../../style/admin/admin.scss"
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 
