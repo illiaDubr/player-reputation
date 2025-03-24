@@ -3,7 +3,7 @@ import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 
-const ReportEdit = ({tag, id}) => {
+const ReportEdit = ({tag, player_id, recordId}) => {
     const { store } = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);
@@ -23,17 +23,30 @@ const ReportEdit = ({tag, id}) => {
         setIsOpen(false);
     };
 
+    const deleteRecord = (e) => {
+        e.preventDefault();
+
+        const deleteData = {
+            id: recordId,
+        }
+
+        store.deleteRecord(deleteData);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const editReportData = {
-            player_id: id,
+            player_id: player_id,
             backer_tag: selected,
         }
 
         console.log(editReportData);
 
-        store.editReport(editReportData);
+        store.editReport(editReportData)
+            .then(() => {
+                deleteRecord();
+            })
     }
 
     return (

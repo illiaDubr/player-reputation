@@ -10,7 +10,7 @@ const Admin = observer(() => {
 
     React.useEffect(() => {
         store.returnRecords().then((response) => {
-            setRecordsData(response.data);
+            setRecordsData(response.data.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });

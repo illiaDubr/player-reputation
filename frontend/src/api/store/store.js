@@ -183,4 +183,11 @@ export default class Store {
             "Ошибка отправки репорта"
         )
     }
+
+    async deleteRecord(recordId) {
+        await this.request(
+            () => AdminService.deleteRecord(recordId),
+            "Ошибка удаления"
+        )
+    }
 }
