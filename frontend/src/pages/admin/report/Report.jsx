@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
+import ReportEdit from "../../../components/admin/report/ReportEdit.jsx";
 
 const Report = observer(() => {
     const { store } = React.useContext(Context);
@@ -25,7 +26,8 @@ const Report = observer(() => {
                         <div className="report report-left">
                         </div>
                         <div className="report report-right">
-                            <div className="">
+                            <div className="report__top">
+                                <ReportEdit tag={item.data.tag}/>
                             </div>
                             <div className="report__text">
                                 <div className="report__text-title">

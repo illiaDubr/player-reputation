@@ -14,7 +14,6 @@
 
 .admin__content {
   .report__wrap {
-    height: 800px;
     border-radius: 20px;
     padding: 36px;
     border: 1px solid transparent;
@@ -28,6 +27,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 4px;
+      position: relative;
+      z-index: 2;
 
       .report {
         border: 2px solid #000729;
@@ -44,7 +45,60 @@
       .report-right {
         flex: 1 1 440px;
 
+        .report__top {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          flex-wrap: wrap;
+
+          .report__form {
+            display: flex;
+            gap: 8px;
+
+            .report__btn {
+              display: flex;
+              align-items: center;
+              border: 1px solid #fff;
+              border-radius: 4px;
+              padding: 4px 10px;
+              @include mixin.font-style(400, 14, 143, #FFFFFF);
+
+              span {
+                width: 16px;
+                height: 16px;
+                display: flex;
+                border-radius: 50%;
+                border: 1px solid #ffffff;
+                margin-right: 5px;
+                position: relative;
+
+                &:before, &:after {
+                  content: '';
+                  width: 6px;
+                  height: 1px;
+                  border-radius: 50%;
+                  background: #ffffff;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                }
+
+                &:before {
+                  transform: translate(-50%, -50%) rotate(45deg);
+                }
+
+                &:after {
+                  transform: translate(-50%, -50%) rotate(-45deg);
+                }
+              }
+            }
+          }
+        }
+
         .report__text {
+          display: flex;
+          align-items: center;
+          gap: 6px;
           margin-bottom: 16px;
           border-bottom: 1px solid #121317;
           padding: 0px 0px 4px 0px;
@@ -52,10 +106,6 @@
 
           .report__text-title {
             @include mixin.font-style(600, 18, null, null);
-          }
-
-          &:first-child {
-            margin-top: 32px;
           }
 
           &:last-child {
@@ -74,6 +124,7 @@
       background: #2a4bfb;
       filter: blur(100px);
       position: absolute;
+      z-index: 1;
     }
 
     &:before {
