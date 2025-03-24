@@ -58,6 +58,42 @@
             display: flex;
             gap: 8px;
 
+            .report__select {
+              .report__select-title {
+                @include mixin.font-style(400, 16, 125, null);
+              }
+
+              .report__select-options {
+                .report__select-item {
+                  @include mixin.font-style(400, 16, 125, null);
+                }
+              }
+
+              .report__select-text-red {
+                color: #ff3838;
+              }
+
+              .report__select-text-orange {
+                color: #f79e1b;
+              }
+
+              .report__select-text-yellow {
+                color: #ffcc01;
+              }
+
+              .report__select-text-green {
+                color: #01ff55;
+              }
+
+              .report__select-text-gray {
+                color: #737373;
+              }
+            }
+
+            .report__select-open {
+
+            }
+
             .report__btn {
               display: flex;
               align-items: center;
