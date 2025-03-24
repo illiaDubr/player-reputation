@@ -27,7 +27,7 @@ const ReportEdit = ({tag, id}) => {
         e.preventDefault();
 
         const editReportData = {
-            playerId: id,
+            player_id: id,
             backer_tag: selected,
         }
 
