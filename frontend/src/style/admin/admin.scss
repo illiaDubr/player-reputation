@@ -26,7 +26,7 @@
     position: relative;
     overflow: hidden;
 
-    .report__box {
+    .admin__box {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -35,12 +35,31 @@
       position: relative;
       z-index: 2;
 
-      .report {
+      .record {
         border: 2px solid #000729;
         border-radius: 8px;
         padding: 24px;
         backdrop-filter: blur(10px);
         background: rgba(0, 37, 68, 0.49);
+
+        .record__text {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-bottom: 16px;
+          border-bottom: 1px solid #121317;
+          padding: 0px 0px 4px 0px;
+          @include mixin.font-style(400, 16, 130, #FFFFFF);
+
+          .record__text-title {
+            @include mixin.font-style(600, 18, null, null);
+          }
+
+          &:last-child {
+            margin-bottom: 0px;
+            border-bottom: 1px solid transparent;
+          }
+        }
       }
 
       .report-left {
@@ -178,25 +197,6 @@
                 }
               }
             }
-          }
-        }
-
-        .report__text {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          margin-bottom: 16px;
-          border-bottom: 1px solid #121317;
-          padding: 0px 0px 4px 0px;
-          @include mixin.font-style(400, 16, 130, #FFFFFF);
-
-          .report__text-title {
-            @include mixin.font-style(600, 18, null, null);
-          }
-
-          &:last-child {
-            margin-bottom: 0px;
-            border-bottom: 1px solid transparent;
           }
         }
       }

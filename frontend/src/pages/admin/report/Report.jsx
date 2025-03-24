@@ -22,17 +22,17 @@ const Report = observer(() => {
         <AdminMain pageTitle="Репорт метки">
             <div className="admin__wrap">
                 {reportData.map((item, index) => (
-                    <div className="report__box" key={index}>
-                        <div className="report report-left">
+                    <div className="admin__box" key={index}>
+                        <div className="record report-left">
                         </div>
-                        <div className="report report-right">
+                        <div className="record report-right">
                             <div className="report__top">
                                 <div className="">
                                 </div>
                                 <ReportEdit tag={item.backer_tag} player_id={item.player_id} recordId={item.id} />
                             </div>
-                            <div className="report__text">
-                                <div className="report__text-title">
+                            <div className="record__text">
+                                <div className="record__text-title">
                                     Причина репорта:
                                 </div>
                                 {item.report_comment}
