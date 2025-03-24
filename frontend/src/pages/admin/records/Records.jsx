@@ -22,18 +22,30 @@ const Records = observer(() => {
             <div className="admin__wrap">
                 {recordsData.map((item, index) => (
                     <div className="admin__box" key={index}>
-                        <div className="record">
+                        <div className="record record-record">
                             <div className="record__text">
                                 <div className="record__text-title">
-                                    Причина репорта:
+                                    Ущерб:
+                                </div>
+                                {item.old_data.damage}
+                            </div>
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Комментарий:
                                 </div>
                                 {item.old_data.comment}
                             </div>
                         </div>
-                        <div className="record">
+                        <div className="record record-record">
                             <div className="record__text">
                                 <div className="record__text-title">
-                                    Причина репорта:
+                                    Ущерб:
+                                </div>
+                                {item.new_data.damage}
+                            </div>
+                            <div className="record__text">
+                                <div className="record__text-title">
+                                    Комментарий:
                                 </div>
                                 {item.new_data.comment}
                             </div>
