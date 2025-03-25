@@ -39,7 +39,7 @@
     overflow: hidden;
 
     .admin__title {
-
+      @include mixin.font-style(500, 24, 120, #FFFFFF);
     }
 
     .admin__btn {
@@ -312,7 +312,7 @@
     }
 
     &:has(.admin__title) {
-      justify-content: center;
+      align-items: center;
     }
   }
 }

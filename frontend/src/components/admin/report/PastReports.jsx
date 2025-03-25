@@ -4,10 +4,21 @@ import {pastReportData} from "../../../utils/ReportData.js";
 import {Context} from "../../../api/store/storeContext.js";
 
 const PastReports = observer(() => {
+    const { store } = React.useContext(Context);
+    //const [reportData, setReportData] = React.useState([]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e, item) => {
         e.preventDefault();
 
+        try {
+            if ( item.form_tag === "read") {
+
+            } else if ( item.form_tag === "under_discussion" ) {
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (

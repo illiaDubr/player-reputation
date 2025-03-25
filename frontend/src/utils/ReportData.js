@@ -29,8 +29,10 @@ export const reportData = [
 export const pastReportData = [
     {
         title: "Репорты на рассмотрении",
+        form_tag: "under_discussion",
     },
     {
         title: "Закрытые репорты",
+        form_tag: "read",
     },
 ]
