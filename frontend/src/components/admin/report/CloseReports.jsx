@@ -1,6 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../api/store/storeContext.js";
+import ReportItem from "./ReportItem.jsx";
 
 const CloseReports = observer(() => {
     const {store} = React.useContext(Context);
@@ -10,17 +11,16 @@ const CloseReports = observer(() => {
         e.preventDefault();
 
         store.getCloseReports().then((response) => {
-            setCloseReports(response.data);
+            setCloseReports(response.data.data);
         })
     }
-
-    console.log(closeReports);
 
     return (
         <div className="admin__wrap">
             <div className="admin__title">
                 Закрытые репорты
             </div>
+            <ReportItem data={closeReports} tagEdit={false} discussion={false}/>
             <form method="GET" onSubmit={handleSubmit}>
                 <button type="submit" className="admin__btn">
                     Просмотреть
