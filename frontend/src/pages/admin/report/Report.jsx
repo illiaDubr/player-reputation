@@ -22,14 +22,14 @@ const Report = observer(() => {
     return (
         <AdminMain pageTitle="Репорт метки">
             <div className="admin__wrap">
-                {reportData.map((item, index) => (
+                {/*{reportData.map((item, index) => (
                     <div className="admin__box" key={index}>
                         <div className="record report">
                             <div className="record__top">
                                 <div className="record__title">
 
                                 </div>
-
+                                <ReportEdit tag={item.backer_tag} recordId={item.id} />
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
@@ -64,7 +64,7 @@ const Report = observer(() => {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))}*/}
             </div>
             <PastReports />
         </AdminMain>
