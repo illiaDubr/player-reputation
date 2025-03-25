@@ -15,7 +15,7 @@ const Admin = observer(() => {
             store.getDiscussionReports(),
         ]).then((responses) => {
             const getCount = (response) =>
-                Array.isArray(response.data.data) ? response.data.length : 0;
+                Array.isArray(response.data.data) ? response.data.data.length : 0;
 
             const counts = {
                 reportsCount: getCount(responses[0]),
