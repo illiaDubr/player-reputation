@@ -58,7 +58,7 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
     Route::patch('/changes/{id}', [ChangeController::class, 'updateStatus']);
 
     // Управление уведомлениями (Notifications)
-    Route::get('/admin/notifications', [AdminController::class, 'notifications']);
+    Route::get('/admin/report', [AdminController::class, 'notifications']);
     Route::get('/admin/notifications/{id}', [AdminController::class, 'showNotification']);
     Route::patch('/admin/notifications/markAllAsRead', [AdminController::class, 'markAllAsRead']);
 
