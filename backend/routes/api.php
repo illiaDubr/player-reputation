@@ -20,21 +20,12 @@ use App\Http\Controllers\ChangeController;
 use App\Http\Controllers\BackupController;
 //Роуты для игроков
 
+// Счётчик запросов
 Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
 
-
-
-
-//Роуты для бекеров
-
-Route::middleware(['auth', 'check.role:backer,admin,superadmin'])
-    ->group(function () {
-        Route::post('/reports', [ReportController::class, 'store']);
-    });
 Route::prefix('search-players')->group(function () {
     Route::post('/', [PlayerController::class, 'search']);
 });
-
 
 Route::prefix('players')->group(function () {
     Route::put('/{playerId}', [PlayerController::class, 'update']);
@@ -43,51 +34,45 @@ Route::prefix('players')->group(function () {
 });
 
 
+//Роуты для бекеров
+
+Route::middleware(['auth', 'check.role:backer,admin,superadmin'])->group(function () {
+    Route::post('/reports', [ReportController::class, 'store']);
+});
+
+Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']);
+Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']);
+Route::put('/backers/{id}', [BackerAddController::class, 'update']);
+
+
 //роуты для админов и суперадминов
 
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 
-    // Откат изменений
-    Route::post('/changes/{id}/rollback', [ChangeController::class, 'rollback']);
-
-});
-
-
-Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
-
-    // Список изменений с фильтрацией по статусу
+    // Управление изменениями (Changes)
     Route::get('/changes', [ChangeController::class, 'index']);
-
-    // Обновить статус изменения
+    Route::post('/changes/{id}/rollback', [ChangeController::class, 'rollback']);
     Route::patch('/changes/{id}', [ChangeController::class, 'updateStatus']);
 
-});
-Route::middleware(['auth', 'check.role:admin,superadmin'])
-    ->get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
-Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
-
-    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
-
-        // Просмотреть список уведомлений
+    // Управление уведомлениями (Notifications)
     Route::get('/admin/notifications', [AdminController::class, 'notifications']);
-
-    // Посмотреть конкретное уведомление и информацию о репорте
     Route::get('/admin/notifications/{id}', [AdminController::class, 'showNotification']);
-
-    // Пометить все как прочитанные
     Route::patch('/admin/notifications/markAllAsRead', [AdminController::class, 'markAllAsRead']);
 
-    Route::get('/reports/{report}', [ReportController::class, 'show']);
+    // Просмотр и редактирование репортов
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::patch('/reports/{report}', [ReportController::class, 'update']);
+    Route::get('/reports/{report}', [ReportController::class, 'listReports']);
+    Route::patch('/reports/{id}/status', [ReportController::class, 'updateStatus']);
+
+    // Управление репутацией игроков
+    Route::get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
+    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
+
+    // Резервное копирование и восстановление
+    Route::get('/backup/download', [BackupController::class, 'downloadBackup']);
+    Route::post('/backup/upload', [BackupController::class, 'uploadBackup']);
 });
-Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']); // Получение всех неподтвержденных Backer
-Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']); // Обновление статуса Backer
-Route::put('/backers/{id}', [BackerAddController::class, 'update']); // Обновление существующего Backer
-Route::middleware(['auth', 'check.role:admin,superadmin'])
-    ->group(function () {
-        Route::get('/reports', [ReportController::class, 'index']);
-        Route::patch('/reports/{report}', [ReportController::class, 'update']);
-        // Можно добавить delete, show и т. д. при необходимости.
-    });
 
 //роуты для суперадминов
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
@@ -99,16 +84,13 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 });
 
 //произвольные роуты
-Route::post('/process-json', [JsonProcessingController::class, 'processJson']);
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('api')
     ->name('register');
-
 
 Route::middleware(['web'])->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
@@ -121,7 +103,6 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     ->name('password.email');
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
-//    ->middleware('guest')
     ->name('password.store');
 
 Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -135,3 +116,6 @@ Route::post('/email/verification-notification', [EmailVerificationNotificationCo
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+
+
+Route::post('/process-json', [JsonProcessingController::class, 'processJson']);

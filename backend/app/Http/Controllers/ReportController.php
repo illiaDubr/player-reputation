@@ -55,19 +55,41 @@ class ReportController extends Controller
      * Изменить репорт (например, поменять статус, внести правки).
      * Допустим, только админ может это делать.
      */
-    public function update(Request $request, Report $report)
+    /**
+     * Обновление статуса репорта.
+     */
+    public function updateStatus(Request $request, $id)
     {
-        // Валидация входных данных для обновления
-        $data = $request->validate([
-            'status' => 'required|in:pending,resolved,rejected',
+        $validated = $request->validate([
+            'status' => 'required|in:unread,read,under_discussion',
         ]);
 
-        $report->update($data);
+        $report = Report::findOrFail($id);
+        $report->update(['status' => $validated['status']]);
 
         return response()->json([
             'success' => true,
-            'report'  => $report,
+            'report' => $report,
         ]);
+    }
+    /**
+* Список репортов с возможностью фильтрации по одному или нескольким статусам.
+*/
+    public function listReports(Request $request)
+    {
+        $statuses = $request->query('status', null);
+
+        $query = Report::with(['player', 'reputationRecord', 'reporter']);
+
+        if ($statuses) {
+            // Если статусы переданы через запятую (например: "read,under_discussion")
+            $statusArray = explode(',', $statuses);
+            $query->whereIn('status', $statusArray);
+        }
+
+        $reports = $query->orderBy('created_at', 'desc')->paginate(20);
+
+        return response()->json($reports);
     }
 }
 

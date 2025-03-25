@@ -27,7 +27,7 @@ class ChangeController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $validated = $request->validate([
-            'status' => 'required|in:unread,read,approved',
+            'status' => 'required|in:unread,read,under_discussion',
         ]);
 
         $change = Change::findOrFail($id);
