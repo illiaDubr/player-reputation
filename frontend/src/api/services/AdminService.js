@@ -11,7 +11,7 @@ export default class AdminService {
     static async getReports() {
         await getCsrfToken();
 
-        return $api.get(`/api/reports?status=unread`);
+        return $api.get(`/api/admin/report`);
     }
 
     static async getPastReports(pastReportsData) {
