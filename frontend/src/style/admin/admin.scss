@@ -51,7 +51,7 @@
         border-radius: 20px;
         border: 1px solid transparent;
         @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
-        padding: 20px;
+        padding: 30px;
         position: relative;
         overflow: hidden;
 
@@ -71,7 +71,7 @@
           z-index: 1;
         }
 
-        &:nth-child(1), &:nth-child(4) {
+        &:nth-child(1), &:nth-child(5), &:nth-child(6) {
           &:before {
             content: "";
             width: 278px;
@@ -82,6 +82,20 @@
             z-index: 1;
             border: 27px solid #2a4bfb;
             box-shadow: 0 0 83px 0 #2a4bfb;
+          }
+        }
+
+        &:nth-child(1), &:nth-child(6) {
+          &:before {
+            bottom: -139px;
+            left: -139px;
+          }
+        }
+
+        &:nth-child(5) {
+          &:before {
+            bottom: -139px;
+            right: -139px;
           }
         }
       }
