@@ -92,6 +92,7 @@ class ReportController extends Controller
             'reporter_name' => optional($report->reporter)->name,
             'status' => $report->status,
             'created_at' => $report->created_at,
+            'backer_tag' =>optional($report->player)->backer_tag,
         ];
     });
 
