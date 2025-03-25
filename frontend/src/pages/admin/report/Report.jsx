@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 import ReportEdit from "../../../components/admin/report/ReportEdit.jsx";
+import PastReports from "../../../components/admin/report/PastReports.jsx";
 
 const Report = observer(() => {
     const { store } = React.useContext(Context);
@@ -26,16 +27,16 @@ const Report = observer(() => {
                         <div className="record report">
                             <div className="record__top">
                                 <div className="record__title">
-                                    {item.reporter_name}
+                                    {item.reporter.name}
                                 </div>
-                                <ReportEdit tag={item.backer_tag} player_id={item.player_id} recordId={item.id} />
+                                <ReportEdit tag={item.backer_tag} recordId={item.id} />
                             </div>
                             <div className="record__text">
                                 <div className="record__text-title">
                                     Имя игрока:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.player_last_name} {item.player_first_name}
+                                    {item.player.last_name} {item.player.first_name}
                                 </div>
                             </div>
                             <div className="record__text">
@@ -43,7 +44,7 @@ const Report = observer(() => {
                                     Ущерб:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.damage} $
+                                    {item.player.damage} $
                                 </div>
                             </div>
                             <div className="record__text">
@@ -59,16 +60,14 @@ const Report = observer(() => {
                                     Причина смены метки:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.report_comment}
+                                    {item.comment}
                                 </div>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="admin__wrap">
-
-            </div>
+            <PastReports />
         </AdminMain>
     )
 })
