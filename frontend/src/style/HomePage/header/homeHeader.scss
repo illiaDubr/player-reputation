@@ -10,15 +10,9 @@
 .home__header {
   width: 100%;
   max-width: 1530px;
+  padding: 0px 20px;
   height: fit-content;
   min-height: 48px;
-  position: fixed;
-  z-index: 9;
-  top: 32px;
-  border: 1px solid transparent;
-  backdrop-filter: blur(10px);
-  border-radius: 2px;
-  transition: all ease .5s;
 
   .home__nav-wrap {
     height: 100%;
@@ -120,13 +114,6 @@
     inset: 32px 20px 32px 20px !important;
     backdrop-filter: blur(40px) !important;
     height: auto;
-  }
-}
-
-@media (max-width: 1530px) {
-  .home__header {
-    width: auto;
-    inset: 32px 20px 0px 20px;
   }
 }
 
