@@ -35,13 +35,13 @@ const ReportEdit = ({tag, player_id, recordId}) => {
         e.preventDefault();
 
         const editReportData = {
-            player_id: player_id,
+            id: recordId,
             backer_tag: selected,
         }
 
         console.log(editReportData);
 
-        store.editReport(editReportData)
+        store.editTagReport(editReportData)
             .then(() => {
                 deleteRecord();
             })
