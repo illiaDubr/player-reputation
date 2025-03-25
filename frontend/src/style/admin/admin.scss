@@ -42,12 +42,28 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       grid-gap: 30px;
+      position: relative;
+      z-index: 2;
 
       .admin__link {
         aspect-ratio: 2 / 1;
         backdrop-filter: blur(40px);
         border: 1px solid transparent;
-        @include mixin.gradient-box(rgba(8, 8, 8, .9), linear-gradient(to left, #818181, #36373E));
+        @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
+        padding: 20px;
+        position: relative;
+
+        .admin__link-text {
+          @include mixin.font-style(600, null, 120, #FFFFFF);
+          @include mixin.font-size(42, 26);
+          position: relative;
+          z-index: 2;
+        }
+
+        span {
+          position: absolute;
+          z-index: 1;
+        }
       }
     }
 
