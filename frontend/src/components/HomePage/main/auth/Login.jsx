@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Context} from "../../../../api/store/storeContext.js";
 import {useModal} from "../../../platform/components/Modal.jsx";
-import {ACCOUNT_ROUTE} from "../../../../utils/const.js";
+import {ACCOUNT_ROUTE, ADMIN_ROUTE} from "../../../../utils/const.js";
 
 function Login() {
     const [email, setEmail] = React.useState('');
@@ -33,7 +33,7 @@ function Login() {
 
         try {
             await store.login(loginData);
-            navigate(ACCOUNT_ROUTE);
+            navigate(ADMIN_ROUTE);
         } catch (error) {
             reset();
             openModal("Auth");
