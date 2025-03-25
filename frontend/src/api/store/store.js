@@ -193,9 +193,9 @@ export default class Store {
         )
     }
 
-    async changeStatus(changeRecordsData) {
+    async changeReportStatus(changeReportData) {
         await this.request(
-            () => AdminService.changeRecordStatus(changeRecordsData),
+            () => AdminService.changeReportStatus(changeReportData),
             "Ошибка отправки репорта"
         )
     }

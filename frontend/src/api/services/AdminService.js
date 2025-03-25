@@ -21,14 +21,13 @@ export default class AdminService {
         return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
     }
 
-    static async getSearchLogs() {
-        return $api.get(`api/stats/search-players`);
+    static async changeReportStatus(changeReportData) {
+        const id = changeReportData.id;
+
+        return $api.patch(`/api/reports/${id}/status`, changeReportData)
     }
 
-    static async changeRecordStatus(changeRecordsData) {
-
-        const id = changeRecordsData.id;
-
-        return $api.patch(`/api/reports/${id}/status`, changeRecordsData)
+    static async getSearchLogs() {
+        return $api.get(`api/stats/search-players`);
     }
 }
