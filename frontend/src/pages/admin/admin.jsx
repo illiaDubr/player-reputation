@@ -5,6 +5,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../api/store/storeContext.js";
 import {NavListData} from "../../utils/AdminData.js";
 import {Link} from "react-router-dom";
+import IconSvg from "../../components/platform/components/IconSvg.jsx";
 
 const Admin = observer(() => {
     const { store } = React.useContext(Context);
