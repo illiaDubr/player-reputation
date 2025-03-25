@@ -38,6 +38,24 @@
     position: relative;
     overflow: hidden;
 
+    .admin__title {
+
+    }
+
+    .admin__btn {
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: #2750f2;
+      transition: all .4s ease;
+      @include mixin.font-style(600, null, 130, #FFFFFF);
+      @include mixin.font-size(20, 16);
+      letter-spacing: -0.01em;
+
+      &:hover {
+        background: #03f;
+      }
+    }
+
     .admin__box {
       width: 100%;
       display: flex;
@@ -291,6 +309,10 @@
     &:after {
       right: 0px;
       bottom: 0px;
+    }
+
+    &:has(.admin__title) {
+      justify-content: center;
     }
   }
 }

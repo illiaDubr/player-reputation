@@ -3,7 +3,7 @@ import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 
-const ReportEdit = ({tag, player_id, recordId}) => {
+const ReportEdit = ({tag, recordId}) => {
     const { store } = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);

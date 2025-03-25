@@ -25,3 +25,12 @@ export const reportData = [
         color: "gray",
     },
 ]
+
+export const pastReportData = [
+    {
+        title: "Репорты на рассмотрении",
+    },
+    {
+        title: "Закрытые репорты",
+    },
+]
