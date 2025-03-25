@@ -5,7 +5,7 @@ import {Context} from "../../../api/store/storeContext.js";
 import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
 const ReportEdit = ({tag, playerId, recordId}) => {
-    const { store } = React.useContext(Context);
+    const {store} = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -54,10 +54,11 @@ const ReportEdit = ({tag, playerId, recordId}) => {
     const isChanged = selected !== tag;
 
     return (
-        <>
+        <div className="report__form-wrap">
             <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
                 <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
-                    <div className={`report__select-title report__select-text-${displayedColor}`} onClick={toggleDropdown}>
+                    <div className={`report__select-title report__select-text-${displayedColor}`}
+                         onClick={toggleDropdown}>
                         {displayedName}
                         <IconSvg width={15} height={15} id="arrow"/>
                     </div>
@@ -81,7 +82,7 @@ const ReportEdit = ({tag, playerId, recordId}) => {
             </form>
 
             <ReportChangeStatus id={recordId}/>
-        </>
+        </div>
     )
 }
 
