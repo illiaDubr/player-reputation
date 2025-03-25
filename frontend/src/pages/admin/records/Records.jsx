@@ -3,6 +3,7 @@ import {Context} from "../../../api/store/storeContext.js";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import DeleteRecord from "../../../components/admin/records/DeleteRecord.jsx";
+import {recordsText} from "../../../utils/AdminData.js";
 
 const Records = observer(() => {
     const { store } = React.useContext(Context);
@@ -19,7 +20,7 @@ const Records = observer(() => {
     console.log(recordsData);
 
     return (
-        <AdminMain pageTitle="Измененные записи">
+        <AdminMain pageTitle="Измененные записи" text={recordsText}>
             <div className="admin__wrap">
                 {recordsData.map((item, index) => (
                     <div className="admin__box" key={index}>
