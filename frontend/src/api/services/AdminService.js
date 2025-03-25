@@ -16,9 +16,9 @@ export default class AdminService {
     }
 
     static async editTagReport(editReportData) {
-        const id = editReportData.id;
+        const playerId = editReportData.playerId;
 
-        return $api.patch(`/api/reports/${id}/status`, editReportData)
+        return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
     }
 
     static async getSearchLogs() {

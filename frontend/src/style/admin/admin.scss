@@ -65,7 +65,7 @@
         span {
           width: 100px;
           height: 100px;
-          background: #2750f2;
+          background: #006e72;
           filter: blur(75px);
           position: absolute;
           z-index: 1;
@@ -80,8 +80,8 @@
             border-radius: 50%;
             position: absolute;
             z-index: 1;
-            border: 27px solid #2a4bfb;
-            box-shadow: 0 0 83px 0 #2a4bfb;
+            border: 27px solid #006e72;
+            box-shadow: 0 0 83px 0 #006e72;
           }
         }
 
@@ -108,14 +108,14 @@
     .admin__btn {
       padding: 10px 15px;
       border-radius: 8px;
-      background: #2750f2;
+      background: #00f6ff;
       transition: all .4s ease;
-      @include mixin.font-style(600, null, 130, #FFFFFF);
+      @include mixin.font-style(600, null, 130, #000000);
       @include mixin.font-size(20, 16);
       letter-spacing: -0.01em;
 
       &:hover {
-        background: #03f;
+        background: #08acb1;
       }
     }
 
@@ -358,7 +358,7 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      background: #2a4bfb;
+      background: #006e72;
       filter: blur(100px);
       position: absolute;
       z-index: 1;

@@ -3,7 +3,7 @@ import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 
-const ReportEdit = ({tag, recordId}) => {
+const ReportEdit = ({tag, playerId, recordId}) => {
     const { store } = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);
@@ -37,15 +37,15 @@ const ReportEdit = ({tag, recordId}) => {
         e.preventDefault();
 
         const editReportData = {
-            id: recordId,
             backer_tag: selected,
+            playerId: playerId,
         }
 
         console.log(editReportData);
 
         store.editTagReport(editReportData)
             .then(() => {
-
+                changeRecords();
             })
     }
 
