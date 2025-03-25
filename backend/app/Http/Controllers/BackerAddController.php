@@ -115,7 +115,7 @@ class BackerAddController extends Controller
     public function getApprovedBackers()
     {
         try {
-            // Получаем всех бэкеров с approved = 'no'
+            // Получаем всех бэкеров с approved = 'yes'
             $backers = Backer::where('approved', 'yes')->get();
 
             return response()->json([
