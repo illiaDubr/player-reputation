@@ -27,7 +27,7 @@ const Report = observer(() => {
                         <div className="record report">
                             <div className="record__top">
                                 <div className="record__title">
-                                    {item.reporter.name}
+
                                 </div>
                                 <ReportEdit tag={item.backer_tag} recordId={item.id} />
                             </div>
@@ -36,7 +36,7 @@ const Report = observer(() => {
                                     Имя игрока:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.player.last_name} {item.player.first_name}
+
                                 </div>
                             </div>
                             <div className="record__text">
@@ -44,7 +44,7 @@ const Report = observer(() => {
                                     Ущерб:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.player.damage} $
+
                                 </div>
                             </div>
                             <div className="record__text">
@@ -52,7 +52,6 @@ const Report = observer(() => {
                                     Комментарий:
                                 </div>
                                 <div className="record__text-desc">
-                                    {item.reputation_comment}
                                 </div>
                             </div>
                             <div className="record__text">
