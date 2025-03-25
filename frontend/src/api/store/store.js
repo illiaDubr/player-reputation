@@ -179,9 +179,9 @@ export default class Store {
         )
     }
 
-    async getPastReports(pastReportsData){
+    async getCloseReports(){
         return await this.request(
-            () => AdminService.getPastReports(pastReportsData),
+            () => AdminService.getCloseReports(),
             "Ошибка получения данных"
         )
     }

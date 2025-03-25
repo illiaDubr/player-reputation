@@ -9,10 +9,8 @@ export default class AdminService {
         return $api.get(`/api/reports?status=unread`);
     }
 
-    static async getPastReports(pastReportsData) {
-        const status = pastReportsData.status;
-
-        return $api.get(`/api/reports?status=${status}`);
+    static async getCloseReports() {
+        return $api.get(`/api/reports?status=read`);
     }
 
     static async editTagReport(editReportData) {

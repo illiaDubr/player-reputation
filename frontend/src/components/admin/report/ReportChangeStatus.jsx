@@ -16,15 +16,15 @@ const ReportChangeStatus = ({ id }) => {
 
     return (
         <>
-            <form method="PATCH" className="report__form" onSubmit={handleChangeSubmit("read")}>
-                <button type="submit" className="report__btn">
-                    <IconSvg width={16} height={16} id="trash" />
-                </button>
-            </form>
-
             <form method="PATCH" className="report__form" onSubmit={handleChangeSubmit("under_discussion")}>
                 <button type="submit" className="report__btn">
                     На рассмотрении
+                </button>
+            </form>
+
+            <form method="PATCH" className="report__form" onSubmit={handleChangeSubmit("read")}>
+                <button type="submit" className="report__btn">
+                    <IconSvg width={16} height={16} id="trash" />
                 </button>
             </form>
         </>
