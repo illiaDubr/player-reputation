@@ -2,7 +2,6 @@ import React from "react";
 import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
-import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
 const ReportEdit = ({tag, playerId, recordId}) => {
     const {store} = React.useContext(Context);
@@ -80,8 +79,6 @@ const ReportEdit = ({tag, playerId, recordId}) => {
                     Обновить метку
                 </button>
             </form>
-
-            <ReportChangeStatus id={recordId}/>
         </div>
     )
 }
