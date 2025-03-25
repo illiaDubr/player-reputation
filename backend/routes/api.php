@@ -46,7 +46,10 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']);
 
 
 //роуты для админов и суперадминов
-
+Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+    // Удаление проверенного репорта
+    Route::delete('/reports/{id}', [ReportController::class, 'deleteVerifiedReport']);
+});
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 
     // Управление изменениями (Changes)

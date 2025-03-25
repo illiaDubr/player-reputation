@@ -16,22 +16,18 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        // Валидация входных данных
         $data = $request->validate([
             'player_id' => 'required|string|exists:players,player_id',
             'tag'       => 'nullable|string',
             'comment'   => 'nullable|string',
         ]);
 
-        // reporter_id = текущий пользователь
         $data['reporter_id'] = Auth::id();
 
-        // Статус по умолчанию будет pending (задано в миграции)
         $report = Report::create($data);
 
         $admins = User::whereIn('role', ['admin', 'superadmin'])->get();
 
-        // Отправляем уведомление
         Notification::send($admins, new NewReportNotification($report));
 
         return response()->json([
@@ -41,27 +37,22 @@ class ReportController extends Controller
     }
 
     /**
-     * Получить список всех репортов (доступно админу/суперадмину).
+     * Получение всех репортов (доступно админу/суперадмину).
      */
     public function index()
     {
-        // Можно отфильтровать только pending, или вернуть все.
         $reports = Report::with(['player', 'reporter'])->get();
 
         return response()->json($reports);
     }
 
     /**
-     * Изменить репорт (например, поменять статус, внести правки).
-     * Допустим, только админ может это делать.
-     */
-    /**
-     * Обновление статуса репорта.
+     * Обновление статуса репорта (доступно админу/суперадмину).
      */
     public function updateStatus(Request $request, $id)
     {
         $validated = $request->validate([
-            'status' => 'required|in:unread,read,under_discussion',
+            'status' => 'required|in:pending,resolved,rejected,unread,read,under_discussion',
         ]);
 
         $report = Report::findOrFail($id);
@@ -72,9 +63,10 @@ class ReportController extends Controller
             'report' => $report,
         ]);
     }
+
     /**
-* Список репортов с возможностью фильтрации по одному или нескольким статусам.
-*/
+     * Список репортов с фильтрацией по статусам.
+     */
     public function listReports(Request $request)
     {
         $statuses = $request->query('status', null);
@@ -82,7 +74,6 @@ class ReportController extends Controller
         $query = Report::with(['player', 'reputationRecord', 'reporter']);
 
         if ($statuses) {
-            // Если статусы переданы через запятую (например: "read,under_discussion")
             $statusArray = explode(',', $statuses);
             $query->whereIn('status', $statusArray);
         }
@@ -91,5 +82,34 @@ class ReportController extends Controller
 
         return response()->json($reports);
     }
-}
 
+    /**
+     * Удаление проверенного репорта (resolved или approved).
+     */
+    public function deleteVerifiedReport($id)
+    {
+        try {
+            $report = Report::findOrFail($id);
+
+            // Проверяем, что репорт действительно можно удалять
+            if (!in_array($report->status, ['resolved', 'approved'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Удалять можно только проверенные репорты.',
+                ], 400);
+            }
+
+            $report->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Репорт успешно удален.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ошибка при удалении репорта: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+}
