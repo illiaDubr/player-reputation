@@ -359,6 +359,10 @@
       @include mixin.font-style(600, 24, 100, #FFFFFF);
     }
 
+    .admin__no-data {
+      @include mixin.font-style(500, 18, 120, #FFFFFF);
+    }
+
     &:before, &:after {
       content: "";
       width: 150px;

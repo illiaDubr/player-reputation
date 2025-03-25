@@ -1,0 +1,34 @@
+import React from "react";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../../api/store/storeContext.js";
+
+const CloseReports = observer(() => {
+    const {store} = React.useContext(Context);
+    const [closeReports, setCloseReports] = React.useState([]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        store.getCloseReports().then((response) => {
+            setCloseReports(response.data);
+        })
+    }
+
+    console.log(closeReports);
+
+    return (
+        <div className="admin__wrap">
+            <div className="admin__title">
+                Закрытые репорты
+            </div>
+            <form method="GET" onSubmit={handleSubmit}>
+                <button type="submit" className="admin__btn">
+                    Просмотреть
+                </button>
+            </form>
+        </div>
+
+    )
+})
+
+export default CloseReports;
