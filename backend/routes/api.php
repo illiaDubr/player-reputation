@@ -63,9 +63,9 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
     Route::patch('/admin/notifications/markAllAsRead', [AdminController::class, 'markAllAsRead']);
 
     // Просмотр и редактирование репортов
-    Route::get('/reports', [ReportController::class, 'index']);
+    Route::get('/reports', [ReportController::class, 'listReports']);
     Route::patch('/reports/{report}', [ReportController::class, 'update']);
-    Route::get('/reports/{report}', [ReportController::class, 'listReports']);
+//    Route::get('/reports/{report}', [ReportController::class, 'listReports']);
     Route::patch('/reports/{id}/status', [ReportController::class, 'updateStatus']);
 
     // Управление репутацией игроков
