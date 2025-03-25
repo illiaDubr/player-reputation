@@ -2,18 +2,21 @@ import {ADMIN_REP_ROUTE, ADMIN_LOGS_ROUTE, ADMIN_RECORDS_ROUTE, SEARCH_ROUTE} fr
 
 export const NavListData = [
     {
+        id: "",
         link: "",
         icon: "link_request",
         header_text: "",
         link_text: "Заявки на верификацию. Все бекеры",
     },
     {
+        id: "discussion",
         link: ADMIN_RECORDS_ROUTE,
         icon: "link_notification",
         header_text: "Изменения записей",
         link_text: "Скорректированные репутационные записи. История",
     },
     {
+        id: "reports",
         link: ADMIN_REP_ROUTE,
         icon: "link_report",
         header_text: "Корректировка меток",
@@ -26,12 +29,14 @@ export const NavListData = [
         link_text: "Аналитика",
     },
     {
+        id: "",
         link: SEARCH_ROUTE,
         icon: "link_search",
         header_text: "Поиск по базе",
         link_text: "Поиск по базе",
     },
     {
+        id: "",
         link: "",
         icon: "",
         header_text: "",
