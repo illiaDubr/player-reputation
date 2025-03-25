@@ -5,7 +5,7 @@ import {Context} from "../../../api/store/storeContext.js";
 
 const PastReports = observer(() => {
     const { store } = React.useContext(Context);
-    const [reportData, setReportData] = React.useState([]);
+    const [reportDData, setReportDData] = React.useState([]);
 
     const handleSubmit = (e, item) => {
         e.preventDefault();
@@ -15,11 +15,11 @@ const PastReports = observer(() => {
         }
 
         store.getPastReports(pastReportsData).then((response) => {
-            setReportData(response.data);
+            setReportDData(response.data);
         })
     }
 
-    console.log(reportData);
+    console.log(reportDData);
 
     return (
 
