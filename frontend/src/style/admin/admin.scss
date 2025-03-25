@@ -38,6 +38,10 @@
     position: relative;
     overflow: hidden;
 
+    .admin__link-wrap {
+
+    }
+
     .admin__title {
       @include mixin.font-style(500, 24, 120, #FFFFFF);
     }
