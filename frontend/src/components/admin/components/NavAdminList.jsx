@@ -37,7 +37,7 @@ const NavAdminList = ({isOpen}) => {
                                 <IconSvg width={20} height={20} id={item.icon}/>
                             </animated.span>
                             <animated.span className="navigation__text" style={textAnimation}>
-                                {item.text}
+                                {item.header_text}
                             </animated.span>
                         </Link>
                     </li>
