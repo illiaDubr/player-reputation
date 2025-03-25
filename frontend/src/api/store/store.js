@@ -193,17 +193,17 @@ export default class Store {
         )
     }
 
+    async changeStatus(changeRecordsData) {
+        await this.request(
+            () => AdminService.changeRecordStatus(changeRecordsData),
+            "Ошибка отправки репорта"
+        )
+    }
+
     async searchLogs() {
         return await this.request(
             () => AdminService.getSearchLogs(),
             "Ошибка получения данных"
-        )
-    }
-
-    async deleteRecord(deleteData) {
-        await this.request(
-            () => AdminService.deleteRecord(deleteData),
-            "Ошибка удаления"
         )
     }
 }

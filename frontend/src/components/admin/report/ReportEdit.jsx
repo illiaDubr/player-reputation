@@ -23,12 +23,14 @@ const ReportEdit = ({tag, recordId}) => {
         setIsOpen(false);
     };
 
-    const deleteRecord = () => {
-        const deleteData = {
+    const changeRecords = () => {
+        const changeRecordsData = {
             id: recordId,
+            status: "read",
         }
+        console.log(changeRecordsData);
 
-        store.deleteRecord(deleteData);
+        store.changeStatus(changeRecordsData);
     }
 
     const handleSubmit = (e) => {
@@ -43,7 +45,7 @@ const ReportEdit = ({tag, recordId}) => {
 
         store.editTagReport(editReportData)
             .then(() => {
-                deleteRecord();
+                changeRecords();
             })
     }
 
