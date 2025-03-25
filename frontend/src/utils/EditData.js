@@ -12,7 +12,7 @@ export const editModalData = [
 export const editData = [
     {
         img: "danger_triangle",
-        text: "Репорт метки",
+        text: "Сообщить об ошибке метки",
         modal: "openReportModal",
     },
     {

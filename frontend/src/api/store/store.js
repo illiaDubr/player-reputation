@@ -163,6 +163,8 @@ export default class Store {
         );
     }
 
+    // --- Методы админ панели ---
+
     async returnRecords() {
         return await this.request(
             () => AdminService.getReturnRecords(),
@@ -170,16 +172,16 @@ export default class Store {
         )
     }
 
-    async reports(){
+    async getReports(){
         return await this.request(
             () => AdminService.getReports(),
             "Ошибка получения данных"
         )
     }
 
-    async editReport(editReportData) {
+    async editTagReport(editReportData) {
         await this.request(
-            () => AdminService.editReport(editReportData),
+            () => AdminService.editTagReport(editReportData),
             "Ошибка отправки репорта"
         )
     }

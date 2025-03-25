@@ -9,8 +9,8 @@ const Report = observer(() => {
     const [reportData, setReportData] = React.useState([]);
 
     React.useEffect(() => {
-        store.reports().then((response) => {
-            setReportData(response.data.notifications);
+        store.getReports().then((response) => {
+            setReportData(response.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
@@ -65,6 +65,9 @@ const Report = observer(() => {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className="admin__wrap">
+
             </div>
         </AdminMain>
     )

@@ -11,15 +11,15 @@ export default class AdminService {
     static async getReports() {
         await getCsrfToken();
 
-        return $api.get(`/api/admin/notifications`);
+        return $api.get(`/api/reports?status=unread`);
     }
 
-    static async editReport(editReportData) {
+    static async editTagReport(editReportData) {
         await getCsrfToken();
 
-        const playerId = editReportData.player_id;
+        const id = editReportData.id;
 
-        return $api.patch(`/api/players/${playerId}/backer-tag`, editReportData)
+        return $api.patch(`/api/reports/${id}/status`, editReportData)
     }
 
     static async getSearchLogs() {
