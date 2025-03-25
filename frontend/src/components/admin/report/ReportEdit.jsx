@@ -45,7 +45,7 @@ const ReportEdit = ({tag, recordId}) => {
 
         store.editTagReport(editReportData)
             .then(() => {
-                changeRecords();
+
             })
     }
 
