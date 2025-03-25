@@ -86,6 +86,7 @@ class ReportController extends Controller
             'id' => $report->id,
             'player_first_name' => optional($report->player)->first_name,
             'player_last_name' => optional($report->player)->last_name,
+            'player_id' => optional($report->player)->player_id,
             'reputation_comment' => optional($report->reputationRecord)->comment,
             'damage' => optional($report->reputationRecord)->damage,
             'report_comment' => $report->comment,

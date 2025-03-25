@@ -112,4 +112,21 @@ class BackerAddController extends Controller
             ], 500);
         }
     }
+    public function getApprovedBackers()
+    {
+        try {
+            // Получаем всех бэкеров с approved = 'yes'
+            $backers = Backer::where('approved', 'yes')->get();
+
+            return response()->json([
+                'message' => 'Unapproved backers retrieved successfully',
+                'backers' => $backers,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve unapproved backers',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
