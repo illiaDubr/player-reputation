@@ -7,9 +7,15 @@
 
 // === Styles === //
 
-.admin__page-title {
-  @include mixin.font-style(600, 32, 120, #FFFFFF);
-  text-align: center;
+.admin__page-header {
+  .admin__page-title {
+    @include mixin.font-style(600, 32, 120, #FFFFFF);
+    text-align: center;
+  }
+
+  .admin__page-text {
+
+  }
 }
 
 .admin__content {

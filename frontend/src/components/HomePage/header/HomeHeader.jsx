@@ -48,9 +48,10 @@ const HomeHeader = () => {
         const ctx = gsap.context(() => {
             gsap.to(headerRef.current, {
                 backdropFilter: "blur(40px)",
-                borderRadius: "1000px",
+                borderRadius: "16px",
+                background: "radial-gradient(50% 571.43% at 71.94% 50%, #181146 0%, #020011 100%)",
                 border: "1px solid #FFFFFF",
-                padding: "24px 36px",
+                padding: "10px 24px",
                 duration: 0.6,
                 scrollTrigger: {
                     trigger: document.body,
