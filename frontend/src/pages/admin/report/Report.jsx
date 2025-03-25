@@ -11,7 +11,7 @@ const Report = observer(() => {
 
     React.useEffect(() => {
         store.getReports().then((response) => {
-            setReportData(response.data);
+            setReportData(response.data.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });
