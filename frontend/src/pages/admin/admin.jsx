@@ -5,10 +5,29 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../api/store/storeContext.js";
 import {NavListData} from "../../utils/AdminData.js";
 import {Link} from "react-router-dom";
-import IconSvg from "../../components/platform/components/IconSvg.jsx";
 
 const Admin = observer(() => {
     const { store } = React.useContext(Context);
+
+    React.useEffect(() => {
+        Promise.all([
+            store.getReports(),
+            store.getDiscussionReports(),
+        ]).then((responses) => {
+            const getCount = (response) =>
+                Array.isArray(response.data) ? response.data.length : 0;
+
+            const counts = {
+                reportsCount: getCount(responses[0]),
+                discussionCount: getCount(responses[1]),
+            };
+
+            console.log("Количество reports:", counts.reportsCount);
+            console.log("Количество discussionReports:", counts.discussionCount);
+        }).catch((error) => {
+            console.error("Ошибка при запросах:", error);
+        })
+    }, [store])
 
 
     const randomTop = Math.floor(Math.random() * 350) + "px";
