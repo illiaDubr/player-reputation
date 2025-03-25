@@ -23,6 +23,7 @@ class ReportController extends Controller
         ]);
 
         $data['reporter_id'] = Auth::id();
+        $data['status']      = 'unread';
 
         $report = Report::create($data);
 
@@ -52,7 +53,7 @@ class ReportController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $validated = $request->validate([
-            'status' => 'required|in:pending,resolved,rejected,unread,read,under_discussion',
+            'status' => 'required|in:unread,read,under_discussion',
         ]);
 
         $report = Report::findOrFail($id);
