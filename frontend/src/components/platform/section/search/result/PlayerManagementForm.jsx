@@ -65,7 +65,11 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                                 <label htmlFor="damage" className="label">
                                     Сумма ущерба
                                 </label>
-                                <input id="damage" name="damage" className="input"/>
+                                <input id="damage" name="damage" inputMode="numeric"
+                                       pattern="\d*"
+                                       onInput={(e) => {
+                                           e.target.value = e.target.value.replace(/\D/g, '');
+                                       }} className="input"/>
                             </div>
                             <div className="modal__input-box">
                                 <label className="label" htmlFor="comment">

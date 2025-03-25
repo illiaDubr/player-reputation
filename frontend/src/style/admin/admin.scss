@@ -14,7 +14,10 @@
   }
 
   .admin__page-text {
-
+    padding-top: 15px;
+    @include mixin.font-style(400, 15, 143, rgba(255, 255, 255, .5));
+    text-align: center;
+    text-wrap: balance;
   }
 }
 
