@@ -179,6 +179,13 @@ export default class Store {
         )
     }
 
+    async getPastReports(pastReportsData){
+        return await this.request(
+            () => AdminService.getPastReports(pastReportsData),
+            "Ошибка получения данных"
+        )
+    }
+
     async editTagReport(editReportData) {
         await this.request(
             () => AdminService.editTagReport(editReportData),

@@ -14,6 +14,14 @@ export default class AdminService {
         return $api.get(`/api/reports?status=unread`);
     }
 
+    static async getPastReports(pastReportsData) {
+        await getCsrfToken();
+
+        const status = pastReportsData.status;
+
+        return $api.get(`/api/reports?status=${status}`);
+    }
+
     static async editTagReport(editReportData) {
         await getCsrfToken();
 
