@@ -2,6 +2,7 @@ import React from "react";
 import {reportData} from "../../../utils/ReportData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
+import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
 const ReportEdit = ({tag, playerId, recordId}) => {
     const { store } = React.useContext(Context);
@@ -24,13 +25,14 @@ const ReportEdit = ({tag, playerId, recordId}) => {
     };
 
     const changeRecords = () => {
-        const changeRecordsData = {
+        const changeReportData = {
             id: recordId,
             status: "read",
         }
-        console.log(changeRecordsData);
 
-        store.changeStatus(changeRecordsData);
+        console.log(changeReportData);
+
+        store.changeReportStatus(changeReportData);
     }
 
     const handleSubmit = (e) => {
@@ -52,30 +54,34 @@ const ReportEdit = ({tag, playerId, recordId}) => {
     const isChanged = selected !== tag;
 
     return (
-        <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
-            <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
-                <div className={`report__select-title report__select-text-${displayedColor}`} onClick={toggleDropdown}>
-                    {displayedName}
-                    <IconSvg width={15} height={15} id="arrow"/>
-                </div>
-                {isOpen && (
-                    <div className="report__select-options">
-                        {reportData.map((item) => (
-                            <div
-                                className={`report__select-item report__select-text-${item.color}`}
-                                key={item.backer_tag}
-                                onClick={() => handleOptionClick(item.backer_tag)}
-                            >
-                                {item.name}
-                            </div>
-                        ))}
+        <>
+            <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
+                <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
+                    <div className={`report__select-title report__select-text-${displayedColor}`} onClick={toggleDropdown}>
+                        {displayedName}
+                        <IconSvg width={15} height={15} id="arrow"/>
                     </div>
-                )}
-            </div>
-            <button className="report__btn" type="submit" disabled={!isChanged}>
-                Обновить метку
-            </button>
-        </form>
+                    {isOpen && (
+                        <div className="report__select-options">
+                            {reportData.map((item) => (
+                                <div
+                                    className={`report__select-item report__select-text-${item.color}`}
+                                    key={item.backer_tag}
+                                    onClick={() => handleOptionClick(item.backer_tag)}
+                                >
+                                    {item.name}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <button className="report__btn" type="submit" disabled={!isChanged}>
+                    Обновить метку
+                </button>
+            </form>
+
+            <ReportChangeStatus id={recordId}/>
+        </>
     )
 }
 
