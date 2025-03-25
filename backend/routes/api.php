@@ -41,6 +41,7 @@ Route::middleware(['auth', 'check.role:backer,admin,superadmin'])->group(functio
 });
 
 Route::get('/backers/unapproved', [BackerAddController::class, 'getUnapprovedBackers']);
+Route::get('/backers/approved', [BackerAddController::class, 'getApprovedBackers']);
 Route::patch('/backers/{id}/status', [BackerAddController::class, 'updateStatus']);
 Route::put('/backers/{id}', [BackerAddController::class, 'update']);
 
