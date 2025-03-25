@@ -13,6 +13,10 @@ export default class AdminService {
         return $api.get(`/api/reports?status=read`);
     }
 
+    static async getDiscussionReports() {
+        return $api.get(`/api/reports?status=under_discussion`);
+    }
+
     static async editTagReport(editReportData) {
         const playerId = editReportData.playerId;
 

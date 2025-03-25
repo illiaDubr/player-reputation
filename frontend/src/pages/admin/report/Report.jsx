@@ -2,9 +2,9 @@ import React from 'react';
 import {observer} from 'mobx-react-lite';
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
-import ReportEdit from "../../../components/admin/report/ReportEdit.jsx";
 import CloseReports from "../../../components/admin/report/CloseReports.jsx";
 import ReportItem from "../../../components/admin/report/ReportItem.jsx";
+import DiscussionReports from "../../../components/admin/report/DiscussionReports.jsx";
 
 const Report = observer(() => {
     const {store} = React.useContext(Context);
@@ -23,8 +23,9 @@ const Report = observer(() => {
     return (
         <AdminMain pageTitle="Репорт метки">
             <div className="admin__wrap">
-                <ReportItem data={reportData} />
+                <ReportItem data={reportData} tagEdit={true} discussion={true}/>
             </div>
+            <DiscussionReports />
             <CloseReports />
         </AdminMain>
     )
