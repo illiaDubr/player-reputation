@@ -15,7 +15,7 @@ const DiscussionReports = observer(() => {
 
     return (
         <div className="admin__wrap">
-            <ReportItem data={discussionReports} tagEdit={false} discussion={false}/>
+            <ReportItem data={discussionReports} tagEdit={true} discussion={false}/>
         </div>
     )
 })
