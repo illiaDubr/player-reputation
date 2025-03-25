@@ -68,21 +68,42 @@ class ReportController extends Controller
      * Список репортов с фильтрацией по статусам.
      */
     public function listReports(Request $request)
-    {
-        $statuses = $request->query('status', null);
+{
+    $statuses = $request->query('status', null);
 
-        $query = Report::with(['player', 'reputationRecord', 'reporter']);
+    $query = Report::with(['player', 'reputationRecord', 'reporter']);
 
-        if ($statuses) {
-            $statusArray = explode(',', $statuses);
-            $query->whereIn('status', $statusArray);
-        }
-
-        $reports = $query->orderBy('created_at', 'desc')->paginate(20);
-
-        return response()->json($reports);
+    if ($statuses) {
+        $statusArray = explode(',', $statuses);
+        $query->whereIn('status', $statusArray);
     }
 
+    $reports = $query->orderBy('created_at', 'desc')->paginate(20);
+
+    $formattedReports = $reports->map(function ($report) {
+        return [
+            'id' => $report->id,
+            'player_first_name' => optional($report->player)->first_name,
+            'player_last_name' => optional($report->player)->last_name,
+            'reputation_comment' => optional($report->reputationRecord)->comment,
+            'damage' => optional($report->reputationRecord)->damage,
+            'report_comment' => $report->comment,
+            'reporter_name' => optional($report->reporter)->name,
+            'status' => $report->status,
+            'created_at' => $report->created_at,
+        ];
+    });
+
+    return response()->json([
+        'data' => $formattedReports,
+        'pagination' => [
+            'current_page' => $reports->currentPage(),
+            'per_page' => $reports->perPage(),
+            'total' => $reports->total(),
+            'last_page' => $reports->lastPage(),
+        ],
+    ]);
+}
     /**
      * Удаление проверенного репорта (resolved или approved).
      */
