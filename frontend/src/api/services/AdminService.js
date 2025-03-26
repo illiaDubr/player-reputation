@@ -1,8 +1,14 @@
 import $api from "../http/index.js"
 
 export default class AdminService {
-    static async getReturnRecords() {
+    static async getRecords() {
         return $api.get(`/api/changes?status=unread`);
+    }
+
+    static async changeRecordStatus(changeRecordData) {
+        const id = changeRecordData.id;
+
+        return $api.patch(`/api/reports/${id}`, changeRecordData);
     }
 
     static async getReports() {

@@ -40,6 +40,7 @@
     overflow: hidden;
 
     .admin__link-wrap {
+      width: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       grid-gap: 30px;
@@ -61,13 +62,14 @@
           @include mixin.font-size(25, 18);
           position: relative;
           z-index: 3;
+          padding-right: 30px;
         }
 
         span {
-          width: 100px;
-          height: 100px;
+          width: 150px;
+          height: 150px;
           background: #006e72;
-          filter: blur(75px);
+          filter: blur(71px);
           position: absolute;
           z-index: 1;
         }
@@ -101,8 +103,10 @@
         }
 
         &:has(.notification) {
-          top: 20px;
-          left: 20px;
+          .notification {
+            top: 15px;
+            left: 15px;
+          }
         }
       }
     }
@@ -402,6 +406,7 @@
   background: #ff4646;
   @include mixin.font-style(600, null, 130, #FFFFFF);
   position: absolute;
+  z-index: 3;
 }
 
 @media (max-width: 990px) {

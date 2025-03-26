@@ -57,7 +57,7 @@ const ReportItem = ({data, tagEdit, discussion}) => {
                 ))
             ) : (
                 <div className="admin__no-data">
-                    Данных нет
+                    Нет данных
                 </div>
             )}
         </>

@@ -165,9 +165,16 @@ export default class Store {
 
     // --- Методы админ панели ---
 
-    async returnRecords() {
+    async getRecords() {
         return await this.request(
-            () => AdminService.getReturnRecords(),
+            () => AdminService.getRecords(),
+            "Ошибка получения данных"
+        )
+    }
+
+    async changeRecordStatus(changeRecordData) {
+        await this.request(
+            () => AdminService.changeRecordStatus(changeRecordData),
             "Ошибка получения данных"
         )
     }
