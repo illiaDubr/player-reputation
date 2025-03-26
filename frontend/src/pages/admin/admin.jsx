@@ -12,22 +12,24 @@ const Admin = observer(() => {
 
     const [notifications, setNotifications] = React.useState({
         reports: 0,
-        discussion: 0,
+        records: 0,
     });
+
+    console.log(notifications);
 
     React.useEffect(() => {
         Promise.all([
             store.getReports(),
-            store.getDiscussionReports(),
-        ]).then(([reportsResp, discussionResp]) => {
+            store.getRecords(),
+        ]).then(([reportsResp, records]) => {
             const getCount = (response) =>
                 Array.isArray(response.data.data) ? response.data.data.length : 0;
             const counts = {
                 reports: getCount(reportsResp),
-                discussion: getCount(discussionResp),
+                records: getCount(records),
             };
             console.log("Количество reports:", counts.reports);
-            console.log("Количество discussionReports:", counts.discussion);
+            console.log("Количество records:", counts.records);
             setNotifications(counts);
         }).catch((error) => {
             console.error("Ошибка при запросах:", error);

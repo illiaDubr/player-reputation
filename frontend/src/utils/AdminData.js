@@ -9,7 +9,7 @@ export const NavListData = [
         link_text: "Заявки на верификацию. Все бекеры",
     },
     {
-        id: "discussion",
+        id: "records",
         link: ADMIN_RECORDS_ROUTE,
         icon: "link_notification",
         header_text: "Изменения записей",

@@ -8,7 +8,11 @@ export default class AdminService {
     static async changeRecordStatus(changeRecordData) {
         const id = changeRecordData.id;
 
-        return $api.patch(`/api/reports/${id}`, changeRecordData);
+        return $api.patch(`/api/changes/${id}`, changeRecordData);
+    }
+
+    static async getCloseRecord() {
+        return $api.get(`/api/reports?status=read`);
     }
 
     static async getReports() {
