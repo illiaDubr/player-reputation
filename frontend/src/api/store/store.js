@@ -234,4 +234,11 @@ export default class Store {
             "Ошибка получения данных"
         )
     }
+
+    async download() {
+        return await this.request(
+            () => AdminService.download(),
+            "Ошибка получения данных"
+        )
+    }
 }
