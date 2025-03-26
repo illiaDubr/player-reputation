@@ -27,7 +27,7 @@ const Admin = observer(() => {
                                     {item.link_text}
                                 </div>
                                 {notification && (
-                                    <Notification value={notification}/>
+                                    <Notification value={notification} fontSize={17}/>
                                 )}
                             </Link>
                         )

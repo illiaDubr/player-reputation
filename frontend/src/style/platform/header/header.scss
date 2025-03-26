@@ -87,11 +87,17 @@
               background: #080808;
             }
 
-            .notification {
+            .notification__wrap {
               width: 18px;
               height: 18px;
+              position: absolute;
               top: 50%;
               transform: translate(0, -50%);
+
+              .notification {
+                width: 18px;
+                height: 18px;
+              }
             }
           }
 
