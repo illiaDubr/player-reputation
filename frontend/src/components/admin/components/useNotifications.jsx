@@ -21,8 +21,6 @@ export const useNotifications = () => {
                     reports: getCount(reportsResp),
                     records: getCount(recordsResp),
                 };
-                // Можно добавить console.log, если нужно
-                console.log("Обновленные уведомления:", counts);
                 setNotifications(counts);
             })
             .catch((error) => {
@@ -32,7 +30,7 @@ export const useNotifications = () => {
 
     React.useEffect(() => {
         updateNotifications();
-        const intervalId = setInterval(updateNotifications, 10000);
+        const intervalId = setInterval(updateNotifications, 60000);
         return () => clearInterval(intervalId);
     }, [updateNotifications]);
 

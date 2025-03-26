@@ -21,7 +21,7 @@ const CloseRecord = () => {
             <div className="admin__title">
                 Просмотренные записи
             </div>
-            <RecordItem data={closeRecord} discussion={false} />
+            <RecordItem data={closeRecord} discussion={false} closeRecord={false}/>
             <form method="GET" onSubmit={handleSubmit}>
                 <button type="submit" className="admin__btn">
                     Просмотреть
