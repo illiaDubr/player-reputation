@@ -24,22 +24,8 @@ const NavAdminList = ({isOpen}) => {
     })
 
     const notificationAnimation = useSpring({
-        from: {
-            left: isOpen ? "61px" : "173px",
-            opacity: 1
-        },
-        to: async (next) => {
-            // 1) Плавно меняем left на противоположное
-            await next({
-                left: isOpen ? "173px" : "61px",
-                opacity: 1
-            });
-            // 2) «Мигание»: сначала скрываем
-            await next({ opacity: 0 });
-            // 3) Потом снова показываем
-            await next({ opacity: 1 });
-        },
-        config: { duration: 300 }
+        left: isOpen ? "61px" : "173px",
+        from: {left: '61px'},
     })
 
     return (
