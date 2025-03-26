@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import Notification from "../../components/admin/components/Notification.jsx";
 
 const Admin = observer(() => {
-    const { store } = React.useContext(Context);
+    const {store} = React.useContext(Context);
 
     const [notifications, setNotifications] = React.useState({
         reports: 0,
@@ -53,9 +53,7 @@ const Admin = observer(() => {
                                     {item.link_text}
                                 </div>
                                 {notification && (
-                                    <span className="notification">
-                                        <Notification value={notification} />
-                                    </span>
+                                    <Notification value={notification}/>
                                 )}
                             </Link>
                         )
