@@ -15,10 +15,7 @@ const ReportItem = ({data, tagEdit, closeReport}) => {
                                 </div>
                                 <div className="record__form-wrap">
                                     {tagEdit && (
-                                        <ReportEdit tag={item.backer_tag} playerId={item.player_id} recordId={item.id}/>
-                                    )}
-                                    {closeReport && (
-                                        <ReportChangeStatus id={item.id}/>
+                                        <ReportEdit tag={item.backer_tag} closeReport={closeReport} playerId={item.player_id} recordId={item.id}/>
                                     )}
                                 </div>
                             </div>
