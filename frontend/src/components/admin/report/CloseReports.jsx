@@ -20,7 +20,7 @@ const CloseReports = observer(() => {
             <div className="admin__title">
                 Закрытые репорты
             </div>
-            <ReportItem data={closeReports} tagEdit={false} discussion={false}/>
+            <ReportItem data={closeReports} tagEdit={false} closeReport={false}/>
             <form method="GET" onSubmit={handleSubmit}>
                 <button type="submit" className="admin__btn">
                     Просмотреть

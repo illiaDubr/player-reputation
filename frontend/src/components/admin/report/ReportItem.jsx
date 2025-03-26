@@ -2,7 +2,7 @@ import React from "react";
 import ReportEdit from "./ReportEdit.jsx";
 import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
-const ReportItem = ({data, tagEdit, discussion}) => {
+const ReportItem = ({data, tagEdit, closeReport}) => {
     return (
         <>
             {data.length > 0 ? (
@@ -17,7 +17,9 @@ const ReportItem = ({data, tagEdit, discussion}) => {
                                     {tagEdit && (
                                         <ReportEdit tag={item.backer_tag} playerId={item.player_id} recordId={item.id}/>
                                     )}
-                                    <ReportChangeStatus id={item.id} discussion={discussion}/>
+                                    {closeReport && (
+                                        <ReportChangeStatus id={item.id}/>
+                                    )}
                                 </div>
                             </div>
                             <div className="record__text">
@@ -56,9 +58,14 @@ const ReportItem = ({data, tagEdit, discussion}) => {
                     </div>
                 ))
             ) : (
-                <div className="admin__no-data">
-                    Нет данных
-                </div>
+
+                <>
+                    {closeReport && (
+                        <div className="admin__no-data">
+                            Новых репортов не было
+                        </div>
+                    )}
+                </>
             )}
         </>
     )

@@ -4,7 +4,6 @@ import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 import CloseReports from "../../../components/admin/report/CloseReports.jsx";
 import ReportItem from "../../../components/admin/report/ReportItem.jsx";
-import DiscussionReports from "../../../components/admin/report/DiscussionReports.jsx";
 import {reportText} from "../../../utils/AdminData.js";
 
 const Report = observer(() => {
@@ -24,9 +23,8 @@ const Report = observer(() => {
     return (
         <AdminMain pageTitle="Репорт метки" text={reportText}>
             <div className="admin__wrap">
-                <ReportItem data={reportData} tagEdit={true} discussion={true}/>
+                <ReportItem data={reportData} tagEdit={true} closeReport={true}/>
             </div>
-            <DiscussionReports />
             <CloseReports />
         </AdminMain>
     )
