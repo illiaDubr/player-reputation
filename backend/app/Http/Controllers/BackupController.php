@@ -15,7 +15,7 @@ class BackupController extends Controller
     public function downloadBackup()
     {
         // Имя файла с бекапом
-        $backupFile = 'backup-' . date('Y-m-d_H-i-s') . '.sql';
+        $backupFile = 'backup'. '.sql';
 
         // Данные подключения из .env
         $db_host = env('DB_HOST');
