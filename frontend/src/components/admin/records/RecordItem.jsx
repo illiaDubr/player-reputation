@@ -30,7 +30,7 @@ const RecordItem = ({data, discussion, closeRecord}) => {
                                     <div className="">
                                     </div>
                                     <div className="record__form-wrap">
-                                        <RecordChangeStatus id={item.id} discussion={discussion} closeReport={closeRecord}/>
+                                        <RecordChangeStatus id={item.id} discussion={discussion} closeRecord={closeRecord}/>
                                     </div>
                                 </div>
                                 <div className="record__text">
