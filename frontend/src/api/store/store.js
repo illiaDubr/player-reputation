@@ -207,13 +207,6 @@ export default class Store {
         )
     }
 
-    async getDiscussionReports(){
-        return await this.request(
-            () => AdminService.getDiscussionReports(),
-            "Ошибка получения данных"
-        )
-    }
-
     async editTagReport(editReportData) {
         await this.request(
             () => AdminService.editTagReport(editReportData),

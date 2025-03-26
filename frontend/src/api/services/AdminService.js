@@ -23,10 +23,6 @@ export default class AdminService {
         return $api.get(`/api/reports?status=unread`);
     }
 
-    static async getDiscussionReports() {
-        return $api.get(`/api/reports?status=under_discussion`);
-    }
-
     static async getCloseReports() {
         return $api.get(`/api/reports?status=read`);
     }
