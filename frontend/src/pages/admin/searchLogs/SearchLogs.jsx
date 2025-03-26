@@ -15,7 +15,11 @@ const SearchLogs = observer(() => {
         });
     }, [store]);
 
-    console.log(logsData);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        store.download();
+    }
 
     return (
         <AdminMain pageTitle="Отчёт о поисках">
@@ -25,6 +29,17 @@ const SearchLogs = observer(() => {
                         {logsData.count} поисков
                     </div>
                 )}
+            </div>
+
+            <div className="admin__wrap">
+                <div className="admin__title">
+                    Скачать данные
+                </div>
+                <form method="GET" className="" onSubmit={handleSubmit}>
+                    <button className="admin__btn" type="submit">
+                        Скачать
+                    </button>
+                </form>
             </div>
         </AdminMain>
     )

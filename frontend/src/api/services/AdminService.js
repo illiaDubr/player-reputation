@@ -46,4 +46,8 @@ export default class AdminService {
     static async getSearchLogs() {
         return $api.get(`api/stats/search-players`);
     }
+
+    static async download() {
+        return $api.get(`/api/backup/download`);
+    }
 }
