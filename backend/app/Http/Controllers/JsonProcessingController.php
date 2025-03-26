@@ -96,9 +96,9 @@ class JsonProcessingController extends Controller
 - "phonenumber": (строка или null) — из поля `phone`. Если `phone` — массив, брать первый элемент.
 - "Ggpokerok", "Ggnetwork", "Pokerstars_com", "Pokerstars_es", "Winamax_fr", "Winamax_es", "PS", "GG", "RedStar", "TigerGaming", "PartyPoker", "Pokerstars", "888poker", "WPNpoker", "Stretchpoker", "Coinpoker", "chikoPoker", "nickiPoker", "Skrill", "Neteller", "GipsyTeam", "Luxon":
   - (строка или null) — если в исходном JSON есть соответствующая информация (ник, аккаунт). Если она приходит массивом — возьми **первый** элемент массива. Если данных нет — null.
-- "telegram": (строка или null) — аналогично выше, возьми первый элемент, если это массив.
-- "discord": (строка или null) — аналогично, если массив — берем первый элемент.
-- "skype": (строка или null) — аналогично, берем первый элемент.
+- "telegram": (строка или null) — аналогично выше, 
+- "discord": (строка или null) — аналогично выше,
+- "skype": (строка или null) — аналогично выше, 
 - "kyc_status": (булево) — всегда `false`.
 - "kyc_verified_at": (null) — нет данных, так что null.
 
@@ -119,31 +119,22 @@ class JsonProcessingController extends Controller
 
 4. **ProblematicPlayer**  
    - Если нет финансовых претензий (`amount` > 0) и нет упоминания о погашенных долгах, но есть негативные факты: нарушение условий, грубое поведение, негативные отзывы и т. п.
-
 5. **PlayerOnPause**  
    - Если нет финансовых претензий и нет погашенных долгов, но в `case.descr` сказано, что игрок взял паузу, временно прекратил игру, собирается вернуться и т. п.
-
 6. **no tag**  
    - Если ни один из критериев выше не подходит.
 
-
-
 - "created_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — из `created`. Если поле — в формате ISO 8601 (например, `"2021-03-10T12:30:25.793Z"`), преобразовать в `"2021-03-10 12:30:25"`.
 - "updated_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — из `updated`.
-
 ---
-
 ### 2. reputation_records
 Верни массив объектов (каждый объект — одна запись) в ключе "reputation_records" со следующими полями:
 
 - "player_id": (строка или null) — та же, что в `players.player_id`.
 - "comment": (строка или null) — текст из `case.descr`.
 - "fund_name": (строка или null) — значение из `fundName`если в поле fundName нет значения ищи поле author и указывай его.
-
-
 - "damage": (число или null) — если в `case.amount` есть сумма (например `"2500$"`), извлеки число (2500.00). Иначе null.
 - "makeUp": (строка или null) — если во входном JSON есть поле makeUp, возьми его значение, иначе null.
-- "source": (строка или null) — если есть внешний источник или ссылка. Если в JSON это массив, возьми первый элемент, иначе null.
 - "created_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — то же правило, что и для `players`.
 - "updated_at": (строка в формате "YYYY-MM-DD HH:MM:SS").
 
