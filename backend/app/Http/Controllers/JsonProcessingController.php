@@ -181,40 +181,15 @@ class JsonProcessingController extends Controller
 {"id":"60c27437b09230651cc3fe07","name":"Vip Poker Gang",
 "id":"6038014f2528de31d1decf06","name":"K345fund",
 {"id":"603801502528de31d1ded019","name":"SF",
-{"owner":"604915dc1437fd1eefbf7215","name":"MaxEV Team"
-{"owner":"604915dc1437fd1eefbf7215","name":"cathars1s","id":"ukwz002bf40d"
-{"owner":"604915dc1437fd1eefbf7215","name":"TransDominator","id":"vj68002be40d"
 {"id":"6038014d2528de31d1decba0","name":"Freeteam"
-{"owner":"604915dc1437fd1eefbf7215","name":"UP team","id":"xcz3001oa41d"
-{"owner":"604915dc1437fd1eefbf7215","name":"BR","id":"xf35001oa41d"
-{"owner":"604915dc1437fd1eefbf7215","name":"Nalivvay"
-{"owner":"604915dc1437fd1eefbf7215","name":"ThinkTwiceTeam","id":"od5v001xt41d",
 {"id":"603801512528de31d1ded0b6","name":"SVschool"
-{"owner":"604915dc1437fd1eefbf7215","name":"MOON","id":"13j9k002kt50d"
-{"owner":"604915dc1437fd1eefbf7215","name":"Еволюція","id":"16nvj001kt51d"
 {"id":"6038014d2528de31d1decc76","name":"Funfarm"
 {"id":"6038014f2528de31d1dece81","name":"HS"
-{"owner":"604915dc1437fd1eefbf7215","name":"Poker Move"
-{"owner":"604915dc1437fd1eefbf7215","name":"PokerUp","id":"17r8e001kt51d"
-{"owner":"604915dc1437fd1eefbf7215","name":"Polyot","id":"17wir002kt50d"
-{"owner":"604915dc1437fd1eefbf7215","name":"LVL UP","id":"18ogx001kt51d"
-{"owner":"604915dc1437fd1eefbf7215","name":"MPP","id":"19ggn001kt51d"
-{"owner":"604915dc1437fd1eefbf7215","name":"Enigma","id":"199vg002kt50d"
-{"owner":"19zc8001kt51d","name":"GTO OR GTFO","id":"1a3xk001kt51d"
-{"owner":"604915dc1437fd1eefbf7215","name":"20ev","id":"saya002ib40d"
-{"owner":"604915dc1437fd1eefbf7215","name":"GOAT","id":"1coyj002tp50d"
-{"owner":"604915dc1437fd1eefbf7215","name":"DisReality","id":"1cxr3001ld51d"
 {"id":"603801502528de31d1decf8f","name":"Pocarr"
-{"owner":"604915dc1437fd1eefbf7215","name":"AmigosBacking","id":"13fp8003kt51d"
 {"id":"603801512528de31d1ded0be","name":"VPluse"
 {"id":"603801502528de31d1decf74","name":"MVP",
-{"owner":"604915dc1437fd1eefbf7215","name":"GC Alliance","id":"1gfj1002ld50d"
 {"owner":"604915dc1437fd1eefbf7215","name":"HSP","id":"1gfj4001ld51d"
 {"id":"6038014d2528de31d1decb98","name":"StartMe",
-{"owner":"604915dc1437fd1eefbf7215","name":"PokerAbility","id":"1h3ya002ld50d"
-{"owner":"604915dc1437fd1eefbf7215","name":"RedLine","id":"1h3yd001ld51d"
-{"owner":"604915dc1437fd1eefbf7215","name":"PBL","id":"1hy2e002ld50d",
-{"owner":"604915dc1437fd1eefbf7215","name":"USPF","id":"1i5pl001ld51d",
 
 - "damage": (число или null) — если в `case.amount` есть сумма (например `"2500$"`), извлеки число (2500.00). Иначе null.
 - "makeUp": (строка или null) — если во входном JSON есть поле makeUp, возьми его значение, иначе null.
