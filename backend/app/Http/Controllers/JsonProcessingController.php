@@ -96,9 +96,9 @@ class JsonProcessingController extends Controller
 - "phonenumber": (строка или null) — из поля `phone`. Если `phone` — массив, брать первый элемент.
 - "Ggpokerok", "Ggnetwork", "Pokerstars_com", "Pokerstars_es", "Winamax_fr", "Winamax_es", "PS", "GG", "RedStar", "TigerGaming", "PartyPoker", "Pokerstars", "888poker", "WPNpoker", "Stretchpoker", "Coinpoker", "chikoPoker", "nickiPoker", "Skrill", "Neteller", "GipsyTeam", "Luxon":
   - (строка или null) — если в исходном JSON есть соответствующая информация (ник, аккаунт). Если она приходит массивом — возьми **первый** элемент массива. Если данных нет — null.
-- "telegram": (строка или null) — аналогично выше, 
-- "discord": (строка или null) — аналогично выше,
-- "skype": (строка или null) — аналогично выше, 
+- "telegram": (строка или null) — аналогично выше, возьми первый элемент, если это массив.
+- "discord": (строка или null) — аналогично, если массив — берем первый элемент.
+- "skype": (строка или null) — аналогично, берем первый элемент.
 - "kyc_status": (булево) — всегда `false`.
 - "kyc_verified_at": (null) — нет данных, так что null.
 
@@ -119,22 +119,81 @@ class JsonProcessingController extends Controller
 
 4. **ProblematicPlayer**  
    - Если нет финансовых претензий (`amount` > 0) и нет упоминания о погашенных долгах, но есть негативные факты: нарушение условий, грубое поведение, негативные отзывы и т. п.
+
 5. **PlayerOnPause**  
    - Если нет финансовых претензий и нет погашенных долгов, но в `case.descr` сказано, что игрок взял паузу, временно прекратил игру, собирается вернуться и т. п.
+
 6. **no tag**  
    - Если ни один из критериев выше не подходит.
 
+
+
 - "created_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — из `created`. Если поле — в формате ISO 8601 (например, `"2021-03-10T12:30:25.793Z"`), преобразовать в `"2021-03-10 12:30:25"`.
 - "updated_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — из `updated`.
+
 ---
+
 ### 2. reputation_records
 Верни массив объектов (каждый объект — одна запись) в ключе "reputation_records" со следующими полями:
 
 - "player_id": (строка или null) — та же, что в `players.player_id`.
 - "comment": (строка или null) — текст из `case.descr`.
-- "fund_name": (строка или null) — значение из `fundName`если в поле fundName нет значения ищи поле author и указывай его.
+- "fund_name": (строка или null) — значение из `fundName`если в поле fundName нет значения ищи поле author и сравнивай его с следуйщими записями и бери name из списка
+ .
+{"id":"6038014c2528de31d1deca9f","name":"Бастион"
+{"id":"6038014c2528de31d1decaa1","name":"Турист",
+{"id":"6038014c2528de31d1decaaa","name":"all in express staking"
+{"id":"6038014c2528de31d1decaac","name":"beloroos","
+{"id":"6038014c2528de31d1decaae","name":"Bogatur Team"
+{"id":"6038014d2528de31d1decb94","name":"Eclipse Poker Team",
+{"id":"6038014d2528de31d1decb96","name":"English",
+{"id":"6038014d2528de31d1decb9b","name":"fortunato",
+{"id":"6038014d2528de31d1decc8e","name":"GT"
+{"id":"6038014f2528de31d1decf16","name":"Kings of Tournaments"
+{"id":"6038014f2528de31d1decf1d","name":"Kventin92",
+{"id":"6038014f2528de31d1decf30","name":"Moonglade"
+{"id":"603801502528de31d1decf61","name":"MrReyder",
+{"id":"603801502528de31d1decf8d","name":"Nemesis Backing"
+{"id":"603801502528de31d1decf98","name":"PokerStrategy"
+{"id":"603801502528de31d1decfa8","name":"ritsar",
+{"id":"603801502528de31d1decfe9","name":"Rosc"
+{"id":"603801502528de31d1decff9","name":"Samurai",
+{"id":"603801502528de31d1ded017","name":"Sawcrew&Sor group"
+{"id":"603801502528de31d1ded062","name":"Shaolin"
+{"id":"603801502528de31d1ded085","name":"SpinLegends_ru"
+{"id":"603801512528de31d1ded0bb","name":"v-pokere.ru"
+{"id":"603801512528de31d1ded167","name":"Win-Win"
+{"id":"604b35ac90ea6ab7922f8779","name":"Komanda A"
+{"id":"604b361890ea6ab7922f877b","name":"RSB",
+{"id":"605207844037bc24542b77ac","name":"Mr.Reyder"
+{"id":"606caed760b7051c8c42b240","name":"Poker Edge"
+{"id":"606db22e60b7051c8c42b243","name":"VPluseTeam"
+{"id":"608ad7f736c29ac179b52a04","name":"KOT"
+{"id":"60dee7b8f1c33a3940eebf8b","name":"Millennium Phoenix Team"
+{"id":"603801502528de31d1decf51","name":"Mountain Team"
+{"id":"60bc6b2bc821ef2e6c6c268e","name":"NerdSide"
+{"id":"603a0000fef51f6de80cc313","name":"Cardmates"
+{"id":"6038014f2528de31d1decee2","name":"ITCfond"
+{"id":"606f377460b7051c8c42b245","name":"firestorm"
+{"id":"6038017a21411aa41190f5e3","name":"NewAgeMTT"
+{"id":"6038014c2528de31d1decaba","name":"Bzik17"
+{"id":"6048bbe6b2d91b89fa75ff62","name":"Navy Seals"
+{"id":"60c27437b09230651cc3fe07","name":"Vip Poker Gang",
+"id":"6038014f2528de31d1decf06","name":"K345fund",
+{"id":"603801502528de31d1ded019","name":"SF",
+{"id":"6038014d2528de31d1decba0","name":"Freeteam"
+{"id":"603801512528de31d1ded0b6","name":"SVschool"
+{"id":"6038014d2528de31d1decc76","name":"Funfarm"
+{"id":"6038014f2528de31d1dece81","name":"HS"
+{"id":"603801502528de31d1decf8f","name":"Pocarr"
+{"id":"603801512528de31d1ded0be","name":"VPluse"
+{"id":"603801502528de31d1decf74","name":"MVP",
+{"owner":"604915dc1437fd1eefbf7215","name":"HSP","id":"1gfj4001ld51d"
+{"id":"6038014d2528de31d1decb98","name":"StartMe",
+
 - "damage": (число или null) — если в `case.amount` есть сумма (например `"2500$"`), извлеки число (2500.00). Иначе null.
 - "makeUp": (строка или null) — если во входном JSON есть поле makeUp, возьми его значение, иначе null.
+- "source": (строка или null) — если есть внешний источник или ссылка. Если в JSON это массив, возьми первый элемент, иначе null.
 - "created_at": (строка в формате "YYYY-MM-DD HH:MM:SS") — то же правило, что и для `players`.
 - "updated_at": (строка в формате "YYYY-MM-DD HH:MM:SS").
 
