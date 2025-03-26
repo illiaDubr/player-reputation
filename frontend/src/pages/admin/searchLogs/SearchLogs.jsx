@@ -19,7 +19,7 @@ const SearchLogs = observer(() => {
         e.preventDefault();
 
         try {
-            const response = await store.download();
+            const response = store.download();
             const blob = new Blob([response.data], { type: response.headers['content-type'] });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
