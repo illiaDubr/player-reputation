@@ -5,6 +5,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../api/store/storeContext.js";
 import {NavListData} from "../../utils/AdminData.js";
 import {Link} from "react-router-dom";
+import Notification from "../../components/admin/components/Notification.jsx";
 
 const Admin = observer(() => {
     const { store } = React.useContext(Context);
@@ -43,7 +44,7 @@ const Admin = observer(() => {
                 <div className="admin__link-wrap">
                     {NavListData.map((item, index) => {
                         const notification = notifications[item.id]
-                            ? ` (${notifications[item.id]})`
+                            ? notifications[item.id]
                             : "";
                         return (
                             <Link to={item.link} className="admin__link" key={index}>
@@ -51,9 +52,11 @@ const Admin = observer(() => {
                                 <div className="admin__link-text">
                                     {item.link_text}
                                 </div>
-                                <div className="notification">
-                                    {notification}
-                                </div>
+                                {notification && (
+                                    <span className="notification">
+                                        <Notification value={notification} />
+                                    </span>
+                                )}
                             </Link>
                         )
                     })}

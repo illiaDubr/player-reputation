@@ -99,6 +99,11 @@
             right: -139px;
           }
         }
+
+        &:has(.notification) {
+          top: 20px;
+          left: 20px;
+        }
       }
     }
 
@@ -385,6 +390,18 @@
       bottom: 0px;
     }
   }
+}
+
+.notification {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ff4646;
+  @include mixin.font-size(600, null, 130, #FFFFFF);
+  position: absolute;
 }
 
 @media (max-width: 990px) {
