@@ -5,6 +5,7 @@ import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {recordsText} from "../../../utils/AdminData.js";
 import RecordItem from "../../../components/admin/records/RecordItem.jsx";
 import CloseRecord from "../../../components/admin/records/CloseRecord.jsx";
+import DiscussionRecord from "../../../components/admin/records/DiscussionRecord.jsx";
 
 const Records = observer(() => {
     const { store } = React.useContext(Context);
@@ -25,6 +26,7 @@ const Records = observer(() => {
             <div className="admin__wrap">
                 <RecordItem data={recordsData} discussion={true} />
             </div>
+            <DiscussionRecord />
             <CloseRecord />
         </AdminMain>
     );
