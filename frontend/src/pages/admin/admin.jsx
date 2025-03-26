@@ -2,46 +2,13 @@ import React from 'react';
 import AdminMain from "../../components/admin/AdminMain.jsx";
 import "../../style/admin/admin.scss"
 import {observer} from "mobx-react-lite";
-import {Context} from "../../api/store/storeContext.js";
 import {NavListData} from "../../utils/AdminData.js";
 import {Link} from "react-router-dom";
 import Notification from "../../components/admin/components/Notification.jsx";
+import {useNotifications} from "../../components/admin/components/useNotifications.jsx";
 
 const Admin = observer(() => {
-    const {store} = React.useContext(Context);
-
-    const [notifications, setNotifications] = React.useState({
-        reports: 0,
-        records: 0,
-    });
-
-    console.log(notifications);
-
-    const updateNotifications = React.useCallback(() => {
-        Promise.all([
-            store.getReports(),
-            store.getRecords(),
-        ])
-            .then(([reportsResp, recordsResp]) => {
-                const getCount = (response) =>
-                    Array.isArray(response.data.data) ? response.data.data.length : 0;
-                const counts = {
-                    reports: getCount(reportsResp),
-                    records: getCount(recordsResp),
-                };
-                console.log("Обновленные уведомления:", counts);
-                setNotifications(counts);
-            })
-            .catch((error) => {
-                console.error("Ошибка при запросах:", error);
-            });
-    }, [store]);
-
-    React.useEffect(() => {
-        updateNotifications();
-        const intervalId = setInterval(updateNotifications, 5000);
-        return () => clearInterval(intervalId);
-    }, [updateNotifications]);
+    const notifications = useNotifications();
 
     return (
         <AdminMain pageTitle="Панель Администратора">
