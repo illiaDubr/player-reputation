@@ -2,7 +2,7 @@ import React from "react";
 import {NavListData} from "../../../utils/AdminData.js";
 import {Link} from "react-router-dom";
 import IconSvg from "../../platform/components/IconSvg.jsx";
-import { animated, useSpring } from '@react-spring/web'
+import {animated, useSpring} from '@react-spring/web'
 import LogoutBtn from "../../platform/components/LogoutBtn.jsx";
 import {HOMEPAGE_ROUTE} from "../../../utils/const.js";
 import {useNotifications} from "./useNotifications.jsx";
@@ -13,14 +13,25 @@ const NavAdminList = ({isOpen}) => {
 
     const iconAnimation = useSpring({
         left: isOpen ? '15px' : '35px',
-        from: { left: '35px' },
+        from: {left: '35px'},
     });
 
     const textAnimation = useSpring({
         opacity: isOpen ? 1 : 0,
         left: isOpen ? '45px' : '200px',
         display: isOpen ? 'block' : 'none',
-        from: { opacity: 0, left: '200px', display: 'none' },
+        from: {opacity: 0, left: '200px', display: 'none'},
+    })
+
+    const notificationAnimation = useSpring({
+        from: { left: isOpen ? '61px' : '173px', opacity: 1 },
+        to: async (next) => {
+            // Сначала opacity плавно переходит в 0
+            await next({ opacity: 0 });
+            // Затем opacity возвращается к 1
+            await next({ opacity: 1 });
+        },
+        config: { duration: 300 },
     })
 
     return (
@@ -44,15 +55,18 @@ const NavAdminList = ({isOpen}) => {
                                 <animated.span className="navigation__text" style={textAnimation}>
                                     {item.header_text}
                                 </animated.span>
-                                <span>
-                                    <Notification value={notification} />
-                                </span>
+                                {notification && (
+                                    <animated.div style={notificationAnimation}>
+                                        <Notification value={notification}/>
+                                    </animated.div>
+                                )}
                             </Link>
                         </li>
                     )
                 })}
                 <li className="navigation__list-item">
-                    <LogoutBtn className="navigation__list-item__link" iconAnimation={iconAnimation} textAnimation={textAnimation}/>
+                    <LogoutBtn className="navigation__list-item__link" iconAnimation={iconAnimation}
+                               textAnimation={textAnimation}/>
                 </li>
             </ul>
         </>

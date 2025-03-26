@@ -18,7 +18,20 @@ const SearchLogs = observer(() => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        store.download();
+        try {
+            const response = await store.download();
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "backup_file.sql";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Ошибка при скачивании файла:", error);
+        }
     }
 
     return (

@@ -48,6 +48,6 @@ export default class AdminService {
     }
 
     static async download() {
-        return $api.get(`/api/backup/download`);
+        return $api.get(`/api/backup/download`, { responseType: 'blob' });
     }
 }
