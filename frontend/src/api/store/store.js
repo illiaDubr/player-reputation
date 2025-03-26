@@ -179,6 +179,13 @@ export default class Store {
         )
     }
 
+    async getCloseRecord(){
+        return await this.request(
+            () => AdminService.getCloseRecord(),
+            "Ошибка получения данных"
+        )
+    }
+
     async getReports(){
         return await this.request(
             () => AdminService.getReports(),
