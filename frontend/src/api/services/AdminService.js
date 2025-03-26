@@ -11,20 +11,24 @@ export default class AdminService {
         return $api.patch(`/api/changes/${id}`, changeRecordData);
     }
 
+    static async getDiscussionRecord() {
+        return $api.get(`/api/changes?status=under_discussion`);
+    }
+
     static async getCloseRecord() {
-        return $api.get(`/api/reports?status=read`);
+        return $api.get(`/api/changes?status=read`);
     }
 
     static async getReports() {
         return $api.get(`/api/reports?status=unread`);
     }
 
-    static async getCloseReports() {
-        return $api.get(`/api/reports?status=read`);
-    }
-
     static async getDiscussionReports() {
         return $api.get(`/api/reports?status=under_discussion`);
+    }
+
+    static async getCloseReports() {
+        return $api.get(`/api/reports?status=read`);
     }
 
     static async editTagReport(editReportData) {

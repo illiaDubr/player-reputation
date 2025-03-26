@@ -14,6 +14,8 @@ const CloseRecord = () => {
         })
     }
 
+    console.log(closeRecord);
+
     return (
         <div className="admin__wrap">
             <div className="admin__title">
