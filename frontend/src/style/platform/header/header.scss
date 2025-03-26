@@ -70,19 +70,28 @@
               width: 20px;
               height: 20px;
               position: absolute;
-              top: 12px;
+              top: 50%;
+              transform: translate(0, -50%);
             }
 
             .navigation__text {
               width: 140px;
               position: absolute;
-              top: 12px;
+              top: 50%;
+              transform: translate(0, -50%);
               @include mixin.font-style(500, 14, 143, #FFFFFF);
               text-align: left;
             }
 
             &:hover {
               background: #080808;
+            }
+
+            .notification {
+              width: 18px;
+              height: 18px;
+              top: 50%;
+              transform: translate(0, -50%);
             }
           }
 
@@ -101,6 +110,7 @@
       position: absolute;
       top: 50%;
       left: 100%;
+      z-index: 3;
       transform: translate(-50%, -50%);
       display: flex;
       justify-content: center;
