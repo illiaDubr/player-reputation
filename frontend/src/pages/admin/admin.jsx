@@ -17,24 +17,31 @@ const Admin = observer(() => {
 
     console.log(notifications);
 
-    React.useEffect(() => {
+    const updateNotifications = React.useCallback(() => {
         Promise.all([
             store.getReports(),
             store.getRecords(),
-        ]).then(([reportsResp, records]) => {
-            const getCount = (response) =>
-                Array.isArray(response.data.data) ? response.data.data.length : 0;
-            const counts = {
-                reports: getCount(reportsResp),
-                records: getCount(records),
-            };
-            console.log("Количество reports:", counts.reports);
-            console.log("Количество records:", counts.records);
-            setNotifications(counts);
-        }).catch((error) => {
-            console.error("Ошибка при запросах:", error);
-        })
-    }, [store])
+        ])
+            .then(([reportsResp, recordsResp]) => {
+                const getCount = (response) =>
+                    Array.isArray(response.data.data) ? response.data.data.length : 0;
+                const counts = {
+                    reports: getCount(reportsResp),
+                    records: getCount(recordsResp),
+                };
+                console.log("Обновленные уведомления:", counts);
+                setNotifications(counts);
+            })
+            .catch((error) => {
+                console.error("Ошибка при запросах:", error);
+            });
+    }, [store]);
+
+    React.useEffect(() => {
+        updateNotifications();
+        const intervalId = setInterval(updateNotifications, 5000);
+        return () => clearInterval(intervalId);
+    }, [updateNotifications]);
 
     return (
         <AdminMain pageTitle="Панель Администратора">
