@@ -138,7 +138,84 @@ class JsonProcessingController extends Controller
 
 - "player_id": (строка или null) — та же, что в `players.player_id`.
 - "comment": (строка или null) — текст из `case.descr`.
-- "fund_name": (строка или null) — значение из `fundName`.
+- "fund_name": (строка или null) — значение из `fundName`если в поле fundName нет значения ищи поле author и сравнивай его с следуйщими записями и бери name из списка
+ .
+{"id":"6038014c2528de31d1deca9f","name":"Бастион"
+{"id":"6038014c2528de31d1decaa1","name":"Турист",
+{"id":"6038014c2528de31d1decaaa","name":"all in express staking"
+{"id":"6038014c2528de31d1decaac","name":"beloroos","
+{"id":"6038014c2528de31d1decaae","name":"Bogatur Team"
+{"id":"6038014d2528de31d1decb94","name":"Eclipse Poker Team",
+{"id":"6038014d2528de31d1decb96","name":"English",
+{"id":"6038014d2528de31d1decb9b","name":"fortunato",
+{"id":"6038014d2528de31d1decc8e","name":"GT"
+{"id":"6038014f2528de31d1decf16","name":"Kings of Tournaments"
+{"id":"6038014f2528de31d1decf1d","name":"Kventin92",
+{"id":"6038014f2528de31d1decf30","name":"Moonglade"
+{"id":"603801502528de31d1decf61","name":"MrReyder",
+{"id":"603801502528de31d1decf8d","name":"Nemesis Backing"
+{"id":"603801502528de31d1decf98","name":"PokerStrategy"
+{"id":"603801502528de31d1decfa8","name":"ritsar",
+{"id":"603801502528de31d1decfe9","name":"Rosc"
+{"id":"603801502528de31d1decff9","name":"Samurai",
+{"id":"603801502528de31d1ded017","name":"Sawcrew&Sor group"
+{"id":"603801502528de31d1ded062","name":"Shaolin"
+{"id":"603801502528de31d1ded085","name":"SpinLegends_ru"
+{"id":"603801512528de31d1ded0bb","name":"v-pokere.ru"
+{"id":"603801512528de31d1ded167","name":"Win-Win"
+{"id":"604b35ac90ea6ab7922f8779","name":"Komanda A"
+{"id":"604b361890ea6ab7922f877b","name":"RSB",
+{"id":"605207844037bc24542b77ac","name":"Mr.Reyder"
+{"id":"606caed760b7051c8c42b240","name":"Poker Edge"
+{"id":"606db22e60b7051c8c42b243","name":"VPluseTeam"
+{"id":"608ad7f736c29ac179b52a04","name":"KOT"
+{"id":"60dee7b8f1c33a3940eebf8b","name":"Millennium Phoenix Team"
+{"id":"603801502528de31d1decf51","name":"Mountain Team"
+{"id":"60bc6b2bc821ef2e6c6c268e","name":"NerdSide"
+{"id":"603a0000fef51f6de80cc313","name":"Cardmates"
+{"id":"6038014f2528de31d1decee2","name":"ITCfond"
+{"id":"606f377460b7051c8c42b245","name":"firestorm"
+{"id":"6038017a21411aa41190f5e3","name":"NewAgeMTT"
+{"id":"6038014c2528de31d1decaba","name":"Bzik17"
+{"id":"6048bbe6b2d91b89fa75ff62","name":"Navy Seals"
+{"id":"60c27437b09230651cc3fe07","name":"Vip Poker Gang",
+"id":"6038014f2528de31d1decf06","name":"K345fund",
+{"id":"603801502528de31d1ded019","name":"SF",
+{"owner":"604915dc1437fd1eefbf7215","name":"MaxEV Team"
+{"owner":"604915dc1437fd1eefbf7215","name":"cathars1s","id":"ukwz002bf40d"
+{"owner":"604915dc1437fd1eefbf7215","name":"TransDominator","id":"vj68002be40d"
+{"id":"6038014d2528de31d1decba0","name":"Freeteam"
+{"owner":"604915dc1437fd1eefbf7215","name":"UP team","id":"xcz3001oa41d"
+{"owner":"604915dc1437fd1eefbf7215","name":"BR","id":"xf35001oa41d"
+{"owner":"604915dc1437fd1eefbf7215","name":"Nalivvay"
+{"owner":"604915dc1437fd1eefbf7215","name":"ThinkTwiceTeam","id":"od5v001xt41d",
+{"id":"603801512528de31d1ded0b6","name":"SVschool"
+{"owner":"604915dc1437fd1eefbf7215","name":"MOON","id":"13j9k002kt50d"
+{"owner":"604915dc1437fd1eefbf7215","name":"Еволюція","id":"16nvj001kt51d"
+{"id":"6038014d2528de31d1decc76","name":"Funfarm"
+{"id":"6038014f2528de31d1dece81","name":"HS"
+{"owner":"604915dc1437fd1eefbf7215","name":"Poker Move"
+{"owner":"604915dc1437fd1eefbf7215","name":"PokerUp","id":"17r8e001kt51d"
+{"owner":"604915dc1437fd1eefbf7215","name":"Polyot","id":"17wir002kt50d"
+{"owner":"604915dc1437fd1eefbf7215","name":"LVL UP","id":"18ogx001kt51d"
+{"owner":"604915dc1437fd1eefbf7215","name":"MPP","id":"19ggn001kt51d"
+{"owner":"604915dc1437fd1eefbf7215","name":"Enigma","id":"199vg002kt50d"
+{"owner":"19zc8001kt51d","name":"GTO OR GTFO","id":"1a3xk001kt51d"
+{"owner":"604915dc1437fd1eefbf7215","name":"20ev","id":"saya002ib40d"
+{"owner":"604915dc1437fd1eefbf7215","name":"GOAT","id":"1coyj002tp50d"
+{"owner":"604915dc1437fd1eefbf7215","name":"DisReality","id":"1cxr3001ld51d"
+{"id":"603801502528de31d1decf8f","name":"Pocarr"
+{"owner":"604915dc1437fd1eefbf7215","name":"AmigosBacking","id":"13fp8003kt51d"
+{"id":"603801512528de31d1ded0be","name":"VPluse"
+{"id":"603801502528de31d1decf74","name":"MVP",
+{"owner":"604915dc1437fd1eefbf7215","name":"GC Alliance","id":"1gfj1002ld50d"
+{"owner":"604915dc1437fd1eefbf7215","name":"HSP","id":"1gfj4001ld51d"
+{"id":"6038014d2528de31d1decb98","name":"StartMe",
+{"owner":"604915dc1437fd1eefbf7215","name":"PokerAbility","id":"1h3ya002ld50d"
+{"owner":"604915dc1437fd1eefbf7215","name":"RedLine","id":"1h3yd001ld51d"
+{"owner":"604915dc1437fd1eefbf7215","name":"PBL","id":"1hy2e002ld50d",
+{"owner":"604915dc1437fd1eefbf7215","name":"USPF","id":"1i5pl001ld51d",
+
 - "damage": (число или null) — если в `case.amount` есть сумма (например `"2500$"`), извлеки число (2500.00). Иначе null.
 - "makeUp": (строка или null) — если во входном JSON есть поле makeUp, возьми его значение, иначе null.
 - "source": (строка или null) — если есть внешний источник или ссылка. Если в JSON это массив, возьми первый элемент, иначе null.
