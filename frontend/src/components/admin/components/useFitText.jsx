@@ -8,7 +8,7 @@ import { useRef, useEffect } from "react";
  * @param {number} minFontSize - минимальный размер шрифта (px).
  * @returns {React.RefObject} - ref, который нужно повесить на элемент с текстом.
  */
-export function useFitText(maxFontSize = 17, minFontSize = 7) {
+export function useFitText(maxFontSize = 24, minFontSize = 7) {
     const ref = useRef(null);
 
     useEffect(() => {

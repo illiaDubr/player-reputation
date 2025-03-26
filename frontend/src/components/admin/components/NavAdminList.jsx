@@ -24,14 +24,22 @@ const NavAdminList = ({isOpen}) => {
     })
 
     const notificationAnimation = useSpring({
-        from: { left: isOpen ? '61px' : '173px', opacity: 1 },
+        from: {
+            left: isOpen ? "61px" : "173px",
+            opacity: 1
+        },
         to: async (next) => {
-            // Сначала opacity плавно переходит в 0
+            // 1) Плавно меняем left на противоположное
+            await next({
+                left: isOpen ? "173px" : "61px",
+                opacity: 1
+            });
+            // 2) «Мигание»: сначала скрываем
             await next({ opacity: 0 });
-            // Затем opacity возвращается к 1
+            // 3) Потом снова показываем
             await next({ opacity: 1 });
         },
-        config: { duration: 300 },
+        config: { duration: 300 }
     })
 
     return (
@@ -56,8 +64,8 @@ const NavAdminList = ({isOpen}) => {
                                     {item.header_text}
                                 </animated.span>
                                 {notification && (
-                                    <animated.div style={notificationAnimation}>
-                                        <Notification value={notification}/>
+                                    <animated.div className="notification__wrap" style={notificationAnimation}>
+                                        <Notification value={notification} fontSize={9}/>
                                     </animated.div>
                                 )}
                             </Link>
