@@ -53,8 +53,8 @@ const ReportEdit = ({tag, playerId, recordId}) => {
     const isChanged = selected !== tag;
 
     return (
-        <div className="report__form-wrap">
-            <form method="PATCH" className="report__form" onSubmit={handleSubmit}>
+        <div className="record__form-wrap">
+            <form method="PATCH" className="record__form" onSubmit={handleSubmit}>
                 <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
                     <div className={`report__select-title report__select-text-${displayedColor}`}
                          onClick={toggleDropdown}>
@@ -75,7 +75,7 @@ const ReportEdit = ({tag, playerId, recordId}) => {
                         </div>
                     )}
                 </div>
-                <button className="report__btn" type="submit" disabled={!isChanged}>
+                <button className="record__btn" type="submit" disabled={!isChanged}>
                     Обновить метку
                 </button>
             </form>

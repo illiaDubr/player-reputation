@@ -13,7 +13,7 @@ const ReportItem = ({data, tagEdit, discussion}) => {
                                 <div className="record__title">
                                     {item.reporter_name}
                                 </div>
-                                <div className="report__form-wrap">
+                                <div className="record__form-wrap">
                                     {tagEdit && (
                                         <ReportEdit tag={item.backer_tag} playerId={item.player_id} recordId={item.id}/>
                                     )}
