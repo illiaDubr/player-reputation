@@ -14,6 +14,9 @@ const DiscussionRecord = () => {
 
     return (
         <div className="admin__wrap">
+            <div className="admin__title">
+                Записи на обсуждении
+            </div>
             <RecordItem data={discussionRecord} discussion={false}/>
         </div>
     )

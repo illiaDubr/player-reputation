@@ -19,14 +19,14 @@ const ReportChangeStatus = ({id, discussion}) => {
             {discussion && (
                 <form method="PATCH" className="record__form" onSubmit={handleChangeSubmit("under_discussion")}>
                     <button type="submit" className="record__btn">
-                        На рассмотрении
+                        Оставить метку без изменений
                     </button>
                 </form>
             )}
 
             <form method="PATCH" className="record__form" onSubmit={handleChangeSubmit("read")}>
                 <button type="submit" className="record__btn">
-                    <IconSvg width={16} height={16} id="trash"/>
+                    Оставить метку без изменений
                 </button>
             </form>
         </>
