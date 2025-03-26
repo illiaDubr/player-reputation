@@ -5,10 +5,11 @@ import IconSvg from "../../platform/components/IconSvg.jsx";
 import { animated, useSpring } from '@react-spring/web'
 import LogoutBtn from "../../platform/components/LogoutBtn.jsx";
 import {HOMEPAGE_ROUTE} from "../../../utils/const.js";
-import {Context} from "../../../api/store/storeContext.js";
+import {useNotifications} from "./useNotifications.jsx";
+import Notification from "./Notification.jsx";
 
 const NavAdminList = ({isOpen}) => {
-    const { store } = React.useContext(Context);
+    const notifications = useNotifications();
 
     const iconAnimation = useSpring({
         left: isOpen ? '15px' : '35px',
@@ -30,18 +31,26 @@ const NavAdminList = ({isOpen}) => {
                 </Link>
             </li>
             <ul className="navigation__list-box">
-                {NavListData.map((item) => (
-                    <li className="navigation__list-item" key={item.icon}>
-                        <Link to={item.link} className="navigation__list-item__link">
-                            <animated.span className="svg-box" style={iconAnimation}>
-                                <IconSvg width={20} height={20} id={item.icon}/>
-                            </animated.span>
-                            <animated.span className="navigation__text" style={textAnimation}>
-                                {item.header_text}
-                            </animated.span>
-                        </Link>
-                    </li>
-                ))}
+                {NavListData.map((item) => {
+                    const notification = notifications[item.id]
+                        ? notifications[item.id]
+                        : "";
+                    return (
+                        <li className="navigation__list-item" key={item.icon}>
+                            <Link to={item.link} className="navigation__list-item__link">
+                                <animated.span className="svg-box" style={iconAnimation}>
+                                    <IconSvg width={20} height={20} id={item.icon}/>
+                                </animated.span>
+                                <animated.span className="navigation__text" style={textAnimation}>
+                                    {item.header_text}
+                                </animated.span>
+                                <span>
+                                    <Notification value={notification} />
+                                </span>
+                            </Link>
+                        </li>
+                    )
+                })}
                 <li className="navigation__list-item">
                     <LogoutBtn className="navigation__list-item__link" iconAnimation={iconAnimation} textAnimation={textAnimation}/>
                 </li>

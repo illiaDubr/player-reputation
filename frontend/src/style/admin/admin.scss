@@ -72,6 +72,7 @@
           filter: blur(71px);
           position: absolute;
           z-index: 1;
+          transition: all .7s ease;
         }
 
         &:nth-child(1), &:nth-child(5), &:nth-child(6) {
