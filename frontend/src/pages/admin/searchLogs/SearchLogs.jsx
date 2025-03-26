@@ -15,11 +15,11 @@ const SearchLogs = observer(() => {
         });
     }, [store]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = store.download();
+            const response = await store.download();
             const blob = new Blob([response.data], { type: response.headers['content-type'] });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
