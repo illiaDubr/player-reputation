@@ -24,7 +24,7 @@ const Records = observer(() => {
     return (
         <AdminMain pageTitle="Измененные записи" text={recordsText}>
             <div className="admin__wrap">
-                <RecordItem data={recordsData} discussion={true} />
+                <RecordItem data={recordsData} discussion={true} closeRecord={true}/>
             </div>
             <DiscussionRecord />
             <CloseRecord />

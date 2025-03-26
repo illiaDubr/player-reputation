@@ -17,7 +17,7 @@ const DiscussionRecord = () => {
             <div className="admin__title">
                 Записи на обсуждении
             </div>
-            <RecordItem data={discussionRecord} discussion={false}/>
+            <RecordItem data={discussionRecord} discussion={false} closeRecord={true}/>
         </div>
     )
 }

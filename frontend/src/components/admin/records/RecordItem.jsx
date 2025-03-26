@@ -1,7 +1,7 @@
 import React from "react";
 import RecordChangeStatus from "./RecordChangeStatus.jsx";
 
-const RecordItem = ({data, discussion}) => {
+const RecordItem = ({data, discussion, closeRecord}) => {
     return (
         <>
             {data.length > 0 ? (
@@ -30,7 +30,7 @@ const RecordItem = ({data, discussion}) => {
                                     <div className="">
                                     </div>
                                     <div className="record__form-wrap">
-                                        <RecordChangeStatus id={item.id} discussion={discussion} />
+                                        <RecordChangeStatus id={item.id} discussion={discussion} closeReport={closeRecord}/>
                                     </div>
                                 </div>
                                 <div className="record__text">
@@ -54,7 +54,6 @@ const RecordItem = ({data, discussion}) => {
                     ))
             ) : (
                 <div className="admin__no-data">
-                    Нет данных
                 </div>
             )}
         </>
