@@ -105,7 +105,7 @@
         &:has(.notification) {
           .notification {
             top: 15px;
-            left: 15px;
+            right: 15px;
           }
         }
       }
@@ -157,12 +157,12 @@
             @include mixin.font-style(600, 20, 120, #FFFFFF);
           }
 
-          .report__form-wrap {
+          .record__form-wrap {
             display: flex;
             align-items: center;
             gap: 12px;
 
-            .report__form {
+            .record__form {
               display: flex;
               gap: 8px;
 
@@ -246,7 +246,7 @@
                 background: rgba(8, 8, 8, 1);
               }
 
-              .report__btn {
+              .record__btn {
                 display: flex;
                 align-items: center;
                 border: 1px solid #fff;

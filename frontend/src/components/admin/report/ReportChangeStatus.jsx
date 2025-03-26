@@ -17,15 +17,15 @@ const ReportChangeStatus = ({id, discussion}) => {
     return (
         <>
             {discussion && (
-                <form method="PATCH" className="report__form" onSubmit={handleChangeSubmit("under_discussion")}>
-                    <button type="submit" className="report__btn">
+                <form method="PATCH" className="record__form-wrap" onSubmit={handleChangeSubmit("under_discussion")}>
+                    <button type="submit" className="record__btn">
                         На рассмотрении
                     </button>
                 </form>
             )}
 
-            <form method="PATCH" className="report__form" onSubmit={handleChangeSubmit("read")}>
-                <button type="submit" className="report__btn">
+            <form method="PATCH" className="record__form-wrap" onSubmit={handleChangeSubmit("read")}>
+                <button type="submit" className="record__btn">
                     <IconSvg width={16} height={16} id="trash"/>
                 </button>
             </form>

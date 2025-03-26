@@ -29,7 +29,9 @@ const RecordItem = ({data, discussion}) => {
                                 <div className="record__top">
                                     <div className="">
                                     </div>
-                                    <RecordChangeStatus id={item.id} discussion={discussion} />
+                                    <div className="record__form-wrap">
+                                        <RecordChangeStatus id={item.id} discussion={discussion} />
+                                    </div>
                                 </div>
                                 <div className="record__text">
                                     <div className="record__text-title">
