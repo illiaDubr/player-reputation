@@ -36,10 +36,6 @@ const Admin = observer(() => {
         })
     }, [store])
 
-
-    const randomTop = Math.floor(Math.random() * 350) + "px";
-    const randomLeft = Math.floor(Math.random() * 350) + "px";
-
     return (
         <AdminMain pageTitle="Панель Администратора">
             <div className="admin__wrap">
@@ -48,6 +44,8 @@ const Admin = observer(() => {
                         const notification = notifications[item.id]
                             ? notifications[item.id]
                             : "";
+                        const randomTop = Math.floor(Math.random() * 350) + "px";
+                        const randomLeft = Math.floor(Math.random() * 350) + "px";
                         return (
                             <Link to={item.link} className="admin__link" key={index}>
                                 <span style={{top: randomTop, left: randomLeft}}></span>
