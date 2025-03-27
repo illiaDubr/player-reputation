@@ -24,8 +24,8 @@ const NavAdminList = ({isOpen}) => {
     })
 
     const notificationAnimation = useSpring({
-        left: isOpen ? "61px" : "173px",
-        from: {left: '61px'},
+        left: isOpen ? "173px" : "61px",
+        from: {left: '173px'},
     })
 
     return (
