@@ -83,7 +83,7 @@ function PersonalAccount() {
                         </span>
                     </button>
 
-                    <RenderUnless value={approved} hideWhen="approved">
+                    <RenderUnless value={approved} hideWhen="null">
                         <div className="grid__item verification">
                             <IconSvg width={20} height={20} id="red_notification"/>
                             <p>
