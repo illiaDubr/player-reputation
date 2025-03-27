@@ -31,9 +31,9 @@ Route::prefix('search-players')->group(function () {
 Route::prefix('players')->group(function () {
     Route::put('/{playerId}', [PlayerController::class, 'update']);
     Route::patch('/{playerId}/reputation/{recordId}', [PlayerController::class, 'updateReputation']);
-    Route::post('/add', [PlayerAddController::class, 'store']);
-});
 
+});
+Route::post('/playerAdd', [PlayerAddController::class, 'store']);
 
 //Роуты для бекеров
 
