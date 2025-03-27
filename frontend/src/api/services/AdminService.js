@@ -1,6 +1,10 @@
 import $api from "../http/index.js"
 
 export default class AdminService {
+    static async getUnApprovedBackers() {
+        return $api.get(`api/backers/unapproved`);
+    }
+
     static async getRecords() {
         return $api.get(`/api/changes?status=unread`);
     }

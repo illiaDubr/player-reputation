@@ -174,6 +174,13 @@ export default class Store {
 
     // --- Методы админ панели ---
 
+    async getUnApprovedBackers() {
+        return await this.request(
+            () => AdminService.getUnApprovedBackers(),
+            "Ошибка получения данных"
+        )
+    }
+
     async getRecords() {
         return await this.request(
             () => AdminService.getRecords(),

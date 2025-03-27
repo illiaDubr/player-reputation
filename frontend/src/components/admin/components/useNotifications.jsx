@@ -7,19 +7,22 @@ export const useNotifications = () => {
     const [notifications, setNotifications] = React.useState({
         reports: 0,
         records: 0,
+        backers: 0,
     });
 
     const updateNotifications = React.useCallback(() => {
         Promise.all([
             store.getReports(),
             store.getRecords(),
+            store.getUnApprovedBackers(),
         ])
-            .then(([reportsResp, recordsResp]) => {
+            .then(([reportsResp, recordsResp, unApprovedBackers]) => {
                 const getCount = (response) =>
                     Array.isArray(response.data.data) ? response.data.data.length : 0;
                 const counts = {
                     reports: getCount(reportsResp),
                     records: getCount(recordsResp),
+                    backers: getCount(unApprovedBackers),
                 };
                 setNotifications(counts);
             })

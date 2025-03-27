@@ -1,11 +1,11 @@
-import {ADMIN_REP_ROUTE, ADMIN_LOGS_ROUTE, ADMIN_RECORDS_ROUTE, SEARCH_ROUTE} from "./const.js";
+import {ADMIN_REP_ROUTE, ADMIN_BACKERS_ROUTE, ADMIN_LOGS_ROUTE, ADMIN_RECORDS_ROUTE, SEARCH_ROUTE} from "./const.js";
 
 export const NavListData = [
     {
-        id: "",
-        link: "",
+        id: "backers",
+        link: ADMIN_BACKERS_ROUTE,
         icon: "link_request",
-        header_text: "",
+        header_text: "Заявки на верификацию",
         link_text: "Заявки на верификацию. Все бекеры",
     },
     {
