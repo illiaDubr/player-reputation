@@ -26,11 +26,9 @@ const ResultItem = ({content, iconId, label, hideIcon, placeholder}) => {
         navigator.clipboard.writeText(text)
             .then(() => {
                 console.log("Текст успешно скопирован:", text);
-                alert("Текст скопирован в буфер обмена!");
             })
             .catch((err) => {
                 console.error("Ошибка при копировании текста:", err);
-                alert("Не удалось скопировать текст.");
             });
     };
 
