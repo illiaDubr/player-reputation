@@ -37,9 +37,7 @@ function PersonalAccount() {
         setIsVisible((prev) => !prev);
     };
 
-    console.log(store.user.email)
-    console.log(store.user.user_id)
-    console.log(store.isAuth)
+    console.log(store.user)
 
     return (
         <>

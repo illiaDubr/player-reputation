@@ -26,14 +26,14 @@ const Login = () => {
         try {
             await store.login(data);
             //navigate(ADMIN_ROUTE);
-            store.checkAuth().then((response) => {
-                console.log(response);
-            })
+            console.log("1", store.user)
         } catch (error) {
             reset();
             openModal("Auth");
         }
     };
+
+    console.log("2", store.user)
 
     React.useEffect(() => {
         store.checkAuth().then((response) => {
