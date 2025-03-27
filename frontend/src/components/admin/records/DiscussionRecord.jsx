@@ -9,8 +9,10 @@ const DiscussionRecord = () => {
     React.useEffect(() => {
         store.getDiscussionRecord().then((response) => {
             setDiscussionRecord(response.data.data);
-        })
-    })
+        }).catch((error) => {
+            console.error("Ошибка запроса:", error);
+        });
+    }, [store]);
 
     return (
         <div className="admin__wrap">
