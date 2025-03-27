@@ -48,7 +48,7 @@ function PersonalAccount() {
         openModal("verification");
     }
 
-    console.log(store.user.backer.approved)
+    console.log(store.user)
 
     return (
         <>

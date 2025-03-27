@@ -7,7 +7,6 @@ import {
     thirdSlideDataPlayer,
     fourthSlideDataPlayer,
     fifthSlideDataPlayer,
-    firstSlideDataBacker
 } from "../../../../utils/AccountData.js";
 import SlideContentWrap from "./SlideContentWrap.jsx";
 import CustomInput from "./CustomInput.jsx";
@@ -139,8 +138,33 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                     content: (
                         <SlideContentWrap>
                             <div className="slide__box">
-                                <ReputationInput info={firstSlideDataBacker} formData={formData}
-                                                 setFormData={setFormData}/>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="fund">
+                                        Название Фонда
+                                    </label>
+                                    <input
+                                        id="fund"
+                                        type="text"
+                                        name="fund"
+                                        value={formBackerData.fund || ""}
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder="Введите название"
+                                    />
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="">
+                                    </label>
+                                    <input
+                                        id=""
+                                        type="text"
+                                        name=""
+                                        value=""
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder=""
+                                    />
+                                </div>
                             </div>
                         </SlideContentWrap>
                     ),
@@ -187,7 +211,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                 </div>
                                 <textarea
                                     placeholder="Информация будет использоваться на сайте PR в раздела о вашем фонде. В будущем вы сможете скорректировать инфорацию в личном кабинете"
-                                    className="slide__textarea" value={formBackerData.comment || ""}
+                                    name="fundDescr"
+                                    className="slide__textarea"
+                                    value={formBackerData.fundDescr || ""}
                                     onChange={handleBackerChange}>
                                 </textarea>
                             </div>
