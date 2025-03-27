@@ -1,13 +1,14 @@
 import React from "react";
 import IconSvg from "../../components/IconSvg.jsx";
 import SlideData from "./SlideData.jsx";
-import {useAddPlayerData} from "../../../../utils/AccountData.js";
+import {useAddPlayerData, useBackerApprovalData} from "../../../../utils/AccountData.js";
 import {Context} from "../../../../api/store/storeContext.js";
 
 const AccountForm = ({slideType, modalOpen}) => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [formData, setFormData] = useAddPlayerData();
-    const slides = SlideData(slideType, formData, setFormData);
+    const [formBackerData, setFormBackerData] = useBackerApprovalData();
+    const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData);
     const {store} = React.useContext(Context);
 
     const handlePaginationClick = (index) => {
@@ -27,6 +28,9 @@ const AccountForm = ({slideType, modalOpen}) => {
         } else {
             try {
                 await store.addPlayer(formData);
+
+
+
                 console.log("Данные успешно отправлены:", formData);
             } catch (error) {
                 console.error("Ошибка при отправке данных:", error);

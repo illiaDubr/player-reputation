@@ -1,6 +1,6 @@
 import React from "react";
 
-export const addData = {
+const addData = {
     last_name: "",
     first_name: "",
     middle_name: "",
@@ -26,11 +26,21 @@ export const addData = {
     comment: "",
 }
 
+const backerApprovalData = {
+
+}
+
 export const useAddPlayerData = () => {
-    const [formData, setFormData] = React.useState(addData);
+    const [formBackerData, setFormBackerData] = React.useState(addData);
+
+    return [formBackerData, setFormBackerData];
+};
+
+export const useBackerApprovalData = () => {
+    const [formData, setFormData] = React.useState(backerApprovalData);
 
     return [formData, setFormData];
-};
+}
 
 export const firstSlideDataPlayer = [
     { label: "Фамилия", id: "last_name", placeholder: "Введите фамилию", type: "text" },
@@ -84,7 +94,7 @@ export const markData = [
     { name: "Нет метки", value: "no tag" },
 ]
 
-export const test1 = [
+export const firstSlideDataBacker = [
     { label: "Название Фонда", id: "1", placeholder: "Введите название", type: "text" },
     { label: "Ссылка на сайт", id: "2", placeholder: "Введите ссылку на сайт", type: "text" },
     { label: "Ссылка на гостевой домик в Discord", id: "3", placeholder: "Введите ссылку на Discord", type: "text" },
