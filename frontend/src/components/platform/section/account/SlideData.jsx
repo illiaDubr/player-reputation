@@ -236,7 +236,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 type="radio"
                                                 name="rollbackIncrease"
                                                 value="yes"
-                                                checked={formBackerData.rollbackIncrease === "yes"}
+                                                checked={formBackerData.rollbackIncrease === "true"}
                                                 onChange={handleBackerChange}
                                             />
                                             Да
@@ -246,7 +246,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 type="radio"
                                                 name="rollbackIncrease"
                                                 value="no"
-                                                checked={formBackerData.rollbackIncrease === "no"}
+                                                checked={formBackerData.rollbackIncrease === "false"}
                                                 onChange={handleBackerChange}
                                             />
                                             Нет

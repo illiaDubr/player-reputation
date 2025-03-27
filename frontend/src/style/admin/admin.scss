@@ -254,6 +254,7 @@
               .record__btn {
                 display: flex;
                 align-items: center;
+                gap: 6px;
                 border: 1px solid #fff;
                 border-radius: 4px;
                 padding: 4px 10px;
@@ -399,6 +400,10 @@
 
             .backer__text {
               @include mixin.font-style(400, 16, 130, #FFFFFF);
+            }
+
+            .result__tooltip {
+              @include mixin.font-style(400, 9, 130, #FFFFFF);
             }
           }
         }
