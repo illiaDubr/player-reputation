@@ -27,7 +27,7 @@ const Report = observer(() => {
             </div>
             <CloseReports />
         </AdminMain>
-    )
+    );
 })
 
 export default Report;

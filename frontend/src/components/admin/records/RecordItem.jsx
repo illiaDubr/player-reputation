@@ -1,5 +1,6 @@
 import React from "react";
 import RecordChangeStatus from "./RecordChangeStatus.jsx";
+import IconSvg from "../../platform/components/IconSvg.jsx";
 
 const RecordItem = ({data, discussion, closeRecord}) => {
     return (
@@ -8,6 +9,9 @@ const RecordItem = ({data, discussion, closeRecord}) => {
                 data.map((item, index) => (
                         <div className="admin__box" key={index}>
                             <div className="record record-record">
+                                <div className="record__top">
+                                    <IconSvg width={48} height={48} variant="funds" id={item.old_data.fund_name}/>
+                                </div>
                                 <div className="record__text">
                                     <div className="record__text-title">
                                         Ущерб:
