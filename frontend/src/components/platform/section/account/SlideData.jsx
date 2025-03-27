@@ -139,14 +139,14 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                         <SlideContentWrap>
                             <div className="slide__box">
                                 <div className="slide__input-wrap">
-                                    <label className="slide__label" htmlFor="fund">
+                                    <label className="slide__label" htmlFor="fund_for_search">
                                         Название Фонда
                                     </label>
                                     <input
-                                        id="fund"
+                                        id="fund_for_search"
                                         type="text"
-                                        name="fund"
-                                        value={formBackerData.fund || ""}
+                                        name="fund_for_search"
+                                        value={formBackerData.fund_for_search || ""}
                                         onChange={handleBackerChange}
                                         className="slide__input"
                                         placeholder="Введите название"
@@ -159,10 +159,38 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         id=""
                                         type="text"
                                         name=""
-                                        value=""
+                                        value={formBackerData.fund || ""}
                                         onChange={handleBackerChange}
                                         className="slide__input"
                                         placeholder=""
+                                    />
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="discordHouse">
+                                        Ссылка на гостевой домик в Discord
+                                    </label>
+                                    <input
+                                        id="discordHouse"
+                                        type="text"
+                                        name="discordHouse"
+                                        value={formBackerData.discordHouse || ""}
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder="Введите ссылку на Discord"
+                                    />
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="discordRepresentative">
+                                        Контакт представителя в Discord
+                                    </label>
+                                    <input
+                                        id="discordRepresentative"
+                                        type="text"
+                                        name="discordRepresentative"
+                                        value={formBackerData.discordRepresentative || ""}
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder="Введите контакт"
                                     />
                                 </div>
                             </div>
@@ -196,6 +224,36 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="numberCoach">
+                                        Сколько у вас тренеров
+                                    </label>
+                                    <input
+                                        id="numberCoach"
+                                        type="text"
+                                        name="numberCoach"
+                                        value={formBackerData.numberCoach || ""}
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder="Введите количество"
+                                    />
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="numberPlayer">
+                                        Количество игроков в команде
+                                    </label>
+                                    <input
+                                        id="numberPlayer"
+                                        type="text"
+                                        name="numberPlayer"
+                                        value={formBackerData.numberPlayer || ""}
+                                        onChange={handleBackerChange}
+                                        className="slide__input"
+                                        placeholder="Введите количество"
+                                    />
                                 </div>
                             </div>
                         </SlideContentWrap>
