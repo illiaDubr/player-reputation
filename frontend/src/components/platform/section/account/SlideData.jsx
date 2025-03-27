@@ -226,8 +226,33 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </div>
                                     </div>
                                 </div>
-
-
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="">
+                                        Возможность увеличить свой откат
+                                    </label>
+                                    <div className="">
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="yes"
+                                                checked={formBackerData.rollbackIncrease === "yes"}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Да
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="no"
+                                                checked={formBackerData.rollbackIncrease === "no"}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Нет
+                                        </label>
+                                    </div>
+                                </div>
                                 <div className="slide__input-wrap">
                                     <label className="slide__label" htmlFor="numberCoach">
                                         Сколько у вас тренеров

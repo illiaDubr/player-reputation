@@ -9,7 +9,7 @@ const Backers = observer(() => {
 
     React.useEffect(() => {
         store.getUnApprovedBackers().then((response) => {
-            setUnApprovedBackers(response.data);
+            setUnApprovedBackers(response.data.data);
         }).catch((error) => {
             console.error("Ошибка запроса:", error);
         });

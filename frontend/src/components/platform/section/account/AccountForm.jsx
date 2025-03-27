@@ -39,7 +39,7 @@ const AccountForm = ({slideType, modalOpen}) => {
                         id: userId,
                         approved: "no",
                     }
-                    console.log(backerData);
+                    console.log("data backer", backerData);
                     await store.backerApproval(backerData);
                 }
             } catch (error) {
