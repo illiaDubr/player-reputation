@@ -13,6 +13,27 @@ import {Context} from "../../../api/store/storeContext.js";
 function PersonalAccount() {
     const {openModal, closeAllModals} = useModal();
     const {store} = React.useContext(Context);
+    const approved = store.user?.backer?.approved;
+
+    const actions = React.useMemo(() => ({
+        "null": () => {
+            setTimeout(() => {
+                openModal("authorization");
+            }, 3000)
+        },
+        "under_consideration": () => {
+
+        },
+        "approved": () => {
+
+        },
+    }), [openModal]);
+
+    React.useEffect(() => {
+        const action = actions[String(approved)] || (() => {});
+        action();
+    }, [approved, actions]);
+
 
     const openReputationModal = () => {
         openModal("reputation");
@@ -30,13 +51,6 @@ function PersonalAccount() {
         openModal("verification");
     }
 
-    const [isVisible, setIsVisible] = React.useState(false);
-
-    // Функция для переключения видимости
-    const toggleVisibility = () => {
-        setIsVisible((prev) => !prev);
-    };
-
     console.log(store.user.backer.approved)
 
     return (
@@ -47,19 +61,15 @@ function PersonalAccount() {
                 </title>
             </Helmet>
             <Main secClassName="account__wrap" secID="account">
-                <button type={"button"} onClick={openAuthorizationModal} className="case">
-                </button>
-                <button type={"button"} onClick={toggleVisibility} className="case" style={{left: "inherit", right: "0"}}>
-                </button>
                 <div className="account__nav">
                     <Link className="account__link-wrap" to={SEARCH_ROUTE}>
                         <span className="account__link">
                             <span className="account__link-title">
                                 Осуществить поиск по базе
                             </span>
-                            <img src={Images.big__grid} alt="" className="account__img" />
-                            <img src={Images["account_computer-1"]} alt="Account Computer" className="account__img-1" />
-                            <IconSvg width={246} height={253} id="Ellipse" />
+                            <img src={Images.big__grid} alt="" className="account__img"/>
+                            <img src={Images["account_computer-1"]} alt="Account Computer" className="account__img-1"/>
+                            <IconSvg width={246} height={253} id="Ellipse"/>
                         </span>
                     </Link>
                     <button className="account__link-wrap" type="button" onClick={openReputationModal}>
@@ -68,18 +78,20 @@ function PersonalAccount() {
                                 Внести информацию репутации своего игрока
                             </span>
                             <img src={Images.big__grid} alt="" className="account__img"/>
-                            <img src={Images["account_computer-2"]} alt="Account Computer" className="account__img-2" />
+                            <img src={Images["account_computer-2"]} alt="Account Computer" className="account__img-2"/>
                         </span>
                     </button>
-                    {isVisible && (
-                        <div className="grid__item verification">
-                            <IconSvg width={20} height={20} id="red_notification"/>
-                            <p>
-                                Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
-                            </p>
-                        </div>
-                    )}
+
+                    <div className="grid__item verification">
+                        <IconSvg width={20} height={20} id="red_notification"/>
+                        <p>
+                            Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
+                        </p>
+                    </div>
+
                 </div>
+
+
                 <Modal modalName="reputation">
                     <div className="modal__title">
                         Внесение информации по игроку
@@ -103,7 +115,6 @@ function PersonalAccount() {
                 </Modal>
 
 
-
                 <Modal modalName="authorization">
                     <div className="modal__title">
                         Заполни полную авторизацию бэкера
@@ -118,7 +129,8 @@ function PersonalAccount() {
                     </div>
                     <div className="modal__body">
                         <p className="modal__text slide__text">
-                            Ваша заявке отправлена модератору PR время на рассмотрение заявки 1 рабочий день. Информацию о вашем статусе можете просмотреть в личном кабинете
+                            Ваша заявке отправлена модератору PR время на рассмотрение заявки 1 рабочий день. Информацию
+                            о вашем статусе можете просмотреть в личном кабинете
                         </p>
                     </div>
                 </Modal>
