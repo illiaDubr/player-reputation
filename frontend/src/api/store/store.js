@@ -124,7 +124,6 @@ export default class Store {
     // --- Методы поиска / редактирования ---
 
     async search(formData) {
-        // Пример через универсальный request
         await this.request(
             () => SearchService.search(formData),
             "Ошибка поиска",
