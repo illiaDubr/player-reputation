@@ -151,7 +151,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                     display: none;
                   }
 
-                  &:checked {
+                  & + input:checked {
                     background: #00187a;
                     border: 1px solid #818181;
                   }
