@@ -11,6 +11,8 @@ const AccountForm = ({slideType, modalOpen}) => {
     const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData);
     const {store} = React.useContext(Context);
 
+    const formMethod = slideType === "addPlayer" ? "POST" : slideType === "addBaker" ? "PUT" : "POST";
+
     const handlePaginationClick = (index) => {
         setActiveIndex(index);
     };
@@ -27,11 +29,16 @@ const AccountForm = ({slideType, modalOpen}) => {
             setActiveIndex((prevIndex) => prevIndex + 1);
         } else {
             try {
-                await store.addPlayer(formData);
-
-
-
-                console.log("Данные успешно отправлены:", formData);
+                if (slideType === "addPlayer") {
+                    await store.addPlayer(formData);
+                    console.log("Данные успешно отправлены (addPlayer):", formData);
+                } else if (slideType === "addBaker") {
+                    const backerData = {
+                        ...formBackerData,
+                        id: store.user.user_id,
+                    }
+                    await store.backerApproval(backerData);
+                }
             } catch (error) {
                 console.error("Ошибка при отправке данных:", error);
             } finally {
@@ -41,7 +48,7 @@ const AccountForm = ({slideType, modalOpen}) => {
     }
 
     return (
-        <form className="modal__body" method="POST" onSubmit={submitForm}>
+        <form className="modal__body" method={formMethod} onSubmit={submitForm}>
             <div className="slide__wrap">
                 {slides.map((slide, index) => (
                     <div

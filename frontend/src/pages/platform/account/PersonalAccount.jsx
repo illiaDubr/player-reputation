@@ -49,6 +49,7 @@ function PersonalAccount() {
     }
 
     console.log(store.user)
+    console.log(store.user.backer.backer_id)
 
     return (
         <>

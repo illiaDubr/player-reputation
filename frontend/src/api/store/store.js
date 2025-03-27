@@ -165,6 +165,13 @@ export default class Store {
         );
     }
 
+    async backerApproval(backerData) {
+        await this.request(
+            () => AccountService.backerApproval(backerData),
+            "Ошибка авторизации"
+        )
+    }
+
     // --- Методы админ панели ---
 
     async getRecords() {

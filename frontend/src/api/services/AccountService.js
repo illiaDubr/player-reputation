@@ -8,9 +8,9 @@ export default class AccountService {
         return $api.post('/api/playerAdd', formData);
     }
 
-    static async backerApproval() {
-        const id = id
+    static async backerApproval(backerData) {
+        const id = backerData.id
 
-        return $api.patch(`api/backers/${id}/status`,)
+        return $api.put(`api/backers/${id}`, backerData)
     }
 }
