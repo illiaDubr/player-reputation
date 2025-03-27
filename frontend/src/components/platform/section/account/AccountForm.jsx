@@ -12,7 +12,6 @@ const AccountForm = ({slideType, modalOpen}) => {
     const {store} = React.useContext(Context);
 
     const formMethod = slideType === "addPlayer" ? "POST" : slideType === "addBaker" ? "PUT" : "POST";
-    const userId = store.user.user_id;
 
     const handlePaginationClick = (index) => {
         setActiveIndex(index);
@@ -34,6 +33,8 @@ const AccountForm = ({slideType, modalOpen}) => {
                     await store.addPlayer(formData);
                     console.log("Данные успешно отправлены (addPlayer):", formData);
                 } else if (slideType === "addBaker") {
+                    await store.checkAuth();
+                    const userId = store.user.user_id;
                     const backerData = {
                         ...formBackerData,
                         id: userId,
