@@ -139,30 +139,31 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                         <SlideContentWrap>
                             <div className="slide__box">
                                 <div className="slide__input-wrap">
-                                    <label className="slide__label" htmlFor="fund_for_search">
+                                    <label className="slide__label" htmlFor="fund_name">
                                         Название Фонда
                                     </label>
                                     <input
-                                        id="fund_for_search"
+                                        id="fund_name"
                                         type="text"
-                                        name="fund_for_search"
-                                        value={formBackerData.fund_for_search || ""}
+                                        name="fund_name"
+                                        value={formBackerData.fund_name || ""}
                                         onChange={handleBackerChange}
                                         className="slide__input"
                                         placeholder="Введите название"
                                     />
                                 </div>
                                 <div className="slide__input-wrap">
-                                    <label className="slide__label" htmlFor="">
+                                    <label className="slide__label" htmlFor="siteLink">
+                                        Ссылка на сайт
                                     </label>
                                     <input
-                                        id=""
+                                        id="siteLink"
                                         type="text"
-                                        name=""
-                                        value={formBackerData.fund || ""}
+                                        name="siteLink"
+                                        value={formBackerData.siteLink || ""}
                                         onChange={handleBackerChange}
                                         className="slide__input"
-                                        placeholder=""
+                                        placeholder="Введите ссылку на сайт"
                                     />
                                 </div>
                                 <div className="slide__input-wrap">
