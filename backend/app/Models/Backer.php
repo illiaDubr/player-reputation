@@ -37,7 +37,8 @@ class Backer extends Model
         'country',
         'approved',
         'email',
-        'fund_for_search'
+        'fund_for_search',
+        'fund_name'
     ];
 
     protected $casts = [
