@@ -9,7 +9,7 @@ const BackersForm = ({fund, backerId}) => {
         e.preventDefault();
         const backerData = {
             id: backerId,
-            status: "yes",
+            approved: "yes",
         }
 
         const fundData = {
