@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\ChangeController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\BackerController;
 //Роуты для игроков
 
 // Счётчик запросов
@@ -47,6 +48,9 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']);
 
 
 //роуты для админов и суперадминов
+
+Route::middleware(['auth','check.role:backer,admin,superadmin'])
+    ->patch('/backers/{id}/fund-for-search', [BackerController::class, 'updateFundForSearch']);
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
     // Удаление проверенного репорта
     Route::delete('/reports/{id}', [ReportController::class, 'deleteVerifiedReport']);
@@ -89,7 +93,7 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 
 //произвольные роуты
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->load('backer');
 });
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
