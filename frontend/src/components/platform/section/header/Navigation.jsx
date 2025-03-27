@@ -8,7 +8,7 @@ import NavList from "./NavList.jsx";
 
 function AdminRoutes({isOpen}) {
     const location = useLocation();
-    const allowedSuffixes = ["/admin", "/report", "/searchLogs", "/records"];
+    const allowedSuffixes = ["/admin", "/report", "/searchLogs", "/records", "/backers"];
     if (allowedSuffixes.some(suffix => location.pathname.endsWith(suffix))) {
         return <NavAdminList isOpen={isOpen} />;
     }
