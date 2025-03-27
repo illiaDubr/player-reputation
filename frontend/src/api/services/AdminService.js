@@ -14,7 +14,7 @@ export default class AdminService {
     static changeFundBacker(fundData) {
         const id = fundData.id;
 
-        return  $api.patch(`api//backers/${id}/fund-for-search`, fundData);
+        return  $api.patch(`api/backers/${id}/fund-for-search`, fundData);
     }
 
     static async getRecords() {
