@@ -38,7 +38,7 @@ const Backers = observer(() => {
                                 {
                                     [
                                         { title: "Email:", content: item.email },
-                                        { title: "Описание фонда:", content: item.fundDescr },
+                                        { title: "Описание фонда:", content: item.fundDescr, className: "fundDescr", },
                                         { title: "Ссылка на сайт:", content: item.siteLink },
                                         { title: "Гостевой домик в Discord:", content: item.discordHouse },
                                         { title: "Контакт представителя в Discord:", content: item.discordRepresentative },
@@ -52,6 +52,7 @@ const Backers = observer(() => {
                                                 key={idx}
                                                 title={pair.title}
                                                 content={pair.content}
+                                                className={pair.className}
                                             />
                                         ))
                                 }
