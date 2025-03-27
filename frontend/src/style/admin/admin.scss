@@ -400,9 +400,11 @@
 
             .backer__text {
               @include mixin.font-style(400, 16, 130, #FFFFFF);
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
 
-            .result__tooltip {
+            .backer__tooltip {
               @include mixin.font-style(400, 9, 130, #FFFFFF);
             }
           }
