@@ -21,8 +21,6 @@ const Backers = observer(() => {
 
     console.log(unApprovedBackers);
 
-    console.log(selectedFund);
-
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
 
     return (
@@ -34,7 +32,7 @@ const Backers = observer(() => {
                             <div className="record__top">
                                 <FundSelect selected={selectedFund} onChange={setSelectedFund}/>
                                 <div className="record__form-wrap">
-                                    <BackersForm fund={selectedFund}/>
+                                    <BackersForm fund={selectedFund} backerId={item.backer_id}/>
                                 </div>
                             </div>
                             <div className="backer__wrap">
