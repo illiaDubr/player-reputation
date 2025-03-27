@@ -149,7 +149,7 @@ class PlayerController extends Controller
     {
         $query = Player::query();
 
-        // Если указан discord или email, ищем только по этим параметрам
+        // Если указан discord или email, ищем только по ним
         if ($request->filled('discord') || $request->filled('email')) {
             return $query
                 ->when($request->filled('discord'), function ($query) use ($request) {
@@ -175,8 +175,8 @@ class PlayerController extends Controller
                 return $query->where('phonenumber', 'like', '%' . $request->input('phonenumber') . '%');
             })
             ->when($request->filled('nickname'), function ($query) use ($request) {
-                return $query->where(function ($q) use ($request) {
-                    $nickname = $request->input('nickname');
+                $nickname = $request->input('nickname');
+                return $query->where(function ($q) use ($nickname) {
                     $q->orWhere('PS', 'like', '%' . $nickname . '%')
                         ->orWhere('GG', 'like', '%' . $nickname . '%')
                         ->orWhere('RedStar', 'like', '%' . $nickname . '%')
@@ -190,6 +190,15 @@ class PlayerController extends Controller
                         ->orWhere('chikoPoker', 'like', '%' . $nickname . '%')
                         ->orWhere('nickiPoker', 'like', '%' . $nickname . '%');
                 });
+            })
+
+            // ➜ Вот ключевое место для fund_name
+            ->when($request->filled('fund_name'), function ($query) use ($request) {
+                $fundName = $request->input('fund_name');
+                return $query->whereHas('reputationRecords', function ($q) use ($fundName) {
+                    $q->where('fund_name', 'like', '%' . $fundName . '%');
+                });
             });
     }
+
 }

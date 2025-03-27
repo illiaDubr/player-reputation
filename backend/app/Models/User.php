@@ -96,4 +96,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Report::class, 'reporter_id');
     }
+    public function backer()
+    {
+        return $this->hasOne(Backer::class, 'user_id');
+    }
 }
