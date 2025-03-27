@@ -241,7 +241,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             />
                                             Да
                                         </label>
-                                        <label>
+                                        <label className="slide__radio">
                                             <input
                                                 type="radio"
                                                 name="rollbackIncrease"

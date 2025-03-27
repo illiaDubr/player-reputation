@@ -147,6 +147,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                   border-radius: 10px;
                   @include mixin.font-style(500, 16, 130, #FFFFFF);
 
+                  input {
+                    display: none;
+                  }
+
                   &:checked {
                     background: #00187a;
                     border: 1px solid #818181;
