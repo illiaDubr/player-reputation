@@ -10,6 +10,7 @@ const AccountForm = ({slideType, modalOpen}) => {
     const [formBackerData, setFormBackerData] = useBackerApprovalData();
     const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData);
     const {store} = React.useContext(Context);
+    const userId = store.user?.backer?.backer_id;
 
     const formMethod = slideType === "addPlayer" ? "POST" : slideType === "addBaker" ? "PUT" : "POST";
 
@@ -33,8 +34,6 @@ const AccountForm = ({slideType, modalOpen}) => {
                     await store.addPlayer(formData);
                     console.log("Данные успешно отправлены (addPlayer):", formData);
                 } else if (slideType === "addBaker") {
-                    await store.checkAuth();
-                    const userId = store.user.user_id;
                     const backerData = {
                         ...formBackerData,
                         id: userId,
