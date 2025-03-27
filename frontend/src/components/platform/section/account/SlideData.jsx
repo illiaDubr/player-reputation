@@ -253,6 +253,43 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </label>
                                     </div>
                                 </div>
+                                <div className="slide__input-wrap" style={{gridColumn: "span 2"}}>
+                                    <label className="slide__label" htmlFor="">
+                                        Рейкбек
+                                    </label>
+                                    <div className="slide__radio-wrap">
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rakeback"
+                                                value="В пакет"
+                                                checked={formBackerData.rakeback === "В пакет"}
+                                                onChange={handleBackerChange}
+                                            />
+                                            В пакет
+                                        </label>
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rakeback"
+                                                value="Игроку"
+                                                checked={formBackerData.rakeback === "Игроку"}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Игроку
+                                        </label>
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rakeback"
+                                                value="Игроку при условиях"
+                                                checked={formBackerData.rakeback === "Игроку при условиях"}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Игроку при условиях
+                                        </label>
+                                    </div>
+                                </div>
                                 <div className="slide__input-wrap">
                                     <label className="slide__label" htmlFor="numberCoach">
                                         Сколько у вас тренеров
