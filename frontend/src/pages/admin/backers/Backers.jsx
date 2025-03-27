@@ -19,6 +19,19 @@ const Backers = observer(() => {
 
     return (
         <AdminMain pageTitle="Заявки на верефикацию">
+            <div className="admin__wrap">
+                {unApprovedBackers.map((item, index) => (
+                    <div className="admin__box" key={index}>
+                        <div className="record">
+                            <div className="record__top">
+
+                            </div>
+                            <div className="">
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </AdminMain>
     )
 })
