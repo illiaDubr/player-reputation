@@ -22,7 +22,7 @@ function PersonalAccount() {
                 openModal("authorization");
             }, 3000)
         },
-        "under_consideration": () => {
+        "no": () => {
 
         },
         "approved": () => {
