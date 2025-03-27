@@ -37,18 +37,9 @@ const Backers = observer(() => {
                                 </div>
                             </div>
                             <div className="backer__wrap">
-                                <div className="backer__item" style={{gridColumn: "span 3"}}>
-                                    <div className="backer__title">
-                                        Имя фонда:
-                                    </div>
-                                    <div className="backer__text">
-                                        {item.fund_name}
-                                    </div>
-
-                                    <FundSelect />
-                                </div>
                                 {
                                     [
+                                        { title: "Имя фонда:", content: item.fund_name },
                                         { title: "Email:", content: item.email },
                                         { title: "Описание фонда:", content: item.fundDescr, className: "fundDescr", },
                                         { title: "Ссылка на сайт:", content: item.siteLink },
