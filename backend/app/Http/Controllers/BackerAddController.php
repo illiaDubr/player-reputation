@@ -20,7 +20,8 @@ class BackerAddController extends Controller
         $validated = $request->validate([
             'user_id' => 'nullable|integer',
             'old_backer' => 'nullable|string|max:255|unique:backers,old_backer,' . $id,
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'fund_name' => 'nullable|string|max:255',
             'managers' => 'nullable|array',
             'users' => 'nullable|array',
             'readonlys' => 'nullable|array',
