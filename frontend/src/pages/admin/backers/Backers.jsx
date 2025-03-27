@@ -26,7 +26,23 @@ const Backers = observer(() => {
                             <div className="record__top">
 
                             </div>
-                            <div className="">
+                            <div className="backer__wrap">
+                                <div className="backer__item">
+                                    <div className="backer__title">
+                                        Email:
+                                    </div>
+                                    <div className="backer__text">
+                                        {item.email}
+                                    </div>
+                                </div>
+                                <div className="backer__item">
+                                    <div className="backer__title">
+                                        Описание фонда:
+                                    </div>
+                                    <div className="backer__text">
+                                        {item.fundDescr}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
