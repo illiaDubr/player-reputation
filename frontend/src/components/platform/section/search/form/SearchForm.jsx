@@ -10,6 +10,7 @@ import FormTitle from "./FormTitle.jsx";
 
 const SearchForm = () => {
     const {store} = React.useContext(Context);
+    const fund_name = store.user?.backer?.fund_for_search;
     const [formData, setFormData] = useSearchFormData();
     const topFields = SearchFields.slice(0, 3);
     const bottomFields = SearchFields.slice(3);
@@ -39,6 +40,8 @@ const SearchForm = () => {
         setValue(name, value);
     };
 
+    console.log(fund_name);
+
     const submitForm = async (formData) => {
         if (!formData.last_name && !formData.discord && !formData.nickname) {
             const errorMessage = 'Заполните хотя бы одно из полей: Фамилия, Discord или Ник в руме';
@@ -54,7 +57,7 @@ const SearchForm = () => {
 
     return (
         <search role="search" className="search__container">
-            <FormTitle />
+            <FormTitle fundName={fund_name}/>
             <form method="POST" className="search__wrapper" autoComplete="off" onSubmit={handleSubmit(submitForm)}>
                 <div className="search__box">
                     {topFields.map((field) => (

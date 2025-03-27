@@ -1,11 +1,27 @@
 import React from 'react';
+import {Context} from "../../../../../api/store/storeContext.js";
 
-const FormTitle = () => {
+const FormTitle = ({fundName}) => {
+    const {store} = React.useContext(Context);
     const [isSwitched, setIsSwitched] = React.useState(false);
+    const [showFundRecords, setShowFundRecords] = React.useState(false);
 
     const handleSwitchChange = () => {
         setIsSwitched((prev) => !prev);
+
+        setShowFundRecords(false);
     };
+
+    const handleCheckboxChange = (e) => {
+        setShowFundRecords(e.target.checked);
+    };
+
+    React.useEffect(() => {
+        if (showFundRecords) {
+            // Формируем formData с одним полем fund_name, значение которого передается через проп
+            store.search({ fund_name: fundName });
+        }
+    }, [showFundRecords, fundName, store]);
 
     return (
         <div className="search__title-wrap">
@@ -21,7 +37,8 @@ const FormTitle = () => {
                 </div>
                 {isSwitched && (
                     <div className="search__checkbox-wrap">
-                        <input className="search__checkbox" id="styled-checkbox-1" type="checkbox" value="value1"/>
+                        <input className="search__checkbox" id="styled-checkbox-1" type="checkbox" checked={showFundRecords}
+                               onChange={handleCheckboxChange}/>
                         <label htmlFor="styled-checkbox-1">
                             Показать все записи своего фонда
                         </label>
