@@ -14,10 +14,10 @@ import RenderUnless from "../../../components/platform/section/account/RenderUnl
 function PersonalAccount() {
     const {openModal, closeAllModals} = useModal();
     const {store} = React.useContext(Context);
-    const approved = "approved";
+    const approved = store.user?.backer?.approved;
 
     const actions = React.useMemo(() => ({
-        "null": () => {
+        null: () => {
             setTimeout(() => {
                 openModal("authorization");
             }, 3000)
@@ -83,7 +83,7 @@ function PersonalAccount() {
                         </span>
                     </button>
 
-                    <RenderUnless value={approved} hideWhen="approved">
+                    <RenderUnless value={approved} hideWhen={null}>
                         <div className="grid__item verification">
                             <IconSvg width={20} height={20} id="red_notification"/>
                             <p>
