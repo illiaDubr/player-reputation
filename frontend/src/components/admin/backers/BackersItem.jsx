@@ -18,7 +18,6 @@ const BackersItem = ({content, title, className}) => {
                 <div className="backer__tooltip">
                     {content}
                 </div>
-
             </Tooltip>
         </div>
     )

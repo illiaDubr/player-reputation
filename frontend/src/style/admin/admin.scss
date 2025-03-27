@@ -171,77 +171,6 @@
               display: flex;
               gap: 8px;
 
-              .report__select {
-                min-width: 150px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 5px;
-                position: relative;
-                border-top: 1px solid transparent;
-                border-right: 1px solid transparent;
-                border-left: 1px solid transparent;
-                border-bottom: none;
-                border-radius: 8px 8px 0px 0px;
-
-                .report__select-title {
-                  display: flex;
-                  align-items: center;
-                  gap: 6px;
-                  cursor: pointer;
-                  @include mixin.font-style(400, 16, 125, null);
-
-                  .svg {
-                    rotate: 90deg;
-                  }
-                }
-
-                .report__select-options {
-                  width: calc(100% + 2px);
-                  display: flex;
-                  flex-direction: column;
-                  gap: 16px;
-                  padding: 12px;
-                  border-radius: 0px 0px 8px 8px;
-                  border-top: none;
-                  border-right: 1px solid #ffffff;
-                  border-left: 1px solid #ffffff;
-                  border-bottom: 1px solid #ffffff;
-                  backdrop-filter: blur(40px);
-                  background: rgba(8, 8, 8, 1);
-                  position: absolute;
-                  top: 30px;
-                  left: -1px;
-                  z-index: 3;
-
-                  .report__select-item {
-                    @include mixin.font-style(400, 16, 125, null);
-                    text-align: center;
-                    cursor: pointer;
-                  }
-                }
-
-                .report__select-text-red {
-                  color: #ff3838;
-                }
-
-                .report__select-text-orange {
-                  color: #f79e1b;
-                }
-
-                .report__select-text-yellow {
-                  color: #ffcc01;
-                }
-
-                .report__select-text-green {
-                  color: #01ff55;
-                }
-
-                .report__select-text-gray {
-                  color: #737373;
-                }
-              }
-
               .report__select-open {
                 border-top: 1px solid #ffffff;
                 border-right: 1px solid #ffffff;
@@ -396,16 +325,23 @@
 
             .backer__title {
               @include mixin.font-style(500, 18, 130, #FFFFFF);
+              text-wrap: nowrap;
             }
 
             .backer__text {
               @include mixin.font-style(400, 16, 130, #FFFFFF);
+              white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
             }
 
             .backer__tooltip {
-              @include mixin.font-style(400, 9, 130, #FFFFFF);
+              max-width: 500px;
+              @include mixin.font-style(400, 12, 130, #FFFFFF);
+            }
+
+            .react-tooltip {
+              z-index: 4;
             }
           }
         }
@@ -463,6 +399,77 @@
   @include mixin.font-style(600, null, 130, #FFFFFF);
   position: absolute;
   z-index: 3;
+}
+
+.report__select {
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  position: relative;
+  border-top: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0px 0px;
+
+  .report__select-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    @include mixin.font-style(400, 16, 125, null);
+
+    .svg {
+      rotate: 90deg;
+    }
+  }
+
+  .report__select-options {
+    width: calc(100% + 2px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 0px 0px 8px 8px;
+    border-top: none;
+    border-right: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    backdrop-filter: blur(40px);
+    background: rgba(8, 8, 8, 1);
+    position: absolute;
+    top: 30px;
+    left: -1px;
+    z-index: 3;
+
+    .report__select-item {
+      @include mixin.font-style(400, 16, 125, null);
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .report__select-text-red {
+    color: #ff3838;
+  }
+
+  .report__select-text-orange {
+    color: #f79e1b;
+  }
+
+  .report__select-text-yellow {
+    color: #ffcc01;
+  }
+
+  .report__select-text-green {
+    color: #01ff55;
+  }
+
+  .report__select-text-gray {
+    color: #737373;
+  }
 }
 
 @media (max-width: 990px) {
