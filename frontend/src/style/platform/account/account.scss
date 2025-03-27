@@ -130,6 +130,29 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                   background: #0e0e11;
                 }
               }
+
+              .slide__radio-wrap {
+                display: flex;
+                flex-grow: 1;
+                gap: 12px;
+
+                .slide__radio {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-grow: 1;
+                  transition: all .4s ease;
+                  border: 1px solid transparent;
+                  background: #080808;
+                  border-radius: 10px;
+                  @include mixin.font-style(500, 16, 130, #FFFFFF);
+
+                  &:checked {
+                    background: #00187a;
+                    border: 1px solid #818181;
+                  }
+                }
+              }
             }
           }
         }

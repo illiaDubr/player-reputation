@@ -230,8 +230,8 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                     <label className="slide__label" htmlFor="">
                                         Возможность увеличить свой откат
                                     </label>
-                                    <div className="">
-                                        <label>
+                                    <div className="slide__radio-wrap">
+                                        <label className="slide__radio">
                                             <input
                                                 type="radio"
                                                 name="rollbackIncrease"
