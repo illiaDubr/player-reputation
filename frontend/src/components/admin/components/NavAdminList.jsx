@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {animated, useSpring} from '@react-spring/web'
 import LogoutBtn from "../../platform/components/LogoutBtn.jsx";
-import {HOMEPAGE_ROUTE} from "../../../utils/const.js";
+import {ADMIN_ROUTE} from "../../../utils/const.js";
 import {useNotifications} from "./useNotifications.jsx";
 import Notification from "./Notification.jsx";
 
@@ -31,7 +31,7 @@ const NavAdminList = ({isOpen}) => {
     return (
         <>
             <li className="navigation__list-item">
-                <Link to={HOMEPAGE_ROUTE} className="navigation__list-item__link-logo">
+                <Link to={ADMIN_ROUTE} className="navigation__list-item__link-logo">
                     <IconSvg width={70} height={44} id="logo"/>
                 </Link>
             </li>

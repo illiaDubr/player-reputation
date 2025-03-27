@@ -4,6 +4,7 @@ import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 import BackersForm from "../../../components/admin/backers/BackersForm.jsx";
 import BackersItem from "../../../components/admin/backers/BackersItem.jsx";
+import FundSelect from "../../../components/admin/backers/FundSelect.jsx";
 
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
@@ -29,12 +30,23 @@ const Backers = observer(() => {
                         <div className="record backer">
                             <div className="record__top">
                                 <div className="">
+                                    <FundSelect />
                                 </div>
                                 <div className="record__form-wrap">
                                     <BackersForm />
                                 </div>
                             </div>
                             <div className="backer__wrap">
+                                <div className="backer__item" style={{gridColumn: "span 3"}}>
+                                    <div className="backer__title">
+                                        Имя фонда:
+                                    </div>
+                                    <div className="backer__text">
+                                        {item.fund_name}
+                                    </div>
+
+                                    <FundSelect />
+                                </div>
                                 {
                                     [
                                         { title: "Email:", content: item.email },
