@@ -253,7 +253,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </label>
                                     </div>
                                 </div>
-                                <div className="slide__input-wrap" style={{gridColumn: "span 2"}}>
+                                <div className="slide__input-wrap" style={{gridColumn: "span 2", height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
                                         Рейкбек
                                     </label>
