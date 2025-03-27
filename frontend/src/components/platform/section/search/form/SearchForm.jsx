@@ -12,6 +12,7 @@ const SearchForm = () => {
     const {store} = React.useContext(Context);
     const fund_name = store.user?.backer?.fund_for_search;
     const [formData, setFormData] = useSearchFormData();
+    const [checked, setChecked] = React.useState(false);
     const topFields = SearchFields.slice(0, 3);
     const bottomFields = SearchFields.slice(3);
 
@@ -42,7 +43,7 @@ const SearchForm = () => {
 
     console.log(fund_name);
 
-    const submitForm = async (formData) => {
+    const submitForm = async () => {
         if (!formData.last_name && !formData.discord && !formData.nickname) {
             const errorMessage = 'Заполните хотя бы одно из полей: Фамилия, Discord или Ник в руме';
             setError('last_name', { type: 'manual', message: errorMessage });
@@ -51,13 +52,22 @@ const SearchForm = () => {
             return;
         }
 
-        await store.search(formData);
+        const searchData = { ...formData };
+
+
+        if (checked) {
+            searchData.fund_name = fund_name;
+        }
+
+        console.log(searchData);
+
+        await store.search(searchData);
         reset()
     }
 
     return (
         <search role="search" className="search__container">
-            <FormTitle fundName={fund_name}/>
+            <FormTitle fundName={fund_name} checked={checked} setChecked={setChecked} />
             <form method="POST" className="search__wrapper" autoComplete="off" onSubmit={handleSubmit(submitForm)}>
                 <div className="search__box">
                     {topFields.map((field) => (

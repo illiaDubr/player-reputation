@@ -2,10 +2,10 @@ import $api from "../http/index.js"
 import {getCsrfToken} from "./csrf.js";
 
 export default class SearchService {
-    static async search(formData) {
+    static async search(searchData) {
         await getCsrfToken();
 
-        return $api.post('/api/search-players', formData);
+        return $api.post('/api/search-players', searchData);
     }
 
     static async userEdit(payload) {
