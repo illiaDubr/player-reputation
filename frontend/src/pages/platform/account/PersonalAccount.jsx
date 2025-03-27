@@ -37,7 +37,7 @@ function PersonalAccount() {
         setIsVisible((prev) => !prev);
     };
 
-    console.log(store.user)
+    console.log(store.user.backer.approved)
 
     return (
         <>
@@ -101,6 +101,9 @@ function PersonalAccount() {
                         </button>
                     </div>
                 </Modal>
+
+
+
                 <Modal modalName="authorization">
                     <div className="modal__title">
                         Заполни полную авторизацию бэкера
