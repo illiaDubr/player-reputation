@@ -26,6 +26,8 @@ const Login = () => {
         try {
             await store.login(data);
 
+            await store.checkAuth();
+
             const roleToRoute = {
                 admin: ADMIN_ROUTE,
                 backer: ACCOUNT_ROUTE,
