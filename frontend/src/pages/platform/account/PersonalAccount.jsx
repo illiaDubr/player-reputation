@@ -1,3 +1,4 @@
+import React from "react";
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 import "../../../style/platform/account/account.scss";
@@ -7,8 +8,8 @@ import {Modal, useModal} from "../../../components/platform/components/Modal.jsx
 import IconSvg from "../../../components/platform/components/IconSvg.jsx";
 import AccountForm from "../../../components/platform/section/account/AccountForm.jsx";
 import Images from "../../../assets/image/image.js";
-import React from "react";
 import {Context} from "../../../api/store/storeContext.js";
+import RenderUnless from "../../../components/platform/section/account/RenderUnless.jsx";
 
 function PersonalAccount() {
     const {openModal, closeAllModals} = useModal();
@@ -82,12 +83,14 @@ function PersonalAccount() {
                         </span>
                     </button>
 
-                    <div className="grid__item verification">
-                        <IconSvg width={20} height={20} id="red_notification"/>
-                        <p>
-                            Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
-                        </p>
-                    </div>
+                    <RenderUnless value={approved} hideWhen="approved">
+                        <div className="grid__item verification">
+                            <IconSvg width={20} height={20} id="red_notification"/>
+                            <p>
+                                Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
+                            </p>
+                        </div>
+                    </RenderUnless>
 
                 </div>
 
