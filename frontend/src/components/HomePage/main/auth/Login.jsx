@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Context } from "../../../../api/store/storeContext.js";
 import { useModal } from "../../../platform/components/Modal.jsx";
-import { ADMIN_ROUTE } from "../../../../utils/const.js";
+import { ADMIN_ROUTE, ACCOUNT_ROUTE, HOMEPAGE_ROUTE } from "../../../../utils/const.js";
 
 const Login = () => {
     const { store } = React.useContext(Context);
@@ -25,8 +25,14 @@ const Login = () => {
     const submitForm = async (data) => {
         try {
             await store.login(data);
-            //navigate(ADMIN_ROUTE);
-            console.log("1", store.user)
+
+            const roleToRoute = {
+                admin: ADMIN_ROUTE,
+                backer: ACCOUNT_ROUTE,
+            };
+
+            const route = roleToRoute[store.user.role] || HOMEPAGE_ROUTE;
+            navigate(route);
         } catch (error) {
             reset();
             openModal("Auth");
