@@ -2,16 +2,15 @@ import React from "react";
 import { fundsData } from "../../../utils/BackersData.js";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 
-const FundSelect = () => {
+const FundSelect = ({selected, onChange}) => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [selected, setSelected] = React.useState(null);
 
     const toggleDropdown = () => {
         setIsOpen((prev) => !prev);
     };
 
     const handleOptionClick = (option) => {
-        setSelected(option);
+        onChange(option);
         setIsOpen(false);
     };
 

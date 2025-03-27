@@ -9,6 +9,7 @@ import FundSelect from "../../../components/admin/backers/FundSelect.jsx";
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
     const [unApprovedBackers, setUnApprovedBackers] = React.useState([]);
+    const [selectedFund, setSelectedFund] = React.useState(null);
 
     React.useEffect(() => {
         store.getUnApprovedBackers().then((response) => {
@@ -20,6 +21,8 @@ const Backers = observer(() => {
 
     console.log(unApprovedBackers);
 
+    console.log(selectedFund);
+
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
 
     return (
@@ -29,11 +32,9 @@ const Backers = observer(() => {
                     <div className="admin__box" key={index}>
                         <div className="record backer">
                             <div className="record__top">
-                                <div className="">
-                                    <FundSelect />
-                                </div>
+                                <FundSelect selected={selectedFund} onChange={setSelectedFund}/>
                                 <div className="record__form-wrap">
-                                    <BackersForm />
+                                    <BackersForm fund={selectedFund}/>
                                 </div>
                             </div>
                             <div className="backer__wrap">

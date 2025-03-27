@@ -301,6 +301,7 @@
 
       .backer {
         width: 100%;
+        min-height: 194px;
 
         .backer__wrap {
           display: grid;
@@ -393,24 +394,26 @@
 }
 
 .report__select {
-  min-width: 150px;
+  min-width: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: 5px 13px;
   position: relative;
   border-top: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px;
 
   .report__select-title {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     cursor: pointer;
-    @include mixin.font-style(400, 16, 125, null);
+    @include mixin.font-style(400, 16, 125, #FFFFFF);
 
     .svg {
       rotate: 90deg;
@@ -474,6 +477,7 @@
   border-right: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
   border-bottom: none;
+  border-radius: 8px 8px 0px 0px;
   backdrop-filter: blur(40px);
   background: rgba(8, 8, 8, 1);
 }
