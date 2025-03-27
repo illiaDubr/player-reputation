@@ -328,25 +328,6 @@
           }
         }
 
-        .backer__wrap {
-          display: grid;
-
-          .backer__item {
-            display: flex;
-            align-items: center;
-            padding: 0px 0px 5px 0px;
-            border-bottom: 1px solid #121317;
-
-            .backer__title {
-              @include mixin.font-style(500, 18, 130, #FFFFFF);
-            }
-
-            .backer__text {
-              @include mixin.font-style(400, 16, 130, #FFFFFF);
-            }
-          }
-        }
-
         &:before {
           content: "";
           width: 150px;
@@ -357,7 +338,7 @@
           position: absolute;
           z-index: 1;
           top: 68px;
-          left: 159px;
+          left: 50%;
         }
       }
 
@@ -395,6 +376,32 @@
 
       .report {
         width: 100%;
+      }
+
+      .backer {
+        width: 100%;
+
+        .backer__wrap {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+          gap: 20px;
+
+          .backer__item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0px 0px 5px 0px;
+            border-bottom: 1px solid #121317;
+
+            .backer__title {
+              @include mixin.font-style(500, 18, 130, #FFFFFF);
+            }
+
+            .backer__text {
+              @include mixin.font-style(400, 16, 130, #FFFFFF);
+            }
+          }
+        }
       }
 
       &:has(.record-record) {

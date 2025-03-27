@@ -2,6 +2,8 @@ import React from "react";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
+import BackersForm from "../../../components/admin/backers/BackersForm.jsx";
+import BackersItem from "../../../components/admin/backers/BackersItem.jsx";
 
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
@@ -17,32 +19,42 @@ const Backers = observer(() => {
 
     console.log(unApprovedBackers);
 
+    const hasContent = (value) => value !== undefined && value !== null && value !== "";
+
     return (
         <AdminMain pageTitle="Заявки на верефикацию">
             <div className="admin__wrap">
                 {unApprovedBackers.map((item, index) => (
                     <div className="admin__box" key={index}>
-                        <div className="record">
+                        <div className="record backer">
                             <div className="record__top">
-
+                                <div className="">
+                                </div>
+                                <div className="record__form-wrap">
+                                    <BackersForm />
+                                </div>
                             </div>
                             <div className="backer__wrap">
-                                <div className="backer__item">
-                                    <div className="backer__title">
-                                        Email:
-                                    </div>
-                                    <div className="backer__text">
-                                        {item.email}
-                                    </div>
-                                </div>
-                                <div className="backer__item">
-                                    <div className="backer__title">
-                                        Описание фонда:
-                                    </div>
-                                    <div className="backer__text">
-                                        {item.fundDescr}
-                                    </div>
-                                </div>
+                                {
+                                    [
+                                        { title: "Email:", content: item.email },
+                                        { title: "Описание фонда:", content: item.fundDescr },
+                                        { title: "Ссылка на сайт:", content: item.siteLink },
+                                        { title: "Гостевой домик в Discord:", content: item.discordHouse },
+                                        { title: "Контакт представителя в Discord:", content: item.discordRepresentative },
+                                        { title: "Количество тренеров:", content: item.numberCoach },
+                                        { title: "Количество игроков:", content: item.numberPlayer },
+                                        { title: "Рейкбек:", content: item.rakeback },
+                                    ]
+                                        .filter(pair => hasContent(pair.content))
+                                        .map((pair, idx) => (
+                                            <BackersItem
+                                                key={idx}
+                                                title={pair.title}
+                                                content={pair.content}
+                                            />
+                                        ))
+                                }
                             </div>
                         </div>
                     </div>
