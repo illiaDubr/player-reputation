@@ -25,7 +25,10 @@ const Login = () => {
     const submitForm = async (data) => {
         try {
             await store.login(data);
-            navigate(ADMIN_ROUTE);
+            //navigate(ADMIN_ROUTE);
+            store.checkAuth().then((response) => {
+                console.log(response);
+            })
         } catch (error) {
             reset();
             openModal("Auth");
