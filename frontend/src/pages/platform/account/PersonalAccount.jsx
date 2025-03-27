@@ -44,10 +44,6 @@ function PersonalAccount() {
         openModal("addedSuccessfully");
     }
 
-    const openAuthorizationModal = () => {
-        openModal("authorization");
-    }
-
     const openVerificationModal = () => {
         openModal("verification");
     }
@@ -83,7 +79,7 @@ function PersonalAccount() {
                         </span>
                     </button>
 
-                    <RenderUnless value={approved} hideWhen={null}>
+                    <RenderUnless value={approved} hideWhen="approved">
                         <div className="grid__item verification">
                             <IconSvg width={20} height={20} id="red_notification"/>
                             <p>

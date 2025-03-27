@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URl } from "../http/index.js";
 import AuthService from "../services/AuthService.js";
 import SearchService from "../services/SearchService.js";
-import AddPlayerService from "../services/AddPlayerService.js";
+import AccountService from "../services/AccountService.js";
 import AdminService from "../services/AdminService.js";
 
 export default class Store {
@@ -152,9 +152,11 @@ export default class Store {
         );
     }
 
+    // --- Методы Личного кабинета ---
+
     async addPlayer(formData) {
         await this.request(
-            () => AddPlayerService.addPlayer(formData),
+            () => AccountService.addPlayer(formData),
             "Ошибка добавления игрока",
             (response) => {
                 this.setResults(response.data);

@@ -1,5 +1,4 @@
 import React from "react";
-//import DateInput from "./DateInput.jsx";
 import CountrySelect from "../../components/CountrySelect.jsx";
 import ReputationInput from "./ReputationInput.jsx";
 import {
@@ -8,14 +7,13 @@ import {
     thirdSlideDataPlayer,
     fourthSlideDataPlayer,
     fifthSlideDataPlayer,
-    test1, test2
+    firstSlideDataBacker
 } from "../../../../utils/AccountData.js";
 import SlideContentWrap from "./SlideContentWrap.jsx";
 import CustomInput from "./CustomInput.jsx";
 import MarkSelect from "./MarkSelect.jsx";
-import DateInput from "./DateInput.jsx";
 
-const SlideData = (slideType, formData, setFormData) => {
+const SlideData = (slideType, formData, setFormData, formBackerData, setFormBackerData) => {
 
     const handlePhoneNumberChange = React.useCallback((phoneNumber) => {
         setFormData((prevData) => ({...prevData, phonenumber: phoneNumber}));
@@ -32,7 +30,17 @@ const SlideData = (slideType, formData, setFormData) => {
         }));
     };
 
+    const handleBackerChange = (e) => {
+        const {name, value} = e.target;
+        setFormBackerData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
     console.log(formData);
+
+    console.log(formBackerData);
 
     switch (slideType) {
         case "addPlayer":
@@ -110,7 +118,8 @@ const SlideData = (slideType, formData, setFormData) => {
                                 <div className="slide__label">
                                     Ваш развернутый комментарий по сложившейся ситуации
                                 </div>
-                                <textarea className="slide__textarea" value={formData.comment || ""}   onChange={(e) => handleChange("comment", e.target.value)}>
+                                <textarea className="slide__textarea" value={formData.comment || ""}
+                                          onChange={(e) => handleChange("comment", e.target.value)}>
                                 </textarea>
                             </div>
                             <div className="slide__input-wrap">
@@ -130,7 +139,7 @@ const SlideData = (slideType, formData, setFormData) => {
                     content: (
                         <SlideContentWrap>
                             <div className="slide__box">
-                                <ReputationInput info={test1} formData={formData}
+                                <ReputationInput info={firstSlideDataBacker} formData={formData}
                                                  setFormData={setFormData}/>
                             </div>
                         </SlideContentWrap>
@@ -146,80 +155,24 @@ const SlideData = (slideType, formData, setFormData) => {
                                         Базовый откат игроку
                                     </label>
                                     <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
-                                        <div className="slide__input" style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
+                                        <div className="slide__input"
+                                             style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
                                             <div className="slide__custom-input slide__amount">
                                                 от
-                                                <input style={{width:'50px'}}
+                                                <input style={{width: '50px'}}
                                                 />
                                             </div>
                                         </div>
-                                        <div className="slide__input" style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
+                                        <div className="slide__input"
+                                             style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
                                             <div className="slide__custom-input slide__amount">
                                                 до
-                                                <input style={{width:'50px'}}
+                                                <input style={{width: '50px'}}
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="slide__input-wrap">
-                                    <div className="slide__label">
-                                        Возможность увеличить свой откат
-                                    </div>
-                                    <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
-                                        <label className="qq" htmlFor="lol">
-                                            Да
-                                            <input id="lol" name="drone" className="hidden" type="radio" checked={true}/>
-                                        </label>
-                                        <label className="qq" htmlFor="bruh">
-                                            Нет
-                                            <input id="bruh" name="drone" className="hidden" type="radio" />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="slide__box">
-                                <div className="slide__input-wrap">
-                                    <div className="slide__label">
-                                        Дистанция первого контракта
-                                    </div>
-                                    <span className="ll">
-                                        от
-                                    </span>
-                                    <DateInput />
-                                </div>
-                                <div className="slide__input-wrap">
-                                    <div className="slide__label">
-
-                                    </div>
-                                    <span className="ll">
-                                        до
-                                    </span>
-                                    <DateInput />
-                                </div>
-                            </div>
-                            <div className="slide__input-wrap">
-                                <div className="slide__label">
-                                    Рейкбек
-                                </div>
-                                <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
-                                    <label className="qq" htmlFor="lol1">
-                                        В пакет
-                                        <input id="lol1" name="drone1" className="hidden" type="radio" checked={true}/>
-                                    </label>
-                                    <label className="qq" htmlFor="bruh1">
-                                        Игроку
-                                        <input id="bruh1" name="drone1" className="hidden" type="radio" />
-                                    </label>
-                                    <label className="qq" htmlFor="bruh2">
-                                        Игроку при условиях
-                                        <input id="bruh2" name="drone1" className="hidden" type="radio" />
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="slide__box">
-                                <ReputationInput info={test2} formData={formData}
-                                                 setFormData={setFormData}/>
                             </div>
                         </SlideContentWrap>
                     ),
@@ -232,7 +185,10 @@ const SlideData = (slideType, formData, setFormData) => {
                                 <div className="slide__label">
                                     Информация о фонде
                                 </div>
-                                <textarea placeholder="Информация будет использоваться на сайте PR в раздела о вашем фонде. В будущем вы сможете скорректировать инфорацию в личном кабинете" className="slide__textarea" value={formData.comment || ""}   onChange={(e) => handleChange("comment", e.target.value)}>
+                                <textarea
+                                    placeholder="Информация будет использоваться на сайте PR в раздела о вашем фонде. В будущем вы сможете скорректировать инфорацию в личном кабинете"
+                                    className="slide__textarea" value={formBackerData.comment || ""}
+                                    onChange={handleBackerChange}>
                                 </textarea>
                             </div>
                         </SlideContentWrap>
