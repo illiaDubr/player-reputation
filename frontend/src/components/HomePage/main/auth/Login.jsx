@@ -33,7 +33,10 @@ const Login = () => {
 
             const route = roleToRoute[store.user.role] || HOMEPAGE_ROUTE;
 
+            console.log("store.user:", store.user);
+            console.log("store.user.role:", store.user.role);
             console.log(route);
+
             navigate(route);
         } catch (error) {
             reset();
