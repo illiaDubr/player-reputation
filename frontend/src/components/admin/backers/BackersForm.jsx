@@ -1,10 +1,30 @@
 import React from "react";
 import IconSvg from "../../platform/components/IconSvg.jsx";
+import {Context} from "../../../api/store/storeContext.js";
 
-const BackersForm = () => {
+const BackersForm = ({fund, backerId}) => {
+    const {store} = React.useContext(Context);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const backerData = {
+            id: backerId,
+            status: "yes",
+        }
+
+        const fundData = {
+            fund_for_search: fund,
+            id: backerId,
+        }
+
+        store.approvedBacker(backerData)
+        store.changeFundBacker(fundData);
+    }
+
+
     return (
         <>
-            <form className="record__form">
+            <form className="record__form" onSubmit={handleSubmit}>
                 <button type="submit" className="record__btn">
                     <IconSvg width={16} height={16} id="check__mark" />
                     Одобрить верификацию

@@ -5,6 +5,18 @@ export default class AdminService {
         return $api.get(`api/backers/unapproved`);
     }
 
+    static async approvedBacker(backerData) {
+        const id = backerData.id;
+
+        return  $api.patch(`api/backers/${id}/status`, backerData);
+    }
+
+    static changeFundBacker(fundData) {
+        const id = fundData.id;
+
+        return  $api.patch(`api//backers/${id}/fund-for-search`, fundData);
+    }
+
     static async getRecords() {
         return $api.get(`/api/changes?status=unread`);
     }

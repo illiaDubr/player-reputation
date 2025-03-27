@@ -181,6 +181,20 @@ export default class Store {
         )
     }
 
+    async approvedBacker(backerData) {
+        await this.request(
+            () => AdminService.approvedBacker(backerData),
+            "Ошибка отправки данных"
+        )
+    }
+
+    async changeFundBacker(fundData) {
+        await this.request(
+            () => AdminService.changeFundBacker(fundData),
+            "Ошибка отправки данных"
+        )
+    }
+
     async getRecords() {
         return await this.request(
             () => AdminService.getRecords(),
