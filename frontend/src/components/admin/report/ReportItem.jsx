@@ -20,6 +20,16 @@ const ReportItem = ({data, tagEdit, closeReport}) => {
                                     )}
                                 </div>
                             </div>
+                            {!closeReport && (
+                                <div className="record__text">
+                                    <div className="record__text-title">
+                                        Новая метка:
+                                    </div>
+                                    <div className="record__text-desc">
+                                        {item.backer_tag}
+                                    </div>
+                                </div>
+                            )}
                             <div className="record__text">
                                 <div className="record__text-title">
                                     Имя игрока:
