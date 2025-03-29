@@ -277,6 +277,11 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
       border: 1px solid transparent;
       overflow: hidden;
 
+      &-disabled {
+        pointer-events: none;
+        background: red;
+      }
+
       .account__link {
         display: flex;
         height: 100%;

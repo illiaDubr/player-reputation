@@ -62,7 +62,7 @@ function PersonalAccount() {
             <Main secClassName="account__wrap" secID="account">
                 <div className="account__nav">
 
-                    <Link className="account__link-wrap" to={SEARCH_ROUTE} disabled={disabled}>
+                    <Link className={`account__link-wrap ${disabled ? "account__link-wrap-disabled" : ""}`} to={SEARCH_ROUTE}>
                         <span className="account__link">
                             <span className="account__link-title">
                                 Осуществить поиск по базе
