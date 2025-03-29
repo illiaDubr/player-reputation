@@ -3,13 +3,6 @@ import {Context} from "../../../../../api/store/storeContext.js";
 
 const FormTitle = ({fundName, checked, setChecked}) => {
     const {store} = React.useContext(Context);
-    const [isSwitched, setIsSwitched] = React.useState(false);
-
-    const handleSwitchChange = () => {
-        setIsSwitched((prev) => !prev);
-
-        setChecked(false);
-    };
 
     const handleCheckboxChange = (e) => {
         setChecked(e.target.checked);
@@ -17,7 +10,6 @@ const FormTitle = ({fundName, checked, setChecked}) => {
 
     React.useEffect(() => {
         if (checked) {
-            // Формируем formData с одним полем fund_name, значение которого передается через проп
             store.search({ fund_name: fundName });
         }
     }, [checked, fundName, store]);
@@ -25,19 +17,18 @@ const FormTitle = ({fundName, checked, setChecked}) => {
     return (
         <div className="search__title-wrap">
             <h3 className="search__title">
-                {isSwitched ? "Поиск по записям своего фонда" : "Поиск по общей базе"}
+                {checked ? "Поиск по записям своего фонда" : "Поиск по общей базе"}
             </h3>
             <div className="search__control">
                 <div className="search__switch-wrap">
-                    {isSwitched ? "Переключиться на поиск по общей базе" : "Переключиться на поиск по своим записям"}
-                    <input type="checkbox" id="switch" checked={isSwitched} onChange={handleSwitchChange} />
+                    {checked ? "Переключиться на поиск по общей базе" : "Переключиться на записи только своего фонда"}
+                    <input type="checkbox" id="switch" checked={checked} onChange={handleCheckboxChange} />
                     <label className="search__switch" htmlFor="switch">
                     </label>
                 </div>
-                {isSwitched && (
+                {checked && (
                     <div className="search__checkbox-wrap">
-                        <input className="search__checkbox" id="styled-checkbox-1" type="checkbox" checked={checked}
-                               onChange={handleCheckboxChange}/>
+                        <input className="search__checkbox" id="styled-checkbox-1" type="checkbox"  />
                         <label htmlFor="styled-checkbox-1">
                             Показать все записи своего фонда
                         </label>

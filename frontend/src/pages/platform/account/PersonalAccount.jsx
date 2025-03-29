@@ -18,20 +18,19 @@ function PersonalAccount() {
 
     const actions = React.useMemo(() => ({
         null: () => {
-            setTimeout(() => {
-                openModal("authorization");
-            }, 3000)
+            openModal("authorization");
         },
         "no": () => {
 
         },
-        "approved": () => {
+        "yes": () => {
 
         },
     }), [openModal]);
 
     React.useEffect(() => {
-        const action = actions[String(approved)] || (() => {});
+        const action = actions[String(approved)] || (() => {
+        });
         action();
     }, [approved, actions]);
 
@@ -80,7 +79,7 @@ function PersonalAccount() {
                         </span>
                     </button>
 
-                    <RenderUnless value={approved} hideWhen="approved">
+                    <RenderUnless value={approved} hideWhen="yes">
                         <div className="grid__item verification">
                             <IconSvg width={20} height={20} id="red_notification"/>
                             <p>
