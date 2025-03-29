@@ -3,8 +3,10 @@ import {editData} from "../../../../../utils/EditData.js";
 import IconSvg from "../../../components/IconSvg.jsx";
 import {useModal} from "../../../components/Modal.jsx";
 
-const PlayerManagement = ({user, setSelectedUser}) => {
+const PlayerManagement = ({user, setSelectedUser, fund}) => {
     const {openModal} = useModal();
+
+    console.log("edit", fund);
 
     const openEditModal = (user) => {
         setSelectedUser(user);
