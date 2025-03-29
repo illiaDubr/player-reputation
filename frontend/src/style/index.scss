@@ -227,6 +227,14 @@ body {
           transition: all .4s ease;
           @include mixin.font-style(500, 16, 130, #FFFFFF);
 
+          &:has(.hidden-input) {
+            opacity: 1;
+
+            .hidden-input {
+              opacity: 1;
+            }
+          }
+
           &:focus {
 
           }

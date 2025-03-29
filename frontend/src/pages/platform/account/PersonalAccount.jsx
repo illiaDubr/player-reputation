@@ -85,6 +85,15 @@ function PersonalAccount() {
                             <p>
                                 Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
                             </p>
+                            <RenderUnless value={approved} hideWhen="no">
+
+                            </RenderUnless>
+                            <RenderUnless value={approved} hideWhen={null}>
+                                <IconSvg width={20} height={20} id="red_notification"/>
+                                <p>
+                                    Пожалуйста заполните информацию о себе
+                                </p>
+                            </RenderUnless>
                         </div>
                     </RenderUnless>
 
