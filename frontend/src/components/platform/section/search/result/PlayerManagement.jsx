@@ -6,6 +6,9 @@ import {useModal} from "../../../components/Modal.jsx";
 const PlayerManagement = ({user, setSelectedUser, backersFund, fund}) => {
     const {openModal} = useModal();
 
+    console.log("backersFund", backersFund);
+    console.log("fund", fund);
+
     const openEditModal = (user) => {
         setSelectedUser(user);
         openModal("edit");
@@ -26,7 +29,7 @@ const PlayerManagement = ({user, setSelectedUser, backersFund, fund}) => {
     return (
         <div className="result__edit-wrap">
             {editData.map((item, index) => {
-                if (backersFund !== fund && item.modal === "openEditModal") {
+                if (backersFund !== fund && item.id === 2) {
                     return null;
                 }
                 return (
