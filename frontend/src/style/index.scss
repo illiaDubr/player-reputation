@@ -228,10 +228,12 @@ body {
           @include mixin.font-style(500, 16, 130, #FFFFFF);
 
           &:has(.hidden-input) {
-            opacity: 1;
+            color: #565656;
 
             .hidden-input {
-              opacity: 1;
+              background: transparent;
+              @include mixin.font-style(500, 16, 130, #FFFFFF);
+              padding-top: 3px;
             }
           }
 

@@ -344,8 +344,12 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         }
       }
 
-      :hover {
+      &:hover {
 
+      }
+
+      &:disabled {
+        background: red;
       }
     }
 
