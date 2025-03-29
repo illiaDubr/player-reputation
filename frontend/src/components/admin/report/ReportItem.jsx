@@ -1,8 +1,9 @@
 import React from "react";
 import ReportEdit from "./ReportEdit.jsx";
-import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
 const ReportItem = ({data, tagEdit, closeReport}) => {
+
+    console.log(data);
     return (
         <>
             {data.length > 0 ? (
