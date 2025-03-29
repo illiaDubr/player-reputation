@@ -207,7 +207,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                     <label className="slide__label">
                                         Базовый откат игроку
                                     </label>
-                                    <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
+                                    {/*<div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
                                         <div className="slide__input"
                                              style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
                                             <div className="slide__custom-input slide__amount">
@@ -224,7 +224,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*/}
                                 </div>
                                 <div className="slide__input-wrap">
                                     <label className="slide__label" htmlFor="">

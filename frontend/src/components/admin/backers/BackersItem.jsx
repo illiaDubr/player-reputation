@@ -14,7 +14,7 @@ const BackersItem = ({content, title, className}) => {
             <div className={`backer__text ${className}`} data-tooltip-id={tooltipId}>
                 {content}
             </div>
-            <Tooltip id={tooltipId} place="top">
+            <Tooltip id={tooltipId} place="top" clickable>
                 <div className="backer__tooltip">
                     {content}
                 </div>
