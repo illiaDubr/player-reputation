@@ -5,6 +5,11 @@ export const reportData = [
         color: "red",
     },
     {
+        backer_tag: "ex-arbitrage",
+        name: "Экс-Арбитраж",
+        color: "red",
+    },
+    {
         backer_tag: "MultiArbitrage",
         name: "Мульти Арбитраж",
         color: "orange",

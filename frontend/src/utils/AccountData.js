@@ -86,8 +86,9 @@ export const fifthSlideDataPlayer = [
     { label: "Сумма мейкапа", id: "makeUp", placeholder: "Введите сумму", type: "text" },
 ]
 
-export const markData = [
+export const backerTagData = [
     { name: "Арбитраж", value: "arbitrage" },
+    { name: "Экс-Арбитраж", value: "arbitrage" },
     { name: "Мульти арбитраж", value: "MultiArbitrage" },
     { name: "Проблемный игрок", value: "ProblematicPlayer" },
     { name: "Игрок на паузе", value: "PlayerOnPause" },

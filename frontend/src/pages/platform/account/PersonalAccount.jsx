@@ -91,7 +91,7 @@ function PersonalAccount() {
                             <RenderUnless value={approved} hideWhen="no">
                                 <IconSvg width={20} height={20} id="red_notification"/>
                                 <p>
-                                    Пожалуйста заполните информацию о себе, что бы разблокировать функционал
+                                    Чтобы полностью пользоваться платформой Player Reputation, пройдите полную верификацию бэкера
                                 </p>
                             </RenderUnless>
                         </div>
@@ -137,7 +137,7 @@ function PersonalAccount() {
                     </div>
                     <div className="modal__body">
                         <p className="modal__text slide__text">
-                            Ваша заявке отправлена модератору PR время на рассмотрение заявки 1 рабочий день. Информацию
+                            Ваша заявка отправлена модератору PR время на рассмотрение заявки 1 рабочий день. Информацию
                             о вашем статусе можете просмотреть в личном кабинете
                         </p>
                     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import {markData} from "../../../../utils/AccountData.js";
+import {backerTagData} from "../../../../utils/AccountData.js";
 import IconSvg from "../../components/IconSvg.jsx";
 
 const MarkSelect = ({onMarkChange}) => {
@@ -44,7 +44,7 @@ const MarkSelect = ({onMarkChange}) => {
                         className={`country__list ${isDropdownOpen ? "country__list-open" : ""}`}
                         style={{width: `${getInputWidth()}px`}}
                     >
-                        {markData.map((index) => (
+                        {backerTagData.map((index) => (
                             <li
                                 className="country__list-item"
                                 key={index.value}

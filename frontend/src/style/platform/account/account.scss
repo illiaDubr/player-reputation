@@ -279,7 +279,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
 
       &-disabled {
         pointer-events: none;
-        background: red;
+        filter: blur(3px) brightness(89%) contrast(92%);
       }
 
       .account__link {
@@ -354,7 +354,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
       }
 
       &:disabled {
-        background: red;
+        filter: blur(3px) brightness(89%) contrast(92%);
       }
     }
 
