@@ -8,6 +8,7 @@ import ResultItemList from "./ResultItemList.jsx";
 const SearchResult = observer(({backer}) => {
     const {store} = React.useContext(Context);
     const {results, isLoading} = store;
+    const backersFund = store.user?.backer?.fund_for_search;
 
     React.useEffect(() => {
         store.checkAuth().then(() => {
@@ -27,7 +28,7 @@ const SearchResult = observer(({backer}) => {
         );
     } else {
         content = (
-            <ResultItemList results={results} backer={backer}/>
+            <ResultItemList results={results} backer={backer} backersFund={backersFund}/>
         );
     }
 
