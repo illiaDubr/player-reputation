@@ -15,16 +15,18 @@ function PersonalAccount() {
     const {openModal, closeAllModals} = useModal();
     const {store} = React.useContext(Context);
     const approved = store.user?.backer?.approved;
+    const [disabled, setDisabled] = React.useState(true);
 
     const actions = React.useMemo(() => ({
         null: () => {
             openModal("authorization");
+            setDisabled(true);
         },
         "no": () => {
-
+            setDisabled(true);
         },
         "yes": () => {
-
+            setDisabled(false);
         },
     }), [openModal]);
 
@@ -59,7 +61,8 @@ function PersonalAccount() {
             </Helmet>
             <Main secClassName="account__wrap" secID="account">
                 <div className="account__nav">
-                    <Link className="account__link-wrap" to={SEARCH_ROUTE}>
+
+                    <Link className="account__link-wrap" to={SEARCH_ROUTE} disabled={disabled}>
                         <span className="account__link">
                             <span className="account__link-title">
                                 Осуществить поиск по базе
@@ -69,7 +72,8 @@ function PersonalAccount() {
                             <IconSvg width={246} height={253} id="Ellipse"/>
                         </span>
                     </Link>
-                    <button className="account__link-wrap" type="button" onClick={openReputationModal}>
+
+                    <button className="account__link-wrap" type="button" onClick={openReputationModal} disabled={disabled}>
                         <span className="account__link">
                             <span className="account__link-title">
                                 Внести информацию репутации своего игрока
@@ -81,17 +85,13 @@ function PersonalAccount() {
 
                     <RenderUnless value={approved} hideWhen="yes">
                         <div className="grid__item verification">
-                            <IconSvg width={20} height={20} id="red_notification"/>
-                            <p>
-                                Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
-                            </p>
                             <RenderUnless value={approved} hideWhen="no">
 
                             </RenderUnless>
-                            <RenderUnless value={approved} hideWhen={null}>
+                            <RenderUnless value={approved} hideWhen="no">
                                 <IconSvg width={20} height={20} id="red_notification"/>
                                 <p>
-                                    Пожалуйста заполните информацию о себе
+                                    Пожалуйста заполните информацию о себе, что бы разблокировать функционал
                                 </p>
                             </RenderUnless>
                         </div>

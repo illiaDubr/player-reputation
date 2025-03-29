@@ -69,6 +69,7 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                                     $
                                     <input id="damage" name="damage" inputMode="numeric"
                                            pattern="\d*"
+                                           placeholder="Введите сумму"
                                            onInput={(e) => {
                                                e.target.value = e.target.value.replace(/\D/g, '');
                                            }} className="hidden-input"/>
