@@ -54,6 +54,7 @@ const ResultItemList = ({results = [], backer}) => {
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
     const {closeAllModals} = useModal();
+    const fund = backer.backer?.fund_for_search;
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -222,7 +223,7 @@ const ResultItemList = ({results = [], backer}) => {
                                 </div>
                             </div>
 
-                            <PlayerManagement user={item} setSelectedUser={setSelectedUser}/>
+                            <PlayerManagement user={item} setSelectedUser={setSelectedUser} fund={fund}/>
                         </div>
                     </div>
                 );
