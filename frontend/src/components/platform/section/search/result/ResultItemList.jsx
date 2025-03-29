@@ -49,12 +49,11 @@ const dynamicFields = [
     {key: "nickiPoker", label: "nickiPoker:"},
 ];
 
-const ResultItemList = ({results = [], backer}) => {
+const ResultItemList = ({results = [], backer, backersFund}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
     const {closeAllModals} = useModal();
-    const fund = backer.backer;
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -223,7 +222,7 @@ const ResultItemList = ({results = [], backer}) => {
                                 </div>
                             </div>
 
-                            <PlayerManagement user={item} setSelectedUser={setSelectedUser} fund={fund}/>
+                            <PlayerManagement user={item} setSelectedUser={setSelectedUser} backersFund={backersFund} fund={fund_name}/>
                         </div>
                     </div>
                 );
