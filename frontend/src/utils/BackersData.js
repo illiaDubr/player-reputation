@@ -5,7 +5,7 @@ export const fundsData = [
     },
     {
         id: 2,
-        fundName: "FunFarm"
+        fundName: "Funfarm"
     },
     {
         id: 3,

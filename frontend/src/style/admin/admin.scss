@@ -155,7 +155,7 @@
           flex-wrap: wrap;
           padding: 0px 0px 32px 0px;
           position: relative;
-          z-index: 2;
+          z-index: 3;
 
           .record__title {
             @include mixin.font-style(600, 20, 120, #FFFFFF);
@@ -241,6 +241,7 @@
             min-height: 29px;
             display: flex;
             align-items: center;
+            padding-top: 2px;
           }
 
           &:last-child {
@@ -269,6 +270,7 @@
         .record__top {
           height: 48px;
           margin: 0px 0px 32px 0px;
+          padding: 0px;
 
           .record__btn {
             display: flex;
@@ -355,6 +357,7 @@
 
     .admin__no-data {
       @include mixin.font-style(500, 18, 120, #FFFFFF);
+      opacity: .3;
     }
 
     &:before, &:after {
@@ -476,7 +479,7 @@
   border-top: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   border-radius: 8px 8px 0px 0px;
   backdrop-filter: blur(40px);
   background: rgba(8, 8, 8, 1);

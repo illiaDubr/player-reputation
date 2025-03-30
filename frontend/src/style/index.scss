@@ -228,6 +228,9 @@ body {
           @include mixin.font-style(500, 16, 130, #FFFFFF);
 
           &:has(.hidden-input) {
+            display: flex;
+            align-items: center;
+            gap: 7px;
             color: #565656;
 
             .hidden-input {
