@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import "flag-icons/css/flag-icons.min.css";
 import IconSvg from "./IconSvg.jsx";
 
@@ -14,18 +14,18 @@ const CountrySelect = ({ onPhoneNumberChange }) => {
         { name: "Казахстан", code: "KZ", dialCode: "+7" },
     ];
 
-    const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]);
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [selectedCountry, setSelectedCountry] = React.useState(countryCodes[0]);
+    const [phoneNumber, setPhoneNumber] = React.useState("");
+    const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+    const [isInputFocused, setIsInputFocused] = React.useState(false);
 
     const placeholder = "(__) - ___ - __ - __";
-    const inputRef = useRef(null);
-    const dropdownRef = useRef(null);
+    const inputRef = React.useRef(null);
+    const dropdownRef = React.useRef(null);
 
     const getInputWidth = () => inputRef.current?.offsetWidth || 0;
 
-    useEffect(() => {
+    React.useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsDropdownOpen(false);
