@@ -30,6 +30,7 @@ export default defineConfig({
         },
     },
     build: {
+        cssCodeSplit: true,
         outDir: path.resolve(__dirname, 'dist'),
         rollupOptions: {
             input: {
