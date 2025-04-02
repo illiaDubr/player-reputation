@@ -51,8 +51,9 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']);
 
 Route::middleware(['auth','check.role:backer,admin,superadmin'])
     ->patch('/backers/{id}/fund-for-search', [BackerController::class, 'updateFundForSearch']);
-Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
+Route::middleware(['auth', 'check.role:backer,admin,superadmin'])->group(function () {
     // Удаление проверенного репорта
+    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
     Route::delete('/reports/{id}', [ReportController::class, 'deleteVerifiedReport']);
 });
 Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
@@ -75,7 +76,7 @@ Route::middleware(['auth', 'check.role:admin,superadmin'])->group(function () {
 
     // Управление репутацией игроков
     Route::get('/players/{playerId}/reputation/{recordId}', [PlayerController::class, 'showReputationRecord']);
-    Route::patch('/players/{playerId}/backer-tag', [PlayerController::class, 'updateBackerTag']);
+
 
     // Резервное копирование и восстановление
     Route::get('/backup/download', [BackupController::class, 'downloadBackup']);
