@@ -4,7 +4,15 @@ import BackersForm from "./BackersForm.jsx";
 import BackersItem from "./BackersItem.jsx";
 
 const BackersList = ({data}) => {
-    const [selectedFund, setSelectedFund] = React.useState("");
+    const [selectedFund, setSelectedFund] = React.useState({});
+
+    const handleSelectChange = (backerId, value) => {
+        setSelectedFund((prev) => ({
+            ...prev,
+            [backerId]: value,
+        }));
+    };
+
 
 
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
@@ -14,9 +22,11 @@ const BackersList = ({data}) => {
                 <div className="admin__box" key={index}>
                     <div className="record backer">
                         <div className="record__top">
-                            <FundSelect selected={selectedFund} onChange={setSelectedFund}/>
+                            <FundSelect
+                                selected={selectedFund[item.backer_id] || ""}
+                                onChange={(value) => handleSelectChange(item.backer_id, value)}/>
                             <div className="record__form-wrap">
-                                <BackersForm fund={selectedFund} backerId={item.backer_id}/>
+                                <BackersForm fund={selectedFund[item.backer_id] || ""} backerId={item.backer_id}/>
                             </div>
                         </div>
                         <div className="backer__wrap">
