@@ -2,6 +2,7 @@ import React from "react";
 import {Helmet} from "react-helmet-async";
 import Main from "../../../../components/main/Main.jsx";
 import {ProfileData} from "../../../../utils/Profile.js";
+import "../../../../style/platform/account/account.scss"
 
 const Profile = () => {
     return (
