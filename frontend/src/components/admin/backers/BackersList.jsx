@@ -4,7 +4,7 @@ import BackersForm from "./BackersForm.jsx";
 import BackersItem from "./BackersItem.jsx";
 
 const BackersList = ({data}) => {
-    const [selectedFund, setSelectedFund] = React.useState(null);
+    const [selectedFund, setSelectedFund] = React.useState("");
 
 
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
