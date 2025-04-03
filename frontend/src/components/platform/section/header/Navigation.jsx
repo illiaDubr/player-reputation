@@ -12,7 +12,7 @@ function AdminRoutes({isOpen}) {
     if (allowedSuffixes.some(suffix => location.pathname.endsWith(suffix))) {
         return <NavAdminList isOpen={isOpen} />;
     }
-    return <NavList />
+    return <NavList isOpen={isOpen} />
 }
 
 const Navigation = ({onButtonClick}) => {
