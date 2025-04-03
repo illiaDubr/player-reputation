@@ -3,6 +3,7 @@ import {Helmet} from "react-helmet-async";
 import Main from "../../../../components/main/Main.jsx";
 import {ProfileData} from "../../../../utils/Profile.js";
 import "../../../../style/platform/account/account.scss"
+import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 
 const Profile = () => {
     return (
@@ -18,6 +19,9 @@ const Profile = () => {
                         <>
                             <div className="profile" key={index}>
                                 <div className="profile__item profile__left">
+                                    <div className="profile__top">
+                                        <IconSvg width={32} height={32} fill={item.icon} />
+                                    </div>
                                 </div>
                                 <div className="profile__item profile__right">
                                 </div>
