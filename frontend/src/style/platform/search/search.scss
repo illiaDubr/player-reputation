@@ -491,10 +491,9 @@
       align-items: center;
       position: absolute;
       inset: 0;
-      background: #131314;
 
-      .loader {
-        width: 160px;
+      video {
+        width: 250px;
       }
     }
   }
@@ -547,6 +546,14 @@
 .country__input-open {
   border-radius: 8px 8px 0px 0px;
   box-shadow: 2px 4px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+.search__tooltip-btn {
+  position: absolute;
+}
+
+.search__tooltip {
+
 }
 
 @media (width < 800px) {
