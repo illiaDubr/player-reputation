@@ -2,15 +2,13 @@ import React from "react";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
-import BackersForm from "../../../components/admin/backers/BackersForm.jsx";
-import BackersItem from "../../../components/admin/backers/BackersItem.jsx";
-import FundSelect from "../../../components/admin/backers/FundSelect.jsx";
 import BackersList from "../../../components/admin/backers/BackersList.jsx";
+import ApprovedBackers from "../../../components/admin/backers/ApprovedBackers.jsx";
 
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
     const [unApprovedBackers, setUnApprovedBackers] = React.useState([]);
-    const [selectedFund, setSelectedFund] = React.useState(null);
+
 
     React.useEffect(() => {
         store.getUnApprovedBackers().then((response) => {
@@ -22,49 +20,14 @@ const Backers = observer(() => {
 
     console.log(unApprovedBackers);
 
-    const hasContent = (value) => value !== undefined && value !== null && value !== "";
+
 
     return (
         <AdminMain pageTitle="Заявки на верефикацию">
             <div className="admin__wrap">
-                {unApprovedBackers.map((item, index) => (
-                    <div className="admin__box" key={index}>
-                        <div className="record backer">
-                            <div className="record__top">
-                                <FundSelect selected={selectedFund} onChange={setSelectedFund}/>
-                                <div className="record__form-wrap">
-                                    <BackersForm fund={selectedFund} backerId={item.backer_id}/>
-                                </div>
-                            </div>
-                            <div className="backer__wrap">
-                                {
-                                    [
-                                        { title: "Имя фонда:", content: item.fund_name },
-                                        { title: "Email:", content: item.email },
-                                        { title: "Описание фонда:", content: item.fundDescr, className: "fundDescr", },
-                                        { title: "Ссылка на сайт:", content: item.siteLink },
-                                        { title: "Гостевой домик в Discord:", content: item.discordHouse },
-                                        { title: "Контакт представителя в Discord:", content: item.discordRepresentative },
-                                        { title: "Количество тренеров:", content: item.numberCoach },
-                                        { title: "Количество игроков:", content: item.numberPlayer },
-                                        { title: "Рейкбек:", content: item.rakeback },
-                                    ]
-                                        .filter(pair => hasContent(pair.content))
-                                        .map((pair, idx) => (
-                                            <BackersItem
-                                                key={idx}
-                                                title={pair.title}
-                                                content={pair.content}
-                                                className={pair.className}
-                                            />
-                                        ))
-                                }
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                <BackersList data={unApprovedBackers} />
             </div>
-            <BackersList />
+            <ApprovedBackers />
         </AdminMain>
     )
 })

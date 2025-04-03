@@ -49,6 +49,7 @@
 
       .admin__link {
         aspect-ratio: 5 / 4;
+        display: flex;
         backdrop-filter: blur(40px);
         border-radius: 20px;
         border: 1px solid transparent;
@@ -73,6 +74,24 @@
           position: absolute;
           z-index: 1;
           transition: all .7s ease;
+        }
+
+        figure {
+          display: flex;
+          flex-grow: 1;
+          align-items: flex-end;
+          justify-content: flex-end;
+          margin: 0;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          z-index: 2;
+
+          img {
+            width: 74%;
+            border-radius: 0 0 20px;
+            object-fit: cover;
+          }
         }
 
         .svg {
@@ -105,7 +124,7 @@
 
         &:nth-child(5) {
           &:before {
-            bottom: -139px;
+            top: -139px;
             right: -139px;
           }
         }
