@@ -10,9 +10,11 @@
 .home__header {
   width: 100%;
   max-width: 1530px;
-  padding: 0px 20px;
+  padding: 40px 20px 0px 20px;
   height: fit-content;
   min-height: 48px;
+  position: absolute;
+  z-index: 2;
 
   .home__nav-wrap {
     height: 100%;

@@ -9,6 +9,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import Login from "./Login.jsx";
 import Images from "../../../../assets/image/image.js";
 import "../../../../style/HomePage/main/auth.scss";
+import IconSvg from "../../../platform/components/IconSvg.jsx";
 
 function Auth() {
     const {store} = React.useContext(Context);
@@ -148,6 +149,7 @@ function Auth() {
                     </div>
                     <div className="auth__toggle-wrap">
                         <div className="auth__toggle auth__toggle-left">
+                            <IconSvg width={110} height={48} id="logo"/>
                             <div>
                                 Добро пожаловать!
                             </div>
@@ -155,10 +157,11 @@ function Auth() {
                                 У вас нет учетной записи?
                             </p>
                             <button className="auth__btn" type="button" onClick={() => setIsActive(true)}>
-                                Register
+                                Регистрация
                             </button>
                         </div>
                         <div className="auth__toggle auth__toggle-right">
+                            <IconSvg width={110} height={48} id="logo"/>
                             <div>
                                 Здравствуйте, добро пожаловать!
                             </div>
@@ -166,7 +169,7 @@ function Auth() {
                                 У вас уже есть аккаунт?
                             </p>
                             <button className="auth__btn" type="button" onClick={() => setIsActive(false)}>
-                                Login
+                                Войти
                             </button>
                         </div>
                     </div>

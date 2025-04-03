@@ -29,6 +29,9 @@ function RoleCardContent({data}) {
                         <div className="role__card-title">
                             {item.title}
                         </div>
+                        <div className="role__card-description">
+                            {item.description}
+                        </div>
                         <figure>
                             <img src={item.image} alt="" loading="lazy"/>
                         </figure>
@@ -56,6 +59,9 @@ function RoleSwiperFallback({data}) {
                     <div className={data.cardClass}>
                         <div className="role__card-title">
                             {item.title}
+                        </div>
+                        <div className="role__card-description">
+                            {item.description}
                         </div>
                         <figure>
                             <img src={item.image} alt="" loading="lazy"/>
