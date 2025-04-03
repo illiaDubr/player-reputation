@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client'
 import {BrowserRouter} from 'react-router-dom';
 import '@style/normalize.scss'
 import '@style/index.scss'
+import './style/platform/main.scss'
 import "./style/helpers/fonts.scss";
 import {HelmetProvider} from "react-helmet-async";
 import App from "./App.jsx";
