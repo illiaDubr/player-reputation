@@ -66,7 +66,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
 
     return (
         <>
-            {editFormData.filter((item) => item.name === currentModal).map((item, index) => (
+            {editFormData.map((item, index) => (
                 <form method={item.method} key={index} className="modal__body" onSubmit={handleSubmit}>
                     {item.name === "report" && (
                         <div className="modal__input-box">
