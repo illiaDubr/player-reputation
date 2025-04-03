@@ -1,6 +1,6 @@
 import React from "react";
 import {Context} from "../../../api/store/storeContext.js";
-import RecordItem from "./RecordItem.jsx";
+import RecordList from "./RecordList.jsx";
 
 const DiscussionRecord = () => {
     const {store} = React.useContext(Context);
@@ -19,7 +19,7 @@ const DiscussionRecord = () => {
             <div className="admin__title">
                 Записи на обсуждении
             </div>
-            <RecordItem data={discussionRecord} discussion={false} closeRecord={true}/>
+            <RecordList data={discussionRecord} discussion={false} closeRecord={true}/>
         </div>
     )
 }

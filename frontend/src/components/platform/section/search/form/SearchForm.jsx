@@ -8,6 +8,14 @@ import CountrySelect from "../../../components/CountrySelect.jsx";
 import {SearchSchema} from "../../../components/validation/SearchSchema.js";
 import FormTitle from "./FormTitle.jsx";
 
+function usePrevious(value) {
+    const ref = React.useRef();
+    React.useEffect(() => {
+        ref.current = value;
+    }, [value]);
+    return ref.current;
+}
+
 const SearchForm = () => {
     const {store} = React.useContext(Context);
     const fund_name = store.user?.backer?.fund_for_search;
@@ -40,6 +48,21 @@ const SearchForm = () => {
         });
         setValue(name, value);
     };
+
+    const prevChecked = usePrevious(checked);
+
+    React.useEffect(() => {
+
+        if (prevChecked === true && checked === false) {
+
+            if (store.clearResult) {
+                store.clearResult();
+            } else {
+
+                store.result = null;
+            }
+        }
+    }, [checked, prevChecked, store]);
 
     console.log(fund_name);
 
