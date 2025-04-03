@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { HOMEPAGE_ROUTE, ACCOUNT_ROUTE, SEARCH_ROUTE } from "../../../utils/const.js";
+import {HOMEPAGE_ROUTE, ACCOUNT_ROUTE, SEARCH_ROUTE, PROFILE_ROUTE} from "../../../utils/const.js";
 
 const routeNames = {
     [HOMEPAGE_ROUTE]: "Player`s Reputation",
     [SEARCH_ROUTE]: "Поиск игроков",
     [ACCOUNT_ROUTE]: "Личный кабинет",
+    [PROFILE_ROUTE]: "Профиль",
 };
 
 const Breadcrumbs = () => {

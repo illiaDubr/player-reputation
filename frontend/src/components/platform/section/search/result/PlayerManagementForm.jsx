@@ -40,7 +40,6 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                     backer_tag: user.backer_tag,
                     comment: data.comment,
                 }
-                console.log("Отправляем report:", report);
                 store.report(report);
                 closeAllModals();
             } else if (currentModal === "edit") {
@@ -66,7 +65,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
 
     return (
         <>
-            {editFormData.map((item, index) => (
+            {editFormData.filter((item) => item.name === currentModal).map((item, index) => (
                 <form method={item.method} key={index} className="modal__body" onSubmit={handleSubmit}>
                     {item.name === "report" && (
                         <div className="modal__input-box">

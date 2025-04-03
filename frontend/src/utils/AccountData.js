@@ -99,7 +99,7 @@ export const backerTagData = [
 export const NavListData = [
     {
         link: ACCOUNT_ROUTE,
-        icon: "link_profile",
+        icon: "link_personal_account",
         header_text: "Личный кабинет",
     },
     {
