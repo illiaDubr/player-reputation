@@ -550,10 +550,21 @@
 
 .search__tooltip-btn {
   position: absolute;
+  right: 8px;
+  z-index: 3;
 }
 
-.search__tooltip {
+.react-tooltip {
+  opacity: 1;
+  z-index: 4;
+}
 
+
+.search__tooltip {
+  max-width: 400px;
+  @include mixin.font-style(500, 16, 130, #FFFFFF);
+  text-align: center;
+  text-wrap: balance;
 }
 
 @media (width < 800px) {
