@@ -22,7 +22,7 @@ const SearchResult = observer(({backer}) => {
         content = <SearchLoader/>;
     } else if (!Array.isArray(results) || results.length === 0) {
         content = Array.isArray(results) && results.length === 0 ? (
-            <SearchLoader/>
+            <SearchWarning id="notification">Для отображения результата поиска заполните поля</SearchWarning>
         ) : (
             <SearchWarning id="red_notification">Данные отсутствуют</SearchWarning>
         );

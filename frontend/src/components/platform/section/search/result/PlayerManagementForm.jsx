@@ -4,6 +4,7 @@ import {Context} from "../../../../../api/store/storeContext.js";
 import {useModal} from "../../../components/Modal.jsx";
 import {reportData} from "../../../../../utils/ReportData.js";
 import IconSvg from "../../../components/IconSvg.jsx";
+import ChangeTooltip from "./ChangeTooltip.jsx";
 
 const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
     const {store} = React.useContext(Context);
@@ -78,7 +79,8 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                     )}
                     {item.name === "edit" && (
                         <>
-                            <div className="modal__input-box">
+                            <ChangeTooltip />
+                            <div className="modal__input-box" style={{zIndex: 2}}>
                                 <label className="label" htmlFor="">
                                     Смена метки
                                 </label>
