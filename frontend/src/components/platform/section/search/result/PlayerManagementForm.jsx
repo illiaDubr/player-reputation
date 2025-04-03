@@ -79,27 +79,6 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                     {item.name === "edit" && (
                         <>
                             <div className="modal__input-box">
-                                <label htmlFor="damage" className="label">
-                                    Сумма ущерба
-                                </label>
-                                <div className="input">
-                                    $
-                                    <input id="damage" name="damage" inputMode="numeric"
-                                           pattern="\d*"
-                                           placeholder="Введите сумму"
-                                           onInput={(e) => {
-                                               e.target.value = e.target.value.replace(/\D/g, '');
-                                           }} className="hidden-input"/>
-                                </div>
-                            </div>
-                            <div className="modal__input-box">
-                                <label className="label" htmlFor="comment">
-                                    Комментарий
-                                </label>
-                                <textarea name="comment" className="textarea" id="comment">
-                                </textarea>
-                            </div>
-                            <div className="modal__input-box">
                                 <label className="label" htmlFor="">
                                     Смена метки
                                 </label>
@@ -123,6 +102,27 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                                         </div>
                                     )}
                                 </div>
+                            </div>
+                            <div className="modal__input-box">
+                                <label htmlFor="damage" className="label">
+                                    Сумма ущерба
+                                </label>
+                                <div className="input">
+                                    $
+                                    <input id="damage" name="damage" inputMode="numeric"
+                                           pattern="\d*"
+                                           placeholder="Введите сумму"
+                                           onInput={(e) => {
+                                               e.target.value = e.target.value.replace(/\D/g, '');
+                                           }} className="hidden-input"/>
+                                </div>
+                            </div>
+                            <div className="modal__input-box">
+                                <label className="label" htmlFor="comment">
+                                    Комментарий
+                                </label>
+                                <textarea name="comment" className="textarea" id="comment">
+                                </textarea>
                             </div>
                         </>
                     )}

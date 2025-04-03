@@ -17,13 +17,16 @@ function Auth() {
     const {openModal} = useModal();
     const [isActive, setIsActive] = React.useState(false);
 
-
     const [userData, setUserData] = React.useState({
         email: '',
         password: '',
         password_confirmation: '',
         role: '',
     });
+
+    const openRoleModal = () => {
+        openModal("role");
+    };
 
     const {
         register: registerStep1,
@@ -45,12 +48,15 @@ function Auth() {
         mode: 'onChange',
     });
 
-    const openRoleModal = () => {
-        openModal("role");
+    const handleRoleChange = (newRole) => {
+        setUserData((prev) => ({
+            ...prev,
+            role: newRole,
+        }));
     };
 
     const onSubmitStep1 = (data) => {
-        console.log("Данные для первого шага (Step 1):", data); // Выводим данные в консоль
+        console.log("Данные для первого шага (Step 1):", data);
 
         setUserData((prev) => ({
             ...prev,
@@ -73,25 +79,13 @@ function Auth() {
         console.log("Данные, отправляемые на сервер:", authorizationData);
 
         try {
-            await store.registration(
-                authorizationData.email,
-                authorizationData.password,
-                authorizationData.password_confirmation,
-                authorizationData.role,
-            );
+            await store.registration(authorizationData);
             navigate(ACCOUNT_ROUTE);
         } catch (error) {
             console.error("Ошибка регистрации - auth:", error);
             resetStep2();
             openModal("Auth");
         }
-    };
-
-    const handleRoleChange = (newRole) => {
-        setUserData((prev) => ({
-            ...prev,
-            role: newRole,
-        }));
     };
 
     return (

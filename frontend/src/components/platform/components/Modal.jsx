@@ -54,7 +54,7 @@ export const Modal = ({ modalName, children }) => {
     return (
         <div
             className={`modal ${isOpen ? "modal--visible" : "modal--hidden"} ${isFirstModal ? "modal--first" : "modal--secondary"}`}
-            onMouseUp={handleOverlayClick}
+            onClick={handleOverlayClick}
         >
             <div className="modal-content">{children}</div>
         </div>
