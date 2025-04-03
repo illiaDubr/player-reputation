@@ -100,7 +100,7 @@ class BackerAddController extends Controller
     {
         try {
             // Получаем всех бэкеров с approved = 'no'
-            $backers = Backer::where('approved', 'no')->get();
+            $backers = Backer::where('approved', 'under_review')->get();
 
             return response()->json([
                 'message' => 'Unapproved backers retrieved successfully',
