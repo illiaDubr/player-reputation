@@ -18,11 +18,11 @@ function PersonalAccount() {
     const [disabled, setDisabled] = React.useState(true);
 
     const actions = React.useMemo(() => ({
-        null: () => {
+        "no": () => {
             openModal("authorization");
             setDisabled(true);
         },
-        "no": () => {
+        "under_review": () => {
             setDisabled(true);
         },
         "yes": () => {
@@ -85,13 +85,19 @@ function PersonalAccount() {
                     <RenderUnless value={approved} hideWhen="yes">
                         <div className="grid__item verification">
                             <RenderUnless value={approved} hideWhen="no">
-
+                                <IconSvg width={20} height={20} id="green_notification"/>
+                                <p>
+                                    Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
+                                </p>
                             </RenderUnless>
-                            <RenderUnless value={approved} hideWhen="no">
+                            <RenderUnless value={approved} hideWhen="under_review">
                                 <IconSvg width={20} height={20} id="red_notification"/>
                                 <p>
                                     Чтобы полностью пользоваться платформой Player Reputation, пройдите полную верификацию бэкера
                                 </p>
+                                <button type="button" onClick={openModal("authorization")}>
+                                    Пройти верификацию
+                                </button>
                             </RenderUnless>
                         </div>
                     </RenderUnless>

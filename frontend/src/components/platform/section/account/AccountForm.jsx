@@ -37,7 +37,7 @@ const AccountForm = ({slideType, modalOpen}) => {
                     const backerData = {
                         ...formBackerData,
                         id: userId,
-                        approved: "no",
+                        approved: "under_review",
                     }
                     console.log("data backer", backerData);
                     await store.backerApproval(backerData);
