@@ -41,6 +41,10 @@ function PersonalAccount() {
         openModal("reputation");
     }
 
+    const openAuthorizationModal = () => {
+        openModal("authorization");
+    }
+
     const openSuccessfullyModal = () => {
         openModal("addedSuccessfully");
     }
@@ -95,7 +99,7 @@ function PersonalAccount() {
                                 <p>
                                     Чтобы полностью пользоваться платформой Player Reputation, пройдите полную верификацию бэкера
                                 </p>
-                                <button type="button">
+                                <button type="button" onClick={openAuthorizationModal}>
                                     Пройти верификацию
                                 </button>
                             </RenderUnless>
