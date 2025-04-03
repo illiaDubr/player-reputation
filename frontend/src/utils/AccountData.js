@@ -1,4 +1,5 @@
 import React from "react";
+import {ACCOUNT_ROUTE, ADMIN_BACKERS_ROUTE, PROFILE_ROUTE, SEARCH_ROUTE} from "./const.js";
 
 const addData = {
     last_name: "",
@@ -93,6 +94,24 @@ export const backerTagData = [
     { name: "Проблемный игрок", value: "ProblematicPlayer" },
     { name: "Игрок на паузе", value: "PlayerOnPause" },
     { name: "Нет метки", value: "no tag" },
+]
+
+export const NavListData = [
+    {
+        link: ACCOUNT_ROUTE,
+        icon: "link_profile",
+        header_text: "Личный кабинет",
+    },
+    {
+        link: PROFILE_ROUTE,
+        icon: "link_profile",
+        header_text: "Профиль",
+    },
+    {
+        link: SEARCH_ROUTE,
+        icon: "link_search",
+        header_text: "Поиск",
+    },
 ]
 
 export const firstSlideDataBacker = [

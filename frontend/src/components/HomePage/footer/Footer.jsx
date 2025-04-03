@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../../style/HomePage/footer/footer.scss";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Link} from "react-router-dom";
 
