@@ -1,11 +1,13 @@
 import React from 'react';
-//import Video from "../../../../assets/video/video.js";
+import loader from "../../../../../assets/video/loader.mp4";
 
 
 const SearchLoader = () => {
     return (
         <div className="result__loader">
-            {/* <img className="loader" src={Video.loader} alt="video" />*/}
+            <video autoPlay muted playsInline loop>
+                <source src={loader} type="video/mp4"/>
+            </video>
         </div>
     )
 }
