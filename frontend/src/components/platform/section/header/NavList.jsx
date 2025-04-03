@@ -2,7 +2,7 @@ import React from "react";
 import LogoutBtn from "../../components/LogoutBtn.jsx";
 import {NavListData} from "../../../../utils/AccountData.js";
 import {Link} from "react-router-dom";
-import {ADMIN_ROUTE} from "../../../../utils/const.js";
+import {ACCOUNT_ROUTE} from "../../../../utils/const.js";
 import IconSvg from "../../components/IconSvg.jsx";
 import {animated, useSpring} from '@react-spring/web'
 
@@ -22,7 +22,7 @@ const NavList = ({isOpen}) => {
     return (
         <>
             <li className="navigation__list-item">
-                <Link to={ADMIN_ROUTE} className="navigation__list-item__link-logo">
+                <Link to={ACCOUNT_ROUTE} className="navigation__list-item__link-logo">
                     <IconSvg width={70} height={44} id="logo"/>
                 </Link>
             </li>
