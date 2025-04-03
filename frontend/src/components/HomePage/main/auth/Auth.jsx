@@ -73,7 +73,12 @@ function Auth() {
         console.log("Данные, отправляемые на сервер:", authorizationData);
 
         try {
-            await store.registration(authorizationData);
+            await store.registration(
+                authorizationData.email,
+                authorizationData.password,
+                authorizationData.password_confirmation,
+                authorizationData.role,
+            );
             navigate(ACCOUNT_ROUTE);
         } catch (error) {
             console.error("Ошибка регистрации - auth:", error);

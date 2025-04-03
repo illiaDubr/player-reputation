@@ -14,10 +14,10 @@ export default class AuthService {
         }
     }
 
-    static async registration(authorizationData) {
+    static async registration(email, password, password_confirmation, role) {
         await getCsrfToken();
         try {
-            const response = await $api.post('/api/register', authorizationData);
+            const response = await $api.post('/api/register', {email, password, password_confirmation, role});
             return response.data;
         } catch (error) {
             console.error('Ошибка регистрации - service:', error.response?.data || error.message);
