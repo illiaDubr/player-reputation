@@ -44,6 +44,10 @@ export default class Store {
         this.results = results;
     }
 
+    clearResult() {
+        this.setResults([]);
+    }
+
     // --- Обработка ошибок ---
     handleError(error, defaultMessage) {
         const message = error.response?.data?.message || defaultMessage;

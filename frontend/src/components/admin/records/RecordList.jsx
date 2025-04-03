@@ -2,7 +2,7 @@ import React from "react";
 import RecordChangeStatus from "./RecordChangeStatus.jsx";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 
-const RecordItem = ({data, discussion, closeRecord}) => {
+const RecordList = ({data, discussion, closeRecord}) => {
     return (
         <>
             {data.length > 0 ? (
@@ -10,7 +10,17 @@ const RecordItem = ({data, discussion, closeRecord}) => {
                         <div className="admin__box" key={index}>
                             <div className="record record-record">
                                 <div className="record__top">
-                                    <IconSvg width={48} height={48} variant="funds" id={item.old_data.fund_name}/>
+                                    <div className="record__title">
+                                        Было
+                                    </div>
+                                </div>
+                                <div className="record__text">
+                                    <div className="record__text-title">
+                                        Фонд
+                                    </div>
+                                    <div className="record__text-desc">
+                                        {item.fund_name}
+                                    </div>
                                 </div>
                                 <div className="record__text">
                                     <div className="record__text-title">
@@ -31,10 +41,19 @@ const RecordItem = ({data, discussion, closeRecord}) => {
                             </div>
                             <div className="record record-record">
                                 <div className="record__top">
-                                    <div className="">
+                                    <div className="record__title">
+                                        Стало
                                     </div>
                                     <div className="record__form-wrap">
                                         <RecordChangeStatus id={item.id} discussion={discussion} closeRecord={closeRecord}/>
+                                    </div>
+                                </div>
+                                <div className="record__text">
+                                    <div className="record__text-title">
+                                        Фонд
+                                    </div>
+                                    <div className="record__text-desc">
+                                        {item.fund_name}
                                     </div>
                                 </div>
                                 <div className="record__text">
@@ -64,4 +83,4 @@ const RecordItem = ({data, discussion, closeRecord}) => {
     )
 }
 
-export default RecordItem;
+export default RecordList;
