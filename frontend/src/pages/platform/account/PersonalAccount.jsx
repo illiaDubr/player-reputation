@@ -18,7 +18,7 @@ function PersonalAccount() {
     const [disabled, setDisabled] = React.useState(true);
 
     const actions = React.useMemo(() => ({
-        "no": () => {
+        null: () => {
             openModal("authorization");
             setDisabled(true);
         },
@@ -88,7 +88,7 @@ function PersonalAccount() {
 
                     <RenderUnless value={approved} hideWhen="yes">
                         <div className="grid__item verification">
-                            <RenderUnless value={approved} hideWhen="no">
+                            <RenderUnless value={approved} hideWhen={null}>
                                 <IconSvg width={20} height={20} id="green_notification"/>
                                 <p>
                                     Ваша заявка на верификацию на рассмотрении. Мы примем ее в течении 1 дня
