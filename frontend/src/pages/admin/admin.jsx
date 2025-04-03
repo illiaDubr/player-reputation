@@ -39,7 +39,7 @@ const Admin = observer(() => {
                                         <Notification value={notification} fontSize={17}/>
                                     )}
                                     <figure>
-                                        <img src={item.image} alt="" />
+                                        <img src={Images.item.image} alt="" />
                                     </figure>
                                     <IconSvg width={63} height={39} id="logo" />
                                 </Link>

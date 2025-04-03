@@ -75,6 +75,13 @@
           transition: all .7s ease;
         }
 
+        .svg {
+          position: absolute;
+          z-index: 3;
+          bottom: 20px;
+          right: 20px;
+        }
+
         &:nth-child(1), &:nth-child(5), &:nth-child(6) {
           &:before {
             content: "";
