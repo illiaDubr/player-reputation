@@ -48,7 +48,8 @@ Route::put('/backers/{id}', [BackerAddController::class, 'update']);
 
 
 //роуты для админов и суперадминов
-
+Route::middleware(['auth','check.role:backer,admin,superadmin'])
+    ->patch('/backers/{id}/fund-info', [BackerController::class, 'updateFundInfo']);
 Route::middleware(['auth','check.role:backer,admin,superadmin'])
     ->patch('/backers/{id}/fund-for-search', [BackerController::class, 'updateFundForSearch']);
 Route::middleware(['auth', 'check.role:backer,admin,superadmin'])->group(function () {
