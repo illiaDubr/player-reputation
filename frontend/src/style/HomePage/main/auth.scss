@@ -200,10 +200,22 @@
 
     .auth__toggle-left {
       left: 0;
+
+      .svg {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
     }
 
     .auth__toggle-right{
       right: -50%;
+
+      .svg {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
     }
 
     &::before {

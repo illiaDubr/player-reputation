@@ -14,7 +14,7 @@ body:has(.title__section) {
 
   .wrapper {
     max-width: 1530px;
-    padding: 40px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     flex-direction: column;
 
     .main {
@@ -24,11 +24,13 @@ body:has(.title__section) {
 
 .main {
   .title__section {
-    padding: 149px 0px 19px 0px;
+    padding: 180px 0px 19px 0px;
+    background: url("../../../assets/image/main_background.webp") center center no-repeat;
+    position: relative;
 
     .title__wrap {
       max-width: 448px;
-      padding: 31px 0px 0px 0px;
+      padding: 0px 0px 0px 25px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -66,6 +68,15 @@ body:has(.title__section) {
         max-width: 371px;
         padding: 16px 32px;
       }
+    }
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100px;
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(10, 6, 24, 0) 0%, #0a0618 100%);
     }
   }
 
@@ -189,14 +200,22 @@ body:has(.title__section) {
           border: 1px solid transparent;
           border-radius: 20px;
           @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
-          @include mixin.font-style(600, 32, 120, #FFFFFF);
+          @include mixin.font-style(600, 28, 120, #FFFFFF);
           position: relative;
           overflow: hidden;
 
           .role__card-title {
-            padding: 40px 40px 15px 40px;
+            padding: 40px 40px 4px 40px;
             position: relative;
             z-index: 2;
+          }
+
+          .role__card-description {
+            padding: 5px 40px 0px 40px;
+            opacity: .8;
+            position: relative;
+            z-index: 2;
+            @include mixin.font-style(400, 13, 130, #FFFFFF);
           }
 
           figure {
