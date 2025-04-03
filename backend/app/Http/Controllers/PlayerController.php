@@ -64,9 +64,17 @@ class PlayerController extends Controller
             'damage'         => 'sometimes|nullable|numeric',
             'makeUp'         => 'sometimes|nullable|numeric',
             'source'         => 'sometimes|nullable|string|max:255',
+            'backer_tag'     => 'sometimes|nullable|string|max:255',
         ]);
 
         $reputationRecord->update($validated);
+
+        // 4. Если передан backer_tag, обновляем игрока
+        if (array_key_exists('backer_tag', $validated)) {
+            // Находим игрока и меняем поле backer_tag
+            $player = \App\Models\Player::where('player_id', $playerId)->firstOrFail();
+            $player->update(['backer_tag' => $validated['backer_tag']]);
+        }
 
         $newData = $reputationRecord->fresh()->toArray();
 
