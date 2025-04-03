@@ -5,6 +5,7 @@ import {Context} from "../../../api/store/storeContext.js";
 import BackersForm from "../../../components/admin/backers/BackersForm.jsx";
 import BackersItem from "../../../components/admin/backers/BackersItem.jsx";
 import FundSelect from "../../../components/admin/backers/FundSelect.jsx";
+import BackersList from "../../../components/admin/backers/BackersList.jsx";
 
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
@@ -63,6 +64,7 @@ const Backers = observer(() => {
                     </div>
                 ))}
             </div>
+            <BackersList />
         </AdminMain>
     )
 })

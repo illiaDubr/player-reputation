@@ -7,6 +7,8 @@ import {Link} from "react-router-dom";
 import Notification from "../../components/admin/components/Notification.jsx";
 import {useNotifications} from "../../components/admin/components/useNotifications.jsx";
 import {Helmet} from "react-helmet-async";
+import IconSvg from "../../components/platform/components/IconSvg.jsx";
+import Images from "../../assets/image/image.js";
 
 const Admin = observer(() => {
     const notifications = useNotifications();
@@ -36,6 +38,10 @@ const Admin = observer(() => {
                                     {notification && (
                                         <Notification value={notification} fontSize={17}/>
                                     )}
+                                    <figure>
+                                        <img src={item.image} alt="" />
+                                    </figure>
+                                    <IconSvg width={63} height={39} id="logo" />
                                 </Link>
                             )
                         })}

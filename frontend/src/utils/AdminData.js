@@ -7,6 +7,7 @@ export const NavListData = [
         icon: "link_request",
         header_text: "Заявки на верификацию",
         link_text: "Заявки на верификацию. Все бекеры",
+        image: "admin_request",
     },
     {
         id: "records",
@@ -14,6 +15,7 @@ export const NavListData = [
         icon: "link_notification",
         header_text: "Изменения записей",
         link_text: "Скорректированные репутационные записи. История",
+        image: "admin_records",
     },
     {
         id: "reports",
@@ -21,12 +23,14 @@ export const NavListData = [
         icon: "link_report",
         header_text: "Корректировка меток",
         link_text: "Заявки на корректировку меток",
+        image: "admin_report",
     },
     {
         link: ADMIN_LOGS_ROUTE,
         icon: "link_logs",
         header_text: "Отчёт о поисках",
         link_text: "Аналитика",
+        image: "admin_analytics",
     },
     {
         id: "",
@@ -34,6 +38,7 @@ export const NavListData = [
         icon: "link_search",
         header_text: "Поиск по базе",
         link_text: "Поиск по базе",
+        image: "admin_search",
     },
     {
         id: "",
@@ -41,6 +46,7 @@ export const NavListData = [
         icon: "",
         header_text: "",
         link_text: "Логирование изменений",
+        image: "admin_logs",
     },
 ]
 

@@ -107,8 +107,7 @@ function PersonalAccount() {
                     </RenderUnless>
 
                 </div>
-
-
+                
                 <Modal modalName="reputation">
                     <div className="modal__title">
                         Внесение информации по игроку
@@ -130,7 +129,6 @@ function PersonalAccount() {
                         </button>
                     </div>
                 </Modal>
-
 
                 <Modal modalName="authorization">
                     <div className="modal__title">
