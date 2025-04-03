@@ -163,7 +163,7 @@ function Auth() {
                         <div className="auth__toggle auth__toggle-right">
                             <IconSvg width={110} height={48} id="logo"/>
                             <div>
-                                Здравствуйте, добро пожаловать!
+                                Здравствуйте,<br/> добро пожаловать!
                             </div>
                             <p>
                                 У вас уже есть аккаунт?

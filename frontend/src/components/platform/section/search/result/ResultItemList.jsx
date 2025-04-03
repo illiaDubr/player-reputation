@@ -236,7 +236,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                             <IconSvg width="36" height="36" id="close-menu"/>
                         </button>
                     </div>
-                    <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser}/>
+                    <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser} tag={results.backer_tag}/>
                 </Modal>
             ))}
         </div>

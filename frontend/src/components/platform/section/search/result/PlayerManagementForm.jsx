@@ -2,12 +2,29 @@ import React from "react";
 import {editFormData} from "../../../../../utils/EditData.js";
 import {Context} from "../../../../../api/store/storeContext.js";
 import {useModal} from "../../../components/Modal.jsx";
+import {reportData} from "../../../../../utils/ReportData.js";
+import IconSvg from "../../../components/IconSvg.jsx";
 
-const PlayerManagementForm = ({currentModal, backer, user}) => {
+const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
     const {store} = React.useContext(Context);
     const {closeAllModals} = useModal();
+    const [selected, setSelected] = React.useState(tag);
+    const [isOpen, setIsOpen] = React.useState(false);
 
     if (!user) return null;
+
+    const toggleDropdown = () => {
+        setIsOpen((prev) => !prev);
+    };
+
+    const found = reportData.find((item) => item.backer_tag === selected);
+    const displayedName = found ? found.name : "Нет метки";
+    const displayedColor = found ? found.color : "gray";
+
+    const handleOptionClick = (option) => {
+        setSelected(option);
+        setIsOpen(false);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,6 +53,7 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                     player_id: user.player_id,
                     id: user.reputation_records?.[0]?.id,
                     makeUp: 0,
+                    backer_tag: selected,
                 }
                 console.log("Отправляем payload:", payload);
                 store.userEdit(payload);
@@ -81,6 +99,31 @@ const PlayerManagementForm = ({currentModal, backer, user}) => {
                                 </label>
                                 <textarea name="comment" className="textarea" id="comment">
                                 </textarea>
+                            </div>
+                            <div className="modal__input-box">
+                                <label className="label" htmlFor="">
+                                    Смена метки
+                                </label>
+                                <div className={`report__select ${isOpen ? "report__select-open" : ""}`}>
+                                    <div className={`report__select-title report__select-text-${displayedColor}`}
+                                         onClick={toggleDropdown}>
+                                        {displayedName}
+                                        <IconSvg width={15} height={15} id="arrow"/>
+                                    </div>
+                                    {isOpen && (
+                                        <div className="report__select-options">
+                                            {reportData.map((item) => (
+                                                <div
+                                                    className={`report__select-item report__select-text-${item.color}`}
+                                                    key={item.backer_tag}
+                                                    onClick={() => handleOptionClick(item.backer_tag)}
+                                                >
+                                                    {item.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </>
                     )}

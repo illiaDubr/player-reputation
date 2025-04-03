@@ -382,6 +382,9 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
 
   .profile__box {
     .profile {
+      display: flex;
+      gap: 40px;
+
       .profile__item {
         backdrop-filter: blur(40px);
         background: url("../../../assets/image/grid.webp") center center / 23% repeat #01030b;
@@ -390,8 +393,9 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         padding: 48px;
         position: relative;
         z-index: 2;
+        overflow: hidden;
 
-        &:before {
+        &:before, &:after {
           content: '';
           width: 150px;
           height: 150px;
@@ -400,6 +404,29 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           position: absolute;
           background: #2750f2;
           z-index: 1;
+        }
+
+        &:first-child {
+          &:before {
+            top: -75px;
+            left: 100px;
+          }
+
+          &:after {
+            bottom: -75px;
+            left: 100px;
+          }
+        }
+
+        &:last-child {
+          &:before {
+            bottom: 40px;
+            right: 100px;
+          }
+
+          &:after {
+            display: none;
+          }
         }
       }
 
