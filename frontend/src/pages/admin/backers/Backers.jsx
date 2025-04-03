@@ -25,7 +25,7 @@ const Backers = observer(() => {
     return (
         <AdminMain pageTitle="Заявки на верефикацию">
             <div className="admin__wrap">
-                <BackersList data={unApprovedBackers} />
+                <BackersList data={unApprovedBackers} control={true}/>
             </div>
             <ApprovedBackers />
         </AdminMain>
