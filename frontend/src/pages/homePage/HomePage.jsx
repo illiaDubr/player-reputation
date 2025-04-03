@@ -22,6 +22,13 @@ const HomePage = observer(() => {
     const navigate = useNavigate();
     const { hash } = useLocation();
 
+    const [userData, setUserData] = React.useState({
+        email: '',
+        password: '',
+        password_confirmation: '',
+        role: '',
+    });
+
     React.useEffect(() => {
         if (hash) {
             const element = document.querySelector(hash);
@@ -63,7 +70,7 @@ const HomePage = observer(() => {
                     </div>
                     <ContactForm />
                 </section>
-                <Auth />
+                <Auth userData={userData} setUserData={setUserData} />
             </main>
             <Footer selectedRole={selectedRole} />
         </>

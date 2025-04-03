@@ -11,18 +11,12 @@ import Images from "../../../../assets/image/image.js";
 import "../../../../style/HomePage/main/auth.scss";
 import IconSvg from "../../../platform/components/IconSvg.jsx";
 
-function Auth() {
+function Auth({userData, setUserData}) {
     const {store} = React.useContext(Context);
     const navigate = useNavigate();
     const {openModal} = useModal();
     const [isActive, setIsActive] = React.useState(false);
 
-    const [userData, setUserData] = React.useState({
-        email: '',
-        password: '',
-        password_confirmation: '',
-        role: '',
-    });
 
     const openRoleModal = () => {
         openModal("role");
@@ -39,21 +33,12 @@ function Auth() {
     });
 
     const {
-        register: registerStep2,
         handleSubmit: handleSubmitStep2,
-        formState: {errors: errorsStep2, isSubmitting: isSubmittingStep2},
+        formState: {isSubmitting: isSubmittingStep2},
         reset: resetStep2,
-        setError,
     } = useForm({
         mode: 'onChange',
     });
-
-    const handleRoleChange = (newRole) => {
-        setUserData((prev) => ({
-            ...prev,
-            role: newRole,
-        }));
-    };
 
     const onSubmitStep1 = (data) => {
         console.log("Данные для первого шага (Step 1):", data);
@@ -66,6 +51,13 @@ function Auth() {
         }));
         openRoleModal();
         resetStep1();
+    };
+
+    const handleRoleChange = (newRole) => {
+        setUserData((prev) => ({
+            ...prev,
+            role: newRole,
+        }));
     };
 
     const onSubmitStep2 = async (data) => {
