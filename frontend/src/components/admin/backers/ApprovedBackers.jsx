@@ -10,7 +10,7 @@ const ApprovedBackers = () => {
 
 
         store.getApprovedBackers().then((response) => {
-            setApprovedBackers(response);
+            setApprovedBackers(response.data.backers);
         })
     }
 
