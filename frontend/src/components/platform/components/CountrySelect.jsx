@@ -6,8 +6,8 @@ import IconSvg from "./IconSvg.jsx";
 
 const CountrySelect = ({ onPhoneNumberChange }) => {
     const countryCodes = [
-        { name: "Украина", code: "UA", dialCode: "+380" },
         { name: "Россия", code: "RU", dialCode: "+7" },
+        { name: "Украина", code: "UA", dialCode: "+380" },
         { name: "США", code: "US", dialCode: "+1" },
         { name: "Германия", code: "DE", dialCode: "+49" },
         { name: "Япония", code: "JP", dialCode: "+81" },
