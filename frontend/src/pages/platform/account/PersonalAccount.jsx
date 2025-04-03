@@ -95,7 +95,7 @@ function PersonalAccount() {
                                 <p>
                                     Чтобы полностью пользоваться платформой Player Reputation, пройдите полную верификацию бэкера
                                 </p>
-                                <button type="button" onClick={openModal("authorization")}>
+                                <button type="button">
                                     Пройти верификацию
                                 </button>
                             </RenderUnless>
