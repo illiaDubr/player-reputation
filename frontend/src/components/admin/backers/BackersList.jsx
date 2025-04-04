@@ -4,7 +4,7 @@ import BackersForm from "./BackersForm.jsx";
 import BackersItem from "./BackersItem.jsx";
 
 const BackersList = ({data, control}) => {
-    const [selectedFund, setSelectedFund] = React.useState(null);
+    const [selectedFund, setSelectedFund] = React.useState({});
 
     const handleSelectChange = (backerId, value) => {
         setSelectedFund((prev) => ({
