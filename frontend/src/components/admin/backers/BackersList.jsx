@@ -13,6 +13,7 @@ const BackersList = ({data, control}) => {
         }));
     };
 
+    console.log(selectedFund);
 
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
     return (
