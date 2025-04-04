@@ -203,11 +203,11 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                     content: (
                         <SlideContentWrap>
                             <div className="slide__box">
-                                <div className="slide__input-wrap">
+                                {/*<div className="slide__input-wrap">
                                     <label className="slide__label">
                                         Базовый откат игроку
                                     </label>
-                                    {/*<div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
+                                    <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
                                         <div className="slide__input"
                                              style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
                                             <div className="slide__custom-input slide__amount">
@@ -224,9 +224,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 />
                                             </div>
                                         </div>
-                                    </div>*/}
-                                </div>
-                                <div className="slide__input-wrap">
+                                    </div>
+                                </div>*/}
+                                {/*<div className="slide__input-wrap">
                                     <label className="slide__label" htmlFor="">
                                         Возможность увеличить свой откат
                                     </label>
@@ -252,7 +252,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             Нет
                                         </label>
                                     </div>
-                                </div>
+                                </div>*/}
                                 <div className="slide__input-wrap" style={{gridColumn: "span 2", height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
                                         Рейкбек
