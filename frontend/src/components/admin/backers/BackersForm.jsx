@@ -25,7 +25,7 @@ const BackersForm = ({fund, backerId}) => {
     return (
         <>
             <form className="record__form" onSubmit={handleSubmit}>
-                <button type="submit" className="record__btn" disabled={fund === null}>
+                <button type="submit" className="record__btn" disabled={!fund}>
                     <IconSvg width={16} height={16} id="check__mark" />
                     Одобрить верификацию
                 </button>
