@@ -186,7 +186,7 @@
 
     .result__header {
       .result__length {
-
+        @include mixin.font-style(500, 16, 130, #FFFFFF);
       }
     }
 

@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../../../../api/store/storeContext.js";
 import ResultItemList from "./ResultItemList.jsx";
 
-const SearchResult = observer(({backer}) => {
+const SearchResult = observer(({backer, checked}) => {
     const {store} = React.useContext(Context);
     const {results, isLoading} = store;
     const backersFund = store.user?.backer?.fund_for_search;
@@ -35,9 +35,11 @@ const SearchResult = observer(({backer}) => {
     return (
         <div className="result__container">
             <div className="result__header">
-                <div className="result__length">
-                    Всего записей: {results.length}
-                </div>
+                {checked &&
+                    <div className="result__length">
+                        Всего записей: {results.length}
+                    </div>
+                }
             </div>
             {content}
         </div>
