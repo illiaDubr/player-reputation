@@ -125,7 +125,7 @@ class PlayerController extends Controller
         $results = $this->filterPlayers($request)
             ->with('reputationRecords')
             ->orderBy('created_at', 'desc') // Сортировка по дате создания (можно заменить на updated_at)
-            ->paginate(15);
+            ->paginate(20);
         // Проверяем, есть ли данные
         if ($results->isEmpty()) {
             return response()->json(['message' => 'User not found'], 200);
