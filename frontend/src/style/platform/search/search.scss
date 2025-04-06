@@ -310,6 +310,7 @@
               .result__content {
                 overflow: hidden;
                 text-overflow: ellipsis;
+                text-wrap: nowrap;
               }
 
               .result__tooltip {
