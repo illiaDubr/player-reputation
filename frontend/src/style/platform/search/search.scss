@@ -194,6 +194,20 @@
         border-radius: 8px;
         padding: 10px;
         @include mixin.font-style(500, 16, 130, #FFFFFF);
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+          content: '';
+          width: 60px;
+          height: 60px;
+          position: absolute;
+          top: 14px;
+          left: 0;
+          border-radius: 100%;
+          filter: blur(36px);
+          background: #2a4bfb;
+        }
       }
     }
 
