@@ -56,7 +56,13 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
 
     const handlePageClick = (event) => {
         setCurrentPage(event.selected);
-        sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (sectionRef.current) {
+            const elementTop = sectionRef.current.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementTop - 200,
+                behavior: "smooth",
+            });
+        }
     };
 
     return (
@@ -225,7 +231,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
                 marginPagesDisplayed={1}
-                pageRangeDisplayed={4}
+                pageRangeDisplayed={3}
                 previousLabel="<"
                 nextLabel=">"
                 containerClassName="pagination"
