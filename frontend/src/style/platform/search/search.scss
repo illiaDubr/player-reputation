@@ -184,6 +184,12 @@
     position: relative;
     min-height: 400px;
 
+    .result__header {
+      .result__length {
+
+      }
+    }
+
     .result__wrapper {
       display: flex;
       flex-direction: column;

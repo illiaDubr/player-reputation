@@ -133,7 +133,7 @@ export default class Store {
             "Ошибка поиска",
             (response) => {
                 this.setResults(response.data);
-                console.log(response.data.length);
+                console.log(response.data);
             }
         );
     }
