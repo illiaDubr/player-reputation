@@ -28,19 +28,21 @@ const SearchResult = observer(({backer, checked}) => {
         );
     } else {
         content = (
-            <ResultItemList results={results} backer={backer} backersFund={backersFund}/>
+            <>
+                <div className="result__header">
+                    {checked &&
+                        <div className="result__length">
+                            Всего записей: {results.length}
+                        </div>
+                    }
+                </div>
+                <ResultItemList results={results} backer={backer} backersFund={backersFund}/>
+            </>
         );
     }
 
     return (
         <div className="result__container">
-            <div className="result__header">
-                {checked &&
-                    <div className="result__length">
-                        Всего записей: {results.length}
-                    </div>
-                }
-            </div>
             {content}
         </div>
     );
