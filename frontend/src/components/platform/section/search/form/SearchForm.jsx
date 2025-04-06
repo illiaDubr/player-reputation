@@ -16,11 +16,11 @@ function usePrevious(value) {
     return ref.current;
 }
 
-const SearchForm = () => {
+const SearchForm = ({checked, setChecked}) => {
     const {store} = React.useContext(Context);
     const fund_name = store.user?.backer?.fund_for_search;
     const [formData, setFormData] = useSearchFormData();
-    const [checked, setChecked] = React.useState(false);
+    //const [checked, setChecked] = React.useState(false);
     const topFields = SearchFields.slice(0, 3);
     const bottomFields = SearchFields.slice(3);
 

@@ -8,6 +8,7 @@ import {Context} from "../../../api/store/storeContext.js";
 
 function Search() {
     const {store} = React.useContext(Context);
+    const [checked, setChecked] = React.useState(false);
 
     React.useEffect(() => {
         store.checkAuth().then(() => {
@@ -23,8 +24,8 @@ function Search() {
                 </title>
             </Helmet>
             <Main secClassName="search__wrap" secID="search">
-                <SearchForm/>
-                <SearchResult backer={store.user.id}/>
+                <SearchForm checked={checked} setChecked={setChecked} />
+                <SearchResult backer={store.user.id} checked={checked} />
             </Main>
         </>
     );
