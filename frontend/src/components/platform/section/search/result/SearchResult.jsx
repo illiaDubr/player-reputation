@@ -34,6 +34,11 @@ const SearchResult = observer(({backer}) => {
 
     return (
         <div className="result__container">
+            <div className="result__header">
+                <div className="result__length">
+                    Всего записей: {results.length}
+                </div>
+            </div>
             {content}
         </div>
     );
