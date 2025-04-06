@@ -496,13 +496,25 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
           border-radius: 8px;
           @include mixin.font-style(500, 20, 140, #FFFFFF);
+          transition: all .4s ease;
+
+          &:hover {
+            background: #121317;
+            color: #2750f2;
+            opacity: .7;
+          }
         }
 
         .active {
           background: #121317;
           color: #2750f2;
+        }
+
+        .break {
+          letter-spacing: -0.02em;
         }
       }
     }
