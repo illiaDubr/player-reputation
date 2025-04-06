@@ -181,11 +181,18 @@
   .result__container {
     display: flex;
     flex-direction: column;
+    gap: 13px;
     position: relative;
     min-height: 400px;
 
     .result__header {
       .result__length {
+        width: fit-content;
+        backdrop-filter: blur(10px);
+        background: #00254459;
+        border: 2px solid #000729;
+        border-radius: 8px;
+        padding: 10px;
         @include mixin.font-style(500, 16, 130, #FFFFFF);
       }
     }
