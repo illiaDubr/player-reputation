@@ -5,15 +5,9 @@ import {Modal, useModal} from "../../../components/Modal.jsx";
 import PlayerManagement from "./PlayerManagement.jsx";
 import {editModalData} from "../../../../../utils/EditData.js";
 import PlayerManagementForm from "./PlayerManagementForm.jsx";
+import ReactPaginate from "react-paginate";
+import {backerTagConfig, dynamicFields} from "../../../../../utils/SearchData.js";
 
-const backerTagConfig = {
-    arbitrage: {text: "Арбитраж", color: "red"},
-    MultiArbitrage: {text: "Мульти арбитраж", color: "orange"},
-    ProblematicPlayer: {text: "Проблемный игрок", color: "yellow"},
-    PlayerOnPause: {text: "Игрок на паузе", color: "green"},
-    ExArbitrage: {text: "Экс Арбитраж", color: "gray"},
-    default: {text: "Нет метки", color: "gray"},
-};
 
 function getBackerTagConfig(tag) {
     return backerTagConfig[tag] || backerTagConfig.default;
@@ -28,32 +22,21 @@ function formatDate(dateString) {
     return dateString.slice(0, 10);
 }
 
-const dynamicFields = [
-    {key: "Ggpokerok", label: "Ggpokerok:"},
-    {key: "Ggnetwork", label: "Ggnetwork:"},
-    {key: "Pokerstars_com", label: "Pokerstars_com:"},
-    {key: "Pokerstars_es", label: "Pokerstars_es:"},
-    {key: "Winamax_fr", label: "Winamax_fr:"},
-    {key: "Winamax_es", label: "Winamax_es:"},
-    {key: "PS", label: "PS:"},
-    {key: "GG", label: "GG:"},
-    {key: "RedStar", label: "RedStar:"},
-    {key: "TigerGaming", label: "TigerGaming:"},
-    {key: "PartyPoker", label: "PartyPoker:"},
-    {key: "Pokerstars", label: "Pokerstars:"},
-    {key: "888poker", label: "888poker:"},
-    {key: "WPNpoker", label: "WPNpoker:"},
-    {key: "Stretchpoker", label: "Stretchpoker:"},
-    {key: "Coinpoker", label: "Coinpoker:"},
-    {key: "chikoPoker", label: "chikoPoker:"},
-    {key: "nickiPoker", label: "nickiPoker:"},
-];
+
 
 const ResultItemList = ({results = [], backer, backersFund}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
     const {closeAllModals} = useModal();
+
+    const [currentPage, setCurrentPage] = React.useState(0);
+    const itemsPerPage = 15;
+    const pageCount = Math.ceil(results.length / itemsPerPage);
+    const currentResults = results.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -69,9 +52,13 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
         }));
     };
 
+    const handlePageClick = (event) => {
+        setCurrentPage(event.selected);
+    };
+
     return (
         <div className="result__wrapper">
-            {results.map((item) => {
+            {currentResults.map((item) => {
                 const {
                     player_id,
                     backer_tag,
@@ -230,6 +217,17 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                     </div>
                 );
             })}
+
+            <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                previousLabel="< Предыдущая"
+                nextLabel="Следующая >"
+                containerClassName="pagination"
+                activeClassName="active"
+            />
 
             {editModalData.map((modalItem, index) => (
                 <Modal modalName={modalItem.name} key={index}>
