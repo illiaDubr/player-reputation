@@ -484,6 +484,27 @@
           }
         }
       }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+
+        li {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 8px;
+          @include mixin.font-style(500, 20, 140, #FFFFFF);
+        }
+
+        .active {
+          background: #121317;
+          color: #2750f2;
+        }
+      }
     }
 
     .result__warning {
