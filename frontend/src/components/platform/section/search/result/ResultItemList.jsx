@@ -38,6 +38,8 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
         (currentPage + 1) * itemsPerPage
     );
 
+    const sectionRef = React.createRef();
+
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
             ...prevState,
@@ -54,10 +56,11 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
 
     const handlePageClick = (event) => {
         setCurrentPage(event.selected);
+        sectionRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     return (
-        <div className="result__wrapper">
+        <div className="result__wrapper" ref={sectionRef}>
             {currentResults.map((item) => {
                 const {
                     player_id,
@@ -221,10 +224,10 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
             <ReactPaginate
                 pageCount={pageCount}
                 onPageChange={handlePageClick}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                previousLabel="< Предыдущая"
-                nextLabel="Следующая >"
+                marginPagesDisplayed={1}
+                pageRangeDisplayed={4}
+                previousLabel="<"
+                nextLabel=">"
                 containerClassName="pagination"
                 activeClassName="active"
             />
