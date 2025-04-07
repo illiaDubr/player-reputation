@@ -235,7 +235,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             <input
                                                 type="radio"
                                                 name="rollbackIncrease"
-                                                value="yes"
+                                                value="true"
                                                 checked={formBackerData.rollbackIncrease === true}
                                                 onChange={handleBackerChange}
                                             />
@@ -245,7 +245,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             <input
                                                 type="radio"
                                                 name="rollbackIncrease"
-                                                value="no"
+                                                value="false"
                                                 checked={formBackerData.rollbackIncrease === false}
                                                 onChange={handleBackerChange}
                                             />
