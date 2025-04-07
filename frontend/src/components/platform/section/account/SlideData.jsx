@@ -30,12 +30,16 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
     };
 
     const handleBackerChange = (e) => {
-        const {name, value} = e.target;
-        setFormBackerData(prev => ({
+        const { name, value, type } = e.target;
+        let newValue = value;
+        if (type === "radio" && name === "rollbackIncrease") {
+            newValue = value === "true";
+        }
+        setFormBackerData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: newValue,
         }));
-    }
+    };
 
     console.log(formData);
 
@@ -236,7 +240,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 type="radio"
                                                 name="rollbackIncrease"
                                                 value="true"
-                                                checked={formBackerData.rollbackIncrease === true}
+                                                checked={formBackerData.rollbackIncrease === "true"}
                                                 onChange={handleBackerChange}
                                             />
                                             Да
@@ -246,7 +250,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 type="radio"
                                                 name="rollbackIncrease"
                                                 value="false"
-                                                checked={formBackerData.rollbackIncrease === false}
+                                                checked={formBackerData.rollbackIncrease === "false"}
                                                 onChange={handleBackerChange}
                                             />
                                             Нет
