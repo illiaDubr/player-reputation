@@ -37,7 +37,7 @@ const BackersList = ({data, control}) => {
                         <div className="backer__wrap">
                             {
                                 [
-                                    {title: "Имя фонда:", content: item.fund_name},
+                                    {title: "Имя фонда:", content: control ? item.fund_name : item.fund_for_search },
                                     {title: "Email:", content: item.email},
                                     {title: "Описание фонда:", content: item.fundDescr, className: "fundDescr",},
                                     {title: "Ссылка на сайт:", content: item.siteLink},
