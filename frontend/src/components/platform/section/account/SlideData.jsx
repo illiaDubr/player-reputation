@@ -226,7 +226,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </div>
                                     </div>
                                 </div>*/}
-                                <div className="slide__input-wrap">
+                                <div className="slide__input-wrap"  >
                                     <label className="slide__label" htmlFor="">
                                         Возможность увеличить свой откат
                                     </label>
@@ -253,7 +253,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </label>
                                     </div>
                                 </div>
-                                <div className="slide__input-wrap">
+                                <div className="slide__input-wrap" style={{height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
                                         Дисциплина
                                     </label>
@@ -262,7 +262,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             <input
                                                 type="radio"
                                                 name="discipline"
-                                                value="yes"
+                                                value="Кеш"
                                                 checked={formBackerData.discipline === "Кеш"}
                                                 onChange={handleBackerChange}
                                             />
@@ -272,7 +272,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             <input
                                                 type="radio"
                                                 name="discipline"
-                                                value="no"
+                                                value="MTT"
                                                 checked={formBackerData.discipline === "MTT"}
                                                 onChange={handleBackerChange}
                                             />
