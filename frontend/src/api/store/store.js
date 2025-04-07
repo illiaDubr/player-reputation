@@ -157,9 +157,9 @@ export default class Store {
 
     // --- Методы Личного кабинета ---
 
-    async addPlayer(recordData) {
+    async addPlayer(formData) {
         await this.request(
-            () => AccountService.addPlayer(recordData),
+            () => AccountService.addPlayer(formData),
             "Ошибка добавления игрока",
             (response) => {
                 this.setResults(response.data);

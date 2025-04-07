@@ -12,7 +12,7 @@ import SlideContentWrap from "./SlideContentWrap.jsx";
 import CustomInput from "./CustomInput.jsx";
 import MarkSelect from "./MarkSelect.jsx";
 
-const SlideData = (slideType, formData, setFormData, formBackerData, setFormBackerData) => {
+const SlideData = (slideType, fund_name, formData, setFormData, formBackerData, setFormBackerData) => {
 
     const handlePhoneNumberChange = React.useCallback((phoneNumber) => {
         setFormData((prevData) => ({...prevData, phonenumber: phoneNumber}));

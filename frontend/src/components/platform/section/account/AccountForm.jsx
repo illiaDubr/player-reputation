@@ -8,10 +8,10 @@ const AccountForm = ({slideType, modalOpen}) => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [formData, setFormData] = useAddPlayerData();
     const [formBackerData, setFormBackerData] = useBackerApprovalData();
-    const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData);
     const {store} = React.useContext(Context);
     const fund_name = store.user?.backer?.fund_for_search;
     const userId = store.user?.backer?.backer_id;
+    const slides = SlideData(slideType, fund_name, formData, setFormData, formBackerData, setFormBackerData);
 
     const formMethod = slideType === "addPlayer" ? "POST" : slideType === "addBaker" ? "PUT" : "POST";
 
@@ -32,12 +32,8 @@ const AccountForm = ({slideType, modalOpen}) => {
         } else {
             try {
                 if (slideType === "addPlayer") {
-                    const recordData = {
-                        ...formData,
-                        fund_name: fund_name,
-                    }
-                    await store.addPlayer(recordData);
-                    console.log("Данные успешно отправлены (addPlayer):", recordData);
+                    await store.addPlayer(formData);
+                    console.log("Данные успешно отправлены (addPlayer):", formData);
                 } else if (slideType === "addBaker") {
                     const backerData = {
                         ...formBackerData,
