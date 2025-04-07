@@ -261,9 +261,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         <label className="slide__radio">
                                             <input
                                                 type="radio"
-                                                name="rollbackIncrease"
+                                                name="discipline"
                                                 value="yes"
-                                                checked={formBackerData.rollbackIncrease === true}
+                                                checked={formBackerData.discipline === "Кеш"}
                                                 onChange={handleBackerChange}
                                             />
                                             Кеш
@@ -271,9 +271,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         <label className="slide__radio">
                                             <input
                                                 type="radio"
-                                                name="rollbackIncrease"
+                                                name="discipline"
                                                 value="no"
-                                                checked={formBackerData.rollbackIncrease === false}
+                                                checked={formBackerData.discipline === "MTT"}
                                                 onChange={handleBackerChange}
                                             />
                                             MTT
