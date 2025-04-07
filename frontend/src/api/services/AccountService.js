@@ -2,10 +2,10 @@ import $api from "../http/index.js"
 import {getCsrfToken} from "./csrf.js";
 
 export default class AccountService {
-    static async addPlayer(formData) {
+    static async addPlayer(recordData) {
         await getCsrfToken();
 
-        return $api.post('/api/playerAdd', formData);
+        return $api.post('/api/playerAdd', recordData);
     }
 
     static async backerApproval(backerData) {
