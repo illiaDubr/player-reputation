@@ -46,7 +46,7 @@ const BackersList = ({data, control}) => {
                                     {title: "Количество тренеров:", content: item.numberCoach},
                                     {title: "Количество игроков:", content: item.numberPlayer},
                                     {title: "Рейкбек:", content: item.rakeback},
-                                    {title: "Дисциплина", content: item.discipline,}
+                                    {title: "Дисциплина:", content: item.discipline,}
                                 ]
                                     .filter(pair => hasContent(pair.content))
                                     .map((pair, idx) => (

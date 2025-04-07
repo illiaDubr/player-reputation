@@ -230,33 +230,6 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </div>
                                     </div>
                                 </div>*/}
-                                <div className="slide__input-wrap"  >
-                                    <label className="slide__label" htmlFor="">
-                                        Возможность увеличить свой откат
-                                    </label>
-                                    <div className="slide__radio-wrap">
-                                        <label className="slide__radio">
-                                            <input
-                                                type="radio"
-                                                name="rollbackIncrease"
-                                                value="true"
-                                                checked={formBackerData.rollbackIncrease === "true"}
-                                                onChange={handleBackerChange}
-                                            />
-                                            Да
-                                        </label>
-                                        <label className="slide__radio">
-                                            <input
-                                                type="radio"
-                                                name="rollbackIncrease"
-                                                value="false"
-                                                checked={formBackerData.rollbackIncrease === "false"}
-                                                onChange={handleBackerChange}
-                                            />
-                                            Нет
-                                        </label>
-                                    </div>
-                                </div>
                                 <div className="slide__input-wrap" style={{height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
                                         Дисциплина
@@ -281,6 +254,33 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                                 onChange={handleBackerChange}
                                             />
                                             MTT
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="slide__input-wrap" style={{height: "84px"}}>
+                                    <label className="slide__label" htmlFor="">
+                                        Возможность увеличить свой откат
+                                    </label>
+                                    <div className="slide__radio-wrap">
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="true"
+                                                checked={formBackerData.rollbackIncrease === true}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Да
+                                        </label>
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="false"
+                                                checked={formBackerData.rollbackIncrease === false}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Нет
                                         </label>
                                     </div>
                                 </div>

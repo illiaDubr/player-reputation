@@ -139,6 +139,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                 .slide__radio {
                   display: flex;
                   align-items: center;
+                  cursor: pointer;
                   justify-content: center;
                   flex-grow: 1;
                   transition: all .4s ease;
