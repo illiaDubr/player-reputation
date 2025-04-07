@@ -226,7 +226,7 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         </div>
                                     </div>
                                 </div>*/}
-                                {/*<div className="slide__input-wrap">
+                                <div className="slide__input-wrap">
                                     <label className="slide__label" htmlFor="">
                                         Возможность увеличить свой откат
                                     </label>
@@ -252,7 +252,34 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                             Нет
                                         </label>
                                     </div>
-                                </div>*/}
+                                </div>
+                                <div className="slide__input-wrap">
+                                    <label className="slide__label" htmlFor="">
+                                        Дисциплина
+                                    </label>
+                                    <div className="slide__radio-wrap">
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="yes"
+                                                checked={formBackerData.rollbackIncrease === true}
+                                                onChange={handleBackerChange}
+                                            />
+                                            Кеш
+                                        </label>
+                                        <label className="slide__radio">
+                                            <input
+                                                type="radio"
+                                                name="rollbackIncrease"
+                                                value="no"
+                                                checked={formBackerData.rollbackIncrease === false}
+                                                onChange={handleBackerChange}
+                                            />
+                                            MTT
+                                        </label>
+                                    </div>
+                                </div>
                                 <div className="slide__input-wrap" style={{gridColumn: "span 2", height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
                                         Рейкбек
