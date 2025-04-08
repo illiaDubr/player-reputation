@@ -2,8 +2,9 @@ import React from "react";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
-import BackersList from "../../../components/admin/backers/BackersList.jsx";
+import BackersItemList from "../../../components/admin/backers/BackersItemList.jsx";
 import ApprovedBackers from "../../../components/admin/backers/ApprovedBackers.jsx";
+import {Helmet} from "react-helmet-async";
 
 const Backers = observer(() => {
     const {store} = React.useContext(Context);
@@ -18,17 +19,20 @@ const Backers = observer(() => {
         });
     }, [store])
 
-    console.log(unApprovedBackers);
-
-
-
     return (
-        <AdminMain pageTitle="Заявки на верификацию">
-            <div className="admin__wrap">
-                <BackersList data={unApprovedBackers} control={true}/>
-            </div>
-            <ApprovedBackers />
-        </AdminMain>
+        <>
+            <Helmet>
+                <title>
+                    Заявки на верификацию
+                </title>
+            </Helmet>
+            <AdminMain pageTitle="Заявки на верификацию">
+                <div className="admin__wrap">
+                    <BackersItemList data={unApprovedBackers} control={true}/>
+                </div>
+                <ApprovedBackers />
+            </AdminMain>
+        </>
     )
 })
 

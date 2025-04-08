@@ -2,7 +2,7 @@ import React from "react";
 import RecordChangeStatus from "./RecordChangeStatus.jsx";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 
-const RecordList = ({data, discussion, closeRecord}) => {
+const RecordItemList = ({data, discussion, closeRecord}) => {
     const [correctRequest, setCorrectRequest] = React.useState({});
 
     const setCorrectRequestData = (recordId, value) => {
@@ -36,7 +36,7 @@ const RecordList = ({data, discussion, closeRecord}) => {
                                                 Фонд
                                             </div>
                                             <div className="record__text-desc">
-                                                {item.fund_name}
+                                                {item.old_data.fund_name}
                                             </div>
                                         </div>
                                         <div className="record__text">
@@ -70,7 +70,7 @@ const RecordList = ({data, discussion, closeRecord}) => {
                                                 Фонд
                                             </div>
                                             <div className="record__text-desc">
-                                                {item.fund_name}
+                                                {item.new_data.fund_name}
                                             </div>
                                         </div>
                                         <div className="record__text">
@@ -100,6 +100,9 @@ const RecordList = ({data, discussion, closeRecord}) => {
                         <div className="admin__no-data">
                             Новых измененных записей не было
                         </div>
+                    ) : !closeRecord ? (
+                        <>
+                        </>
                     ) : (
                         <div className="admin__no-data">
                             Записей на обсуждении нет
@@ -111,4 +114,4 @@ const RecordList = ({data, discussion, closeRecord}) => {
     )
 }
 
-export default RecordList;
+export default RecordItemList;
