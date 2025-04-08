@@ -231,12 +231,12 @@ body:has(.title__section) {
 
           .role__card-title {
             padding: 0px 40px;
-            height: 127px;
+            height: 110px;
             display: flex;
-            justify-content: center;
             align-items: center;
             position: relative;
             z-index: 2;
+            white-space: pre-line;
           }
 
           .role__card-description {
