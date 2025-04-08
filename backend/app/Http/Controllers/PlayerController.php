@@ -174,7 +174,11 @@ class PlayerController extends Controller
                 return $query->where('first_name', 'like', '%' . $request->input('first_name') . '%');
             })
             ->when($request->filled('last_name'), function ($query) use ($request) {
-                return $query->where('last_name', 'like', '%' . $request->input('last_name') . '%');
+                $name = $request->input('last_name');
+                return $query->where(function ($q) use ($name) {
+                    $q->where('last_name', 'like', "%$name%")
+                        ->orWhere('first_name', 'like', "%$name%");
+                });
             })
             ->when($request->filled('middle_name'), function ($query) use ($request) {
                 return $query->where('middle_name', 'like', '%' . $request->input('middle_name') . '%');
