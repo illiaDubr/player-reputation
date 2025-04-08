@@ -6,6 +6,7 @@ import {recordsText} from "../../../utils/AdminData.js";
 import RecordList from "../../../components/admin/records/RecordList.jsx";
 import CloseRecord from "../../../components/admin/records/CloseRecord.jsx";
 import DiscussionRecord from "../../../components/admin/records/DiscussionRecord.jsx";
+import {Helmet} from "react-helmet-async";
 
 const Records = observer(() => {
     const { store } = React.useContext(Context);
@@ -19,16 +20,21 @@ const Records = observer(() => {
         });
     }, [store]);
 
-    console.log(recordsData);
-
     return (
-        <AdminMain pageTitle="Измененные записи" text={recordsText}>
-            <div className="admin__wrap">
-                <RecordList data={recordsData} discussion={true} closeRecord={true}/>
-            </div>
-            <DiscussionRecord />
-            <CloseRecord />
-        </AdminMain>
+        <>
+            <Helmet>
+                <title>
+                    Измененные записи
+                </title>
+            </Helmet>
+            <AdminMain pageTitle="Измененные записи" text={recordsText}>
+                <div className="admin__wrap">
+                    <RecordList data={recordsData} discussion={true} closeRecord={true}/>
+                </div>
+                <DiscussionRecord />
+                <CloseRecord />
+            </AdminMain>
+        </>
     );
 })
 
