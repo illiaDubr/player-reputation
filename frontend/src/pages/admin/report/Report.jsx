@@ -5,6 +5,7 @@ import {Context} from "../../../api/store/storeContext.js";
 import CloseReports from "../../../components/admin/report/CloseReports.jsx";
 import ReportItemList from "../../../components/admin/report/ReportItemList.jsx";
 import {reportText} from "../../../utils/AdminData.js";
+import {Helmet} from "react-helmet-async";
 
 const Report = observer(() => {
     const {store} = React.useContext(Context);
@@ -19,12 +20,19 @@ const Report = observer(() => {
     }, [store]);
 
     return (
-        <AdminMain pageTitle="Репорт метки" text={reportText}>
-            <div className="admin__wrap">
-                <ReportItemList data={reportData} tagEdit={true} closeReport={true}/>
-            </div>
-            <CloseReports />
-        </AdminMain>
+        <>
+            <Helmet>
+                <title>
+                    Репорт метки
+                </title>
+            </Helmet>
+            <AdminMain pageTitle="Репорт метки" text={reportText}>
+                <div className="admin__wrap">
+                    <ReportItemList data={reportData} tagEdit={true} closeReport={true}/>
+                </div>
+                <CloseReports />
+            </AdminMain>
+        </>
     );
 })
 

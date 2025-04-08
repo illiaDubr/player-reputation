@@ -1,7 +1,7 @@
 import React from "react";
 import {Context} from "../../../api/store/storeContext.js";
 
-const RecordChangeStatus = ({discussion, id, closeRecord}) => {
+const RecordChangeStatus = ({discussion, id, closeRecord, setCorrectRequestData}) => {
     const {store} = React.useContext(Context);
 
     const handleChangeSubmit = (newStatus) => (e) => {
@@ -11,7 +11,10 @@ const RecordChangeStatus = ({discussion, id, closeRecord}) => {
             status: newStatus,
         }
 
-        store.changeRecordStatus(changeRecordData);
+        store.changeRecordStatus(changeRecordData)
+            .then(() => {
+                setCorrectRequestData(id, true)
+            })
     }
 
     return (

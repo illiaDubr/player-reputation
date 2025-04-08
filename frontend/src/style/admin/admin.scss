@@ -173,6 +173,14 @@
         background: rgba(0, 41, 43, 0.35);
         overflow: hidden;
 
+        .record__correct {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          @include mixin.font-style(500, 19, 130, #FFFFFF);
+          opacity: .6;
+        }
+
         .record__top {
           display: flex;
           align-items: center;

@@ -20,7 +20,9 @@ const ReportItemList = ({data, tagEdit, closeReport}) => {
                     <div className="admin__box" key={index}>
                         <div className="record report">
                             {correctRequest[item.id] ? (
-                                <div className="">Готово</div>
+                                <div className="record__correct">
+                                    Готово!
+                                </div>
                             ) : (
                                 <>
                                     <div className="record__top">
