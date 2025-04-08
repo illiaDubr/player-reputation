@@ -46,11 +46,8 @@ const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) =
         console.log(editReportData);
 
         store.editTagReport(editReportData)
-            .then((response) => {
-                if (response.status === 200) {
-                    setCorrectRequest(true);
-                }
-                console.log(response);
+            .then(() => {
+                setCorrectRequest(true);
                 changeRecords();
             })
     }

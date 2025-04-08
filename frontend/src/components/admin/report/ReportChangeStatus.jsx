@@ -12,11 +12,8 @@ const ReportChangeStatus = ({id, disabled, setCorrectRequest}) => {
             status: newStatus,
         };
         store.changeReportStatus(changeReportData)
-            .then((response) => {
-                if (response.status === 200) {
-                    setCorrectRequest(true);
-                    console.log(response);
-                }
+            .then(() => {
+                setCorrectRequest(true);
             })
     };
 
