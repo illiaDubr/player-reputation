@@ -2,7 +2,7 @@ import React from "react";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 
-const ReportChangeStatus = ({id, disabled, setCorrectRequest}) => {
+const ReportChangeStatus = ({id, disabled, setCorrectRequestData}) => {
     const {store} = React.useContext(Context);
 
     const handleChangeSubmit = (newStatus) => (e) => {
@@ -13,7 +13,7 @@ const ReportChangeStatus = ({id, disabled, setCorrectRequest}) => {
         };
         store.changeReportStatus(changeReportData)
             .then(() => {
-                setCorrectRequest(true);
+                setCorrectRequestData(id, true);
             })
     };
 

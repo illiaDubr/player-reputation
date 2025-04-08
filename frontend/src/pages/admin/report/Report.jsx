@@ -3,7 +3,7 @@ import {observer} from 'mobx-react-lite';
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 import CloseReports from "../../../components/admin/report/CloseReports.jsx";
-import ReportItem from "../../../components/admin/report/ReportItem.jsx";
+import ReportItemList from "../../../components/admin/report/ReportItemList.jsx";
 import {reportText} from "../../../utils/AdminData.js";
 
 const Report = observer(() => {
@@ -21,7 +21,7 @@ const Report = observer(() => {
     return (
         <AdminMain pageTitle="Репорт метки" text={reportText}>
             <div className="admin__wrap">
-                <ReportItem data={reportData} tagEdit={true} closeReport={true}/>
+                <ReportItemList data={reportData} tagEdit={true} closeReport={true}/>
             </div>
             <CloseReports />
         </AdminMain>

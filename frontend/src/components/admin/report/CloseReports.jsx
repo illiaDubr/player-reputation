@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../api/store/storeContext.js";
-import ReportItem from "./ReportItem.jsx";
+import ReportItemList from "./ReportItemList.jsx";
 
 const CloseReports = observer(() => {
     const {store} = React.useContext(Context);
@@ -20,7 +20,7 @@ const CloseReports = observer(() => {
             <div className="admin__title">
                 Закрытые репорты
             </div>
-            <ReportItem data={closeReports} tagEdit={false} closeReport={false}/>
+            <ReportItemList data={closeReports} tagEdit={false} closeReport={false}/>
             <form method="GET" onSubmit={handleSubmit}>
                 <button type="submit" className="admin__btn">
                     Просмотреть

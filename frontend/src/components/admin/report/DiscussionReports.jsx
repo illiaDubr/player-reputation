@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../api/store/storeContext.js";
-import ReportItem from "./ReportItem.jsx";
+import ReportItemList from "./ReportItemList.jsx";
 
 const DiscussionReports = observer(() => {
     const {store} = React.useContext(Context);
@@ -15,7 +15,7 @@ const DiscussionReports = observer(() => {
 
     return (
         <div className="admin__wrap">
-            <ReportItem data={discussionReports} tagEdit={true} discussion={false}/>
+            <ReportItemList data={discussionReports} tagEdit={true} discussion={false}/>
         </div>
     )
 })
