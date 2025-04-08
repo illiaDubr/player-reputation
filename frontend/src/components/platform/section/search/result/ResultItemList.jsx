@@ -37,8 +37,8 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
-
     const sectionRef = React.createRef();
+    const [scrollBtn, setScrollBtn] = React.useState(false);
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -56,6 +56,9 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
 
     const handlePageClick = (event) => {
         setCurrentPage(event.selected);
+    };
+
+    const scrollToTop = () => {
         if (sectionRef.current) {
             const elementTop = sectionRef.current.getBoundingClientRect().top + window.pageYOffset;
             window.scrollTo({
@@ -65,8 +68,35 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
         }
     };
 
+    React.useEffect(() => {
+        if (pageCount > 1) {
+            const scrollHandler = (e) => {
+                const docEl = e.target.documentElement;
+                const scrollBottom = docEl.scrollHeight - (docEl.scrollTop + window.innerHeight);
+                if (scrollBottom < 100) {
+                    setScrollBtn(true);
+                } else {
+                    setScrollBtn(false);
+                }
+            };
+            document.addEventListener("scroll", scrollHandler);
+            return () => document.removeEventListener("scroll", scrollHandler);
+        }
+    }, [pageCount]);
+
     return (
         <div className="result__wrapper" ref={sectionRef}>
+            <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                marginPagesDisplayed={1}
+                pageRangeDisplayed={3}
+                previousLabel="<"
+                nextLabel=">"
+                containerClassName="pagination"
+                activeClassName="active"
+            />
+
             {currentResults.map((item) => {
                 const {
                     player_id,
@@ -227,16 +257,9 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                 );
             })}
 
-            <ReactPaginate
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                marginPagesDisplayed={1}
-                pageRangeDisplayed={3}
-                previousLabel="<"
-                nextLabel=">"
-                containerClassName="pagination"
-                activeClassName="active"
-            />
+            <button type="button" className={`btn-to-top ${scrollBtn ? "active" : ""}`} onClick={scrollToTop}>
+                <IconSvg width={20} height={20} id="arrow"/>
+            </button>
 
             {editModalData.map((modalItem, index) => (
                 <Modal modalName={modalItem.name} key={index}>
