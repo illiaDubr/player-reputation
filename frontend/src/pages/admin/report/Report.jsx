@@ -18,8 +18,6 @@ const Report = observer(() => {
         });
     }, [store]);
 
-    console.log(reportData);
-
     return (
         <AdminMain pageTitle="Репорт метки" text={reportText}>
             <div className="admin__wrap">
