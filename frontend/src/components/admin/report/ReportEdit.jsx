@@ -50,6 +50,7 @@ const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) =
                 if (response.status === 200) {
                     setCorrectRequest(true);
                 }
+                console.log(response);
                 changeRecords();
             })
     }

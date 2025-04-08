@@ -15,6 +15,7 @@ const ReportChangeStatus = ({id, disabled, setCorrectRequest}) => {
             .then((response) => {
                 if (response.status === 200) {
                     setCorrectRequest(true);
+                    console.log(response);
                 }
             })
     };
