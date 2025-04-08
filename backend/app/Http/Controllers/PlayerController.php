@@ -161,7 +161,7 @@ class PlayerController extends Controller
         if ($request->filled('discord') || $request->filled('email')) {
             return $query
                 ->when($request->filled('discord'), function ($query) use ($request) {
-                    return $query->where('skype', 'like', '%' . $request->input('discord') . '%');
+                    return $query->where('discord', 'like', '%' . $request->input('discord') . '%');
                 })
                 ->when($request->filled('email'), function ($query) use ($request) {
                     return $query->where('email', 'like', '%' . $request->input('email') . '%');
