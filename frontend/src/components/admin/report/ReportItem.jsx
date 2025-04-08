@@ -2,8 +2,10 @@ import React from "react";
 import ReportEdit from "./ReportEdit.jsx";
 
 const ReportItem = ({data, tagEdit, closeReport}) => {
+    const [correctRequest, setCorrectRequest] = React.useState(false);
 
     console.log(data);
+    console.log(correctRequest)
     return (
         <>
             {data.length > 0 ? (
@@ -16,7 +18,7 @@ const ReportItem = ({data, tagEdit, closeReport}) => {
                                 </div>
                                 <div className="record__form-wrap">
                                     {tagEdit && (
-                                        <ReportEdit tag={item.backer_tag} closeReport={closeReport} playerId={item.player_id} recordId={item.id}/>
+                                        <ReportEdit closeReport={closeReport} setCorrectRequest={setCorrectRequest} playerId={item.player_id} recordId={item.id} tag={item.backer_tag}/>
                                     )}
                                 </div>
                             </div>
