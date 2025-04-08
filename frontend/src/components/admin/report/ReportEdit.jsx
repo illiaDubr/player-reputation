@@ -4,7 +4,7 @@ import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 import ReportChangeStatus from "./ReportChangeStatus.jsx";
 
-const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) => {
+const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequestData}) => {
     const {store} = React.useContext(Context);
     const [selected, setSelected] = React.useState(tag);
     const [isOpen, setIsOpen] = React.useState(false);
@@ -29,9 +29,6 @@ const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) =
             id: recordId,
             status: "read",
         }
-
-        console.log(changeReportData);
-
         store.changeReportStatus(changeReportData);
     }
 
@@ -43,11 +40,9 @@ const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) =
             playerId: playerId,
         }
 
-        console.log(editReportData);
-
         store.editTagReport(editReportData)
             .then(() => {
-                setCorrectRequest(true);
+                setCorrectRequestData(recordId, true);
                 changeRecords();
             })
     }
@@ -84,7 +79,7 @@ const ReportEdit = ({tag, playerId, recordId, closeReport, setCorrectRequest}) =
                 </form>
             </div>
             {closeReport && (
-                <ReportChangeStatus id={recordId} disabled={isChanged} setCorrectRequest={setCorrectRequest}/>
+                <ReportChangeStatus id={recordId} disabled={isChanged} setCorrectRequestData={setCorrectRequestData}/>
             )}
         </>
     )
