@@ -2,7 +2,7 @@ import React from "react";
 import IconSvg from "../../platform/components/IconSvg.jsx";
 import {Context} from "../../../api/store/storeContext.js";
 
-const BackersForm = ({fund, backerId}) => {
+const BackersForm = ({fund, backerId, setCorrectRequestData}) => {
     const {store} = React.useContext(Context);
 
     const handleSubmit = (e) => {
@@ -18,6 +18,9 @@ const BackersForm = ({fund, backerId}) => {
         }
 
         store.approvedBacker(backerData)
+            .then(() => {
+                setCorrectRequestData(backerData, true)
+            })
         store.changeFundBacker(fundData);
     }
 

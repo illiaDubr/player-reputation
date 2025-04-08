@@ -3,7 +3,7 @@ import {Context} from "../../../api/store/storeContext.js";
 import {observer} from "mobx-react-lite";
 import AdminMain from "../../../components/admin/AdminMain.jsx";
 import {recordsText} from "../../../utils/AdminData.js";
-import RecordList from "../../../components/admin/records/RecordList.jsx";
+import RecordItemList from "../../../components/admin/records/RecordItemList.jsx";
 import CloseRecord from "../../../components/admin/records/CloseRecord.jsx";
 import DiscussionRecord from "../../../components/admin/records/DiscussionRecord.jsx";
 import {Helmet} from "react-helmet-async";
@@ -29,7 +29,7 @@ const Records = observer(() => {
             </Helmet>
             <AdminMain pageTitle="Измененные записи" text={recordsText}>
                 <div className="admin__wrap">
-                    <RecordList data={recordsData} discussion={true} closeRecord={true}/>
+                    <RecordItemList data={recordsData} discussion={true} closeRecord={true}/>
                 </div>
                 <DiscussionRecord />
                 <CloseRecord />
