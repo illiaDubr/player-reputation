@@ -12,7 +12,7 @@ import SlideContentWrap from "./SlideContentWrap.jsx";
 import CustomInput from "./CustomInput.jsx";
 import MarkSelect from "./MarkSelect.jsx";
 
-const SlideData = (slideType, formData, setFormData, formBackerData, setFormBackerData) => {
+const SlideData = (slideType, formData, setFormData, formBackerData, setFormBackerData, formBackerErrors) => {
 
     const handlePhoneNumberChange = React.useCallback((phoneNumber) => {
         setFormData((prevData) => ({...prevData, phonenumber: phoneNumber}));
@@ -55,12 +55,6 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                             <div className="slide__box">
                                 <ReputationInput info={firstSlideDataPlayer} formData={formData}
                                                  setFormData={setFormData}/>
-                                {/*<div className="slide__input-wrap">
-                                        <div className="slide__label">
-                                            Год рождения
-                                        </div>
-                                        <DateInput formData={formData} setFormData={setFormData}/>
-                                    </div>*/}
                                 <div className="slide__input-wrap">
                                     <div className="slide__label">
                                         Номер телефона
@@ -142,9 +136,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                     content: (
                         <SlideContentWrap>
                             <div className="slide__box">
-                                <div className="slide__input-wrap">
+                                <div className={`slide__input-wrap ${formBackerErrors?.fund_name ? "slide__input-error" : ""}`}>
                                     <label className="slide__label" htmlFor="fund_name">
-                                        Название Фонда
+                                        Название Фонда*
                                     </label>
                                     <input
                                         id="fund_name"
@@ -156,9 +150,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         placeholder="Введите название"
                                     />
                                 </div>
-                                <div className="slide__input-wrap">
+                                <div className={`slide__input-wrap ${formBackerErrors?.siteLink ? "slide__input-error" : ""}`}>
                                     <label className="slide__label" htmlFor="siteLink">
-                                        Ссылка на сайт
+                                        Ссылка на сайт*
                                     </label>
                                     <input
                                         id="siteLink"
@@ -184,9 +178,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                                         placeholder="Введите ссылку на Discord"
                                     />
                                 </div>
-                                <div className="slide__input-wrap">
+                                <div className={`slide__input-wrap ${formBackerErrors?.discordRepresentative ? "slide__input-error" : ""}`}>
                                     <label className="slide__label" htmlFor="discordRepresentative">
-                                        Контакт представителя в Discord
+                                        Контакт представителя в Discord*
                                     </label>
                                     <input
                                         id="discordRepresentative"
@@ -207,32 +201,9 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                     content: (
                         <SlideContentWrap>
                             <div className="slide__box">
-                                {/*<div className="slide__input-wrap">
-                                    <label className="slide__label">
-                                        Базовый откат игроку
-                                    </label>
-                                    <div style={{display: "flex", flexWrap: "wrap", gap: "8px"}}>
-                                        <div className="slide__input"
-                                             style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
-                                            <div className="slide__custom-input slide__amount">
-                                                от
-                                                <input style={{width: '50px'}}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="slide__input"
-                                             style={{display: 'flex', gap: '8px', flexGrow: "1"}}>
-                                            <div className="slide__custom-input slide__amount">
-                                                до
-                                                <input style={{width: '50px'}}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*/}
-                                <div className="slide__input-wrap" style={{height: "84px"}}>
+                                    <div className={`slide__input-wrap ${formBackerErrors?.discipline ? "slide__input-error" : ""}`} style={{height: "84px"}}>
                                     <label className="slide__label" htmlFor="">
-                                        Дисциплина
+                                        Дисциплина*
                                     </label>
                                     <div className="slide__radio-wrap">
                                         <label className="slide__radio">

@@ -8,7 +8,8 @@ const AccountForm = ({slideType, modalOpen}) => {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [formData, setFormData] = useAddPlayerData();
     const [formBackerData, setFormBackerData] = useBackerApprovalData();
-    const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData);
+    const [formBackerErrors, setFormBackerErrors] = React.useState({});
+    const slides = SlideData(slideType, formData, setFormData, formBackerData, setFormBackerData, formBackerErrors);
     const {store} = React.useContext(Context);
     const fund_name = store.user?.backer?.fund_for_search;
     const userId = store.user?.backer?.backer_id;
@@ -25,6 +26,17 @@ const AccountForm = ({slideType, modalOpen}) => {
         }
     };
 
+    const validateBackerData = () => {
+        const requiredFields = ["fund_name", "siteLink", "discordRepresentative", "discipline"];
+        const errors = {};
+        requiredFields.forEach((field) => {
+            if (!formBackerData[field] || (typeof formBackerData[field] === "string" && formBackerData[field].trim() === "")) {
+                errors[field] = "Это поле обязательно";
+            }
+        });
+        return errors;
+    };
+
     const submitForm = async (e) => {
         e.preventDefault();
         if (activeIndex < slides.length - 1) {
@@ -39,6 +51,13 @@ const AccountForm = ({slideType, modalOpen}) => {
                     await store.addPlayer(recordData);
                     console.log("Данные успешно отправлены (addPlayer):", recordData);
                 } else if (slideType === "addBaker") {
+                    const errors = validateBackerData();
+                    if (Object.keys(errors).length > 0) {
+                        // Устанавливаем состояние ошибок и выходим, чтобы не выполнять запрос
+                        setFormBackerErrors(errors);
+                        return;
+                    }
+                    setFormBackerErrors({});
                     const backerData = {
                         ...formBackerData,
                         id: userId,
