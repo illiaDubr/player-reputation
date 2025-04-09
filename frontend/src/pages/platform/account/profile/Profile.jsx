@@ -4,8 +4,20 @@ import Main from "../../../../components/main/Main.jsx";
 import {ProfileData} from "../../../../utils/Profile.js";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
+import {Context} from "../../../../api/store/storeContext.js";
 
 const Profile = () => {
+    const {store} = React.useContext(Context);
+    const [profile, setProfile] = React.useState([]);
+
+    React.useEffect(() => {
+        store.user.then((user) => {
+            setProfile(user);
+        })
+    }, [store]);
+
+    console.log(profile);
+
     return (
         <>
             <Helmet>
