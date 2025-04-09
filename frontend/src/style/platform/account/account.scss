@@ -431,6 +431,30 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           .profile__info {
             @include mixin.font-style(400, 16, 130, #FFFFFF);
 
+            .profile__text {
+              transition-behavior: allow-discrete;
+              display: none;
+              opacity: 0;
+              transition-duration: .6s;
+            }
+
+            .profile__input {
+              transition-behavior: allow-discrete;
+              display: none;
+              opacity: 0;
+              transition-duration: .6s;
+              transition-delay: 1s;
+            }
+
+            .active {
+              display: block;
+              opacity: 1;
+
+              @starting-style {
+                opacity: 0;
+              }
+            }
+
             .profile__edit-btn {
               height: 28px;
               padding: 0 10px;
@@ -438,6 +462,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               align-items: center;
               border: 1px solid #2750f2;
               border-radius: 4px;
+              transition: all .4s ease;
               visibility: hidden;
               opacity: 0;
 
