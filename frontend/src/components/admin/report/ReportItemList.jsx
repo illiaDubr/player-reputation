@@ -27,7 +27,7 @@ const ReportItemList = ({data, tagEdit, closeReport}) => {
                                 <>
                                     <div className="record__top">
                                         <div className="record__title">
-                                            {item.reporter_name}
+                                            {item.reporter_fund}
                                         </div>
                                         <div className="record__form-wrap">
                                             {tagEdit && (

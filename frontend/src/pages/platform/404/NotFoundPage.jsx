@@ -11,9 +11,7 @@ const NotFoundPage = () => {
 
     React.useEffect(() => {
         if (store.isLoading) {
-            // При начале загрузки сбрасываем значение прогресса и запускаем плавное увеличение
             setLoadingProgress(0);
-            // Обновляем каждые 50 мс, шаг изменения 5 пикселей (настройте по необходимости)
             intervalRef.current = setInterval(() => {
                 setLoadingProgress((prev) => {
                     if (prev < maxHeight) {
@@ -23,7 +21,6 @@ const NotFoundPage = () => {
                 });
             }, 50);
         } else {
-            // Когда загрузка завершена, очищаем интервал и устанавливаем макс. высоту
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
                 intervalRef.current = null;
