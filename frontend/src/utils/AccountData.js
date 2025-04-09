@@ -102,12 +102,11 @@ export const NavListData = [
         icon: "link_personal_account",
         header_text: "Личный кабинет",
     },
-    /*{
+    {
         link: PROFILE_ROUTE,
         icon: "link_profile",
         header_text: "Профиль",
     },
-    */
     {
         link: SEARCH_ROUTE,
         icon: "link_search",

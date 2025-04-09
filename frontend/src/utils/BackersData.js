@@ -239,4 +239,8 @@ export const fundsData = [
         id: 59,
         fundName: "RedLine"
     },
+    {
+        id: 60,
+        fundName: "Funfarm"
+    },
 ]
