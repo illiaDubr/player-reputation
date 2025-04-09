@@ -4,11 +4,12 @@ import {Context} from "../../../api/store/storeContext.js";
 const NotFoundPage = () => {
     const {store} = React.useContext(Context);
 
-    console.log(store.isLoading)
+    console.log(store.checkAuth())
+
 
     React.useEffect(() => {
-        console.log(store.isLoading)
-    }, [store.isLoading]);
+        console.log(store.checkAuth())
+    });
 
     return (
         <h1>
