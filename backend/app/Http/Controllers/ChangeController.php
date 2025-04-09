@@ -18,6 +18,32 @@ class ChangeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
+        // Декодируем данные и, если нужно, догружаем backer_tag
+        $changes->getCollection()->transform(function ($change) {
+            $old = json_decode($change->old_data, true) ?? [];
+            $new = json_decode($change->new_data, true) ?? [];
+
+            // Предположим, в ReputationRecord есть player_id
+            if (isset($new['player_id'])) {
+                $player = \App\Models\Player::where('player_id', $new['player_id'])->first();
+                if ($player) {
+                    $new['backer_tag'] = $player->backer_tag;
+                }
+            }
+
+            if (isset($old['player_id'])) {
+                $player = \App\Models\Player::where('player_id', $old['player_id'])->first();
+                if ($player) {
+                    $old['backer_tag'] = $player->backer_tag;
+                }
+            }
+
+            // Теперь $change->old_data/$new_data станут массивами
+            $change->old_data = $old;
+            $change->new_data = $new;
+            return $change;
+        });
+
         return response()->json($changes);
     }
 

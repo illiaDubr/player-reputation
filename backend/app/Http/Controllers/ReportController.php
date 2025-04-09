@@ -72,7 +72,7 @@ class ReportController extends Controller
 {
     $statuses = $request->query('status', null);
 
-    $query = Report::with(['player', 'reputationRecord', 'reporter']);
+    $query = Report::with(['player', 'reputationRecord', 'reporter', 'reporter.backer']);
 
     if ($statuses) {
         $statusArray = explode(',', $statuses);
@@ -91,6 +91,7 @@ class ReportController extends Controller
             'damage' => optional($report->reputationRecord)->damage,
             'report_comment' => $report->comment,
             'reporter_name' => optional($report->reporter)->name,
+            'reporter_fund' => optional($report->reporter->backer)->fund_name,
             'status' => $report->status,
             'created_at' => $report->created_at,
             'backer_tag' =>optional($report->player)->backer_tag,
