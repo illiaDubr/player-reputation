@@ -111,7 +111,6 @@ export default class Store {
     }
 
     async checkAuth() {
-        console.log("checkAuth: старт");
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URl}/api/user`, { withCredentials: true });
@@ -123,7 +122,6 @@ export default class Store {
             this.setUser({});
         } finally {
             this.setLoading(false);
-            console.log("checkAuth завершился, isLoading:", this.isLoading);
         }
     }
 
