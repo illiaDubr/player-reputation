@@ -5,29 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Change;
 
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Change extends Model
+class ChangeController extends Controller
 {
-    protected $fillable = [
-        'model_type',
-        'model_id',
-        'old_data',
-        'new_data',
-        'user_id',
-        'status',
-    ];
+    /**
+     * Получение списка изменений с фильтрацией по статусу.
+     */
+    public function index(Request $request)
+    {
+        $status = $request->query('status', 'unread');
 
-    protected $casts = [
-        'old_data' => 'array',
-        'new_data' => 'array',
-    ];
-}
+        $changes = Change::where('status', $status)
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
+
+
+        return response()->json($changes);
+    }
 
     /**
      * Обновление статуса изменения.
