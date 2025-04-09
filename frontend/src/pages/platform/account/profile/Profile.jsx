@@ -57,7 +57,7 @@ const Profile = () => {
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
-                            <button type="button">
+                            <button type="button" className="btn">
                                 Изменить
                             </button>
                         </>
