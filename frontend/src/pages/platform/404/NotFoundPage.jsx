@@ -13,6 +13,10 @@ const NotFoundPage = () => {
             })
     }, [store]);
 
+    if (store.isLoading) {
+        return <div>Загрузка...</div>;
+    }
+
     return (
         <h1>
             404 Not Found
