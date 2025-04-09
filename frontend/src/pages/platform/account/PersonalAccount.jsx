@@ -68,7 +68,7 @@ function PersonalAccount() {
                     <Link className={`account__link-wrap ${disabled ? "account__link-wrap-disabled" : ""}`} to={SEARCH_ROUTE}>
                         <span className="account__link">
                             <span className="account__link-title">
-                                Осуществить поиск по базе
+                                Поиск по базе
                             </span>
                             <img src={Images.big__grid} alt="" className="account__img"/>
                             <img src={Images["account_computer-1"]} alt="Account Computer" className="account__img-1"/>
@@ -79,7 +79,7 @@ function PersonalAccount() {
                     <button className="account__link-wrap" type="button" onClick={openReputationModal} disabled={disabled}>
                         <span className="account__link">
                             <span className="account__link-title">
-                                Внести информацию репутации своего игрока
+                                Добавить игрока
                             </span>
                             <img src={Images.big__grid} alt="" className="account__img"/>
                             <img src={Images["account_computer-2"]} alt="Account Computer" className="account__img-2"/>

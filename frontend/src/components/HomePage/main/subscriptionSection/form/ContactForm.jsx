@@ -16,9 +16,9 @@ const ContactForm = () => {
                 </div>
                 <div className="contact__form-field">
                     <label htmlFor="contact-email">
-                        Почта
+                        Задать вопрос
                     </label>
-                    <input id="contact-email" type="text" placeholder="Введите почту"/>
+                    <input id="contact-email" type="text" placeholder="Введите вопрос"/>
                 </div>
                 <button className="contact__btn" type="submit">
                     Отправить
