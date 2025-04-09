@@ -64,11 +64,11 @@ const HomePage = observer(() => {
                         <h2>
                             Как мы работаем, условия
                         </h2>
-                        <Subscribe />
+                        <Subscribe/>
                     </div>
-                    <ContactForm />
+                    <ContactForm/>
                 </section>
-                <Auth userData={userData} setUserData={setUserData} />
+                <Auth userData={userData} setUserData={setUserData}/>
             </main>
             <Footer selectedRole={selectedRole} />
         </>

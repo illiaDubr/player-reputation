@@ -5,16 +5,28 @@ const NotFoundPage = () => {
     const {store} = React.useContext(Context);
 
 
+    const loadingStartTimeRef = React.useRef(null);
 
     React.useEffect(() => {
-        store.checkAuth()
-            .then(() => {
-                console.log(store.isAuth)
-            })
-    }, [store]);
+        if (store.isLoading) {
+            // Когда загрузка начинается, сохраняем время
+            loadingStartTimeRef.current = Date.now();
+        } else {
+            // Когда isLoading становится false, проверяем, была ли загрузка
+            if (loadingStartTimeRef.current !== null) {
+                const elapsedTime = Date.now() - loadingStartTimeRef.current;
+                console.log("Время загрузки:", elapsedTime, "мс");
+                // Обнуляем ref для следующего измерения
+                loadingStartTimeRef.current = null;
+            }
+        }
+    }, [store.isLoading]);
+
 
     if (store.isLoading) {
-        return <div>Загрузка...</div>;
+        return <div>
+
+        </div>;
     }
 
     return (
