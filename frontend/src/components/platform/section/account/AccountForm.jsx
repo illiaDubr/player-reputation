@@ -94,6 +94,13 @@ const AccountForm = ({slideType, modalOpen}) => {
                     </p>
                 </div>
             )}
+            {Object.keys(formBackerErrors).length > 0 && (
+                <div className="slide__warning">
+                    <p>
+                        Пожалуйста заполните поля
+                    </p>
+                </div>
+            )}
             {activeIndex > 0 && (
                 <div className="slide__btn-prev" onClick={handlePrevClick}>
                     Вернуться назад

@@ -161,7 +161,19 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             }
 
             .slide__input-error {
+              .slide__label {
+                color: #ff2828;
+              }
 
+              .slide__input {
+                border: 1px solid #ff2828;
+              }
+
+              .slide__radio-wrap {
+                .slide__radio {
+                  border: 1px solid #ff2828;
+                }
+              }
             }
           }
         }
