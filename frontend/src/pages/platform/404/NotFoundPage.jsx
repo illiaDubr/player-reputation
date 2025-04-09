@@ -6,6 +6,10 @@ const NotFoundPage = () => {
 
     console.log(store.isLoading)
 
+    React.useEffect(() => {
+        console.log(store.isLoading)
+    }, [store.isLoading]);
+
     return (
         <h1>
             404 Not Found
