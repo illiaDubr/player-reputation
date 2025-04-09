@@ -412,6 +412,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         z-index: 2;
         overflow: hidden;
 
+        .profile__top {
+
+        }
+
         &:before, &:after {
           content: '';
           width: 150px;

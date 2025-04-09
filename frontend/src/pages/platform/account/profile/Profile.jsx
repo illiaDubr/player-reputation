@@ -9,7 +9,7 @@ import {Context} from "../../../../api/store/storeContext.js";
 const Profile = () => {
     const {store} = React.useContext(Context);
     //const [profile, setProfile] = React.useState([]);
-    const profile = store.user;
+    const profile = store.user?.backer;
 
     console.log(profile);
 
@@ -23,12 +23,36 @@ const Profile = () => {
             </Helmet>
             <Main secClassName="profile__wrap" secID="profile">
                 <div className="profile__box">
-                    {ProfileData.map((item, index) => (
+                    {profile.map((item, index) => (
                         <>
                             <div className="profile" key={index}>
                                 <div className="profile__item profile__left">
                                     <div className="profile__top">
-                                        <IconSvg width={32} height={32} fill={item.icon} />
+                                        <IconSvg width={48} height={48} variant="funds" id={item.fund_for_search} />
+                                    </div>
+                                    <div className="profile__item">
+                                        <div className="profile__title">
+                                            Описание фонда:
+                                        </div>
+                                        <div className="profile__text">
+                                            {item.fundDescr}
+                                        </div>
+                                    </div>
+                                    <div className="profile__item">
+                                        <div className="profile__title">
+                                            ФИО главного контактного лица:
+                                        </div>
+                                        <div className="profile__text">
+                                            {item.contact_name}
+                                        </div>
+                                    </div>
+                                    <div className="profile__item">
+                                        <div className="profile__title">
+                                           Дискорд для связи:
+                                        </div>
+                                        <div className="profile__text">
+                                            {item.discord}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="profile__item profile__right">
