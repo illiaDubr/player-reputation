@@ -8,15 +8,11 @@ import {Context} from "../../../../api/store/storeContext.js";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
-    const [profile, setProfile] = React.useState([]);
-
-    React.useEffect(() => {
-        store.user.then((user) => {
-            setProfile(user);
-        })
-    }, [store]);
+    //const [profile, setProfile] = React.useState([]);
+    const profile = store.user;
 
     console.log(profile);
+
 
     return (
         <>
