@@ -5,22 +5,11 @@ const NotFoundPage = () => {
     const {store} = React.useContext(Context);
 
 
-    const loadingStartTimeRef = React.useRef(null);
-
     React.useEffect(() => {
-        if (store.isLoading) {
-            // Когда загрузка начинается, сохраняем время
-            loadingStartTimeRef.current = Date.now();
-        } else {
-            // Когда isLoading становится false, проверяем, была ли загрузка
-            if (loadingStartTimeRef.current !== null) {
-                const elapsedTime = Date.now() - loadingStartTimeRef.current;
-                console.log("Время загрузки:", elapsedTime, "мс");
-                // Обнуляем ref для следующего измерения
-                loadingStartTimeRef.current = null;
-            }
-        }
-    }, [store.isLoading]);
+        store.checkAuth().then(() => {
+            console.log("После checkAuth, isLoading:", store.isLoading);
+        });
+    }, [store]);
 
 
     if (store.isLoading) {
