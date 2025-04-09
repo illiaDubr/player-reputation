@@ -408,12 +408,28 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         border: 1px solid #000b48;
         border-radius: 20px;
         padding: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
         position: relative;
         z-index: 2;
         overflow: hidden;
 
         .profile__top {
 
+        }
+
+        .profile__field {
+
+          .profile__title {
+            @include mixin.font-style(600, 20, 130, #FFFFFF);
+            letter-spacing: -0.01em;
+            padding: 0px 0px 16px 0px;
+          }
+
+          .profile__text {
+            @include mixin.font-style(400, 16, 130, #FFFFFF);
+          }
         }
 
         &:before, &:after {
