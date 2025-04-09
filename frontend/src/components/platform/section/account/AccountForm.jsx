@@ -66,10 +66,9 @@ const AccountForm = ({slideType, modalOpen}) => {
                     console.log("data backer", backerData);
                     await store.backerApproval(backerData);
                 }
+                modalOpen();
             } catch (error) {
                 console.error("Ошибка при отправке данных:", error);
-            } finally {
-                modalOpen();
             }
         }
     }
@@ -88,7 +87,7 @@ const AccountForm = ({slideType, modalOpen}) => {
             </div>
             {activeIndex === 3 && (
                 <div className="slide__warning">
-                    <IconSvg width={24} height={24} id="red_notification" />
+                    <IconSvg width={24} height={24} id="red_notification"/>
                     <p>
                         Перед отправкой информации о игровку обязательно перепроверьте
                         всю информацию и сумму ущерба. Это повлияет на дальнейшую карьеру игрока
