@@ -29,7 +29,7 @@ const Profile = () => {
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds" id={profile.fund_for_search} />
                                     </div>
-                                    <div className="profile__item">
+                                    <div className="profile__field">
                                         <div className="profile__title">
                                             Описание фонда:
                                         </div>
@@ -37,7 +37,7 @@ const Profile = () => {
                                             {profile.fundDescr}
                                         </div>
                                     </div>
-                                    <div className="profile__item">
+                                    <div className="profile__field">
                                         <div className="profile__title">
                                             ФИО главного контактного лица:
                                         </div>
@@ -45,7 +45,7 @@ const Profile = () => {
                                             {profile.contact_name}
                                         </div>
                                     </div>
-                                    <div className="profile__item">
+                                    <div className="profile__field">
                                         <div className="profile__title">
                                             Дискорд для связи:
                                         </div>
