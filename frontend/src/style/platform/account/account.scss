@@ -401,6 +401,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
     .profile {
       display: flex;
       gap: 40px;
+      padding: 0px 0px 40px 0px;
 
       .profile__item {
         backdrop-filter: blur(40px);
@@ -427,8 +428,24 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             padding: 0px 0px 16px 0px;
           }
 
-          .profile__text {
+          .profile__info {
             @include mixin.font-style(400, 16, 130, #FFFFFF);
+
+            .profile__edit-btn {
+              height: 28px;
+              padding: 0 10px;
+              display: flex;
+              align-items: center;
+              border: 1px solid #2750f2;
+              border-radius: 4px;
+              visibility: hidden;
+              opacity: 0;
+
+              &--active {
+                visibility: visible;
+                opacity: 1;
+              }
+            }
           }
         }
 
