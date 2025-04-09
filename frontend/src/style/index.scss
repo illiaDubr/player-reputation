@@ -460,24 +460,21 @@ h1 {
 .loading__wrap {
   width: 100vw;
   height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .loading__box {
+    width: 590px;
     max-height: 340px;
-    background: #FFFFFF;
-    animation-name: expandHeight;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-  }
+    position: relative;
 
-  @keyframes expandHeight {
-    from {
-      height: 0%;
-    }
-    to {
-      height: 100%;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
