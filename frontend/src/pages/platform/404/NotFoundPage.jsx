@@ -4,24 +4,45 @@ import IconSvg from "../../../components/platform/components/IconSvg.jsx";
 
 const NotFoundPage = () => {
     const {store} = React.useContext(Context);
-    const [loadingTime, setLoadingTime] = React.useState(null);
+    const [loadingProgress, setLoadingProgress] = React.useState(0);
+    const intervalRef = React.useRef(null);
+    const maxHeight = 340;
 
 
     React.useEffect(() => {
-        // Записываем время начала
-        const startTime = Date.now();
-        store.checkAuth().then(() => {
-            const elapsed = Date.now() - startTime;
-            console.log("Время, в течение которого isLoading было true:", elapsed, "мс");
-            setLoadingTime(elapsed);
-        });
-    }, [store]);
+        if (store.isLoading) {
+            // При начале загрузки сбрасываем значение прогресса и запускаем плавное увеличение
+            setLoadingProgress(0);
+            // Обновляем каждые 50 мс, шаг изменения 5 пикселей (настройте по необходимости)
+            intervalRef.current = setInterval(() => {
+                setLoadingProgress((prev) => {
+                    if (prev < maxHeight) {
+                        return prev + 5;
+                    }
+                    return maxHeight;
+                });
+            }, 50);
+        } else {
+            // Когда загрузка завершена, очищаем интервал и устанавливаем макс. высоту
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+            setLoadingProgress(maxHeight);
+        }
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+        };
+    }, [store.isLoading]);
 
 
     if (store.isLoading) {
-        const style = loadingTime ? { animationDuration: `${loadingTime}ms` } : {};
         return <div className="loading__wrap">
-            <div className="loading__box" style={style}>
+            <div className="loading__box" style={{height: `${loadingProgress}px`, transition: "all 0.05s ease-in-out", backgroundColor: "#fff"}}>
                 <IconSvg width={590} height={340} id="loading__logo" />
             </div>
         </div>;
