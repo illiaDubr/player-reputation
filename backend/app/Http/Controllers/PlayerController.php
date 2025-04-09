@@ -48,12 +48,15 @@ class PlayerController extends Controller
      */
     public function updateReputation(Request $request, $playerId, $recordId)
     {
+        // 1. Ищем репутационную запись
         $reputationRecord = ReputationRecord::where('player_id', $playerId)
             ->where('id', $recordId)
             ->firstOrFail();
 
+        // 2. Снимок "до" (старые данные)
         $oldData = $reputationRecord->toArray();
 
+        // 3. Валидируем вход
         $validated = $request->validate([
             'player_id'      => 'sometimes|required|string',
             'backer_id'      => 'sometimes|required|integer',
@@ -67,55 +70,41 @@ class PlayerController extends Controller
             'backer_tag'     => 'sometimes|nullable|string|max:255',
         ]);
 
+        // 4. Обновляем репутационную запись
         $reputationRecord->update($validated);
 
-        // 4. Если передан backer_tag, обновляем игрока
+        // 5. Если пришёл backer_tag, обновляем в модели Player
         if (array_key_exists('backer_tag', $validated)) {
-            // Находим игрока и меняем поле backer_tag
             $player = \App\Models\Player::where('player_id', $playerId)->firstOrFail();
             $player->update(['backer_tag' => $validated['backer_tag']]);
         }
 
+        // 6. Снимок "после" (новые данные)
         $newData = $reputationRecord->fresh()->toArray();
 
-        // Записываем в лог изменений
-        Change::create([
-            'model_type' => ReputationRecord::class,
+        // 7. Дополняем oldData и newData реальным backer_tag из Player (для логов)
+        $player = \App\Models\Player::where('player_id', $playerId)->first();
+        $oldData['backer_tag'] = $player?->backer_tag; // тогда был (до save)? – если нужно
+        $newData['backer_tag'] = $player?->backer_tag;
+
+        // 8. Записываем лог изменений
+        \App\Models\Change::create([
+            'model_type' => \App\Models\ReputationRecord::class,
             'model_id'   => $recordId,
             'old_data'   => $oldData,
             'new_data'   => $newData,
             'user_id'    => auth()->id(),
         ]);
 
+        // 9. Возвращаем ответ
         return response()->json([
-            'message' => 'Reputation record updated successfully',
+            'message'          => 'Reputation record updated successfully',
             'reputationRecord' => $reputationRecord,
         ], 200);
     }
 
 
-    public function updateBackerTag(Request $request, $playerId)
-    {
-        // Проверяем, есть ли такой игрок
-        $player = Player::where('player_id', $playerId)->firstOrFail();
-
-        // Валидация входных данных
-        $data = $request->validate([
-            'backer_tag' => 'required|string|max:255', // например, ограничение
-        ]);
-
-        // Меняем тег
-        $player->backer_tag = $data['backer_tag'];
-        $player->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Backer tag updated',
-            'player' => $player,
-        ]);
-    }
-
-        public function search(Request $request)
+    public function search(Request $request)
     {
 
         // 1. Увеличиваем счётчик
