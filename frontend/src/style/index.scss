@@ -465,6 +465,7 @@ h1 {
   justify-content: center;
 
   .loading__box {
+    max-height: 340px;
     background: #FFFFFF;
     animation-name: expandHeight;
     animation-timing-function: linear;
