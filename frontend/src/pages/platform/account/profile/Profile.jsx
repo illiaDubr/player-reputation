@@ -1,7 +1,6 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import Main from "../../../../components/main/Main.jsx";
-import {ProfileData} from "../../../../utils/Profile.js";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
@@ -23,19 +22,19 @@ const Profile = () => {
             </Helmet>
             <Main secClassName="profile__wrap" secID="profile">
                 <div className="profile__box">
-                    {profile.map((item, index) => (
+                    {profile && (
                         <>
-                            <div className="profile" key={index}>
+                            <div className="profile">
                                 <div className="profile__item profile__left">
                                     <div className="profile__top">
-                                        <IconSvg width={48} height={48} variant="funds" id={item.fund_for_search} />
+                                        <IconSvg width={48} height={48} variant="funds" id={profile.fund_for_search} />
                                     </div>
                                     <div className="profile__item">
                                         <div className="profile__title">
                                             Описание фонда:
                                         </div>
                                         <div className="profile__text">
-                                            {item.fundDescr}
+                                            {profile.fundDescr}
                                         </div>
                                     </div>
                                     <div className="profile__item">
@@ -43,15 +42,15 @@ const Profile = () => {
                                             ФИО главного контактного лица:
                                         </div>
                                         <div className="profile__text">
-                                            {item.contact_name}
+                                            {profile.contact_name}
                                         </div>
                                     </div>
                                     <div className="profile__item">
                                         <div className="profile__title">
-                                           Дискорд для связи:
+                                            Дискорд для связи:
                                         </div>
                                         <div className="profile__text">
-                                            {item.discord}
+                                            {profile.discord}
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +61,7 @@ const Profile = () => {
                                 Изменить
                             </button>
                         </>
-                    ))}
+                    )}
                 </div>
             </Main>
         </>
