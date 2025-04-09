@@ -14,7 +14,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../components/HomePage/footer/Footer.jsx";
 import ContactForm from "../../components/HomePage/main/subscriptionSection/form/ContactForm.jsx";
 import Subscribe from "../../components/HomePage/main/subscriptionSection/subscription/Subscription.jsx";
-import IconSvg from "../../components/platform/components/IconSvg.jsx";
 
 const HomePage = observer(() => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);
@@ -49,11 +48,8 @@ const HomePage = observer(() => {
             <HomeHeader />
             <main className={`main ${selectedRole}`}>
                 <section className="title__section">
-                    <div className="loading__wrap">
-                        <div className="loading__box">
-                            <IconSvg width={590} height={340} id="loading__logo" />
-                        </div>
-                    </div>
+                    <Title />
+                    <EducationVideo />
                 </section>
                 <section className="role__section">
                     <RoleSwitcher player={true}>
