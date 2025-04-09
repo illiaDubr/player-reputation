@@ -5,47 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Change;
 
-class ChangeController extends Controller
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Change extends Model
 {
-    /**
-     * Получение списка изменений с фильтрацией по статусу.
-     */
-    public function index(Request $request)
-    {
-        $status = $request->query('status', 'unread');
+    protected $fillable = [
+        'model_type',
+        'model_id',
+        'old_data',
+        'new_data',
+        'user_id',
+        'status',
+    ];
 
-        $changes = Change::where('status', $status)
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    protected $casts = [
+        'old_data' => 'array',
+        'new_data' => 'array',
+    ];
+}
 
-        // Декодируем данные и, если нужно, догружаем backer_tag
-        $changes->getCollection()->transform(function ($change) {
-            $old = json_decode($change->old_data, true) ?? [];
-            $new = json_decode($change->new_data, true) ?? [];
-
-            // Предположим, в ReputationRecord есть player_id
-            if (isset($new['player_id'])) {
-                $player = \App\Models\Player::where('player_id', $new['player_id'])->first();
-                if ($player) {
-                    $new['backer_tag'] = $player->backer_tag;
-                }
-            }
-
-            if (isset($old['player_id'])) {
-                $player = \App\Models\Player::where('player_id', $old['player_id'])->first();
-                if ($player) {
-                    $old['backer_tag'] = $player->backer_tag;
-                }
-            }
-
-            // Теперь $change->old_data/$new_data станут массивами
-            $change->old_data = $old;
-            $change->new_data = $new;
-            return $change;
-        });
-
-        return response()->json($changes);
-    }
 
     /**
      * Обновление статуса изменения.
