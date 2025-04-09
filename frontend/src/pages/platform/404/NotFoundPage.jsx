@@ -1,5 +1,6 @@
 import React from "react";
 import {Context} from "../../../api/store/storeContext.js";
+import IconSvg from "../../../components/platform/components/IconSvg.jsx";
 
 const NotFoundPage = () => {
     const {store} = React.useContext(Context);
@@ -10,19 +11,19 @@ const NotFoundPage = () => {
         // Записываем время начала
         const startTime = Date.now();
         store.checkAuth().then(() => {
-            // Вычисляем разницу после завершения checkAuth
             const elapsed = Date.now() - startTime;
             console.log("Время, в течение которого isLoading было true:", elapsed, "мс");
             setLoadingTime(elapsed);
         });
     }, [store]);
 
-    console.log(loadingTime);
-
 
     if (store.isLoading) {
-        return <div>
-
+        const style = loadingTime ? { animationDuration: `${loadingTime}ms` } : {};
+        return <div className="loading__wrap">
+            <div className="loading__box" style={style}>
+                <IconSvg width={590} height={340} id="loading__logo" />
+            </div>
         </div>;
     }
 

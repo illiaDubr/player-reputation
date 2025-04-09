@@ -457,6 +457,30 @@ h1 {
   letter-spacing: 0.01em;
 }
 
+.loading__wrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loading__box {
+    background: #FFFFFF;
+    animation-name: expandHeight;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes expandHeight {
+    from {
+      height: 0%;
+    }
+    to {
+      height: 100%;
+    }
+  }
+}
+
 .report__select {
   min-width: 160px;
   display: flex;
