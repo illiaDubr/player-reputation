@@ -161,7 +161,7 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </.form>
+                                    </motion.form>
 
 
                                 <div className="profile__item profile__right">
