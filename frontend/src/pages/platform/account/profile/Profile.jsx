@@ -51,14 +51,16 @@ const Profile = () => {
                                             Описание фонда:
                                         </div>
                                         <div className="profile__info">
-                                            <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
-                                                {profile.fundDescr || "Описание не указано"}
+                                            <div className="">
+                                                <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
+                                                    {profile.fundDescr || "Описание не указано"}
+                                                </div>
+                                                <input
+                                                    className={`profile__input ${editState.fundDescr ? "active" : ""}`}
+                                                    type="text"
+                                                    placeholder="Введите описание"
+                                                />
                                             </div>
-                                            <input
-                                                className={`profile__input ${editState.fundDescr ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите описание"
-                                            />
                                             <button type="button"
                                                     onClick={() => toggleFieldEdit("fundDescr")}
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
@@ -71,14 +73,16 @@ const Profile = () => {
                                             ФИО главного контактного лица:
                                         </div>
                                         <div className="profile__info">
-                                            <div className={`profile__text ${editState.contactName ? "" : "active"}`}>
-                                                {profile.contact_name || "Контактное лицо не указано"}
+                                            <div className="">
+                                                <div className={`profile__text ${editState.contactName ? "" : "active"}`}>
+                                                    {profile.contact_name || "Контактное лицо не указано"}
+                                                </div>
+                                                <input
+                                                    className={`profile__input ${editState.contactName ? "active" : ""}`}
+                                                    type="text"
+                                                    placeholder="Введите контакт"
+                                                />
                                             </div>
-                                            <input
-                                                className={`profile__input ${editState.contactName ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите контакт"
-                                            />
                                             <button type="button"
                                                     onClick={() => toggleFieldEdit("contactName")}
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
@@ -91,14 +95,16 @@ const Profile = () => {
                                             Дискорд для связи:
                                         </div>
                                         <div className="profile__info">
-                                            <div className={`profile__text ${editState.discord ? "" : "active"}`}>
-                                                {profile.discord || "Discord не указан"}
+                                            <div className="">
+                                                <div className={`profile__text ${editState.discord ? "" : "active"}`}>
+                                                    {profile.discord || "Discord не указан"}
+                                                </div>
+                                                <input
+                                                    className={`profile__input ${editState.discord ? "active" : ""}`}
+                                                    type="text"
+                                                    placeholder="Введите Discord"
+                                                />
                                             </div>
-                                            <input
-                                                className={`profile__input ${editState.discord ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите Discord"
-                                            />
                                             <button type="button"
                                                     onClick={() => toggleFieldEdit("discord")}
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
