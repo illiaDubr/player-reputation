@@ -4,6 +4,7 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
+import AnimatedDiv from "../../../../components/platform/components/AnimatedDiv.jsx";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -16,7 +17,7 @@ const Profile = () => {
     });
 
     const toggleFieldEdit = (fieldName) => {
-        setEditState(prev => ({ ...prev, [fieldName]: !prev[fieldName] }));
+        setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
     };
 
 
@@ -42,15 +43,18 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit}>
-                                    <div className="profile__top">
-                                        <IconSvg width={48} height={48} variant="funds" id={profile.fund_for_search}/>
-                                    </div>
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            Описание фонда:
+                                <AnimatedDiv duration={500} easing="ease-in-out">
+                                    <form method="PATCH" className="profile__item profile__left"
+                                          onSubmit={handleSubmit}>
+                                        <div className="profile__top">
+                                            <IconSvg width={48} height={48} variant="funds"
+                                                     id={profile.fund_for_search}/>
                                         </div>
-                                        <div className="profile__info">
+                                        <div className="profile__field">
+                                            <div className="profile__title">
+                                                Описание фонда:
+                                            </div>
+
                                             <div className="">
                                                 <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
                                                     {profile.fundDescr || "Описание не указано"}
@@ -66,15 +70,15 @@ const Profile = () => {
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
                                                 <IconSvg width={16} height={16} id="pen"/>
                                             </button>
+
                                         </div>
-                                    </div>
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            ФИО главного контактного лица:
-                                        </div>
-                                        <div className="profile__info">
+                                        <div className="profile__field">
+                                            <div className="profile__title">
+                                                ФИО главного контактного лица:
+                                            </div>
                                             <div className="">
-                                                <div className={`profile__text ${editState.contactName ? "" : "active"}`}>
+                                                <div
+                                                    className={`profile__text ${editState.contactName ? "" : "active"}`}>
                                                     {profile.contact_name || "Контактное лицо не указано"}
                                                 </div>
                                                 <input
@@ -88,13 +92,13 @@ const Profile = () => {
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
                                                 <IconSvg width={16} height={16} id="pen"/>
                                             </button>
+
                                         </div>
-                                    </div>
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            Дискорд для связи:
-                                        </div>
-                                        <div className="profile__info">
+                                        <div className="profile__field">
+                                            <div className="profile__title">
+                                                Дискорд для связи:
+                                            </div>
+
                                             <div className="">
                                                 <div className={`profile__text ${editState.discord ? "" : "active"}`}>
                                                     {profile.discord || "Discord не указан"}
@@ -110,9 +114,10 @@ const Profile = () => {
                                                     className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
                                                 <IconSvg width={16} height={16} id="pen"/>
                                             </button>
+
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </AnimatedDiv>
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
