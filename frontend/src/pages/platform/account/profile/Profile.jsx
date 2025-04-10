@@ -43,7 +43,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-
+                                <AnimatedDiv duration={500} easing="ease">
                                     <form method="PATCH" className="profile__item profile__left"
                                           onSubmit={handleSubmit}>
                                         <div className="profile__top">
@@ -55,7 +55,7 @@ const Profile = () => {
                                                 Описание фонда:
                                             </div>
 
-                                            <div className="">
+                                            <div className="profile__content">
                                                 <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
                                                     {profile.fundDescr || "Описание не указано"}
                                                 </div>
@@ -76,7 +76,7 @@ const Profile = () => {
                                             <div className="profile__title">
                                                 ФИО главного контактного лица:
                                             </div>
-                                            <div className="">
+                                            <div className="profile__content">
                                                 <div
                                                     className={`profile__text ${editState.contactName ? "" : "active"}`}>
                                                     {profile.contact_name || "Контактное лицо не указано"}
@@ -99,7 +99,7 @@ const Profile = () => {
                                                 Дискорд для связи:
                                             </div>
 
-                                            <div className="">
+                                            <div className="profile__content">
                                                 <div className={`profile__text ${editState.discord ? "" : "active"}`}>
                                                     {profile.discord || "Discord не указан"}
                                                 </div>
@@ -117,6 +117,7 @@ const Profile = () => {
 
                                         </div>
                                     </form>
+                                </AnimatedDiv>
 
                                 <div className="profile__item profile__right">
                                 </div>

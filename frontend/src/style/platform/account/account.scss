@@ -421,37 +421,49 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         }
 
         .profile__field {
+          display: grid;
+          grid-template-columns: 1fr 40px;
+          grid-template-rows: 42px minmax(45px, auto);
+          grid-column-gap: 15px;
+          grid-row-gap: 0px;
 
           .profile__title {
+            grid-column: span 2;
             @include mixin.font-style(600, 20, 130, #FFFFFF);
             letter-spacing: -0.01em;
-            padding: 0px 0px 16px 0px;
           }
 
-          .profile__text {
-            min-height: 45px;
-            @include mixin.font-style(400, 16, 130, #FFFFFF);
-            transition-behavior: allow-discrete;
-            display: none;
-            opacity: 0;
-            transition-duration: .6s;
-          }
+          .profile__content {
+            position: relative;
 
-          .profile__input {
-            height: 45px;
-            transition-behavior: allow-discrete;
-            display: none;
-            opacity: 0;
-            transition-duration: .6s;
-            transition-delay: .5s;
-          }
-
-          .active {
-            display: block;
-            opacity: 1;
-
-            @starting-style {
+            .profile__text {
+              min-height: 45px;
+              @include mixin.font-style(400, 16, 130, #FFFFFF);
+              transition-behavior: allow-discrete;
+              display: none;
               opacity: 0;
+              transition-duration: .6s;
+            }
+
+            .profile__input {
+              height: 45px;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              transition-behavior: allow-discrete;
+              display: none;
+              opacity: 0;
+              transition-duration: .6s;
+              transition-delay: .5s;
+            }
+
+            .active {
+              display: block;
+              opacity: 1;
+
+              @starting-style {
+                opacity: 0;
+              }
             }
           }
 
@@ -522,10 +534,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
 @media (max-width: 768px) {
   .account__wrap {
     .account__nav {
-      grid-template-columns: 1fr; /* Одна колонка */
+      grid-template-columns: 1fr;
 
       .verification {
-        grid-column: span 1; /* На маленьких экранах занимает одну колонку */
+        grid-column: span 1;
       }
     }
 
