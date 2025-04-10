@@ -16,6 +16,14 @@ const Profile = () => {
         discord: false,
     });
 
+    const formRef = React.useRef(null);
+
+    React.useEffect(() => {
+        if (formRef.current) {
+            console.log('Высота:', formRef.current.getBoundingClientRect().height);
+        }
+    }, []);
+
     const toggleFieldEdit = (fieldName) => {
         setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
     };
@@ -43,8 +51,8 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <AnimateHeight duration={2000} height={editState ? 490 : 'auto'}>
-                                    <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit}>
+                                <AnimateHeight duration={2000} height='auto'>
+                                    <form method="PATCH" ref={formRef} className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
                                                      id={profile.fund_for_search}/>
