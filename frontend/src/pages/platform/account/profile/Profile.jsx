@@ -57,7 +57,11 @@ const Profile = () => {
 
                                             <div className="profile__content">
                                                 <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
-                                                    {profile.fundDescr || "Описание не указано"}
+                                                    ergwergewrgwergewrgqeiufhq iuwefhqweiu ugfwieu fqrgb qiergboi qegbqe b qerig qergrq
+                                                    g qe
+                                                    rg eqrg q
+                                                    erger glwenghw ghowerhgoqerhgiqueabfuSf oauaebg fjebf   uywbevf wevf    wbefghwqevfjqwefuiewjfiuwehfowefjhewqbfjhqwebfjwefievEFJAJOSDIFAKEGFHJERGBKERGB
+                                                    {/*{profile.fundDescr || "Описание не указано"}*/}
                                                 </div>
                                                 <input
                                                     className={`profile__input ${editState.fundDescr ? "active" : ""}`}
