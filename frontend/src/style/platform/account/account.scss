@@ -428,54 +428,47 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             padding: 0px 0px 16px 0px;
           }
 
-          .profile__info {
-            width: 100%;
-            max-width: 570px;
+          .profile__text {
+            min-height: 45px;
             @include mixin.font-style(400, 16, 130, #FFFFFF);
+            transition-behavior: allow-discrete;
+            display: none;
+            opacity: 0;
+            transition-duration: .6s;
+          }
+
+          .profile__input {
+            height: 45px;
+            transition-behavior: allow-discrete;
+            display: none;
+            opacity: 0;
+            transition-duration: .6s;
+            transition-delay: .5s;
+          }
+
+          .active {
+            display: block;
+            opacity: 1;
+
+            @starting-style {
+              opacity: 0;
+            }
+          }
+
+          .profile__edit-btn {
+            height: 28px;
+            padding: 0 10px;
             display: flex;
-            gap: 15px;
+            align-items: center;
+            border: 1px solid #2750f2;
+            border-radius: 4px;
+            transition: all .4s ease;
+            visibility: hidden;
+            opacity: 0;
 
-            .profile__text {
-              min-height: 45px;
-              transition-behavior: allow-discrete;
-              display: none;
-              opacity: 0;
-              transition-duration: .6s;
-            }
-
-            .profile__input {
-              height: 45px;
-              transition-behavior: allow-discrete;
-              display: none;
-              opacity: 0;
-              transition-duration: .6s;
-              transition-delay: .5s;
-            }
-
-            .active {
-              display: block;
+            &--active {
+              visibility: visible;
               opacity: 1;
-
-              @starting-style {
-                opacity: 0;
-              }
-            }
-
-            .profile__edit-btn {
-              height: 28px;
-              padding: 0 10px;
-              display: flex;
-              align-items: center;
-              border: 1px solid #2750f2;
-              border-radius: 4px;
-              transition: all .4s ease;
-              visibility: hidden;
-              opacity: 0;
-
-              &--active {
-                visibility: visible;
-                opacity: 1;
-              }
             }
           }
         }
