@@ -43,7 +43,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <AnimateHeight duration={2000} height='auto'>
+                                <AnimateHeight duration={2000} height={editState ? 490 : 'auto'}>
                                     <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
