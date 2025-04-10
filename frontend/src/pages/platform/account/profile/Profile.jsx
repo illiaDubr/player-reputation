@@ -4,14 +4,12 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
-import { animated } from "@react-spring/web";
-import useAnimatedHeight from "../../../../components/platform/components/AnimatedDiv.jsx";
+import {motion} from "framer-motion";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
     const profile = store.user?.backer;
     const [activeBtn, setActiveBtn] = React.useState(false);
-    const {ref, springProps} = useAnimatedHeight({duration: 500});
     const [editState, setEditState] = React.useState({
         fundDescr: false,
         contactName: false,
@@ -45,8 +43,8 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <animated.form method="PATCH" className="profile__item profile__left"
-                                      onSubmit={handleSubmit} ref={ref} style={springProps}>
+                                <motion.form layout method="PATCH" className="profile__item profile__left"
+                                      onSubmit={handleSubmit}>
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
                                                  id={profile.fund_for_search}/>
@@ -118,7 +116,7 @@ const Profile = () => {
                                         </button>
 
                                     </div>
-                                </animated.form>
+                                </motion.form>
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
