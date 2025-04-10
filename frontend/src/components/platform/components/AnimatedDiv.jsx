@@ -1,39 +1,36 @@
-import React, {useRef, useLayoutEffect, useState, useEffect} from 'react';
+import { useRef, useLayoutEffect, useEffect, useState } from 'react';
 
-const AnimatedDiv = ({children, duration, easing}) => {
-    const containerRef = useRef(null);
+const useAnimatedHeight = ({ duration, easing } = {}) => {
+    const ref = useRef(null);
     const [animating, setAnimating] = useState(false);
 
     useLayoutEffect(() => {
-        const node = containerRef.current;
+        const node = ref.current;
         if (!node) return;
 
-        // Запоминаем текущую высоту контейнера
+        // Запоминаем текущую (начальную) высоту
         const startHeight = node.clientHeight;
-
-        // Устанавливаем явную высоту, чтобы избавиться от auto
+        // Устанавливаем явную высоту вместо auto
         node.style.height = startHeight + 'px';
 
-        // Если содержимое изменилось, через requestAnimationFrame измерим новую высоту
+        // В следующем кадре измеряем новую высоту, основываясь на изменившемся содержимом
         requestAnimationFrame(() => {
-            // Измеряем новую высоту
             const newHeight = node.scrollHeight;
             if (startHeight !== newHeight) {
                 setAnimating(true);
-                // Устанавливаем transition для плавного изменения высоты
                 node.style.transition = `height ${duration}ms ${easing}`;
                 // Устанавливаем новую высоту
                 node.style.height = newHeight + 'px';
             }
         });
-    }, [children, duration, easing]);
+    }, [duration, easing]);
 
-    // После окончания перехода сбросим высоту в auto
     useEffect(() => {
-        const node = containerRef.current;
+        const node = ref.current;
         if (!node) return;
         const handleTransitionEnd = () => {
             if (animating) {
+                // Сброс высоты в auto, чтобы контейнер мог адаптироваться к дальнейшим изменениям
                 node.style.height = 'auto';
                 node.style.transition = 'none';
                 setAnimating(false);
@@ -45,11 +42,7 @@ const AnimatedDiv = ({children, duration, easing}) => {
         };
     }, [animating]);
 
-    return (
-        <div ref={containerRef} style={{overflow: 'hidden'}}>
-            {children}
-        </div>
-    );
+    return ref;
 };
 
-export default AnimatedDiv;
+export default useAnimatedHeight;
