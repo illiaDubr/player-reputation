@@ -14,28 +14,6 @@ const Profile = () => {
         contactName: false,
         discord: false,
     });
-    const [currentHeight, setCurrentHeight] = React.useState(0);
-    const [transitioning, setTransitioning] = React.useState(false);
-
-    const formRef = React.useRef(null);
-    const prevHeightRef = React.useRef(0);
-
-    function handleHeightChange(oldHeight, newHeight) {
-        console.log(`Height changed from ${oldHeight} to ${newHeight}`);
-        setCurrentHeight(newHeight);
-        setTransitioning(true);
-    }
-
-    React.useEffect(() => {
-        if (formRef.current) {
-            const measuredHeight = formRef.current.getBoundingClientRect().height;
-            if (prevHeightRef.current !== measuredHeight) {
-                handleHeightChange(prevHeightRef.current, measuredHeight);
-                prevHeightRef.current = measuredHeight;
-            }
-        }
-    }, [editState, activeBtn]);
-
     const toggleFieldEdit = (fieldName) => {
         setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
     };
@@ -47,6 +25,38 @@ const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
+
+    const [currentHeight, setCurrentHeight] = React.useState(0);
+    const [transitioning, setTransitioning] = React.useState(false);
+
+    const formRef = React.useRef(null);
+
+    React.useEffect(() => {
+        if (!formRef.current) return;
+        // Если мы уже в переходе, избегаем повторного запуска
+        if (transitioning) return;
+
+        // Шагаем 1: берём "старую" высоту
+        // Если currentHeight === 'auto', измеряем DOM
+        const oldHeight = currentHeight === 'auto'
+            ? formRef.current.getBoundingClientRect().height
+            : parseFloat(currentHeight);
+
+        // Изменения (toggleFieldEdit) уже произошли, но высота пока не "зафиксирована"
+
+        // Первым кадром проставим высоту равной старой
+        requestAnimationFrame(() => {
+            setCurrentHeight(oldHeight);
+
+            // Вторым кадром измерим "новую" высоту и проставим её
+            requestAnimationFrame(() => {
+                const newHeight = formRef.current.getBoundingClientRect().height;
+                console.log(`Height changed from ${oldHeight} to ${newHeight}`);
+                setCurrentHeight(newHeight);
+                setTransitioning(true);
+            });
+        });
+    }, [editState, activeBtn, transitioning, currentHeight]);
 
     return (
         <>
@@ -67,14 +77,13 @@ const Profile = () => {
                                         height: typeof currentHeight === 'number' ? `${currentHeight}px` : currentHeight,
                                     }}
                                     onTransitionEnd={(e) => {
-                                        // Сработает при завершении перехода CSS-свойства height
                                         if (e.propertyName === 'height' && transitioning) {
                                             setCurrentHeight('auto');
                                             setTransitioning(false);
                                         }
                                     }}
-                                    method="PATCH"
                                     ref={formRef}
+                                    method="PATCH"
                                     className="profile__item profile__left"
                                     onSubmit={handleSubmit}
                                 >
