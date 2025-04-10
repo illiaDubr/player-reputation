@@ -15,28 +15,31 @@ const Profile = () => {
         contactName: false,
         discord: false,
     });
-    const [initialFormHeight, setInitialFormHeight] = React.useState(0);
 
     const formRef = React.useRef(null);
+    const prevHeightRef = React.useRef(0);
+
+    function handleHeightChange(oldHeight, newHeight) {
+        console.log(`Height changed from ${oldHeight} to ${newHeight}`);
+    }
 
     React.useEffect(() => {
         if (formRef.current) {
             const measuredHeight = formRef.current.getBoundingClientRect().height;
-            console.log('Высота:', measuredHeight);
-            setInitialFormHeight(measuredHeight);
+            if (prevHeightRef.current !== measuredHeight) {
+                handleHeightChange(prevHeightRef.current, measuredHeight);
+                prevHeightRef.current = measuredHeight;
+            }
         }
-    }, []);
+    }, [editState, activeBtn]);
 
     const toggleFieldEdit = (fieldName) => {
         setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
     };
 
-
     const handleToggleEdit = () => {
         setActiveBtn((prev) => !prev);
     };
-
-    console.log(profile);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,9 +57,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <AnimateHeight duration={2000}
-                                               height={editState ? initialFormHeight : 'auto'}
-                                >
+
                                     <form method="PATCH" ref={formRef} className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
@@ -130,7 +131,7 @@ const Profile = () => {
 
                                         </div>
                                     </form>
-                                </AnimateHeight>
+
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>

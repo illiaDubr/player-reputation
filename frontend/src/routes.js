@@ -48,15 +48,15 @@ export const authRoutes = [
       path: PROFILE_ROUTE,
       Component: Profile,
     },
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile,
+    },
 ]
 
 export const publicRoutes = [
     {
         path: HOMEPAGE_ROUTE,
         Component: HomePage,
-    },
-    {
-        path: PROFILE_ROUTE,
-        Component: Profile,
     },
 ]
