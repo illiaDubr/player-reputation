@@ -439,10 +439,11 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             .profile__text {
               text-wrap: balance;
               @include mixin.font-style(400, 16, 130, #FFFFFF);
-              transition-behavior: allow-discrete;
-              display: none;
+              //transition-behavior: allow-discrete;
+              //display: none;
+              //transition-duration: .6s;
               opacity: 0;
-              transition-duration: .6s;
+              transition: all .4s ease;
             }
 
             .profile__input {
@@ -450,14 +451,15 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               position: absolute;
               top: 0px;
               left: 0px;
-              transition-behavior: allow-discrete;
-              display: none;
+              //transition-behavior: allow-discrete;
+              //display: none;
+              //transition-duration: .6s;
               opacity: 0;
-              transition-duration: .6s;
+              transition: all .4s ease;
             }
 
             .active {
-              display: block;
+              //display: block;
               opacity: 1;
 
               @starting-style {
