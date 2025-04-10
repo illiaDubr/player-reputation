@@ -22,6 +22,11 @@ const Profile = () => {
     function handleHeightChange(oldHeight, newHeight) {
         console.log(`Height changed from ${oldHeight} to ${newHeight}`);
         setCurrentHeight(newHeight);
+
+        // После короткой задержки переключаем высоту на auto
+        setTimeout(() => {
+            setCurrentHeight('auto');
+        }, 300);
     }
 
     React.useEffect(() => {
@@ -60,7 +65,9 @@ const Profile = () => {
                             <div className="profile">
 
                                     <form
-                                      style={{ height: currentHeight ? `${currentHeight}px` : 'auto' }}
+                                      style={{
+                                        height: typeof currentHeight === 'number' ? `${currentHeight}px` : currentHeight,
+                                      }}
                                       method="PATCH"
                                       ref={formRef}
                                       className="profile__item profile__left"
