@@ -44,13 +44,16 @@ const Profile = () => {
     }, [editState, activeBtn]);
 
     function handleHeightChange(oldHeight, newHeight) {
-        console.log(`Height changed from ${oldHeight} to ${newHeight}`);
+        console.log(`с ${oldHeight} до ${newHeight}`);
         setBaseHeight(oldHeight);
         setCurrentHeight(newHeight);
     }
 
+    console.log(baseHeight);
+    console.log(currentHeight);
+
     const heightAnimation = useSpring({
-        height: editState ? `${currentHeight}px` : 'auto',
+        height: editState ? `${currentHeight}px` : `${baseHeight}px`,
     })
 
     return (
