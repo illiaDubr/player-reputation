@@ -4,7 +4,7 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
-import { Collapse } from 'react-collapse';
+import AnimateHeight from "react-animate-height";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -16,16 +16,8 @@ const Profile = () => {
         discord: false,
     });
 
-    const [isOpened, setIsOpened] = React.useState(false);
-
-    const toggleIsOpened = () => {
-        setIsOpened(prev => !prev);
-    };
-
     const toggleFieldEdit = (fieldName) => {
         setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
-
-        toggleIsOpened();
     };
 
 
@@ -51,9 +43,8 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <Collapse isOpened={isOpened}>
-                                    <form method="PATCH" className="profile__item profile__left"
-                                          onSubmit={handleSubmit}>
+                                <AnimateHeight duration={2000} height='auto'>
+                                    <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
                                                      id={profile.fund_for_search}/>
@@ -126,7 +117,7 @@ const Profile = () => {
 
                                         </div>
                                     </form>
-                                </Collapse>
+                                </AnimateHeight>
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
