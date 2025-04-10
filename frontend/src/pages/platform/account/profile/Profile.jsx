@@ -43,7 +43,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <AnimatedDiv duration={500} easing="ease-in-out">
+
                                     <form method="PATCH" className="profile__item profile__left"
                                           onSubmit={handleSubmit}>
                                         <div className="profile__top">
@@ -117,7 +117,7 @@ const Profile = () => {
 
                                         </div>
                                     </form>
-                                </AnimatedDiv>
+
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
