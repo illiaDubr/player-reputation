@@ -4,6 +4,7 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
+import { animated } from "@react-spring/web";
 import useAnimatedHeight from "../../../../components/platform/components/AnimatedDiv.jsx";
 
 const Profile = () => {
@@ -44,7 +45,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form method="PATCH" className="profile__item profile__left"
+                                <animated.form method="PATCH" className="profile__item profile__left"
                                       onSubmit={handleSubmit} ref={ref} style={springProps}>
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
@@ -117,7 +118,7 @@ const Profile = () => {
                                         </button>
 
                                     </div>
-                                </form>
+                                </animated.form>
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
