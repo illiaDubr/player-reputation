@@ -50,7 +50,7 @@ const Profile = () => {
     }
 
     const heightAnimation = useSpring({
-        height: editState ? `${currentHeight}px` : `${baseHeight}px`,
+        height: editState ? `${baseHeight}px` : `${currentHeight}px`,
     })
 
     return (
