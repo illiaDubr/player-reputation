@@ -15,12 +15,15 @@ const Profile = () => {
         contactName: false,
         discord: false,
     });
+    const [initialFormHeight, setInitialFormHeight] = React.useState(0);
 
     const formRef = React.useRef(null);
 
     React.useEffect(() => {
         if (formRef.current) {
-            console.log('Высота:', formRef.current.getBoundingClientRect().height);
+            const measuredHeight = formRef.current.getBoundingClientRect().height;
+            console.log('Высота:', measuredHeight);
+            setInitialFormHeight(measuredHeight);
         }
     }, []);
 
@@ -51,7 +54,9 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <AnimateHeight duration={2000} height='auto'>
+                                <AnimateHeight duration={2000}
+                                               height={editState ? initialFormHeight : 'auto'}
+                                >
                                     <form method="PATCH" ref={formRef} className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"

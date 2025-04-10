@@ -55,4 +55,8 @@ export const publicRoutes = [
         path: HOMEPAGE_ROUTE,
         Component: HomePage,
     },
+    {
+        path: PROFILE_ROUTE,
+        Component: Profile,
+    },
 ]
