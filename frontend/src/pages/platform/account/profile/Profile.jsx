@@ -61,7 +61,7 @@ const Profile = () => {
                         <>
                             <div className="profile">
 
-                                <AnimateHeight height={editState ? currentHeight : baseHeight}>
+                                <AnimateHeight height={editState ? 'auto' : baseHeight}>
                                     <form
                                         ref={formRef}
                                         method="PATCH"
