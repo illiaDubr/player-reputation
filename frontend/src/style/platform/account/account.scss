@@ -444,6 +444,8 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               //transition-duration: .6s;
               opacity: 0;
               transition: all .4s ease;
+              position: absolute;
+              pointer-events: none;
             }
 
             .profile__input {
@@ -461,10 +463,9 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             .active {
               //display: block;
               opacity: 1;
-
-              @starting-style {
-                opacity: 0;
-              }
+              visibility: visible;
+              pointer-events: all;
+              position: relative;
             }
           }
 
