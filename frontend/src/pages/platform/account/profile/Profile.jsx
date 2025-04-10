@@ -30,7 +30,7 @@ const Profile = () => {
     const prevHeightRef = React.useRef(0);
 
     const [currentHeight, setCurrentHeight] = React.useState(0);
-    const [baseHeight, setBaseHeight] = React.useState(0);
+    const [baseHeight, setBaseHeight] = React.useState(770);
 
     React.useEffect(() => {
         if (formRef.current) {
