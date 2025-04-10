@@ -6,6 +6,7 @@ import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
 import AnimateHeight from "react-animate-height";
 import {animated, useSpring} from "@react-spring/web";
+import {motion} from "framer-motion";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -70,9 +71,9 @@ const Profile = () => {
                             <div className="profile">
 
 
-                                    <form
+                                    <motion.form
                                         ref={formRef}
-
+                                        layout
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
@@ -160,7 +161,7 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </form>
+                                    </.form>
 
 
                                 <div className="profile__item profile__right">
