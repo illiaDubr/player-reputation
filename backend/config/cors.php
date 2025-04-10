@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:3000', 'http://203.0.113.10'],
+    'allowed_origins' => ['http://localhost:3000', 'http://203.0.113.10', 'http://localhost:5173'],
     'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization'],
     'supports_credentials' => true,
 
