@@ -5,6 +5,7 @@ import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
 import AnimateHeight from "react-animate-height";
+import {animated, useSpring} from "@react-spring/web";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -31,7 +32,6 @@ const Profile = () => {
 
     const [currentHeight, setCurrentHeight] = React.useState(0);
     const [baseHeight, setBaseHeight] = React.useState(0);
-    const [heightVal, setHeightVal] = React.useState('auto');
 
     React.useEffect(() => {
         if (formRef.current) {
@@ -49,12 +49,9 @@ const Profile = () => {
         setCurrentHeight(newHeight);
     }
 
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            setHeightVal(currentHeight);
-        }, 2000);
-        return () => clearTimeout(timer);
-    });
+    const heightAnimation = useSpring({
+        height: editState ? `${currentHeight}px` : `${baseHeight}px`,
+    })
 
     return (
         <>
@@ -69,9 +66,10 @@ const Profile = () => {
                         <>
                             <div className="profile">
 
-                                <AnimateHeight height={editState ? heightVal : baseHeight}>
-                                    <form
+
+                                    <animated.form
                                         ref={formRef}
+                                        style={heightAnimation}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
@@ -159,8 +157,8 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </form>
-                                </AnimateHeight>
+                                    </animated.form>
+
 
                                 <div className="profile__item profile__right">
                                 </div>
