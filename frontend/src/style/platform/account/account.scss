@@ -411,7 +411,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         padding: 48px;
         display: flex;
         flex-direction: column;
-        gap: 36px;
+        gap: 26px;
         position: relative;
         z-index: 2;
         overflow: hidden;
@@ -437,7 +437,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             position: relative;
 
             .profile__text {
-              min-height: 45px;
+              text-wrap: balance;
               @include mixin.font-style(400, 16, 130, #FFFFFF);
               transition-behavior: allow-discrete;
               display: none;
