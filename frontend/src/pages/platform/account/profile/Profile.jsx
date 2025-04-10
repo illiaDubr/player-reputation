@@ -4,7 +4,6 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
-import AnimateHeight from "react-animate-height";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -15,12 +14,14 @@ const Profile = () => {
         contactName: false,
         discord: false,
     });
+    const [currentHeight, setCurrentHeight] = React.useState(0);
 
     const formRef = React.useRef(null);
     const prevHeightRef = React.useRef(0);
 
     function handleHeightChange(oldHeight, newHeight) {
         console.log(`Height changed from ${oldHeight} to ${newHeight}`);
+        setCurrentHeight(newHeight);
     }
 
     React.useEffect(() => {
@@ -58,7 +59,13 @@ const Profile = () => {
                         <>
                             <div className="profile">
 
-                                    <form method="PATCH" ref={formRef} className="profile__item profile__left" onSubmit={handleSubmit}>
+                                    <form
+                                      style={{ height: currentHeight ? `${currentHeight}px` : 'auto' }}
+                                      method="PATCH"
+                                      ref={formRef}
+                                      className="profile__item profile__left"
+                                      onSubmit={handleSubmit}
+                                    >
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
                                                      id={profile.fund_for_search}/>
