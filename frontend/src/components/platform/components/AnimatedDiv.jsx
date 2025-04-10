@@ -1,36 +1,42 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
 import { useSpring } from '@react-spring/web';
 
-const useAnimatedHeight = ({ duration = 500, config: userConfig } = {}) => {
+const useAnimatedHeight = (deps = [], { duration = 500 } = {}) => {
     const ref = useRef(null);
-
-    // Инициализация spring'а. Изначальное значение height можно задать нулевым или 'auto' (но анимировать "auto" нельзя, поэтому работаем с числами)
+    // Предыдущее измерение высоты
+    const [prevHeight, setPrevHeight] = useState(0);
+    // Инициализация spring-а с начальным значением высоты 0
     const [springProps, api] = useSpring(() => ({
         height: 0,
-        config: { duration, ...(userConfig || {}) }
+        config: { duration }
     }));
 
-    // При монтировании измеряем начальную высоту и запускаем анимацию
     useLayoutEffect(() => {
         if (!ref.current) return;
-        const initialHeight = ref.current.getBoundingClientRect().height;
-        console.log("Начальная высота:", initialHeight);
-        // Запускаем анимацию к измеренной высоте (в пикселях)
-        api.start({ height: initialHeight });
-    }, [api]);
 
-    // При каждом изменении содержимого (без явной зависимости children можно использовать вызов хука без зависимостей,
-    // но если содержимое динамическое, можно добавить зависимость, например, ключ или children)
-    useLayoutEffect(() => {
-        if (!ref.current) return;
-        const measuredHeight = ref.current.scrollHeight;
-        const currentHeight = ref.current.getBoundingClientRect().height;
-        // Если высота изменилась, запускаем анимацию и логируем новое значение
-        if (currentHeight !== measuredHeight) {
-            console.log("Новая высота:", measuredHeight);
-            api.start({ height: measuredHeight });
+        // Для корректного измерения сбрасываем текущую высоту на 'auto'
+        ref.current.style.height = 'auto';
+        // Измеряем новую высоту через scrollHeight (всего содержимого)
+        const newHeight = ref.current.scrollHeight;
+        console.log("Новая измеренная высота:", newHeight);
+
+        // Если высота изменилась, запускаем анимацию
+        if (newHeight !== prevHeight) {
+            console.log(`Анимация: переход от ${prevHeight}px до ${newHeight}px`);
+            setPrevHeight(newHeight);
+            api.start({
+                height: newHeight,
+                // onRest вызывается после завершения анимации
+                onRest: () => {
+                    console.log("Анимация завершена, высота установлена в", newHeight);
+                    // После анимации можно, при необходимости, сбросить inline-стиль до auto,
+                    // но поскольку мы используем react-spring, элементу можно оставить вычисленное значение.
+                }
+            });
+        } else {
+            console.log("Высота не изменилась, анимация не запускается");
         }
-    }); // Если нужно, можно добавить зависимости, чтобы эффект срабатывал только при изменении содержимого
+    }, deps); // зависимость зависит от того, когда должно пересчитываться содержимое
 
     return { ref, springProps };
 };
