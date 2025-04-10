@@ -55,7 +55,7 @@ const Profile = () => {
                         <>
                             <div className="profile">
                                 <AnimateHeight duration={2000}
-                                               height={editState ? 'auto' : initialFormHeight}
+                                               height={editState ? initialFormHeight : 'auto'}
                                 >
                                     <form method="PATCH" ref={formRef} className="profile__item profile__left" onSubmit={handleSubmit}>
                                         <div className="profile__top">

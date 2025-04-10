@@ -550,6 +550,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
   }
 }
 
+.rah-static {
+  flex: 1 1 650px;
+}
+
 @media (max-width: 866px) {
   .profile__wrap {
     .profile__box {
