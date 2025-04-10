@@ -15,6 +15,7 @@ const Profile = () => {
         discord: false,
     });
     const [currentHeight, setCurrentHeight] = React.useState(0);
+    const [transitioning, setTransitioning] = React.useState(false);
 
     const formRef = React.useRef(null);
     const prevHeightRef = React.useRef(0);
@@ -22,11 +23,7 @@ const Profile = () => {
     function handleHeightChange(oldHeight, newHeight) {
         console.log(`Height changed from ${oldHeight} to ${newHeight}`);
         setCurrentHeight(newHeight);
-
-        // После короткой задержки переключаем высоту на auto
-        setTimeout(() => {
-            setCurrentHeight('auto');
-        }, 300);
+        setTransitioning(true);
     }
 
     React.useEffect(() => {
@@ -64,87 +61,107 @@ const Profile = () => {
                         <>
                             <div className="profile">
 
-                                    <form
-                                      style={{
+                                <form
+                                    style={{
+                                        transition: 'height 0.3s ease',
                                         height: typeof currentHeight === 'number' ? `${currentHeight}px` : currentHeight,
-                                      }}
-                                      method="PATCH"
-                                      ref={formRef}
-                                      className="profile__item profile__left"
-                                      onSubmit={handleSubmit}
-                                    >
-                                        <div className="profile__top">
-                                            <IconSvg width={48} height={48} variant="funds"
-                                                     id={profile.fund_for_search}/>
+                                    }}
+                                    onTransitionEnd={(e) => {
+                                        // Сработает при завершении перехода CSS-свойства height
+                                        if (e.propertyName === 'height' && transitioning) {
+                                            setCurrentHeight('auto');
+                                            setTransitioning(false);
+                                        }
+                                    }}
+                                    method="PATCH"
+                                    ref={formRef}
+                                    className="profile__item profile__left"
+                                    onSubmit={handleSubmit}
+                                >
+                                    <div className="profile__top">
+                                        <IconSvg width={48} height={48} variant="funds"
+                                                 id={profile.fund_for_search}/>
+                                    </div>
+                                    <div className="profile__field">
+                                        <div className="profile__title">
+                                            Описание фонда:
                                         </div>
-                                        <div className="profile__field">
-                                            <div className="profile__title">
-                                                Описание фонда:
-                                            </div>
 
-                                            <div className="profile__content">
-                                                <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
-                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                                                    {/*{profile.fundDescr || "Описание не указано"}*/}
-                                                </div>
-                                                <input
-                                                    className={`profile__input ${editState.fundDescr ? "active" : ""}`}
-                                                    type="text"
-                                                    placeholder="Введите описание"
-                                                />
+                                        <div className="profile__content">
+                                            <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+                                                illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                                                explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+                                                odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                                voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
+                                                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+                                                eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+                                                voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
+                                                corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+                                                Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
+                                                quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
+                                                voluptas nulla pariatur?
+                                                {/*{profile.fundDescr || "Описание не указано"}*/}
                                             </div>
-                                            <button type="button"
-                                                    onClick={() => toggleFieldEdit("fundDescr")}
-                                                    className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                                <IconSvg width={16} height={16} id="pen"/>
-                                            </button>
-
+                                            <input
+                                                className={`profile__input ${editState.fundDescr ? "active" : ""}`}
+                                                type="text"
+                                                placeholder="Введите описание"
+                                            />
                                         </div>
-                                        <div className="profile__field">
-                                            <div className="profile__title">
-                                                ФИО главного контактного лица:
-                                            </div>
-                                            <div className="profile__content">
-                                                <div
-                                                    className={`profile__text ${editState.contactName ? "" : "active"}`}>
-                                                    {profile.contact_name || "Контактное лицо не указано"}
-                                                </div>
-                                                <input
-                                                    className={`profile__input ${editState.contactName ? "active" : ""}`}
-                                                    type="text"
-                                                    placeholder="Введите контакт"
-                                                />
-                                            </div>
-                                            <button type="button"
-                                                    onClick={() => toggleFieldEdit("contactName")}
-                                                    className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                                <IconSvg width={16} height={16} id="pen"/>
-                                            </button>
+                                        <button type="button"
+                                                onClick={() => toggleFieldEdit("fundDescr")}
+                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
+                                            <IconSvg width={16} height={16} id="pen"/>
+                                        </button>
 
+                                    </div>
+                                    <div className="profile__field">
+                                        <div className="profile__title">
+                                            ФИО главного контактного лица:
                                         </div>
-                                        <div className="profile__field">
-                                            <div className="profile__title">
-                                                Дискорд для связи:
+                                        <div className="profile__content">
+                                            <div
+                                                className={`profile__text ${editState.contactName ? "" : "active"}`}>
+                                                {profile.contact_name || "Контактное лицо не указано"}
                                             </div>
-
-                                            <div className="profile__content">
-                                                <div className={`profile__text ${editState.discord ? "" : "active"}`}>
-                                                    {profile.discord || "Discord не указан"}
-                                                </div>
-                                                <input
-                                                    className={`profile__input ${editState.discord ? "active" : ""}`}
-                                                    type="text"
-                                                    placeholder="Введите Discord"
-                                                />
-                                            </div>
-                                            <button type="button"
-                                                    onClick={() => toggleFieldEdit("discord")}
-                                                    className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                                <IconSvg width={16} height={16} id="pen"/>
-                                            </button>
-
+                                            <input
+                                                className={`profile__input ${editState.contactName ? "active" : ""}`}
+                                                type="text"
+                                                placeholder="Введите контакт"
+                                            />
                                         </div>
-                                    </form>
+                                        <button type="button"
+                                                onClick={() => toggleFieldEdit("contactName")}
+                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
+                                            <IconSvg width={16} height={16} id="pen"/>
+                                        </button>
+
+                                    </div>
+                                    <div className="profile__field">
+                                        <div className="profile__title">
+                                            Дискорд для связи:
+                                        </div>
+
+                                        <div className="profile__content">
+                                            <div className={`profile__text ${editState.discord ? "" : "active"}`}>
+                                                {profile.discord || "Discord не указан"}
+                                            </div>
+                                            <input
+                                                className={`profile__input ${editState.discord ? "active" : ""}`}
+                                                type="text"
+                                                placeholder="Введите Discord"
+                                            />
+                                        </div>
+                                        <button type="button"
+                                                onClick={() => toggleFieldEdit("discord")}
+                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
+                                            <IconSvg width={16} height={16} id="pen"/>
+                                        </button>
+
+                                    </div>
+                                </form>
 
                                 <div className="profile__item profile__right">
                                 </div>
