@@ -29,7 +29,7 @@ const Profile = () => {
     const formRef = React.useRef(null);
     const prevHeightRef = React.useRef(0);
 
-    const [currentHeight, setCurrentHeight] = React.useState(0);
+    const [currentHeight, setCurrentHeight] = React.useState('auto');
     const [baseHeight, setBaseHeight] = React.useState(0);
 
     React.useEffect(() => {
@@ -61,7 +61,7 @@ const Profile = () => {
                         <>
                             <div className="profile">
 
-                                <AnimateHeight height={editState ? 'auto' : baseHeight}>
+                                <AnimateHeight height={editState ? currentHeight : baseHeight}>
                                     <form
                                         ref={formRef}
                                         method="PATCH"
