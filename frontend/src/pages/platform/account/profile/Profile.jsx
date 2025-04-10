@@ -43,7 +43,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <motion.form layout method="PATCH" className="profile__item profile__left"
+                                <motion.form layout transition={{duration: 0.5, type: "tween", ease: "easeInOut"}} method="PATCH" className="profile__item profile__left"
                                       onSubmit={handleSubmit}>
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"

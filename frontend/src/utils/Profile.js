@@ -1,11 +1,9 @@
-export const ProfileData = [
-    {
-        icon: "",
-        firstName: "",
-        lastName: "",
-        description: "",
-        contact: "",
-        discord: "",
-        email: "",
-    },
-]
+export const ProfileData = {
+    fund_for_search: "",
+    firstName: "",
+    lastName: "",
+    description: "",
+    contact: "",
+    discord: "",
+    email: "",
+}
