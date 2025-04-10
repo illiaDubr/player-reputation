@@ -44,7 +44,6 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-
                                 <form ref={animatedRef} method="PATCH" className="profile__item profile__left"
                                       onSubmit={handleSubmit}>
                                     <div className="profile__top">
@@ -58,12 +57,7 @@ const Profile = () => {
 
                                         <div className="profile__content">
                                             <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
-                                                ergwergewrgwergewrgqeiufhq iuwefhqweiu ugfwieu fqrgb qiergboi qegbqe b
-                                                qerig qergrq
-                                                g qe
-                                                rg eqrg q
-                                                erger glwenghw ghowerhgoqerhgiqueabfuSf oauaebg fjebf uywbevf wevf
-                                                wbefghwqevfjqwefuiewjfiuwehfowefjhewqbfjhqwebfjwefievEFJAJOSDIFAKEGFHJERGBKERGB
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
                                                 {/*{profile.fundDescr || "Описание не указано"}*/}
                                             </div>
                                             <input
@@ -124,8 +118,6 @@ const Profile = () => {
 
                                     </div>
                                 </form>
-
-
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
