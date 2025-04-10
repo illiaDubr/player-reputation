@@ -1,63 +1,38 @@
-import { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { useRef, useLayoutEffect } from 'react';
+import { useSpring } from '@react-spring/web';
 
-const useAnimatedHeight = ({ duration = 500, easing = 'ease-in-out' } = {}) => {
+const useAnimatedHeight = ({ duration = 500, config: userConfig } = {}) => {
     const ref = useRef(null);
-    const [animating, setAnimating] = useState(false);
 
+    // Инициализация spring'а. Изначальное значение height можно задать нулевым или 'auto' (но анимировать "auto" нельзя, поэтому работаем с числами)
+    const [springProps, api] = useSpring(() => ({
+        height: 0,
+        config: { duration, ...(userConfig || {}) }
+    }));
+
+    // При монтировании измеряем начальную высоту и запускаем анимацию
     useLayoutEffect(() => {
-        const node = ref.current;
-        if (!node) {
-            console.log("useAnimatedHeight: ref.current is null");
-            return;
+        if (!ref.current) return;
+        const initialHeight = ref.current.getBoundingClientRect().height;
+        console.log("Начальная высота:", initialHeight);
+        // Запускаем анимацию к измеренной высоте (в пикселях)
+        api.start({ height: initialHeight });
+    }, [api]);
+
+    // При каждом изменении содержимого (без явной зависимости children можно использовать вызов хука без зависимостей,
+    // но если содержимое динамическое, можно добавить зависимость, например, ключ или children)
+    useLayoutEffect(() => {
+        if (!ref.current) return;
+        const measuredHeight = ref.current.scrollHeight;
+        const currentHeight = ref.current.getBoundingClientRect().height;
+        // Если высота изменилась, запускаем анимацию и логируем новое значение
+        if (currentHeight !== measuredHeight) {
+            console.log("Новая высота:", measuredHeight);
+            api.start({ height: measuredHeight });
         }
+    }); // Если нужно, можно добавить зависимости, чтобы эффект срабатывал только при изменении содержимого
 
-        // Запоминаем текущую (начальную) высоту
-        const startHeight = node.clientHeight;
-        console.log("useAnimatedHeight: startHeight =", startHeight);
-        // Устанавливаем явную высоту вместо auto
-        node.style.height = startHeight + 'px';
-
-        // В следующем кадре измеряем новую высоту
-        requestAnimationFrame(() => {
-            const newHeight = node.scrollHeight;
-            console.log("useAnimatedHeight: newHeight =", newHeight);
-            if (startHeight !== newHeight) {
-                console.log(`useAnimatedHeight: Starting animation from ${startHeight}px to ${newHeight}px`);
-                setAnimating(true);
-                // Задаём плавный переход для высоты
-                node.style.transition = `height ${duration}ms ${easing}`;
-                // Устанавливаем новую высоту, которая будет анимирована
-                node.style.height = newHeight + 'px';
-            } else {
-                console.log("useAnimatedHeight: Height did not change, no animation needed");
-            }
-        });
-    }, [duration, easing]);
-
-    useEffect(() => {
-        const node = ref.current;
-        if (!node) return;
-
-        const handleTransitionEnd = () => {
-            console.log("useAnimatedHeight: Transition ended");
-            if (animating) {
-                // Сброс высоты в auto, чтобы блок мог динамически менять высоту в дальнейшем
-                node.style.height = 'auto';
-                node.style.transition = 'none';
-                setAnimating(false);
-                console.log("useAnimatedHeight: Height reset to auto and transition removed");
-            }
-        };
-        node.addEventListener('transitionend', handleTransitionEnd);
-        console.log("useAnimatedHeight: Added transitionend event listener");
-
-        return () => {
-            node.removeEventListener('transitionend', handleTransitionEnd);
-            console.log("useAnimatedHeight: Removed transitionend event listener");
-        };
-    }, [animating]);
-
-    return ref;
+    return { ref, springProps };
 };
 
 export default useAnimatedHeight;

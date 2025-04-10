@@ -8,9 +8,9 @@ import useAnimatedHeight from "../../../../components/platform/components/Animat
 
 const Profile = () => {
     const {store} = React.useContext(Context);
-    const animatedRef = useAnimatedHeight({duration: 500, easing: 'ease-in-out' });
     const profile = store.user?.backer;
     const [activeBtn, setActiveBtn] = React.useState(false);
+    const {ref, springProps} = useAnimatedHeight({duration: 500});
     const [editState, setEditState] = React.useState({
         fundDescr: false,
         contactName: false,
@@ -44,8 +44,8 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form ref={animatedRef} method="PATCH" className="profile__item profile__left"
-                                      onSubmit={handleSubmit}>
+                                <form method="PATCH" className="profile__item profile__left"
+                                      onSubmit={handleSubmit} ref={ref} style={springProps}>
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
                                                  id={profile.fund_for_search}/>
