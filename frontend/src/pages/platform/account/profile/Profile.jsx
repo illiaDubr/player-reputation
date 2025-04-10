@@ -70,9 +70,9 @@ const Profile = () => {
                             <div className="profile">
 
 
-                                    <animated.form
+                                    <form
                                         ref={formRef}
-                                        style={heightAnimation}
+
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
@@ -160,7 +160,7 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </animated.form>
+                                    </form>
 
 
                                 <div className="profile__item profile__right">
