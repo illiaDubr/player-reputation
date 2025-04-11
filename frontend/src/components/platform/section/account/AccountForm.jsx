@@ -97,7 +97,7 @@ const AccountForm = ({slideType, modalOpen}) => {
             {Object.keys(formBackerErrors).length > 0 && (
                 <div className="slide__warning">
                     <p>
-                        Поля не отмеченные как обязательны вы можете заполнить позднее
+                        Поля, не отмеченные как обязательные, вы можете заполнить позднее.
                     </p>
                 </div>
             )}
