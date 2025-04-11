@@ -69,9 +69,10 @@ const Profile = () => {
 
                                     <motion.form
                                         ref={formRef}
+                                        layout
                                         initial={{height: `${currentHeight}px`}}
                                         animate={{height: 'auto'}}
-                                        layout
+                                        transition={{type: 'spring', duration: 2000}}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
