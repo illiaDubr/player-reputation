@@ -29,9 +29,14 @@ const PlayerManagement = ({user, setSelectedUser, backersFund, fund}) => {
     return (
         <div className="result__edit-wrap">
             {editData.map((item, index) => {
-                if (backersFund !== fund && (item.id === 2 || item.id === 1)) {
+                if (backersFund !== fund && item.id === 2) {
                     return null;
                 }
+
+                if (backersFund === fund && item.id === 1) {
+                    return null;
+                }
+
                 return (
                     <button className="result__edit" type="button" key={index}  onClick={() => actions[item.modal](user)}>
                         <IconSvg width={16} height={16} id={item.img}/> {item.text}
