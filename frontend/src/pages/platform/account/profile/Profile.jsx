@@ -72,7 +72,7 @@ const Profile = () => {
                                         layout
                                         initial={{height: `${currentHeight}px`}}
                                         animate={{height: 'auto'}}
-                                        transition={{type: 'inertia', duration: 1000}}
+                                        transition={{type: 'tween', duration: 1000}}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
