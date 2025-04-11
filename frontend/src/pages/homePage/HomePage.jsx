@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../components/HomePage/footer/Footer.jsx";
 import ContactForm from "../../components/HomePage/main/subscriptionSection/form/ContactForm.jsx";
 import Subscribe from "../../components/HomePage/main/subscriptionSection/subscription/Subscription.jsx";
+import Loader from "../../components/platform/components/Loader.jsx";
 
 const HomePage = observer(() => {
     const { selectedRole, setSelectedRole } = React.useContext(RoleContext);

@@ -21,6 +21,61 @@ body {
   padding: 40px 20px;
 }
 
+.loader__wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: #080808;
+  transition: all .4s ease;
+  opacity: 1;
+  visibility: visible;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    position: relative;
+    z-index: 2;
+    height: 340px;
+
+    .loader__progress {
+      width: 100%;
+      position: absolute;
+
+      bottom: 0;
+      z-index: 1;
+      background: #FFFFFF;
+      rotate: 360deg;
+    }
+
+    svg {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  &:before {
+    //content: '';
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border-radius: 50%;
+    background: #2a4bfb;
+    filter: blur(50px);
+  }
+}
+
+.upload {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .select__country {
   position: absolute;
   left: 24px;
