@@ -27,7 +27,7 @@ body:has(.title__section) {
     display: flex;
     align-items: center;
     gap: 50px;
-    padding: 180px 0px 50px 0px;
+    padding: 180px 0px 100px 0px;
     background: url("../../../assets/image/main_background.webp") center center no-repeat;
     position: relative;
 
@@ -225,7 +225,8 @@ body:has(.title__section) {
           border: 1px solid transparent;
           border-radius: 20px;
           @include mixin.gradient-box(rgba(8, 8, 8, 1), linear-gradient(to left, #818181, #36373E));
-          @include mixin.font-style(600, 23, 120, #FFFFFF);
+          @include mixin.font-style(600, null, 120, #FFFFFF);
+          @include mixin.font-size(26, 23);
           position: relative;
           overflow: hidden;
 
@@ -240,11 +241,11 @@ body:has(.title__section) {
           }
 
           .role__card-description {
-            padding: 5px 40px 0px 40px;
+            padding: 0px 40px 0px 40px;
             opacity: .8;
             position: relative;
             z-index: 2;
-            @include mixin.font-style(400, 13, 130, #FFFFFF);
+            @include mixin.font-style(400, 16, 130, #FFFFFF);
           }
 
           figure {
