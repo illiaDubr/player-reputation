@@ -29,8 +29,6 @@ const Profile = () => {
         e.preventDefault();
     }
     const formRef = React.useRef(null);
-    const prevHeightRef = React.useRef(0);
-
     const [currentHeight, setCurrentHeight] = React.useState(0);
     const [baseHeight, setBaseHeight] = React.useState(0);
 
@@ -53,6 +51,10 @@ const Profile = () => {
     console.log(baseHeight);
     console.log(currentHeight);
 
+    const heightAnimated = useSpring({
+        height: editState ? 'auto' : `${currentHeight}px`,
+    })
+
     return (
         <>
             <Helmet>
@@ -67,15 +69,12 @@ const Profile = () => {
                             <div className="profile">
 
 
-                                    <motion.form
+                                    <animated.form
                                         ref={formRef}
-                                        layout
-                                        initial={{height: `${currentHeight}px`}}
-                                        animate={{height: 'auto'}}
-                                        transition={{type: 'tween', duration: 1}}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
+                                        style={heightAnimated}
                                     >
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
@@ -160,7 +159,7 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </motion.form>
+                                    </animated.form>
 
 
                                 <div className="profile__item profile__right">
