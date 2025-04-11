@@ -67,11 +67,8 @@ const Profile = () => {
                 <div className="profile__box">
                     {profile && (
                         <>
-                            <div className="profile">
-
-
+                            <div className="profile" ref={formRef}>
                                     <animated.form
-                                        ref={formRef}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
