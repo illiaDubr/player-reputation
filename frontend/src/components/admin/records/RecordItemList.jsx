@@ -12,6 +12,8 @@ const RecordItemList = ({data, discussion, closeRecord}) => {
         }));
     };
 
+    console.log(data)
+
     return (
         <>
             {data.length > 0 ? (

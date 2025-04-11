@@ -20,6 +20,8 @@ const Records = observer(() => {
         });
     }, [store]);
 
+    console.log(recordsData);
+
     return (
         <>
             <Helmet>
