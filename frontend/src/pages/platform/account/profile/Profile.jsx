@@ -73,6 +73,7 @@ const Profile = () => {
 
                                     <motion.form
                                         ref={formRef}
+                                        style={{height: `${currentHeight}px   ` }}
                                         layout
                                         method="PATCH"
                                         className="profile__item profile__left"
