@@ -4,9 +4,6 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
-import AnimateHeight from "react-animate-height";
-import {animated, useSpring} from "@react-spring/web";
-import {motion} from "framer-motion";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -51,10 +48,6 @@ const Profile = () => {
     console.log(baseHeight);
     console.log(currentHeight);
 
-    const heightAnimated = useSpring({
-        height: editState ? `${baseHeight}px` : `${currentHeight}px`,
-        from: {height: `${currentHeight}px`},
-    })
 
     return (
         <>
@@ -67,12 +60,12 @@ const Profile = () => {
                 <div className="profile__box">
                     {profile && (
                         <>
-                            <div className="profile" ref={formRef}>
-                                    <animated.form
+                            <div className="profile">
+                                    <form
+                                        ref={formRef}
                                         method="PATCH"
                                         className="profile__item profile__left"
                                         onSubmit={handleSubmit}
-                                        style={heightAnimated}
                                     >
                                         <div className="profile__top">
                                             <IconSvg width={48} height={48} variant="funds"
@@ -157,7 +150,7 @@ const Profile = () => {
                                             </button>
 
                                         </div>
-                                    </animated.form>
+                                    </form>
 
 
                                 <div className="profile__item profile__right">
