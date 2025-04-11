@@ -663,6 +663,7 @@
   @include mixin.font-style(500, 16, 130, #FFFFFF);
   text-align: center;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 @media (width < 800px) {
