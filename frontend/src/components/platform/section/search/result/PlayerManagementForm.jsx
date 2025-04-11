@@ -69,17 +69,20 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
             {editFormData.filter((item) => item.name === currentModal).map((item, index) => (
                 <form method={item.method} key={index} className="modal__body" onSubmit={handleSubmit}>
                     {item.name === "report" && (
-                        <div className="modal__input-box">
-                            <label className="label" htmlFor="comment">
-                                Комментарий
-                            </label>
-                            <textarea name="comment" className="textarea" id="comment">
+                        <>
+                            <ChangeTooltip text={item.text}/>
+                            <div className="modal__input-box">
+                                <label className="label" htmlFor="comment">
+                                    Комментарий
+                                </label>
+                                <textarea name="comment" className="textarea" id="comment">
                             </textarea>
-                        </div>
+                            </div>
+                        </>
                     )}
                     {item.name === "edit" && (
                         <>
-                            <ChangeTooltip />
+                            <ChangeTooltip text={item.text}/>
                             <div className="modal__input-box" style={{zIndex: 2}}>
                                 <label className="label" htmlFor="">
                                     Смена метки
