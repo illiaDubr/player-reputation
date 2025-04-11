@@ -35,14 +35,14 @@ const Profile = () => {
     const [baseHeight, setBaseHeight] = React.useState(0);
 
     React.useEffect(() => {
-        if (formRef.current) {
-            const measuredHeight = formRef.current.getBoundingClientRect().height;
-            if (prevHeightRef.current !== measuredHeight) {
-                handleHeightChange(prevHeightRef.current, measuredHeight);
-                prevHeightRef.current = measuredHeight;
+        const timer = setTimeout(() => {
+            if (formRef.current) {
+                const measuredHeight = formRef.current.getBoundingClientRect().height;
+                handleHeightChange(0, measuredHeight);
             }
-        }
-    }, [editState, activeBtn]);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, []);
 
     function handleHeightChange(oldHeight, newHeight) {
         console.log(`с ${oldHeight} до ${newHeight}`);
@@ -52,10 +52,6 @@ const Profile = () => {
 
     console.log(baseHeight);
     console.log(currentHeight);
-
-    const heightAnimation = useSpring({
-        height: editState ? `${currentHeight}px` : `${baseHeight}px`,
-    })
 
     return (
         <>
@@ -73,7 +69,8 @@ const Profile = () => {
 
                                     <motion.form
                                         ref={formRef}
-                                        style={{height: `${currentHeight}px   ` }}
+                                        initial={{height: `${currentHeight}px`}}
+                                        animate={{height: 'auto'}}
                                         layout
                                         method="PATCH"
                                         className="profile__item profile__left"
