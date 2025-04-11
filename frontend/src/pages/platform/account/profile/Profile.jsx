@@ -38,7 +38,7 @@ const Profile = () => {
                 const measuredHeight = formRef.current.getBoundingClientRect().height;
                 handleHeightChange(0, measuredHeight);
             }
-        }, 500);
+        }, 1000);
         return () => clearTimeout(timer);
     }, []);
 
