@@ -29,7 +29,7 @@ const PlayerManagement = ({user, setSelectedUser, backersFund, fund}) => {
     return (
         <div className="result__edit-wrap">
             {editData.map((item, index) => {
-                if (backersFund !== fund && item.id === 2) {
+                if (backersFund !== fund && (item.id === 2 || item.id === 1)) {
                     return null;
                 }
                 return (
