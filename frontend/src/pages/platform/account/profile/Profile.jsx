@@ -52,7 +52,7 @@ const Profile = () => {
     console.log(currentHeight);
 
     const heightAnimated = useSpring({
-        height: editState ? 'auto' : `${currentHeight}px`,
+        height: editState ? `${baseHeight}px` : `${currentHeight}px`,
     })
 
     return (
