@@ -57,50 +57,24 @@ const Profile = () => {
                                         inputClass={editState.fundDescr ? "active" : ""}
                                         textClass={editState.fundDescr ? "" : "active"}
                                     />
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            ФИО главного контактного лица:
-                                        </div>
-                                        <div className="profile__content">
-                                            <div
-                                                className={`profile__text ${editState.contactName ? "" : "active"}`}>
-                                                {profile.contact_name || "Контактное лицо не указано"}
-                                            </div>
-                                            <input
-                                                className={`profile__input ${editState.contactName ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите контакт"
-                                            />
-                                        </div>
-                                        <button type="button"
-                                                onClick={() => toggleFieldEdit("contactName")}
-                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                            <IconSvg width={16} height={16} id="pen"/>
-                                        </button>
-
-                                    </div>
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            Дискорд для связи:
-                                        </div>
-
-                                        <div className="profile__content">
-                                            <div className={`profile__text ${editState.discord ? "" : "active"}`}>
-                                                {profile.discord || "Discord не указан"}
-                                            </div>
-                                            <input
-                                                className={`profile__input ${editState.discord ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите Discord"
-                                            />
-                                        </div>
-                                        <button type="button"
-                                                onClick={() => toggleFieldEdit("discord")}
-                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                            <IconSvg width={16} height={16} id="pen"/>
-                                        </button>
-
-                                    </div>
+                                    <ProfileItem
+                                        title="ФИО главного контактного лица:"
+                                        value={profile.contact_name || "Контактное лицо не указано"}
+                                        placeholder="Введите контакт"
+                                        isActive={activeBtn}
+                                        onToggle={() => toggleFieldEdit("contactName")}
+                                        inputClass={editState.contactName ? "active" : ""}
+                                        textClass={editState.contactName ? "" : "active"}
+                                    />
+                                    <ProfileItem
+                                        title="Дискорд для связи:"
+                                        value={profile.discord || "Discord не указан"}
+                                        placeholder="Введите Discord"
+                                        isActive={activeBtn}
+                                        onToggle={() => toggleFieldEdit("discord")}
+                                        inputClass={editState.discord ? "active" : ""}
+                                        textClass={editState.discord ? "" : "active"}
+                                    />
                                 </form>
                                 <div className="profile__item profile__right">
                                 </div>
