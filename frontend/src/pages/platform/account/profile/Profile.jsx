@@ -4,6 +4,7 @@ import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
+import ProfileItem from "../../../../components/platform/section/account/profile/ProfileItem.jsx";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -25,29 +26,6 @@ const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
-    const formRef = React.useRef(null);
-    const [currentHeight, setCurrentHeight] = React.useState(0);
-    const [baseHeight, setBaseHeight] = React.useState(0);
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            if (formRef.current) {
-                const measuredHeight = formRef.current.getBoundingClientRect().height;
-                handleHeightChange(0, measuredHeight);
-            }
-        }, 1000);
-        return () => clearTimeout(timer);
-    }, []);
-
-    function handleHeightChange(oldHeight, newHeight) {
-        console.log(`с ${oldHeight} до ${newHeight}`);
-        setBaseHeight(oldHeight);
-        setCurrentHeight(newHeight);
-    }
-
-    console.log(baseHeight);
-    console.log(currentHeight);
-
 
     return (
         <>
@@ -62,7 +40,6 @@ const Profile = () => {
                         <>
                             <div className="profile">
                                 <form
-                                    ref={formRef}
                                     method="PATCH"
                                     className="profile__item profile__left"
                                     onSubmit={handleSubmit}
@@ -71,28 +48,15 @@ const Profile = () => {
                                         <IconSvg width={48} height={48} variant="funds"
                                                  id={profile.fund_for_search}/>
                                     </div>
-                                    <div className="profile__field">
-                                        <div className="profile__title">
-                                            Описание фонда:
-                                        </div>
-
-                                        <div className="profile__content">
-                                            <div className={`profile__text ${editState.fundDescr ? "" : "active"}`}>
-                                                {profile.fundDescr || "Описание не указано"}
-                                            </div>
-                                            <input
-                                                className={`profile__input ${editState.fundDescr ? "active" : ""}`}
-                                                type="text"
-                                                placeholder="Введите описание"
-                                            />
-                                        </div>
-                                        <button type="button"
-                                                onClick={() => toggleFieldEdit("fundDescr")}
-                                                className={`profile__edit-btn ${activeBtn ? "profile__edit-btn--active" : ""}`}>
-                                            <IconSvg width={16} height={16} id="pen"/>
-                                        </button>
-
-                                    </div>
+                                    <ProfileItem
+                                        title="Описание фонда:"
+                                        value={profile.fundDescr || "Описание не указано"}
+                                        placeholder="Введите описание"
+                                        isActive={activeBtn}
+                                        onToggle={() => toggleFieldEdit("fundDescr")}
+                                        inputClass={editState.fundDescr ? "active" : ""}
+                                        textClass={editState.fundDescr ? "" : "active"}
+                                    />
                                     <div className="profile__field">
                                         <div className="profile__title">
                                             ФИО главного контактного лица:
