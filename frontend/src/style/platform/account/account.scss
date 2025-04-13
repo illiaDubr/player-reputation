@@ -507,6 +507,22 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           }
         }
 
+        .btn {
+          max-width: 50%;
+          position: absolute;
+          left: 50%;
+          bottom: 18px;
+          transform: translateX(-50%);
+          padding: 6px 14px;
+          opacity: 0;
+          visibility: hidden;
+
+          &--active {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
         &:before, &:after {
           content: '';
           width: 150px;
@@ -539,6 +555,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
           &:after {
             display: none;
           }
+        }
+
+        &--active {
+          padding: 48px 48px 68px 48px;
         }
       }
 

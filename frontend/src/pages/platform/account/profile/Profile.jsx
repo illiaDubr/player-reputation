@@ -20,15 +20,9 @@ const Profile = () => {
     const {
         register,
         handleSubmit,
-        setValue,
-        formState: { errors },
+        formState: { errors, isDirty },
     } = useForm({
-        defaultValues: {
-            description: profile?.description || "",
-            contact_name: profile?.contact_name || "",
-            discord: profile?.discord || "",
-        },
-        mode: "onChange",
+        mode: 'onChange',
     });
 
     const toggleFieldEdit = (fieldName) => {
@@ -40,7 +34,10 @@ const Profile = () => {
     };
 
     const handleSubmitFrom = (data) => {
-        console.log(data);
+        const filledData = Object.fromEntries(
+            Object.entries(data).filter(([, value]) => value !== "")
+        );
+        console.log(filledData);
     }
 
     return (
@@ -55,7 +52,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit(handleSubmitFrom)}
+                                <form method="PATCH" className={`profile__item profile__left ${activeBtn ? "profile__item--active" : ""}`} onSubmit={handleSubmit(handleSubmitFrom)}
                                 >
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
@@ -94,7 +91,7 @@ const Profile = () => {
                                         inputClass={editState.discord ? "active" : ""}
                                         textClass={editState.discord ? "" : "active"}
                                     />
-                                    <button type="submit" className={`btn ${editState ? "hidden": ""}`}>
+                                    <button type="submit" className={`btn ${isDirty ? "btn--active" : ""}`}>
                                         Изменить
                                     </button>
                                 </form>
