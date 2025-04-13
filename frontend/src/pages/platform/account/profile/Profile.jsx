@@ -43,6 +43,8 @@ const Profile = () => {
             ...Object.fromEntries(Object.entries(data).filter(([, value]) => value !== "")),
             id: profile.backer_id,
         };
+
+        console.log(profileData);
         store.profile(profileData);
     }
 
