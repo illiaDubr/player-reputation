@@ -1,5 +1,6 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
+import {useForm} from "react-hook-form";
 import Main from "../../../../components/main/Main.jsx";
 import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
@@ -15,6 +16,21 @@ const Profile = () => {
         contactName: false,
         discord: false,
     });
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm({
+        defaultValues: {
+            description: profile?.description || "",
+            contact_name: profile?.contact_name || "",
+            discord: profile?.discord || "",
+        },
+        mode: "onChange",
+    });
+
     const toggleFieldEdit = (fieldName) => {
         setEditState(prev => ({...prev, [fieldName]: !prev[fieldName]}));
     };
@@ -23,8 +39,8 @@ const Profile = () => {
         setActiveBtn((prev) => !prev);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmitFrom = (data) => {
+        console.log(data);
     }
 
     return (
@@ -39,16 +55,15 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form
-                                    method="PATCH"
-                                    className="profile__item profile__left"
-                                    onSubmit={handleSubmit}
+                                <form method="PATCH" className="profile__item profile__left" onSubmit={handleSubmit(handleSubmitFrom)}
                                 >
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
                                                  id={profile.fund_for_search}/>
                                     </div>
                                     <ProfileItem
+                                        name="description"
+                                        register={register}
                                         title="Описание фонда:"
                                         value={profile.fundDescr || "Описание не указано"}
                                         placeholder="Введите описание"
@@ -58,6 +73,8 @@ const Profile = () => {
                                         textClass={editState.fundDescr ? "" : "active"}
                                     />
                                     <ProfileItem
+                                        name="contact_name"
+                                        register={register}
                                         title="ФИО главного контактного лица:"
                                         value={profile.contact_name || "Контактное лицо не указано"}
                                         placeholder="Введите контакт"
@@ -67,6 +84,8 @@ const Profile = () => {
                                         textClass={editState.contactName ? "" : "active"}
                                     />
                                     <ProfileItem
+                                        name="discord"
+                                        register={register}
                                         title="Дискорд для связи:"
                                         value={profile.discord || "Discord не указан"}
                                         placeholder="Введите Discord"
