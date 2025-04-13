@@ -1,13 +1,14 @@
 import React from "react";
 import IconSvg from "../../../components/IconSvg.jsx";
 
-const ProfileItem = ({title, value, placeholder, isActive, onToggle, inputClass, textClass }) => {
+const ProfileItem = ({title, value, placeholder, isActive, onToggle, inputClass, textClass, name, register }) => {
     return (
         <div className="profile__field">
             <div className="profile__title">{title}</div>
             <div className="profile__content">
                 <div className={`profile__text ${textClass}`}>{value}</div>
                 <input
+                    {...register(name, {required: true})}
                     className={`profile__input ${inputClass}`}
                     type="text"
                     placeholder={placeholder}
