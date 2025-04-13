@@ -13,8 +13,8 @@ const ProfileItem = ({title, value, placeholder, isActive, onToggle, inputClass,
                     type="text"
                     placeholder={placeholder}
                 />
-                <p className={`auth__input-error ${errors.name ? "auth__input-error--active" : ""}`}>
-                    {errors.name?.message}
+                <p className={`auth__input-error ${errors[name] ? "auth__input-error--active" : ""}`}>
+                    {errors[name]?.message}
                 </p>
             </div>
             <button type="button" onClick={onToggle} className={`profile__edit-btn ${isActive ? "profile__edit-btn--active" : ""}`}>
