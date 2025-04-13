@@ -94,12 +94,15 @@ const Profile = () => {
                                         inputClass={editState.discord ? "active" : ""}
                                         textClass={editState.discord ? "" : "active"}
                                     />
+                                    <button type="submit" className={`btn ${editState ? "hidden": ""}`}>
+                                        Изменить
+                                    </button>
                                 </form>
                                 <div className="profile__item profile__right">
                                 </div>
                             </div>
                             <button type="button" className="btn" onClick={handleToggleEdit}>
-                                Изменить
+                                {activeBtn ? "Изменить" : "Скрыть"}
                             </button>
                         </>
                     )}
