@@ -12,10 +12,13 @@ const ProfileItem = ({title, value, placeholder, isActive, onToggle, inputClass,
                     className={`profile__input ${inputClass}`}
                     type="text"
                     placeholder={placeholder}
+                    autoComplete="off"
                 />
-                <p className={`auth__input-error ${errors[name] ? "auth__input-error--active" : ""}`}>
-                    {errors[name]?.message}
-                </p>
+                {onToggle && (
+                    <p className={`auth__input-error ${errors[name] ? "auth__input-error--active" : ""}`}>
+                        {errors[name]?.message}
+                    </p>
+                )}
             </div>
             <button type="button" onClick={onToggle} className={`profile__edit-btn ${isActive ? "profile__edit-btn--active" : ""}`}>
                 <IconSvg width={16} height={16} id="pen" />

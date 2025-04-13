@@ -5,6 +5,7 @@ import AuthService from "../services/AuthService.js";
 import SearchService from "../services/SearchService.js";
 import AccountService from "../services/AccountService.js";
 import AdminService from "../services/AdminService.js";
+import ProfileService from "../services/AccountService.js";
 
 export default class Store {
     user = {};
@@ -172,6 +173,13 @@ export default class Store {
         await this.request(
             () => AccountService.backerApproval(backerData),
             "Ошибка авторизации"
+        )
+    }
+
+    async profile(profileData) {
+        await this.request(
+            () => AccountService.profile(profileData),
+            "Ошибка отправки данных"
         )
     }
 

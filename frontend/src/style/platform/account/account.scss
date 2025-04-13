@@ -438,6 +438,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
 
           .profile__content {
             position: relative;
+            display: flex;
 
             .profile__text {
               text-wrap: balance;
@@ -452,6 +453,7 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             }
 
             .profile__input {
+              flex-grow: 1;
               height: 45px;
               position: absolute;
               top: 0px;
@@ -486,6 +488,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               visibility: visible;
               pointer-events: all;
               position: relative;
+            }
+
+            .auth__input-error {
+              top: -36px;
             }
           }
 

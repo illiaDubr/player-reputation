@@ -36,11 +36,14 @@ const Profile = () => {
         setActiveBtn((prev) => !prev);
     };
 
+    console.log(profile);
+
     const handleSubmitFrom = (data) => {
-        const filledData = Object.fromEntries(
-            Object.entries(data).filter(([, value]) => value !== "")
-        );
-        console.log(filledData);
+        const profileData = {
+            ...Object.fromEntries(Object.entries(data).filter(([, value]) => value !== "")),
+            id: profile.backer_id,
+        };
+        store.profile(profileData);
     }
 
     return (
