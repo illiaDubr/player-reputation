@@ -43,6 +43,8 @@ const Profile = () => {
         console.log(filledData);
     }
 
+    console.log(errors);
+
     return (
         <>
             <Helmet>
