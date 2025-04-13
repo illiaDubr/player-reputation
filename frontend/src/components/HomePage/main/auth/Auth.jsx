@@ -101,7 +101,7 @@ function Auth({userData, setUserData}) {
                                     className={`input ${errorsStep1.email ? 'input__error' : ''}`}
                                     {...registerStep1('email')}
                                 />
-                                <p className={`auth__input-error ${errorsStep1.email ? "active" : ""}`}>
+                                <p className={`auth__input-error ${errorsStep1.email ? "auth__input-error--active" : ""}`}>
                                     {errorsStep1.email?.message}
                                 </p>
                             </div>
@@ -114,7 +114,7 @@ function Auth({userData, setUserData}) {
                                     className={`input ${errorsStep1.password ? 'input__error' : ''}`}
                                     {...registerStep1('password')}
                                 />
-                                <p className={`auth__input-error ${errorsStep1.password ? "active" : ""}`}>
+                                <p className={`auth__input-error ${errorsStep1.password ? "auth__input-error--active" : ""}`}>
                                     {errorsStep1.password?.message}
                                 </p>
                             </div>
@@ -129,7 +129,7 @@ function Auth({userData, setUserData}) {
                                     className={`input ${errorsStep1.password_confirmation ? 'input__error' : ''}`}
                                     {...registerStep1('password_confirmation')}
                                 />
-                                <p className={`auth__input-error ${errorsStep1.password_confirmation ? "active" : ""}`}>
+                                <p className={`auth__input-error ${errorsStep1.password_confirmation ? "auth__input-error--active" : ""}`}>
                                     {errorsStep1.password_confirmation?.message}
                                 </p>
                             </div>

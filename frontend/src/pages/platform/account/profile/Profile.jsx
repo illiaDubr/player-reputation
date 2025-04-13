@@ -6,6 +6,8 @@ import "../../../../style/platform/account/account.scss"
 import IconSvg from "../../../../components/platform/components/IconSvg.jsx";
 import {Context} from "../../../../api/store/storeContext.js";
 import ProfileItem from "../../../../components/platform/section/account/profile/ProfileItem.jsx";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {ProfileSchema} from "../../../../components/platform/components/validation/ProfileSchema.js";
 
 const Profile = () => {
     const {store} = React.useContext(Context);
@@ -23,6 +25,7 @@ const Profile = () => {
         formState: { errors, isDirty },
     } = useForm({
         mode: 'onChange',
+        resolver: yupResolver(ProfileSchema),
     });
 
     const toggleFieldEdit = (fieldName) => {
@@ -52,7 +55,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form method="PATCH" className={`profile__item profile__left ${activeBtn ? "profile__item--active" : ""}`} onSubmit={handleSubmit(handleSubmitFrom)}
+                                <form method="PATCH" className={`profile__item profile__left ${isDirty ? "profile__item--active" : ""}`} onSubmit={handleSubmit(handleSubmitFrom)}
                                 >
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
@@ -68,6 +71,7 @@ const Profile = () => {
                                         onToggle={() => toggleFieldEdit("fundDescr")}
                                         inputClass={editState.fundDescr ? "active" : ""}
                                         textClass={editState.fundDescr ? "" : "active"}
+                                        errors={errors}
                                     />
                                     <ProfileItem
                                         name="contact_name"
@@ -79,6 +83,7 @@ const Profile = () => {
                                         onToggle={() => toggleFieldEdit("contactName")}
                                         inputClass={editState.contactName ? "active" : ""}
                                         textClass={editState.contactName ? "" : "active"}
+                                        errors={errors}
                                     />
                                     <ProfileItem
                                         name="discord"
@@ -90,6 +95,7 @@ const Profile = () => {
                                         onToggle={() => toggleFieldEdit("discord")}
                                         inputClass={editState.discord ? "active" : ""}
                                         textClass={editState.discord ? "" : "active"}
+                                        errors={errors}
                                     />
                                     <button type="submit" className={`btn ${isDirty ? "btn--active" : ""}`}>
                                         Изменить
@@ -99,7 +105,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             <button type="button" className="btn" onClick={handleToggleEdit}>
-                                {activeBtn ? "Изменить" : "Скрыть"}
+                                {activeBtn ? "Скрыть" : "Изменить"}
                             </button>
                         </>
                     )}

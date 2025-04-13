@@ -61,7 +61,7 @@ const Login = () => {
                         placeholder="Введите почту"
                     />
                     {errors.email && (
-                        <p className="auth__input-error active">{errors.email.message}</p>
+                        <p className="auth__input-error auth__input-error--active">{errors.email.message}</p>
                     )}
                 </div>
                 <div className="auth__input-box">
@@ -76,7 +76,7 @@ const Login = () => {
                         placeholder="Пароль"
                     />
                     {errors.password && (
-                        <p className="auth__input-error active">{errors.password.message}</p>
+                        <p className="auth__input-error auth__input-error--active">{errors.password.message}</p>
                     )}
                 </div>
                 <button className="auth__form-btn" type="submit">
