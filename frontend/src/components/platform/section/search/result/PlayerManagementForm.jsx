@@ -6,7 +6,7 @@ import {reportData} from "../../../../../utils/ReportData.js";
 import IconSvg from "../../../components/IconSvg.jsx";
 import ChangeTooltip from "./ChangeTooltip.jsx";
 
-const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
+const PlayerManagementForm = ({currentModal, backer, user, tag, modalOpen}) => {
     const {store} = React.useContext(Context);
     const {closeAllModals} = useModal();
     const [selected, setSelected] = React.useState(tag);
@@ -42,7 +42,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                     comment: data.comment,
                 }
                 store.report(report);
-                closeAllModals();
+                modalOpen();
             } else if (currentModal === "edit") {
                 const finalComment = data.comment.trim() ? data.comment : user.comment;
                 const finalDamage = data.damage.trim() ? data.damage : user.damage;
@@ -57,7 +57,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag}) => {
                 }
                 console.log("Отправляем payload:", payload);
                 store.userEdit(payload);
-                closeAllModals();
+                modalOpen();
             }
         } catch (error) {
             console.error(error);

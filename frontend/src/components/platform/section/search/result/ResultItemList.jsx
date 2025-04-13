@@ -28,7 +28,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
     const [openItems, setOpenItems] = React.useState({});
     const [expandedComments, setExpandedComments] = React.useState({});
     const [selectedUser, setSelectedUser] = React.useState(null);
-    const {closeAllModals} = useModal();
+    const {closeAllModals, openModal} = useModal();
 
     const [currentPage, setCurrentPage] = React.useState(0);
     const itemsPerPage = 15;
@@ -39,6 +39,10 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
     );
     const sectionRef = React.createRef();
     const [scrollBtn, setScrollBtn] = React.useState(false);
+
+    const openReadyModal = () => {
+        openModal("ready");
+    }
 
     const toggleClass = (player_id) => {
         setOpenItems((prevState) => ({
@@ -269,9 +273,18 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                             <IconSvg width="36" height="36" id="close-menu"/>
                         </button>
                     </div>
-                    <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser} tag={results.backer_tag}/>
+                    <PlayerManagementForm currentModal={modalItem.name} backer={backer} user={selectedUser} tag={results.backer_tag} modalOpen={openReadyModal}/>
                 </Modal>
             ))}
+
+            <Modal modalName="ready">
+                <div className="modal__title">
+                    Готово !!
+                    <button className="modal__btn" type="button" onClick={closeAllModals}>
+                        <IconSvg width="36" height="36" id="close-menu"/>
+                    </button>
+                </div>
+            </Modal>
         </div>
     );
 };
