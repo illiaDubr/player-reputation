@@ -34,7 +34,7 @@ const SearchForm = ({checked, setChecked}) => {
         reset,
         setValue,
         setError,
-        formState: { errors,isSubmitting },
+        formState: { errors },
     } = useForm({
         resolver: yupResolver(SearchSchema),
         mode: 'onChange',
