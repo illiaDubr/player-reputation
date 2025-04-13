@@ -38,7 +38,8 @@ const Profile = () => {
 
     console.log(profile);
 
-    const handleSubmitFrom = (data) => {
+    const handleSubmitFrom = (data, e) => {
+        e.preventDefault();
         const profileData = {
             ...Object.fromEntries(Object.entries(data).filter(([, value]) => value !== "")),
             id: profile.backer_id,

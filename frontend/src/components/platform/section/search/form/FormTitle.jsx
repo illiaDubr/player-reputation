@@ -19,13 +19,11 @@ const FormTitle = ({fundName, checked, setChecked}) => {
             <h3 className="search__title">
                 {checked ? "Поиск по записям своего фонда" : "Поиск по общей базе"}
             </h3>
-            <div className="search__control">
-                <div className="search__switch-wrap">
-                    {checked ? "Переключиться на поиск по общей базе" : "Переключиться на записи только своего фонда"}
-                    <input type="checkbox" id="switch" checked={checked} onChange={handleChange} />
-                    <label className="search__switch" htmlFor="switch">
-                    </label>
-                </div>
+            <div className="search__switch-wrap">
+                {checked ? "Переключиться на поиск по общей базе" : "Переключиться на записи только своего фонда"}
+                <input type="checkbox" id="switch" checked={checked} onChange={handleChange} />
+                <label className="search__switch" htmlFor="switch">
+                </label>
             </div>
         </div>
     )
