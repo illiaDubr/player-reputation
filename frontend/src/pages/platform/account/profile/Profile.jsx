@@ -71,7 +71,7 @@ const Profile = () => {
                                         name="description"
                                         register={register}
                                         title="Описание фонда:"
-                                        value={profile.fundDescr || "Описание не указано"}
+                                        value={profile.description || "Описание не указано"}
                                         placeholder="Введите описание"
                                         isActive={activeBtn}
                                         onToggle={() => toggleFieldEdit("fundDescr")}
@@ -107,8 +107,15 @@ const Profile = () => {
                                         Изменить
                                     </button>
                                 </form>
+                                {/*
                                 <div className="profile__item profile__right">
+                                    <div className="profile__field">
+                                        <div className="profile__title">
+
+                                        </div>
+                                    </div>
                                 </div>
+                                */}
                             </div>
                             <button type="button" className="btn" onClick={handleToggleEdit}>
                                 {activeBtn ? "Скрыть" : "Изменить"}
