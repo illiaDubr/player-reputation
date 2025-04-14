@@ -42,7 +42,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag, modalOpen}) => {
                     comment: data.comment,
                 }
                 store.report(report);
-                //modalOpen();
+                modalOpen();
             } else if (currentModal === "edit") {
                 const finalComment = data.comment.trim() ? data.comment : user.comment;
                 const finalDamage = data.damage.trim() ? data.damage : user.damage;
@@ -57,7 +57,7 @@ const PlayerManagementForm = ({currentModal, backer, user, tag, modalOpen}) => {
                 }
                 console.log("Отправляем payload:", payload);
                 store.userEdit(payload);
-                //modalOpen();
+                modalOpen();
             }
         } catch (error) {
             console.error(error);

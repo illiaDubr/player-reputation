@@ -7,7 +7,7 @@ const IconSvg = ({id, width, height, variant}) => {
 
     return (
         <svg width={width} height={height} className="svg">
-            <use href={`${iconSprite}#${id}`} />
+            <use xlinkHref={`${iconSprite}#${id}`} />
         </svg>
     )
 }
