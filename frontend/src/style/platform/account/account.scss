@@ -483,6 +483,8 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
             }
 
             .profile__textarea {
+              padding: 10px 25px;
+              resize: none;
               min-height: 4lh;
             }
 
