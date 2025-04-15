@@ -61,8 +61,7 @@ const Profile = () => {
                     {profile && (
                         <>
                             <div className="profile">
-                                <form method="PATCH" className={`profile__item profile__left ${isDirty ? "profile__item--active" : ""}`} onSubmit={handleSubmit(handleSubmitFrom)}
-                                >
+                                <form method="PATCH" className={`profile__item profile__left ${isDirty ? "profile__item--active" : ""}`} onSubmit={handleSubmit(handleSubmitFrom)}>
                                     <div className="profile__top">
                                         <IconSvg width={48} height={48} variant="funds"
                                                  id={profile.fund_for_search}/>
@@ -78,6 +77,7 @@ const Profile = () => {
                                         inputClass={editState.fundDescr ? "active" : ""}
                                         textClass={editState.fundDescr ? "" : "active"}
                                         errors={errors}
+                                        as="textarea"
                                     />
                                     <ProfileItem
                                         name="contact_name"

@@ -14,8 +14,15 @@ import IconSvg from "../../../platform/components/IconSvg.jsx";
 function Auth({userData, setUserData}) {
     const {store} = React.useContext(Context);
     const navigate = useNavigate();
-    const {openModal} = useModal();
+    const {openModal, modalStack} = useModal();
     const [isActive, setIsActive] = React.useState(false);
+
+    React.useEffect(() => {
+        const currentModal = modalStack[modalStack.length - 1];
+        if (currentModal?.modalName === "Auth" && currentModal.params?.isActive !== undefined) {
+            setIsActive(currentModal.params.isActive);
+        }
+    }, [modalStack]);
 
 
     const openRoleModal = () => {

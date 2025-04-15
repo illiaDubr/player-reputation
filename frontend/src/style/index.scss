@@ -37,7 +37,7 @@ body {
   .loader {
     position: relative;
     z-index: 2;
-    height: 340px;
+    height: 261px;
 
     .loader__progress {
       width: 100%;
@@ -469,6 +469,10 @@ body {
     &:has(.slide__wrap) {
       width: 100%;
       max-width: 741px;
+    }
+
+    &--border {
+      border: 1px solid #088b14;
     }
   }
 }
