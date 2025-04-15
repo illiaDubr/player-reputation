@@ -230,6 +230,18 @@ body:has(.title__section) {
           position: relative;
           overflow: hidden;
 
+          &:first-child {
+            grid-area: 1 / 1 / 2 / 4;
+          }
+
+          &:nth-child(2) {
+            grid-area: 1 / 4 / 2 / 8;
+          }
+
+          &:last-child {
+            grid-area: 2 / 1 / 3 / 8;
+          }
+
           .role__card-title {
             padding: 0px 40px;
             height: 110px;
@@ -240,27 +252,31 @@ body:has(.title__section) {
             white-space: pre-line;
           }
 
-          .role__card-description {
-            padding: 0px 40px 0px 40px;
-            opacity: .8;
-            position: relative;
-            z-index: 2;
-            @include mixin.font-style(400, 16, 130, #FFFFFF);
-          }
-
-          figure {
+          .gglo {
             display: flex;
-            flex-grow: 1;
-            align-items: flex-end;
-            justify-content: flex-end;
-            margin: 0px;
-            position: relative;
-            z-index: 2;
 
-            img {
-              width: 50%;
-              border-radius: 0px 0px 20px 0px;
-              object-fit: cover;
+            .role__card-description {
+              padding: 0px 40px 0px 40px;
+              opacity: .8;
+              position: relative;
+              z-index: 2;
+              @include mixin.font-style(400, 16, 130, #FFFFFF);
+            }
+
+            figure {
+              display: flex;
+              flex-grow: 1;
+              align-items: flex-end;
+              justify-content: flex-end;
+              margin: 0px;
+              position: relative;
+              z-index: 2;
+
+              img {
+                width: 50%;
+                border-radius: 0px 0px 20px 0px;
+                object-fit: cover;
+              }
             }
           }
 
@@ -286,8 +302,10 @@ body:has(.title__section) {
 
       .role__switch-box--backer {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        grid-gap: clamp(1rem, 3vw, 1rem);
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(2, auto);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
       }
 
       .role__switch-box--player {

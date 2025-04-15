@@ -29,12 +29,14 @@ function RoleCardContent({data}) {
                         <div className="role__card-title">
                             {item.title}
                         </div>
-                        <div className="role__card-description">
-                            {item.description}
+                        <div className="gglo">
+                            <div className="role__card-description">
+                                {item.description}
+                            </div>
+                            <figure>
+                                <img src={item.image} alt="" loading="lazy"/>
+                            </figure>
                         </div>
-                        <figure>
-                            <img src={item.image} alt="" loading="lazy"/>
-                        </figure>
                         <span style={{top: randomTop, left: randomLeft}}>
                         </span>
                     </div>
