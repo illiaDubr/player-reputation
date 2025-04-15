@@ -482,6 +482,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
               }
             }
 
+            .profile__textarea {
+              min-height: 4lh;
+            }
+
             .active {
               //display: block;
               opacity: 1;

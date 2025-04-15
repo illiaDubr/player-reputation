@@ -279,7 +279,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
 
             <Modal modalName="ready">
                 <div className="modal__title">
-                    Готово !!
+                    Готово !
                     <button className="modal__btn" type="button" onClick={closeAllModals}>
                         <IconSvg width="36" height="36" id="close-menu"/>
                     </button>
