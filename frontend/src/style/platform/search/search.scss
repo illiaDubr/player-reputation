@@ -714,7 +714,9 @@
 }
 
 .modal:has(.modal__title-ready) {
-  opacity: 1;
+  .modal-content {
+    border: 1px solid #088b14;
+  }
 }
 
 @media (width < 1024px) {
