@@ -1,16 +1,16 @@
 import React from "react";
 import { useModal } from "../../../platform/components/Modal.jsx";
 
-const AuthBtn = () => {
+const AuthBtn = ({text, isActive}) => {
     const {openModal} = useModal();
 
     const openAuthModal = () => {
-        openModal("Auth");
+        openModal("Auth", { isActive: isActive});
     };
 
     return (
         <button type="button" onClick={openAuthModal} className="auth__button">
-            Зарегистрироваться
+            {text}
         </button>
     )
 }

@@ -26,7 +26,7 @@ function NavHeader() {
                 </ul>
             </li>
             <li className="home__nav-item">
-                <AuthBtn/>
+                <AuthBtn text="Войти" isActive={false} />
             </li>
         </>
     )

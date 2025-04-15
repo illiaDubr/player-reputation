@@ -5,8 +5,8 @@ const ModalContext = createContext(undefined);
 export const ModalProvider = ({ children }) => {
     const [modalStack, setModalStack] = useState([]);
 
-    const openModal = useCallback((modalName) => {
-        setModalStack((prevStack) => [...prevStack, modalName]);
+    const openModal = useCallback((modalName, params = {}) => {
+        setModalStack((prevStack) => [...prevStack, { modalName, params }]);
     }, []);
 
     const closeModal = useCallback(() => {
@@ -45,7 +45,7 @@ export const Modal = ({ modalName, children }) => {
 
     const isFirstModal = modalStack[0] === modalName;
 
-    const isOpen = activeModal === modalName;
+    const isOpen = activeModal?.modalName === modalName;
 
     const handleOverlayClick = (e) => {
         if (e.target.classList.contains("modal")) closeAllModals();
