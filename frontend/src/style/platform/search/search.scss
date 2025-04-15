@@ -713,6 +713,10 @@
   }
 }
 
+.modal:has(.modal__title-ready) {
+  opacity: 1;
+}
+
 @media (width < 1024px) {
   .search__wrap {
     .search__container {
