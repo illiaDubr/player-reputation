@@ -7,6 +7,7 @@ import {editModalData} from "../../../../../utils/EditData.js";
 import PlayerManagementForm from "./PlayerManagementForm.jsx";
 import ReactPaginate from "react-paginate";
 import {backerTagConfig, dynamicFields} from "../../../../../utils/SearchData.js";
+import SourceTooltipText from "./SourceTooltipText.jsx";
 
 
 function getBackerTagConfig(tag) {
@@ -216,9 +217,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                                     {text}
                                 </div>
                                 {source === "discord" && (
-                                    <div className="result__user-status">
-                                        <IconSvg width={20} height={20} id="search__discord"/>
-                                    </div>
+                                    <SourceTooltipText />
                                 )}
                             </div>
 
