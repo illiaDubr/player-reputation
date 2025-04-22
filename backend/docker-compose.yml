@@ -45,7 +45,18 @@ services:
             - db_data:/var/lib/mysql
         networks:
             - laravel_net
-
+    discord-bot:
+        build:
+            context: ./discord-bot
+        container_name: discord_bot
+        working_dir: /usr/src/app
+        volumes:
+            - ./discord-bot:/usr/src/app
+        command: ["node", "index.js"]
+        depends_on:
+            - backend
+        networks:
+            - laravel_net
 
 volumes:
     db_data:
