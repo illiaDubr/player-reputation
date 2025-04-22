@@ -19,8 +19,10 @@ use App\Http\Controllers\StatsController;
 use App\Http\Controllers\ChangeController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BackerController;
+use App\Http\Controllers\DiscordImportController;
 //Роуты для игроков
 
+Route::post('/messages', [DiscordImportController::class, 'import']);
 // Счётчик запросов
 Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
 
