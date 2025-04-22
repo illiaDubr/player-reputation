@@ -87,7 +87,7 @@ async function processMessage(message) {
                         '      "comment": "", 
                         '      "damage": "",
                         '      "makeUp": "", 
-                        '      "source": ""
+                        '      "source": "discord"
                         'Если сообщение не содержит нужных данных — 
                         '\`\`
                         '{ "players": [], "reputation_records": [] }\\n' +
