@@ -8,8 +8,8 @@ const SourceTooltipText = () => {
 
     return (
         <>
-            <div className="result__user-status result__user-status--ds">
-                <IconSvg width={20} height={20} id="discord"/>
+            <div className="result__user-status result__user-status--ds" data-tooltip-id={tooltipId}>
+                <IconSvg width={22} height={22} id="discord"/>
             </div>
             <Tooltip id={tooltipId} place="bottom" clickable>
                 <div className="search__tooltip">
