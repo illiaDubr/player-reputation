@@ -55,7 +55,7 @@ async function processMessage(message) {
       "telegram": "",
       "discord": "",
       "skype": "",
-      "backer_tag": "",
+      "backer_tag": "arbitrage",
       "kyc_status": false
     }
   ],
