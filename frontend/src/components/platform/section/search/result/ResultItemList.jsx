@@ -114,6 +114,7 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                     fund_name,
                     created_at,
                     damage,
+                    source,
                     comment,
                 } = item;
 
@@ -210,8 +211,15 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                                 </div>
                             </div>
 
-                            <div className={`result__user-status result__user-status--${color}`}>
-                                {text}
+                            <div className="result__user-status-wrap">
+                                <div className={`result__user-status result__user-status--${color}`}>
+                                    {text}
+                                </div>
+                                {source === "discord" && (
+                                    <div className="result__user-status">
+                                        <IconSvg width={20} height={20} id="search__discord"/>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="result__info">

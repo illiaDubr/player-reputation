@@ -376,34 +376,39 @@
             text-align: center;
           }
 
-          .result__user-status {
+          .result__user-status-wrap {
+            display: flex;
+            gap: 10px;
             position: absolute;
             top: 0px;
             right: 16px;
-            border-radius: 0 0 8px 8px;
-            padding: 12px 16px 4px 16px;
-            @include mixin.font-style(500, 14, 143, #121317);
-          }
 
-          .result__user-status--red {
-            background: linear-gradient(180deg, #ff2828 0%, #ff3838 27.89%);
-            color: #FFFFFF;
-          }
+            .result__user-status {
+              border-radius: 0 0 8px 8px;
+              padding: 12px 16px 4px 16px;
+              @include mixin.font-style(500, 14, 143, #121317);
+            }
 
-          .result__user-status--orange {
-            background: linear-gradient(180deg, #f80 0%, #f79e1b 27.89%);
-          }
+            .result__user-status--red {
+              background: linear-gradient(180deg, #ff2828 0%, #ff3838 27.89%);
+              color: #FFFFFF;
+            }
 
-          .result__user-status--yellow {
-            background: linear-gradient(180deg, #fb0 0%, #fc0 27.89%);
-          }
+            .result__user-status--orange {
+              background: linear-gradient(180deg, #f80 0%, #f79e1b 27.89%);
+            }
 
-          .result__user-status--green {
-            background: linear-gradient(180deg, #01d9ff 0%, #0fe 27.89%);
-          }
+            .result__user-status--yellow {
+              background: linear-gradient(180deg, #fb0 0%, #fc0 27.89%);
+            }
 
-          .result__user-status--gray {
-            background: linear-gradient(180deg, #7c7c7c 0%, #9d9d9d 27.89%);
+            .result__user-status--green {
+              background: linear-gradient(180deg, #01d9ff 0%, #0fe 27.89%);
+            }
+
+            .result__user-status--gray {
+              background: linear-gradient(180deg, #7c7c7c 0%, #9d9d9d 27.89%);
+            }
           }
 
           .result__info {
