@@ -13,85 +13,69 @@ async function processMessage(message) {
         console.log(`📨 Обработка сообщения: "${content}"`);
 
         const aiResponse = await openai.chat.completions.create({
-            model: 'gpt-4o-mini',
+            model: 'gpt-4',
             messages: [
                 {
                     role: 'system',
                     content: `
-Ты помощник, который структуриТы интеллектуальный парсер сообщений из Discord. Твоя задача — разобрать текст и превратить его в валидный JSON для Laravel-приложения. \\n' +
-                       
-                        'Используй строго эти структуры:
-                       
-                        '1. Таблица \`players\`:
-                     
-                        '{
-                        '  "players": [
-                        '    {
-                        '      "player_id": "уникальный_идентификатор",
-                        '      "first_name": "",
-                        '      "last_name": "",
-                        '      "middle_name": "",
-                        '      "email": "",
-                        '      "phonenumber": "",
-                        '      "Ggpokerok": "",
-                        '      "Pokerstars": "",
-                        '      "Ggpokerok",
-                         "Ggnetwork",
-                          "Pokerstars_com",
-                           "Pokerstars_es", 
-                           "Winamax_fr", 
-                           "Winamax_es",
-                            "PS",
-                             "GG",
-                       "RedStar",
-                      "TigerGaming",
-                     "PartyPoker",
-                    "Pokerstars",
-                     "888poker",
-                     "WPNpoker", 
-                     "Stretchpoker",
-                     "Coinpoker",
-                     "chikoPoker",
-                     "nickiPoker", 
-                    "Skrill",
-                      "Neteller",
-                           "GipsyTeam",
-                                         "Luxon":
-                        '      "telegram": "",
-                        '      "discord": "",
-                        '      "skype": "",
-                        '      "backer_tag": " 1. **arbitrage**  
-   - Если в \`case.amount\` есть любая сумма > 0 (то есть есть финансовая претензия).
+Ты интеллектуальный парсер сообщений из Discord. Твоя задача — разобрать текст и превратить его в валидный JSON для Laravel-приложения.
 
-2. **MultiArbitrage**  
-   - Если у игрока **больше одной** записи в \`case\`, и **каждая** (или хотя бы несколько) содержит \`amount\` > 0 (то есть несколько финансовых претензий).
+Формат вывода:
+{
+  "players": [
+    {
+      "player_id": "генерируй на используй 1 из ников игрока",
+      "first_name": "",
+      "last_name": "",
+      "middle_name": "",
+      "email": "",
+      "phonenumber": "",
+      "Ggpokerok": "",
+      "Ggnetwork": "",
+      "Pokerstars_com": "",
+      "Pokerstars_es": "",
+      "Winamax_fr": "",
+      "Winamax_es": "",
+      "PS": "",
+      "GG": "",
+      "RedStar": "",
+      "TigerGaming": "",
+      "PartyPoker": "",
+      "Pokerstars": "",
+      "888poker": "",
+      "WPNpoker": "",
+      "Stretchpoker": "",
+      "Coinpoker": "",
+      "chikoPoker": "",
+      "nickiPoker": "",
+      "Skrill": "",
+      "Neteller": "",
+      "GipsyTeam": "",
+      "Luxon": "",
+      "telegram": "",
+      "discord": "",
+      "skype": "",
+      "backer_tag": "",
+      "kyc_status": false
+    }
+  ],
+  "reputation_records": [
+    {
+      "player_id": "",
+      "backer_id": 1,
+      "fund_name": "",
+      "comment": "",
+      "damage": "",
+      "makeUp": "",
+      "source": "discord"
+    }
+  ]
+}
 
-3. **ExArbitrage**  
-   - Если есть явное указание, что долг уже погашен (например, в \`case.descr\` упоминается «долг выплачен», «расчитался», «закрыл долг» и т. п.).  
-   - В этом случае ставь \`ExArbitrage\`, даже если раньше была финансовая претензия.
+Если сообщение не содержит нужных данных — верни:
+{ "players": [], "reputation_records": [] }
 
-4. **ProblematicPlayer**  
-   - Если нет финансовых претензий (\`amount\` > 0) и нет упоминания о погашенных долгах, но есть негативные факты: нарушение условий, грубое поведение, негативные отзывы и т. п.
-
-5. **PlayerOnPause**  
-   - Если нет финансовых претензий и нет погашенных долгов, но в \`case.descr\` сказано, что игрок взял паузу, временно прекратил игру, собирается вернуться и т. п.
-
-6. **no tag**  
-   - Если ни один из критериев выше не подхо
-                        '      
-                        '2. Таблица \`reputation_records
-                        '  "reputation_records": [\\n' +
-                        '      "player_id": "", 
-                        '      "backer_id": 1, 
-                        '      "fund_name": "",' 
-                        '      "comment": "", 
-                        '      "damage": "",
-                        '      "makeUp": "", 
-                        '      "source": "discord"
-                        'Если сообщение не содержит нужных данных — 
-                        '\`\`
-                        '{ "players": [], "reputation_records": [] }\\n' +
-                        'Не пиши никакого текста, только валидный JSON. Не включай лишние поля. Формируй значения по содержанию текста, если они явно указаны. Игнорируй неопознанные слова
+Не добавляй никакого текста, пояснений или описаний. Только валидный JSON.
           `
                 },
                 {
@@ -103,8 +87,8 @@ async function processMessage(message) {
         });
 
         const raw = aiResponse.choices[0].message.content;
-        let parsed;
 
+        let parsed;
         try {
             parsed = JSON.parse(raw);
         } catch (e) {
@@ -120,6 +104,9 @@ async function processMessage(message) {
             return;
         }
 
+        console.log('📦 Отправляем в Laravel:');
+        console.dir(parsed, { depth: null });
+
         const response = await axios.post(process.env.LARAVEL_API_URL, parsed);
         console.log('✅ Импортировано в Laravel\n');
 
@@ -131,6 +118,7 @@ async function processMessage(message) {
         }
     }
 }
+
 
 async function processAllMessages() {
     const data = JSON.parse(fs.readFileSync('history.json', 'utf-8'));
