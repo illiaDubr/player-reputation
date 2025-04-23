@@ -12,6 +12,9 @@ async function processMessage(message) {
 
         console.log(`📨 Обработка сообщения: "${content}"`);
 
+        const roleName = message.roles?.[0] ?? null;
+
+
         const aiResponse = await openai.chat.completions.create({
             model: 'gpt-4',
             messages: [
@@ -63,7 +66,7 @@ async function processMessage(message) {
     {
       "player_id": "",
       "backer_id": 1,
-      "fund_name": "",
+      "fund_name": "Используй первую роль пользователя в которой название фонда",
       "comment": "",
       "damage": "",
       "makeUp": "",
@@ -80,7 +83,7 @@ async function processMessage(message) {
                 },
                 {
                     role: 'user',
-                    content: content
+                    content: `Сообщение от Discord: "${content}". Роль отправителя: ${roleName ?? 'неизвестна'}`
                 }
             ],
             temperature: 0.3
