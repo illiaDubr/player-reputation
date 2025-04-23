@@ -33,15 +33,20 @@ client.once('ready', async () => {
             break;
         }
 
-        messages.forEach(msg => {
+        for (const msg of messages.values()) {
+            const member = await channel.guild.members.fetch(msg.author.id).catch(()=>null);
+            const roles = member ? member.roles.cache.map(role => role.name) : [];
+
+
             allMessages.push({
                 id: msg.id,
                 author: msg.author.username,
+                roles: roles,
                 content: msg.content,
                 timestamp: msg.createdAt,
             });
-        });
 
+    }
         lastMessageId = messages.last().id;
         console.log(`📥 Получено: ${messages.size}, всего: ${allMessages.length}`);
         await new Promise(resolve => setTimeout(resolve, 1000)); // задержка, чтобы избежать rate limit
