@@ -9,7 +9,8 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
     ]
 });
 
@@ -22,10 +23,20 @@ client.on('messageCreate', async (message) => {
 
     const content = message.content;
     const author = message.author.username;
-
-    console.log(`📩 Новое сообщение от ${author}: ${content}`);
+    let roleName = null;
 
     try {
+        const member = await message.guild.members.fetch(message.author.id);
+        roleName = member.roles.cache.map(role => role.name).find(name => name !== '@everyone') || null;
+    } catch {
+        console.warn('⚠️ Не удалось получить роли пользователя');
+    }
+
+    console.log(`📩 Новое сообщение от ${author}: ${content}`);
+    if (roleName) console.log(`👑 Роль пользователя: ${roleName}`);
+
+    try {
+
         // Отправляем сообщение в OpenAI
         const aiResponse = await openai.chat.completions.create({
             model: 'gpt-4',
@@ -97,7 +108,7 @@ client.on('messageCreate', async (message) => {
                         '  "reputation_records": [\\n' +
                         '      "player_id": "", 
                         '      "backer_id": 1, 
-                        '      "fund_name": "",' 
+                        '      "fund_name": " Используй первую роль пользователя в которой название фонда",' 
                         '      "comment": "", 
                         '      "damage": "",
                         '      "makeUp": "", 
