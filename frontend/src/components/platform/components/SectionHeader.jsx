@@ -11,9 +11,9 @@ const SectionHeader = () => {
                     fallback={
                         <>
                             <div className="section__header-info--wrap">
-                                <div className="section__header-info">
-                                    Вам доступно 5 поисков
-                                </div>
+                                {/*<div className="section__header-info">
+                        Вам доступно 5 поисков
+                    </div>*/}
                             </div>
                             <div className="burger__menu-wrap">
                             </div>
@@ -22,9 +22,9 @@ const SectionHeader = () => {
             >
 
                 <div className="section__header-info--wrap">
-                    <div className="section__header-info">
+                    {/*<div className="section__header-info">
                         Вам доступно 5 поисков
-                    </div>
+                    </div>*/}
                     <button className="section__header-btn">
                         <IconSvg width={24} height={24} id={'arrow'}/>
                     </button>

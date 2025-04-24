@@ -8,7 +8,7 @@ import Resize from "../../platform/components/Resize.jsx";
 
 const navLinks = [
     {to: "#role__section", label: "Выбрать роль"},
-    {to: "#subscription_section", label: "Тарифы"}
+    //{to: "#subscription_section", label: "Тарифы"}
 ];
 
 function NavHeader() {

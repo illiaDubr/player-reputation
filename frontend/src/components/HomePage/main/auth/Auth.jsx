@@ -182,13 +182,13 @@ function Auth({userData, setUserData}) {
                       autoComplete="off"
                 >
                     <div className="modal__checkbox-wrap">
-                        <label className="modal__checkbox-box">
+                        <label className="modal__checkbox-box modal__checkbox-box--filter">
                             <div className="modal__checkbox-photo">
                                 <img src={Images["role-1"]} alt="" className=""/>
                             </div>
                             <p className="modal__checkbox-title">Как игрок</p>
                             <p className="modal__checkbox-text">
-                                Для просмотра своей репутации, подбора бэкера и анализа базы
+                                Для просмотра своей репутации
                             </p>
                             <input
                                 className="modal__checkbox"
