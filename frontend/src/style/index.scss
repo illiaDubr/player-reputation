@@ -438,6 +438,12 @@ body {
             }
           }
         }
+
+        .modal__checkbox-box--filter {
+          pointer-events: none;
+          background: #848487;
+          opacity: .5;
+        }
       }
     }
 

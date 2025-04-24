@@ -61,12 +61,14 @@ const HomePage = observer(() => {
                     </RoleSwitcher>*/}
                 </section>
                 <section className="subscription__section" id="subscription_section">
+                    {/*
                     <div className="subscription__content-wrap">
                         <h2>
                             Как мы работаем, условия
                         </h2>
                         <Subscribe/>
                     </div>
+                    */}
                     <ContactForm/>
                 </section>
                 <Auth userData={userData} setUserData={setUserData}/>
