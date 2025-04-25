@@ -14,7 +14,7 @@ const FreezeControl = ({backerId, setCorrectRequestData}) => {
 
         store.approvedBacker(backerData)
             .then(() => {
-                setCorrectRequestData(backerData, true)
+                setCorrectRequestData(backerId, true)
             })
     }
 
