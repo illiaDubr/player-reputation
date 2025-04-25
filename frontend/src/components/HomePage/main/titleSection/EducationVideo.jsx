@@ -3,11 +3,13 @@ import video from "../../../../assets/video/homePage_video.mp4"
 
 const EducationVideo = () => {
     return (
-        <div className="title__video-wrap">
-            <video autoPlay muted playsInline loop>
-                <source src={video} type="video/mp4"/>
-            </video>
-        </div>
+
+            <div className="title__video-wrap">
+                <video autoPlay muted playsInline loop>
+                    <source src={video} type="video/mp4"/>
+                </video>
+            </div>
+
     )
 }
 

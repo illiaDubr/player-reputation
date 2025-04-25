@@ -374,6 +374,7 @@ body {
           border-radius: 20px;
           padding: 30px;
           position: relative;
+          cursor: pointer;
 
           .modal__checkbox-photo {
             width: 100px;
@@ -441,7 +442,6 @@ body {
 
         .modal__checkbox-box--filter {
           pointer-events: none;
-          background: #848487;
           opacity: .5;
         }
       }

@@ -26,14 +26,14 @@ body:has(.title__section) {
   .title__section {
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
     padding: 180px 0px 100px 0px;
     background: url("../../../assets/image/main_background.webp") center center no-repeat;
     position: relative;
 
     .title__wrap {
       max-width: 448px;
-      padding: 0px 0px 0px 55px;
+      padding: 0px 0px 0px 40px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -57,8 +57,7 @@ body:has(.title__section) {
         }
 
         h1 {
-          @include mixin.font-style(600, null, 100, #FFFFFF);
-          @include mixin.font-size(58, 49);
+          @include mixin.font-style(600, 58, 100, #FFFFFF);
           text-wrap: balance;
           margin: 0px;
         }
@@ -75,10 +74,8 @@ body:has(.title__section) {
     }
 
     .title__video-wrap {
-      width: calc(100% + 20px);
-      height: fit-content;
-      margin-top: 40px;
-      padding: 11px 11px 0px 11px;
+      aspect-ratio: 16 / 9;
+      padding: 11px 11px 7px 11px;
       transform: rotate(2deg);
       border: 2px solid #fff;
       border-radius: 24px;
@@ -86,22 +83,35 @@ body:has(.title__section) {
       box-shadow: 0 1px 100px 0 rgba(0, 0, 0, 0.15);
       background: rgba(255, 255, 255, 0.2);
       position: relative;
+      z-index: 2;
       right: -30px;
 
       video {
         width: 100%;
-        max-width: 1100px;
+        height: 100%;
+        object-fit: fill;
         border-radius: 24px;
       }
     }
 
-    &:before {
+    &:before, &:after {
       content: "";
+      position: absolute;
+      right: 0;
+    }
+
+    &:before {
       width: 100%;
       height: 100px;
-      position: absolute;
       bottom: 0;
       background: linear-gradient(180deg, rgba(10, 6, 24, 0) 0%, #0a0618 100%);
+    }
+
+    &:after {
+      width: 100px;
+      height: 100%;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(10, 6, 24, 0) 0%, #0a0618 100%);
     }
   }
 
@@ -765,24 +775,39 @@ body:has(.title__section) {
   }
 }
 
-@media (min-width: 1490px) {
-  .main {
-    .title__section {
-      .title__video-wrap {
-        width: fit-content;
-        position: absolute;
-        right: -100px;
-      }
-    }
-  }
-}
-
 @media (max-width: 1100px) {
   .main {
     .title__section {
+      padding: 93px 15px 100px 15px;
+      background-size: cover;
+      flex-direction: column;
+
+      .title__wrap {
+        max-width: initial;
+        padding: 0px;
+        align-items: center;
+        gap: 20px;
+
+        .title__box {
+          align-items: center;
+
+          h1 {
+            font-size: 35px;
+            text-align: center;
+          }
+
+          .title__subtitle {
+            text-align: center;
+          }
+        }
+      }
 
       .title__video-wrap {
+        right: initial;
+      }
 
+      &:after {
+        display: none;
       }
     }
   }

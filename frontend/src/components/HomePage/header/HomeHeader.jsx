@@ -51,11 +51,7 @@ const HomeHeader = () => {
                         </Link>
                     </li>
                     <Resize width={670} fallback={
-                        <button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`}
-                                type="button" onClick={toggleBtn}>
-                            <span className="line top-line"></span>
-                            <span className="line bottom-line"></span>
-                        </button>
+                        null
                     }>
                         <NavHeader/>
                     </Resize>
@@ -66,3 +62,9 @@ const HomeHeader = () => {
 }
 
 export default HomeHeader;
+
+{/*<button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`}
+                                type="button" onClick={toggleBtn}>
+                            <span className="line top-line"></span>
+                            <span className="line bottom-line"></span>
+                        </button>*/}
