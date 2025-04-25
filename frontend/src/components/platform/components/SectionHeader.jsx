@@ -24,10 +24,10 @@ const SectionHeader = () => {
                 <div className="section__header-info--wrap">
                     {/*<div className="section__header-info">
                         Вам доступно 5 поисков
-                    </div>*/}
+                    </div>
                     <button className="section__header-btn">
                         <IconSvg width={24} height={24} id={'arrow'}/>
-                    </button>
+                    </button>*/}
                 </div>
             </Resize>
         </div>

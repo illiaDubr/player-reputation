@@ -45,30 +45,37 @@ function RoleSwiperFallback({data}) {
     const randomTop = Math.floor(Math.random() * 450) + "px";
     const randomLeft = Math.floor(Math.random() * 450) + "px";
     return (
-        <Swiper
-            modules={[Navigation]}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation
-        >
-            {data.list.map((item, index) => (
-                <SwiperSlide key={index}>
-                    <div className={data.cardClass}>
-                        <div className="role__card-title">
-                            {item.title}
-                        </div>
-                        <div className="role__card-description">
-                            {item.description}
-                        </div>
-                        <figure>
-                            <img src={item.image} alt="" loading="lazy"/>
-                        </figure>
-                        <span style={{top: randomTop, left: randomLeft}}>
+        <>
+            <Swiper
+                modules={[Navigation]}
+                spaceBetween={50}
+                slidesPerView={1}
+                navigation={{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                }}
+            >
+                {data.list.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <div className={data.cardClass}>
+                            <div className="role__card-title">
+                                {item.title}
+                            </div>
+                            <div className="role__card-description">
+                                {item.description}
+                            </div>
+                            <figure>
+                                <img src={item.image} alt="" loading="lazy"/>
+                            </figure>
+                            <span style={{top: randomTop, left: randomLeft}}>
                         </span>
-                    </div>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+            <div className="swiper-button-prev custom-arrow">←</div>
+            <div className="swiper-button-next custom-arrow">→</div>
+        </>
     );
 }
 
@@ -77,7 +84,7 @@ const Role = ({roleType}) => {
     if (!data) return null;
 
     return (
-        <Resize width={801} fallback={<RoleSwiperFallback data={data}/>}>
+        <Resize width={865} fallback={<RoleSwiperFallback data={data}/>}>
             <RoleCardContent data={data}/>
         </Resize>
     );
