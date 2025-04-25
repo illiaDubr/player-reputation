@@ -440,9 +440,19 @@ body {
           }
         }
 
+        span {
+          position: absolute;
+          top: 30%;
+          left: 25%;
+          transform: translate(-50%, -50%);
+          @include mixin.font-style(500, 20, 130, #FFFFFF);
+        }
+
         .modal__checkbox-box--filter {
           pointer-events: none;
           opacity: .5;
+          position: relative;
+          filter: blur(4px);
         }
       }
     }

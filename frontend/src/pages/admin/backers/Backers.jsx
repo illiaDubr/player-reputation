@@ -28,7 +28,7 @@ const Backers = observer(() => {
             </Helmet>
             <AdminMain pageTitle="Заявки на верификацию">
                 <div className="admin__wrap">
-                    <BackersItemList data={unApprovedBackers} control={true}/>
+                    <BackersItemList data={unApprovedBackers} approvedControl={true} freezeControl={false}/>
                 </div>
                 <ApprovedBackers />
             </AdminMain>

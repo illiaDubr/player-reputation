@@ -2,8 +2,9 @@ import React from "react";
 import FundSelect from "./FundSelect.jsx";
 import BackersForm from "./BackersForm.jsx";
 import BackersItem from "./BackersItem.jsx";
+import FreezeControl from "./FreezeControl.jsx";
 
-const BackersItemList = ({data, control}) => {
+const BackersItemList = ({data, approvedControl, freezeControl}) => {
     const [selectedFund, setSelectedFund] = React.useState({});
     const [correctRequest, setCorrectRequest] = React.useState({});
 
@@ -37,21 +38,26 @@ const BackersItemList = ({data, control}) => {
                             ) : (
                                 <>
                                     <div className="record__top">
-                                        {control &&
+                                        {approvedControl &&
                                             <>
                                                 <FundSelect
                                                     selected={selectedFund[item.backer_id] || ""}
                                                     onChange={(value) => handleSelectChange(item.backer_id, value)}/>
                                                 <div className="record__form-wrap">
-                                                    <BackersForm setCorrectRequestData={setCorrectRequestData} fund={selectedFund[item.backer_id] || ""} backerId={item.backer_id}/>
+                                                    <BackersForm setCorrectRequestData={setCorrectRequestData} fund={selectedFund[item.backer_id] || ""} backerId={item.backer_id} />
                                                 </div>
                                             </>
+                                        }
+                                        {freezeControl &&
+                                            <div className="record__form-wrap">
+                                                <FreezeControl setCorrectRequestData={setCorrectRequestData} backerId={item.backer_id}/>
+                                            </div>
                                         }
                                     </div>
                                     <div className="backer__wrap">
                                         {
                                             [
-                                                {title: "Имя фонда:", content: control ? item.fund_name : item.fund_for_search },
+                                                {title: "Имя фонда:", content: approvedControl ? item.fund_name : item.fund_for_search },
                                                 {title: "Email:", content: item.email},
                                                 {title: "Описание фонда:", content: item.fundDescr, className: "fundDescr",},
                                                 {title: "Ссылка на сайт:", content: item.siteLink},
@@ -80,7 +86,7 @@ const BackersItemList = ({data, control}) => {
                 ))
             ) : (
                 <>
-                    {control && (
+                    {approvedControl && (
                         <div className="admin__no-data">
                             Новых заявок не было
                         </div>

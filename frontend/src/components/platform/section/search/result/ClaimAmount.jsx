@@ -4,10 +4,13 @@ import ResultItem from "./ResultItem.jsx";
 function formatDamage(damage) {
     if (damage == null || damage === "") return "$0";
 
-    const number = parseFloat(damage);
+    const number = Number(damage);
     if (isNaN(number)) return damage;
 
-    return `$${number.toLocaleString("ru-RU").replace(/,/g, " ")}`;
+    return `$${number.toLocaleString("ru-RU", {
+        minimumFractionDigits: number % 1 === 0 ? 0 : 2,
+        maximumFractionDigits: 2
+    }).replace(/,/g, " ")}`;
 }
 
 const ClaimAmount = ({ dmg, src, makeUp }) => {
@@ -21,7 +24,7 @@ const ClaimAmount = ({ dmg, src, makeUp }) => {
         return (
             <ResultItem
                 content={formatDamage(damage + makeup)}
-                label="Сумма претензии"
+                label="Сумма претензии:"
                 hideIcon
                 placeholder="Нет данных"
             />
@@ -34,13 +37,13 @@ const ClaimAmount = ({ dmg, src, makeUp }) => {
             <>
                 <ResultItem
                     content={formatDamage(damage)}
-                    label="Сумма ущерба"
+                    label="Сумма ущерба:"
                     hideIcon
                     placeholder="Нет данных"
                 />
                 <ResultItem
                     content={formatDamage(makeup)}
-                    label="Сумма мейкапа"
+                    label="Сумма мейкапа:"
                     hideIcon
                     placeholder="Нет данных"
                 />
