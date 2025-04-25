@@ -5,6 +5,7 @@ import BackersItemList from "./BackersItemList.jsx";
 const ApprovedBackers = () => {
     const {store} = React.useContext(Context);
     const [approvedBackers, setApprovedBackers] = React.useState([]);
+    const [isLoaded, setIsLoaded] = React.useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,22 +13,23 @@ const ApprovedBackers = () => {
 
         store.getApprovedBackers().then((response) => {
             setApprovedBackers(response.data.backers);
+            setIsLoaded(true);
         })
     }
-
-    console.log(approvedBackers);
 
     return (
         <div className="admin__wrap">
             <div className="admin__title">
                 Верифицированные бэкеры
             </div>
-            <BackersItemList data={approvedBackers} control={false}/>
-            <form method="GET" onSubmit={handleSubmit}>
-                <button type="submit" className="admin__btn">
-                    Просмотреть
-                </button>
-            </form>
+            <BackersItemList data={approvedBackers} approvedControl={false} freezeControl={true}/>
+            {!isLoaded && (
+                <form method="GET" onSubmit={handleSubmit}>
+                    <button type="submit" className="admin__btn">
+                        Просмотреть
+                    </button>
+                </form>
+            )}
         </div>
     )
 }

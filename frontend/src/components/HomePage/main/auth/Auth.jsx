@@ -198,6 +198,9 @@ function Auth({userData, setUserData}) {
                                 checked={userData.role === 'player'}
                             />
                         </label>
+                        <span>
+                            В разработке..
+                        </span>
 
                         <label className="modal__checkbox-box">
                             <div className="modal__checkbox-photo">
