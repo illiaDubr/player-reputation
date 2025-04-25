@@ -9,7 +9,7 @@ const FreezeControl = ({backerId, setCorrectRequestData}) => {
 
         const backerData = {
             id: backerId,
-            approved: null,
+            approved: "under_review",
         };
 
         store.approvedBacker(backerData)

@@ -12,24 +12,18 @@ const BackersForm = ({fund, backerId, setCorrectRequestData}) => {
             approved: "yes",
         }
 
-        store.approvedBacker(backerData)
-            .then(() => {
-                setCorrectRequestData(backerData, true)
-            })
-    }
-
-    const handleReject = (e) => {
-        e.preventDefault();
-
         const fundData = {
             fund_for_search: fund,
             id: backerId,
         }
 
-        store.changeFundBacker(fundData).then(() => {
-            setCorrectRequestData(fundData, true)
-        })
+        store.approvedBacker(backerData)
+            .then(() => {
+                setCorrectRequestData(backerId, true)
+            })
+        store.changeFundBacker(fundData);
     }
+
 
     return (
         <>
@@ -39,7 +33,7 @@ const BackersForm = ({fund, backerId, setCorrectRequestData}) => {
                     Одобрить верификацию
                 </button>
             </form>
-            <form className="record__form" onSubmit={handleReject}>
+            <form className="record__form">
                 <button type="submit" className="record__btn">
                     <IconSvg width={16} height={16} id="close" />
                     Отклонить верификацию
