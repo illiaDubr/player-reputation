@@ -147,6 +147,7 @@ body:has(.title__section) {
       align-items: center;
       flex-direction: column;
       gap: 48px;
+      z-index: 1;
 
       .info__switch-wrap {
         display: flex;
@@ -225,6 +226,12 @@ body:has(.title__section) {
 
         .swiper {
           width: 100%;
+
+          .swiper-button-next {
+            &:after {
+              display: none !important;
+            }
+          }
         }
 
         .role__card {
@@ -813,6 +820,14 @@ body:has(.title__section) {
   }
 }
 
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+  display: none;
+}
+
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after {
+  display: none;
+}
+
 @media (min-width: 1142px) {
   .subscription {
     &:nth-child(2) {
@@ -840,6 +855,14 @@ body:has(.title__section) {
 
         h3 {
           text-align: center;
+        }
+      }
+    }
+
+    .role__section {
+      .info__wrap {
+        .role__switch-box--backer {
+          display: flex;
         }
       }
     }
