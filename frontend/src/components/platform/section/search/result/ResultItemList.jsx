@@ -8,6 +8,7 @@ import PlayerManagementForm from "./PlayerManagementForm.jsx";
 import ReactPaginate from "react-paginate";
 import {backerTagConfig, dynamicFields} from "../../../../../utils/SearchData.js";
 import SourceTooltipText from "./SourceTooltipText.jsx";
+import ClaimAmount from "./ClaimAmount.jsx";
 
 
 function getBackerTagConfig(tag) {
@@ -117,8 +118,10 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                     damage,
                     source,
                     comment,
+                    reputation_records = []
                 } = item;
 
+                const makeUp = reputation_records[0]?.makeUp || null;
                 const {text, color} = getBackerTagConfig(backer_tag);
                 const fullName = formatFullName(first_name, last_name, middle_name);
                 const date = formatDate(created_at);
@@ -132,15 +135,6 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
 
                 const firstThreeFields = dynamicFieldItems.slice(0, 3);
                 const remainingFields = dynamicFieldItems.slice(3);
-
-                function formatDamage(damage) {
-                    if (!damage) return "$0";
-
-                    const number = parseInt(damage, 10);
-                    if (isNaN(number)) return damage;
-
-                    return `$${number.toLocaleString("ru-RU").replace(/,/g, " ")}`;
-                }
 
                 return (
                     <div className="result__box" key={player_id}>
@@ -203,9 +197,6 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                             <div className="result__title">
                                 <IconSvg width={48} height={48} id={fund_name} variant="funds"/>
                                 <div>
-                                    {fund_name}
-                                </div>
-                                <div>
                                     запись от
                                     <br/>
                                     {date}
@@ -222,11 +213,10 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                             </div>
 
                             <div className="result__info">
-                                <ResultItem
-                                    content={formatDamage(damage)}
-                                    label="Сумма ущерба:"
-                                    hideIcon
-                                    placeholder="Нет данных"
+                                <ClaimAmount
+                                    dmg={damage}
+                                    src={source}
+                                    makeUp={makeUp}
                                 />
                                 <div className="result__text">
                                     <div className="result__head">
