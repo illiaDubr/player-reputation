@@ -4,59 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use App\Models\ReputationRecord;
-use Illuminate\Http\Request;
 use App\Models\RouteCounter;
 use App\Models\Change;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends Controller
 {
-
-
+    /* -----------------------------------------------------------------
+     |  1. Обновление самого игрока
+     |-----------------------------------------------------------------*/
     public function update(Request $request, $playerId)
     {
-        // Пример валидации – добавьте или измените поля, исходя из структуры модели Player.
         $validated = $request->validate([
-            'name'     => 'sometimes|required|string|max:255',
-            'email'    => 'sometimes|required|email|max:255',
-            // Дополнительные поля можно добавить здесь:
-            // 'field_name' => 'sometimes|nullable|тип_данных',
+            'name'  => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|max:255',
+            // добавляйте свои поля …
         ]);
 
-        try {
-            $player = Player::findOrFail($playerId);
-            $player->update($validated);
+        $player = Player::findOrFail($playerId);
+        $player->update($validated);
 
-            return response()->json([
-                'message' => 'Player updated successfully',
-                'player'  => $player,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to update player',
-                'error'   => $e->getMessage(),
-            ], 500);
-        }
+        return response()->json([
+            'message' => 'Player updated successfully',
+            'player'  => $player,
+        ]);
     }
 
-    /**
-     * Обновление записи репутации (например, комментария) для игрока.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $playerId
-     * @param int $recordId
-     * @return \Illuminate\Http\JsonResponse
-     */
+    /* -----------------------------------------------------------------
+     |  2. Обновление записи репутации + backer_tag + лог изменений
+     |-----------------------------------------------------------------*/
     public function updateReputation(Request $request, $playerId, $recordId)
     {
-        // 1. Ищем репутационную запись
-        $reputationRecord = ReputationRecord::where('player_id', $playerId)
+        $reputation = ReputationRecord::where('player_id', $playerId)
             ->where('id', $recordId)
             ->firstOrFail();
 
-        // 2. Снимок "до" (старые данные)
-        $oldData = $reputationRecord->toArray();
+        $oldData = $reputation->toArray();
 
-        // 3. Валидируем вход
         $validated = $request->validate([
             'player_id'      => 'sometimes|required|string',
             'backer_id'      => 'sometimes|required|integer',
@@ -70,136 +55,122 @@ class PlayerController extends Controller
             'backer_tag'     => 'sometimes|nullable|string|max:255',
         ]);
 
-        // 4. Обновляем репутационную запись
-        $reputationRecord->update($validated);
+        /* Обновляем репутацию */
+        $reputation->update($validated);
 
-        // 5. Если пришёл backer_tag, обновляем в модели Player
-        if (array_key_exists('backer_tag', $validated)) {
-            $player = \App\Models\Player::where('player_id', $playerId)->firstOrFail();
-            $player->update(['backer_tag' => $validated['backer_tag']]);
+        /* Пришёл backer_tag → обновляем игрока */
+        if (isset($validated['backer_tag'])) {
+            Player::where('player_id', $playerId)
+                ->update(['backer_tag' => $validated['backer_tag']]);
         }
 
-        // 6. Снимок "после" (новые данные)
-        $newData = $reputationRecord->fresh()->toArray();
+        $newData = $reputation->fresh()->toArray();
 
-        // 7. Дополняем oldData и newData реальным backer_tag из Player (для логов)
-        $player = \App\Models\Player::where('player_id', $playerId)->first();
-        $oldData['backer_tag'] = $player?->backer_tag; // тогда был (до save)? – если нужно
+        /* Добавляем backer_tag в лог */
+        $player = Player::where('player_id', $playerId)->first();
+        $oldData['backer_tag'] = $player?->backer_tag;
         $newData['backer_tag'] = $player?->backer_tag;
 
-        // 8. Записываем лог изменений
-        \App\Models\Change::create([
-            'model_type' => \App\Models\ReputationRecord::class,
+        Change::create([
+            'model_type' => ReputationRecord::class,
             'model_id'   => $recordId,
-            'old_data'   => $oldData,
+            'old_data'   => $oldData,   // cast «array» в модели Change
             'new_data'   => $newData,
             'user_id'    => auth()->id(),
         ]);
 
-        // 9. Возвращаем ответ
         return response()->json([
             'message'          => 'Reputation record updated successfully',
-            'reputationRecord' => $reputationRecord,
-        ], 200);
+            'reputationRecord' => $reputation,
+        ]);
     }
 
-
+    /* -----------------------------------------------------------------
+     |  3. Поиск игроков + счётчик по фондам
+     |-----------------------------------------------------------------*/
     public function search(Request $request)
     {
+        /* --- счётчик для конкретного фонда --- */
+        $fund = auth()->user()?->fund_name;                 // или возьмите из запроса
+        RouteCounter::updateOrCreate(
+            ['route' => 'search-players', 'fund_name' => $fund],
+            ['count' => DB::raw('count + 1')]
+        );
 
-        // 1. Увеличиваем счётчик
-        $counter = RouteCounter::firstOrCreate(['route' => 'search-players']);
-        $counter->increment('count');
-        // Получаем данные с фильтрацией
         $results = $this->filterPlayers($request)
             ->with('reputationRecords')
-            ->orderBy('created_at', 'desc') // Сортировка по дате создания (можно заменить на updated_at)
+            ->orderBy('created_at', 'desc')
             ->get();
-        // Проверяем, есть ли данные
+
         if ($results->isEmpty()) {
             return response()->json(['message' => 'User not found'], 200);
         }
 
-        // Трансформируем данные в нужный формат
-        $formattedResults = $results->map(function ($player) {
-            $playerData = $player->toArray();
+        /* Трансформируем данные */
+        $formatted = $results->map(function ($player) {
+            $data = $player->toArray();
 
-            // Берем первую запись из reputation_records и добавляем её ключи на верхний уровень
             if ($player->reputationRecords->isNotEmpty()) {
-                $record = $player->reputationRecords->first(); // Если нужно использовать только первую запись
-                $playerData['fund_name'] = $record->fund_name;
-                $playerData['comment'] = $record->comment;
-                $playerData['damage'] = $record->damage;
-                $playerData['source'] = $record->source;
-                $playerData['created_at_reputation'] = $record->created_at->toISOString();
-                $playerData['updated_at_reputation'] = $record->updated_at->toISOString();
+                $rec = $player->reputationRecords->first();
+                $data['fund_name']              = $rec->fund_name;
+                $data['comment']                = $rec->comment;
+                $data['damage']                 = $rec->damage;
+                $data['source']                 = $rec->source;
+                $data['created_at_reputation']  = $rec->created_at?->toISOString();
+                $data['updated_at_reputation']  = $rec->updated_at?->toISOString();
             }
 
-            return $playerData;
+            return $data;
         });
 
-        // Возвращаем данные
-        return response()->json($formattedResults);
+        return response()->json($formatted);
     }
 
+    /* -----------------------------------------------------------------
+     |  4. Внутренний фильтр
+     |-----------------------------------------------------------------*/
     private function filterPlayers(Request $request)
     {
-        $query = Player::query();
+        $q = Player::query();
 
-        // Если указан discord или email, ищем только по ним
+        /* Ищем строго по discord / email, если они заданы */
         if ($request->filled('discord') || $request->filled('email')) {
-            return $query
-                ->when($request->filled('discord'), function ($query) use ($request) {
-                    return $query->where('discord', 'like', '%' . $request->input('discord') . '%');
-                })
-                ->when($request->filled('email'), function ($query) use ($request) {
-                    return $query->where('email', 'like', '%' . $request->input('email') . '%');
-                });
+            return $q->when($request->filled('discord'), fn ($q) =>
+            $q->where('discord', 'like', '%' . $request->discord . '%'))
+                ->when($request->filled('email'), fn ($q) =>
+                $q->where('email',   'like', '%' . $request->email   . '%'));
         }
 
-        // Если discord и email не указаны, фильтруем по остальным параметрам
-        return $query
-            ->when($request->filled('first_name'), function ($query) use ($request) {
-                return $query->where('first_name', 'like', '%' . $request->input('first_name') . '%');
-            })
-            ->when($request->filled('last_name'), function ($query) use ($request) {
-                $name = $request->input('last_name');
-                return $query->where(function ($q) use ($name) {
-                    $q->where('last_name', 'like', "%$name%")
-                        ->orWhere('first_name', 'like', "%$name%");
+        /* Гибкие фильтры */
+        return $q
+            ->when($request->filled('first_name'), fn ($q) =>
+            $q->where('first_name', 'like', '%' . $request->first_name . '%'))
+            ->when($request->filled('last_name'), function ($q) use ($request) {
+                $name = $request->last_name;
+                $q->where(function ($sub) use ($name) {
+                    $sub->where('last_name',  'like', "%$name%")
+                        ->orWhere('first_name','like', "%$name%");
                 });
             })
-            ->when($request->filled('middle_name'), function ($query) use ($request) {
-                return $query->where('middle_name', 'like', '%' . $request->input('middle_name') . '%');
-            })
-            ->when($request->filled('phonenumber'), function ($query) use ($request) {
-                return $query->where('phonenumber', 'like', '%' . $request->input('phonenumber') . '%');
-            })
-            ->when($request->filled('nickname'), function ($query) use ($request) {
-                $nickname = $request->input('nickname');
-                return $query->where(function ($q) use ($nickname) {
-                    $q->orWhere('PS', 'like', '%' . $nickname . '%')
-                        ->orWhere('GG', 'like', '%' . $nickname . '%')
-                        ->orWhere('RedStar', 'like', '%' . $nickname . '%')
-                        ->orWhere('TigerGaming', 'like', '%' . $nickname . '%')
-                        ->orWhere('PartyPoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('Pokerstars', 'like', '%' . $nickname . '%')
-                        ->orWhere('888poker', 'like', '%' . $nickname . '%')
-                        ->orWhere('WPNpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('Stretchpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('Coinpoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('chikoPoker', 'like', '%' . $nickname . '%')
-                        ->orWhere('nickiPoker', 'like', '%' . $nickname . '%');
+            ->when($request->filled('middle_name'), fn ($q) =>
+            $q->where('middle_name', 'like', '%' . $request->middle_name . '%'))
+            ->when($request->filled('phonenumber'), fn ($q) =>
+            $q->where('phonenumber', 'like', '%' . $request->phonenumber . '%'))
+            ->when($request->filled('nickname'), function ($q) use ($request) {
+                $nick = $request->nickname;
+                $fields = ['PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
+                    '888poker','WPNpoker','Stretchpoker','Coinpoker',
+                    'chikoPoker','nickiPoker'];
+                $q->where(function ($sub) use ($fields, $nick) {
+                    foreach ($fields as $field) {
+                        $sub->orWhere($field, 'like', '%' . $nick . '%');
+                    }
                 });
             })
-
-            // ➜ Вот ключевое место для fund_name
-            ->when($request->filled('fund_name'), function ($query) use ($request) {
-                $fundName = $request->input('fund_name');
-                return $query->whereHas('reputationRecords', function ($q) use ($fundName) {
-                    $q->where('fund_name', 'like', '%' . $fundName . '%');
-                });
+            ->when($request->filled('fund_name'), function ($q) use ($request) {
+                $fund = $request->fund_name;
+                $q->whereHas('reputationRecords', fn ($r) =>
+                $r->where('fund_name', 'like', '%' . $fund . '%'));
             });
     }
-
 }
