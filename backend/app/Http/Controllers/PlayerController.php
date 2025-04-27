@@ -30,6 +30,26 @@ class PlayerController extends Controller
             'player'  => $player,
         ]);
     }
+    public function updateBackerTag(Request $request, $playerId)
+    {
+        // Находим игрока
+        $player = Player::where('player_id', $playerId)->firstOrFail();
+
+        // Валидируем входные данные
+        $data = $request->validate([
+            'backer_tag' => 'required|string|max:255',
+        ]);
+
+        // Обновляем backer_tag
+        $player->backer_tag = $data['backer_tag'];
+        $player->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Backer tag updated successfully',
+            'player'  => $player,
+        ]);
+    }
 
     /* -----------------------------------------------------------------
      |  2. Обновление записи репутации + backer_tag + лог изменений
@@ -90,8 +110,13 @@ class PlayerController extends Controller
      |-----------------------------------------------------------------*/
     public function search(Request $request)
     {
+
+
+        $fund = auth()->user()?->fund_name
+            ?? auth()->user()?->backer?->fund_name
+            ?? null;
+
         /* --- счётчик для конкретного фонда --- */
-        $fund = auth()->user()?->fund_name;                 // или возьмите из запроса
         RouteCounter::updateOrCreate(
             ['route' => 'search-players', 'fund_name' => $fund],
             ['count' => DB::raw('count + 1')]
