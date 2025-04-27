@@ -10,6 +10,7 @@ import Login from "./Login.jsx";
 import Images from "../../../../assets/image/image.js";
 import "../../../../style/HomePage/main/auth.scss";
 import IconSvg from "../../../platform/components/IconSvg.jsx";
+import Resize from "../../../platform/components/Resize.jsx";
 
 function Auth({userData, setUserData}) {
     const {store} = React.useContext(Context);
@@ -147,7 +148,9 @@ function Auth({userData, setUserData}) {
                     </div>
                     <div className="auth__toggle-wrap">
                         <div className="auth__toggle auth__toggle-left">
-                            <IconSvg width={110} height={48} id="logo"/>
+                            <Resize width={651} fallback={null}>
+                                <IconSvg width={110} height={48} id="logo"/>
+                            </Resize>
                             <div>
                                 Добро пожаловать!
                             </div>
@@ -159,7 +162,9 @@ function Auth({userData, setUserData}) {
                             </button>
                         </div>
                         <div className="auth__toggle auth__toggle-right">
-                            <IconSvg width={110} height={48} id="logo"/>
+                            <Resize width={651} fallback={null}>
+                                <IconSvg width={110} height={48} id="logo"/>
+                            </Resize>
                             <div>
                                 Здравствуйте,<br/> добро пожаловать!
                             </div>
