@@ -34,6 +34,8 @@ const SearchLogs = observer(() => {
         }
     }
 
+    console.log(logsData);
+
     return (
         <AdminMain pageTitle="Отчёт о поисках">
             <div className="admin__wrap">
