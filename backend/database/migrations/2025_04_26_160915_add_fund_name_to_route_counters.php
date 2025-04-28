@@ -12,8 +12,7 @@ return new class extends Migration
             $table->string('fund_name')->nullable()->after('route');
             $table->unsignedBigInteger('count')->default(0)->change();
 
-            // уникальность «маршрут-фонд»
-            $table->unique(['route', 'fund_name']);
+
         });
     }
 
