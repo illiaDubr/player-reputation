@@ -9,8 +9,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('backers', function (Blueprint $table) {
-            // Логотип фонда (можно хранить путь/URL до файла)
-            $table->string('logo')->nullable();
 
             // Описание фонда (текст на 3–4 абзаца)
             $table->text('description')->nullable()->after('logo');
