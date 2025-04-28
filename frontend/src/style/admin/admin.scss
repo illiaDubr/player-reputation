@@ -396,6 +396,38 @@
       opacity: .3;
     }
 
+    .search-logs {
+      opacity: 1;
+
+      .search-logs__header {
+        opacity: 1;
+
+        .search-logs__title {
+          opacity: 1;
+        }
+      }
+
+      .search-logs__list {
+        opacity: 1;
+
+        .search-logs__item {
+          opacity: 1;
+
+          .search-logs__fund-name {
+            opacity: 1;
+          }
+
+          .search-logs__count {
+            opacity: 1;
+          }
+        }
+      }
+
+      .search-logs__total {
+        opacity: 1;
+      }
+    }
+
     &:before, &:after {
       content: "";
       width: 150px;
