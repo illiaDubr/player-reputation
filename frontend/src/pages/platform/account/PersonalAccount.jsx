@@ -144,7 +144,7 @@ function PersonalAccount() {
                     </div>
                     <div className="modal__body">
                         <p className="modal__text slide__text">
-                            Ваша заявка отправлена модератору PR.Время на рассмотрение заявки - 1 рабочий день.
+                            Ваша заявка отправлена модератору PR. Время на рассмотрение заявки - 1 рабочий день.
                         </p>
                     </div>
                 </Modal>

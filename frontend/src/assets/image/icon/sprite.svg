@@ -7,6 +7,9 @@
         <path d="M12.5 17V11" stroke="#2750F2" stroke-width="1.5" stroke-linecap="round"></path>
         <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11.5 9)" fill="#2750F2"></circle>
     </symbol>
+    <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 48" id="slider__arrow">
+        <path d="M19.7497 48L36 48L16.2433 24.0041L36 0L19.7497 1.42065e-06L2.0985e-06 24.0041L19.7497 48Z" fill="white"></path>
+    </symbol>
     <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 37" id="close-menu">
         <path d="M27 9.5L9 27.5" stroke="#565656" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M9 9.5L27 27.5" stroke="#565656" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>

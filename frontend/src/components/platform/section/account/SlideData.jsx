@@ -55,12 +55,12 @@ const SlideData = (slideType, formData, setFormData, formBackerData, setFormBack
                             <div className="slide__box">
                                 <ReputationInput info={firstSlideDataPlayer} formData={formData}
                                                  setFormData={setFormData}/>
-                                <div className="slide__input-wrap">
+                                {/*<div className="slide__input-wrap">
                                     <div className="slide__label">
                                         Номер телефона
                                     </div>
                                     <CountrySelect onPhoneNumberChange={handlePhoneNumberChange}/>
-                                </div>
+                                </div>*/}
                             </div>
                         </SlideContentWrap>
                     ),

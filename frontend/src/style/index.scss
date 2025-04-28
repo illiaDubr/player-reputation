@@ -152,6 +152,22 @@ body {
   }
 }
 
+.country__input {
+  padding: 18px 24px 18px 90px;
+  @include mixin.font-style(null, null, null, #565656);
+}
+
+.country__input-focused {
+  box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.1);
+  background: #131314;
+  @include mixin.font-style(null, null, null, #FFFFFF);
+}
+
+.country__input-open {
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 2px 4px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
 .modal {
   position: fixed;
   inset: 0;

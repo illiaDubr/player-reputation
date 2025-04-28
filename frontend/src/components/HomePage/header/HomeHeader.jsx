@@ -7,7 +7,7 @@ import AuthBtn from "../main/auth/AuthBtn.jsx";
 import Resize from "../../platform/components/Resize.jsx";
 
 const navLinks = [
-    {to: "#role__section", label: "Выбрать роль"},
+    //{to: "#role__section", label: "Выбрать роль"},
     //{to: "#subscription_section", label: "Тарифы"}
 ];
 
