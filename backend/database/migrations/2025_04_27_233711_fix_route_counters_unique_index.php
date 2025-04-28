@@ -3,13 +3,17 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
     public function up()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            // Только добавляем новый составной уникальный индекс
+            // Пробуем удалить индекс, если он вдруг есть
+            DB::statement('DROP INDEX IF EXISTS route_counters_route_fund_name_unique ON route_counters');
+
+            // Теперь создаём новый
             $table->unique(['route', 'fund_name']);
         });
     }
@@ -17,7 +21,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            // Удаляем составной уникальный индекс
             $table->dropUnique(['route', 'fund_name']);
         });
     }
