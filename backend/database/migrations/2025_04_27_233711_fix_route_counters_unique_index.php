@@ -9,10 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            // Удаляем уникальный индекс по колонке route
-            $table->dropUnique(['route']);
-
-            // Создаём новый составной уникальный индекс по (route, fund_name)
+            // Только добавляем новый составной уникальный индекс
             $table->unique(['route', 'fund_name']);
         });
     }
@@ -20,11 +17,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            // Удаляем составной индекс
+            // Удаляем составной уникальный индекс
             $table->dropUnique(['route', 'fund_name']);
-
-            // Восстанавливаем старый уникальный индекс только на route
-            $table->unique(['route']);
         });
     }
 };
