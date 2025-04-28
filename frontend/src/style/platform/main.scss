@@ -72,17 +72,54 @@
       .mobile-menu {
         width: 100vw;
         height: 100vh;
+        padding: 40px;
+        backdrop-filter: blur(50px);
+        background: #000007cc;
         position: absolute;
         pointer-events: none;
         opacity: 0;
         visibility: hidden;
         top: 0px;
-        right: 100%;
+        left: 100%;
         transform: scale(0);
         transition: all .4s ease;
 
+        .navigation {
+          .navigation__list {
+            .navigation__list-box {
+              .navigation__list-item {
+                .navigation__list-item__link {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 20px;
+
+                  .svg-box {
+                    position: relative !important;
+                    left: initial !important;
+                    top: initial !important;
+                    transform: none !important;
+                  }
+
+                  .navigation__text {
+                    display: block !important;
+                    position: relative !important;
+                    left: initial !important;
+                    top: initial !important;
+                    transform: none !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .header__btn {
+          display: none;
+        }
+
         &--open {
-          right: 0;
+          left: 0;
           transform: scale(1);
           border-radius: 0px;
           opacity: 1;
