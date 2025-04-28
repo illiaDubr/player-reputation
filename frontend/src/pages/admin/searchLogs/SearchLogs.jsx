@@ -39,11 +39,29 @@ const SearchLogs = observer(() => {
     return (
         <AdminMain pageTitle="Отчёт о поисках">
             <div className="admin__wrap">
-                {logsData && (
-                    <div className="count__wrap">
-                        {logsData.count} поисков
+                <div className="">
+                    <div className="">
+                        <div className="">
+                            Верифицированные бекеры
+                        </div>
+                        <div className="">
+                            Выполненные ими поиски
+                        </div>
                     </div>
-                )}
+                    {logsData.byFund?.slice(1).map((item, index) => (
+                        <div className="" key={index}>
+                            <div className="">
+                                {item.fund_name}
+                            </div>
+                            <div className="">
+                                {item.count}
+                            </div>
+                        </div>
+                    ))}
+                    <div className="">
+                        {logsData.total}
+                    </div>
+                </div>
             </div>
 
             <div className="admin__wrap">

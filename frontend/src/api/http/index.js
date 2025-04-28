@@ -1,7 +1,7 @@
 import axios from "axios";
 import {HOMEPAGE_ROUTE} from "../../utils/const.js";
 
-export const API_URl = 'http://203.0.113.10';
+export const API_URl = import.meta.env.VITE_API_URL;
 
 const $api = axios.create({
     withCredentials: true,
