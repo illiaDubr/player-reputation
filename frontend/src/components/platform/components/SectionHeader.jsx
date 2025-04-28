@@ -1,9 +1,13 @@
 import React from "react";
 import Resize from "./Resize.jsx";
-import IconSvg from "./IconSvg.jsx";
 import Breadcrumbs from "./Breadcrumbs.jsx";
+import Navigation from "../section/header/Navigation.jsx";
 
 const SectionHeader = () => {
+    const [isBtnOpen, setIsBtnOpen] = React.useState(null);
+
+    const toggleBtn = () => setIsBtnOpen((prev) => !prev);
+
     return (
         <div className="section__header-wrap">
             <Breadcrumbs/>
@@ -17,6 +21,16 @@ const SectionHeader = () => {
                             </div>*/}
                             <div className="burger__menu-wrap">
                             </div>
+
+                            <button className={`header__btn-burger ${isBtnOpen ? "header__btn-burger--open" : ""}`}
+                                    type="button" onClick={toggleBtn}>
+                                <span className="line top-line"></span>
+                                <span className="line bottom-line"></span>
+                            </button>
+
+                            <nav className={`header__nav ${isBtnOpen ? "header__nav--open" : ""}`}>
+                                <Navigation />
+                            </nav>
                         </>
                     }
             >
