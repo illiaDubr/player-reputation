@@ -11,6 +11,7 @@ body {
   display: flex;
   justify-content: center;
   background: #080808;
+  overflow-x: hidden;
 }
 
 .wrapper {
@@ -531,6 +532,7 @@ h1 {
   align-items: center;
   justify-content: center;
   position: relative;
+  z-index: 31;
   border: 2px solid transparent;
 
   &:before, &:after {
