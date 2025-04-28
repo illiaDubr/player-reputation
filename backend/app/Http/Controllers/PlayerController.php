@@ -113,7 +113,8 @@ class PlayerController extends Controller
 
 
         /* --- счётчик для конкретного фонда --- */
-        $fund = auth()->user()?->fund_name;                 // или возьмите из запроса
+        $fund = auth()->user()?->fund_name ?? auth()->user()?->backer?->fund_name ?? null;
+        // или возьмите из запроса
         RouteCounter::updateOrCreate(
             ['route' => 'search-players', 'fund_name' => $fund],
             ['count' => DB::raw('count + 1')]
