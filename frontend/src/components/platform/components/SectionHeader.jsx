@@ -28,9 +28,9 @@ const SectionHeader = () => {
                                 <span className="line bottom-line"></span>
                             </button>
 
-                            <nav className={`header__nav ${isBtnOpen ? "header__nav--open" : ""}`}>
+                            <div className={`mobile-menu ${isBtnOpen ? "mobile-menu--open" : ""}`}>
                                 <Navigation />
-                            </nav>
+                            </div>
                         </>
                     }
             >
