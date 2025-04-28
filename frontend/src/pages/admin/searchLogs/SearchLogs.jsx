@@ -61,7 +61,7 @@ const SearchLogs = observer(() => {
                         ))}
                     </div>
                     <div className="search-logs__total">
-                        {logsData.total}
+                        Всего выполнено поисков: {logsData.total}
                     </div>
                 </div>
             </div>
