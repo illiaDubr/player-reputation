@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::table('backers', function (Blueprint $table) {
 
             // Описание фонда (текст на 3–4 абзаца)
-            $table->text('description')->nullable()->after('logo');
 
             // ФИО главного контактного лица
             $table->string('contact_name')->nullable()->after('description');
