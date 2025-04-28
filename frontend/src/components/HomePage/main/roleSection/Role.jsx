@@ -5,6 +5,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import IconSvg from "../../../platform/components/IconSvg.jsx";
 
 const ROLE_DATA = {
     backer: {
@@ -73,8 +74,12 @@ function RoleSwiperFallback({data}) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="swiper-button-prev custom-arrow">←</div>
-            <div className="swiper-button-next custom-arrow">→</div>
+            <div className="swiper-button-prev custom-arrow">
+                <IconSvg width={36} height={48} id="slider__arrow" />
+            </div>
+            <div className="swiper-button-next custom-arrow">
+                <IconSvg width={36} height={48} id="slider__arrow" />
+            </div>
         </>
     );
 }
