@@ -422,17 +422,27 @@
             height: 50px;
             border-radius: 50%;
             background: #006e72;
-            filter: blur(40px);
+            filter: blur(80px);
             position: absolute;
-            z-index: 1;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
           }
 
           &:first-child {
             border-radius: 19px 0px 0px 0px;
+
+            &:after {
+              left: 6%;
+            }
           }
 
           &:last-child {
             border-radius: 0px 19px 0px 0px;
+
+            &:after {
+              left: 94%;
+            }
           }
         }
       }
