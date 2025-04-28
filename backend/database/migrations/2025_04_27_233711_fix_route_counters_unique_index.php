@@ -5,15 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
+
 return new class extends Migration
 {
     public function up()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            // Пробуем удалить индекс, если он вдруг есть
-            DB::statement('DROP INDEX IF EXISTS route_counters_route_fund_name_unique ON route_counters');
+            // Пытаемся удалить индекс правильно
+            $table->dropUnique('route_counters_route_fund_name_unique');
 
-            // Теперь создаём новый
+            // Теперь создаём новый индекс
             $table->unique(['route', 'fund_name']);
         });
     }
@@ -25,3 +26,4 @@ return new class extends Migration
         });
     }
 };
+
