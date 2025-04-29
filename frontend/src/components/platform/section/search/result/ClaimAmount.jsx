@@ -8,7 +8,7 @@ function formatDamage(damage) {
     if (isNaN(number)) return damage;
 
     return `$${number.toLocaleString("ru-RU", {
-        minimumFractionDigits: number % 1 === 0 ? 0 : 2,
+        minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }).replace(/,/g, " ")}`;
 }

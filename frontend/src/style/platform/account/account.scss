@@ -146,7 +146,8 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                   border: 1px solid transparent;
                   background: #080808;
                   border-radius: 10px;
-                  @include mixin.font-style(500, 16, 130, #FFFFFF);
+                  @include mixin.font-style(500, null, 130, #FFFFFF);
+                  @include mixin.font-size(16, 13);
 
                   input {
                     display: none;
@@ -158,6 +159,10 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
                   }
                 }
               }
+            }
+
+            .slide__input-wrap--grid {
+              grid-column: span 2;
             }
 
             .slide__input-error {
@@ -616,6 +621,12 @@ $borderGradient: linear-gradient(to right, #bb2577, #3782ef);
         flex-wrap: wrap;
       }
     }
+  }
+}
+
+@media (max-width: 524px) {
+  .slide__input-wrap--grid {
+    grid-column: initial;
   }
 }
 
