@@ -2,15 +2,15 @@ import React from "react";
 import ResultItem from "./ResultItem.jsx";
 
 function formatDamage(damage) {
-    if (damage == null || damage === "") return "$0";
+    if (damage == null || damage === "") return "$0.00";
 
     const number = Number(damage);
     if (isNaN(number)) return damage;
 
-    return `$${number.toLocaleString("ru-RU", {
+    return `$${number.toLocaleString("en-US", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    }).replace(/,/g, " ")}`;
+    })}`;
 }
 
 const ClaimAmount = ({ dmg, src, makeUp }) => {
