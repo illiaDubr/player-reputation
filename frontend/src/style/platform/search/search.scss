@@ -372,8 +372,11 @@
             flex-direction: column;
             justify-content: center;
             gap: 4px;
-            @include mixin.font-style(500, 14, 130, #FFFFFF);
             text-align: center;
+
+            .result__date {
+              @include mixin.font-style(500, 14, 130, #FFFFFF);
+            }
           }
 
           .result__user-status-wrap {
