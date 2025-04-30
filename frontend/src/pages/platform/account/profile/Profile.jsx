@@ -42,7 +42,7 @@ const Profile = () => {
         e.preventDefault();
         const profileData = {
             ...Object.fromEntries(Object.entries(data).filter(([, value]) => value !== "")),
-            id: profile.backer_id,
+            id: String(profile.backer_id),
         };
 
         console.log(profileData);
