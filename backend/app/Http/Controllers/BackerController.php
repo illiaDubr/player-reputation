@@ -14,14 +14,15 @@ class BackerController extends Controller
     public function updateFundInfo(Request $request, $id)
     {
         // Валидируем входящие данные
-        $validated = $request->validate([
+        $validated = $request->validate(array(
             'logo'         => 'nullable|string',
             'description'  => 'nullable|string',
             'contact_name' => 'nullable|string|max:255',
             'discord'      => 'nullable|string|max:255',
             'email'        => 'nullable|email|max:255',
+            'id'           => 'nullable|string|max:255',
             // 'password'  => 'nullable|string|min:8', // при необходимости
-        ]);
+        ));
 
         // Находим бэкера
         $backer = Backer::findOrFail($id);
