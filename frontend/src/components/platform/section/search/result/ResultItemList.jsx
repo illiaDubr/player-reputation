@@ -194,10 +194,9 @@ const ResultItemList = ({results = [], backer, backersFund}) => {
                         </div>
 
                         <div className="result result-right">
-                            <IconSvg width={48} height={48} id={fund_name} variant="funds"/>
                             <div className="result__title">
                                 <IconSvg width={48} height={48} id={fund_name} variant="funds"/>
-                                <div>
+                                <div className="result__date">
                                     запись от
                                     <br/>
                                     {date}
