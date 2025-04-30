@@ -14,8 +14,7 @@ export default class AccountService {
         return $api.put(`api/backers/${id}`, backerData)
     }
 
-    static async profile(profileData) {
-        const id = profileData.id
+    static async profile(id, profileData) {
 
         return $api.patch(`api/backers/${id}/fund-info`, profileData)
     }

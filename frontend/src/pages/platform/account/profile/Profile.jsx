@@ -42,11 +42,10 @@ const Profile = () => {
         e.preventDefault();
         const profileData = {
             ...Object.fromEntries(Object.entries(data).filter(([, value]) => value !== "")),
-            id: String(profile.backer_id),
         };
 
         console.log(profileData);
-        store.profile(profileData);
+        store.profile(String(profile.backer_id), profileData);
     }
 
     return (
