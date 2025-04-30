@@ -47,7 +47,7 @@ export const firstSlideDataPlayer = [
     { label: "Фамилия", id: "last_name", placeholder: "Введите фамилию", type: "text" },
     { label: "Имя", id: "first_name", placeholder: "Введите Имя", type: "text" },
     { label: "Отчество", id: "middle_name", placeholder: "Введите отчество", type: "text" },
-    { label: "Ваш email", id: "Email", placeholder: "Введите email", type: "email" },
+    { label: "Email", id: "Email", placeholder: "Введите email", type: "email" },
 ];
 
 export const secSlideDataPlayer = [
