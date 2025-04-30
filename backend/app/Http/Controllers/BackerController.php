@@ -20,7 +20,7 @@ class BackerController extends Controller
             'contact_name' => 'nullable|string|max:255',
             'discord'      => 'nullable|string|max:255',
             'email'        => 'nullable|email|max:255',
-            'id'           => 'nullable|string|max:255',
+
             // 'password'  => 'nullable|string|min:8', // при необходимости
         ));
 
