@@ -153,8 +153,8 @@ body {
 }
 
 .country__input {
-  padding: 18px 24px 18px 90px;
-  @include mixin.font-style(null, null, null, #565656);
+  padding: 18px 24px 18px 90px !important;
+  color: #565656 !important;
 }
 
 .country__input-focused {
