@@ -38,7 +38,11 @@ class Backer extends Model
         'approved',
         'email',
         'fund_for_search',
-        'fund_name'
+        'fund_name',
+        'logo',
+        'description',
+        'contact_name',
+        'discord',
     ];
 
     protected $casts = [
