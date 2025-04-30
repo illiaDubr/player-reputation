@@ -176,9 +176,9 @@ export default class Store {
         )
     }
 
-    async profile(profileData) {
+    async profile(id, profileData) {
         await this.request(
-            () => AccountService.profile(profileData),
+            () => AccountService.profile(id, profileData),
             "Ошибка отправки данных"
         )
     }
