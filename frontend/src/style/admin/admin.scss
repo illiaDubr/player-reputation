@@ -353,9 +353,20 @@
             padding: 0px 0px 5px 0px;
             border-bottom: 1px solid #121317;
 
-            .backer__title {
+            .backer__title-wrap {
+              display: flex;
               @include mixin.font-style(500, 18, 130, #FFFFFF);
-              text-wrap: nowrap;
+
+              .backer__title {
+                text-wrap: nowrap;
+              }
+
+              .backer__title--hidden {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 140px;
+              }
             }
 
             .backer__text {
@@ -363,6 +374,14 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+            }
+
+            a.backer__text {
+              transition: all .4s ease;
+
+              &:hover {
+                color: #307143;
+              }
             }
 
             .backer__tooltip {
