@@ -59,10 +59,10 @@ const BackersItemList = ({data, approvedControl, freezeControl}) => {
                                             [
                                                 {title: "Имя фонда:", content: approvedControl ? item.fund_name : item.fund_for_search },
                                                 {title: "Email:", content: item.email},
-                                                {title: "Описание фонда:", content: item.fundDescr, className: "fundDescr",},
-                                                {title: "Ссылка на сайт:", content: item.siteLink},
-                                                {title: "Гостевой домик в Discord:", content: item.discordHouse},
-                                                {title: "Контакт представителя в Discord:", content: item.discordRepresentative},
+                                                {title: "Описание фонда:", content: item.fundDescr},
+                                                {title: "Ссылка на сайт:", content: item.siteLink, link: true},
+                                                {title: "Гостевой домик в Discord:", content: item.discordHouse, className: "backer__title--hidden", link: true},
+                                                {title: "Контакт представителя в Discord:", content: item.discordRepresentative, className: "backer__title--hidden"},
                                                 {title: "Количество тренеров:", content: item.numberCoach},
                                                 {title: "Количество игроков:", content: item.numberPlayer},
                                                 {title: "Рейкбек:", content: item.rakeback},
@@ -75,6 +75,7 @@ const BackersItemList = ({data, approvedControl, freezeControl}) => {
                                                         title={pair.title}
                                                         content={pair.content}
                                                         className={pair.className}
+                                                        link={pair.link}
                                                     />
                                                 ))
                                         }
