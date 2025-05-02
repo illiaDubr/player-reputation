@@ -13,6 +13,8 @@ async function processMessage(message) {
         console.log(`📨 Обработка сообщения: "${content}"`);
 
         const roleName = message.roles?.[0] ?? null;
+        const timestamp = message.timestamp ?? new Date().toISOString();
+
 
 
         const aiResponse = await openai.chat.completions.create({
@@ -83,7 +85,8 @@ async function processMessage(message) {
                 },
                 {
                     role: 'user',
-                    content: `Сообщение от Discord: "${content}". Роль отправителя: ${roleName ?? 'неизвестна'}`
+                    content: `Сообщение от Discord: "${content}". Роль отправителя: ${roleName ?? 'неизвестна'}. Время отправки: ${timestamp}`
+
                 }
             ],
             temperature: 0.3
