@@ -23,16 +23,19 @@ client.on('messageCreate', async (message) => {
 
     const content = message.content;
     const author = message.author.username;
+    const timestamp = message.createdAt.toISOString();
     let roleName = null;
 
     try {
         const member = await message.guild.members.fetch(message.author.id);
+
+
         roleName = member.roles.cache.map(role => role.name).find(name => name !== '@everyone') || null;
     } catch {
         console.warn('⚠️ Не удалось получить роли пользователя');
     }
 
-    console.log(`📩 Новое сообщение от ${author}: ${content}`);
+    console.log(`📩 Новое сообщение от ${author}: ${content}, ${timestamp}`);
     if (roleName) console.log(`👑 Роль пользователя: ${roleName}`);
 
     try {
@@ -121,7 +124,8 @@ client.on('messageCreate', async (message) => {
                 },
                 {
                     role: 'user',
-                    content: content
+                    content: `Сообщение из Discord: "${content}". Роль пользователя: "${roleName ?? 'неизвестна'}". Время отправки: ${timestamp}`
+
                 }
             ],
             temperature: 0.3
