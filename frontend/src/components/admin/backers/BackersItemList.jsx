@@ -17,8 +17,7 @@ const BackersItemList = ({data, approvedControl, freezeControl}) => {
         }));
     };
 
-    const handleFundChange = (backerId, selected) => {
-        console.log("Выбран фонд:", selected.value);
+    const handleSelectFundChange = (backerId) => (selected) => {
         setSelectedFund((prev) => ({
             ...prev,
             [backerId]: selected.value,
@@ -51,7 +50,7 @@ const BackersItemList = ({data, approvedControl, freezeControl}) => {
                                                     rawOptions={fundsData}
                                                     labelKey="fundName"
                                                     valueKey="fundName"
-                                                    onChange={handleFundChange}
+                                                    onChange={handleSelectFundChange(item.backer_id)}
                                                     placeholder="Выберете фонд.."
                                                     isSearchable={true}
                                                 />
