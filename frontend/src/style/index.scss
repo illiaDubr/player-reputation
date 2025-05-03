@@ -253,6 +253,7 @@ body {
   .app-select__menu {
     width: 100%;
     position: absolute;
+    z-index: 2;
 
     .app-select__menu-list {
       max-height: 120px;
