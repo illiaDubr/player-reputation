@@ -263,4 +263,8 @@ export const fundsData = [
         id: 65,
         fundName: "MetaTeamAcademy"
     },
+    {
+        id: 66,
+        fundName: "Enigma"
+    },
 ]
