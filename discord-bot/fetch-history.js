@@ -6,50 +6,56 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
     ]
 });
+
+const CHANNEL_IDS = process.env.CHANNEL_IDS.split(',').map(id => id.trim());
+const allMessages = [];
 
 client.once('ready', async () => {
     console.log(`✅ Авторизовались как ${client.user.tag}`);
 
-    const channel = await client.channels.fetch(process.env.CHANNEL_ID);
-    if (!channel || !channel.isTextBased()) {
-        console.error('❌ Канал не найден или не является текстовым');
-        process.exit(1);
-    }
-
-    const allMessages = [];
-    let lastMessageId = null;
-    let done = false;
-
-    while (!done) {
-        const options = { limit: 100 };
-        if (lastMessageId) options.before = lastMessageId;
-
-        const messages = await channel.messages.fetch(options);
-        if (messages.size === 0) {
-            done = true;
-            break;
+    for (const channelId of CHANNEL_IDS) {
+        const channel = await client.channels.fetch(channelId).catch(() => null);
+        if (!channel || !channel.isTextBased()) {
+            console.warn(`⚠️ Пропущен канал ${channelId} — не текстовый или не найден`);
+            continue;
         }
 
-        for (const msg of messages.values()) {
-            const member = await channel.guild.members.fetch(msg.author.id).catch(()=>null);
-            const roles = member ? member.roles.cache.map(role => role.name) : [];
+        console.log(`📥 Начинаем загрузку из канала #${channel.name} (${channel.id})`);
 
+        let lastMessageId = null;
+        let done = false;
 
-            allMessages.push({
-                id: msg.id,
-                author: msg.author.username,
-                roles: roles,
-                content: msg.content,
-                timestamp: msg.createdAt,
-            });
+        while (!done) {
+            const options = { limit: 100 };
+            if (lastMessageId) options.before = lastMessageId;
 
-    }
-        lastMessageId = messages.last().id;
-        console.log(`📥 Получено: ${messages.size}, всего: ${allMessages.length}`);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // задержка, чтобы избежать rate limit
+            const messages = await channel.messages.fetch(options);
+            if (messages.size === 0) {
+                done = true;
+                break;
+            }
+
+            for (const msg of messages.values()) {
+                const member = await channel.guild.members.fetch(msg.author.id).catch(() => null);
+                const roles = member ? member.roles.cache.map(role => role.name) : [];
+
+                allMessages.push({
+                    id: msg.id,
+                    author: msg.author.username,
+                    roles,
+                    content: msg.content,
+                    timestamp: msg.createdAt.toISOString(),
+                });
+            }
+
+            lastMessageId = messages.last().id;
+            console.log(`📦 Получено: ${messages.size}, всего: ${allMessages.length}`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
     }
 
     fs.writeFileSync('history.json', JSON.stringify(allMessages, null, 2));
