@@ -59,4 +59,28 @@ class BackerController extends Controller
             'backer' => $backer,
         ]);
     }
+
+    public function deleteBacker(Request $request, $backerId)
+    {
+        $validated = $request->validate([
+            'backer_id' => 'nullable|string',
+        ]);
+
+        // Ищем конкретного бэкера
+        $backer = Backer::findOrFail($backerId);
+
+
+
+        //тело запроса
+
+
+
+
+        return response()->json([
+            'success' => true,
+        ]);
+
+    }
+
+
 }
