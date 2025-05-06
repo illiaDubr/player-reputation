@@ -8,12 +8,12 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 async function processMessage(message) {
     try {
         const content = message.content;
-        if (!content) return;
-
-        console.log(`📨 Обработка сообщения: "${content}"`);
-
+        const timestamp = message.timestamp;
         const roleName = message.roles?.[0] ?? null;
 
+        if (!content) return;
+
+        console.log(`📨 Обработка: "${content}"`);
 
         const aiResponse = await openai.chat.completions.create({
             model: 'gpt-4',
@@ -83,7 +83,7 @@ async function processMessage(message) {
                 },
                 {
                     role: 'user',
-                    content: `Сообщение от Discord: "${content}". Роль отправителя: ${roleName ?? 'неизвестна'}`
+                    content: `Сообщение: "${content}"\nРоль: "${roleName ?? 'неизвестна'}"\nВремя: "${timestamp}"`
                 }
             ],
             temperature: 0.3
@@ -103,15 +103,12 @@ async function processMessage(message) {
             (!parsed.players || parsed.players.length === 0) &&
             (!parsed.reputation_records || parsed.reputation_records.length === 0)
         ) {
-            console.log('⏭️ Пропуск — нет данных для импорта\n');
+            console.log('⏭️ Пропуск — пустой результат\n');
             return;
         }
 
-        console.log('📦 Отправляем в Laravel:');
-        console.dir(parsed, { depth: null });
-
         const response = await axios.post(process.env.LARAVEL_API_URL, parsed);
-        console.log('✅ Импортировано в Laravel\n');
+        console.log('✅ Импортировано\n');
 
     } catch (err) {
         if (err.response) {
@@ -122,13 +119,12 @@ async function processMessage(message) {
     }
 }
 
-
 async function processAllMessages() {
     const data = JSON.parse(fs.readFileSync('history.json', 'utf-8'));
 
     for (const message of data) {
         await processMessage(message);
-        await new Promise(resolve => setTimeout(resolve, 1500)); // пауза между запросами
+        await new Promise(resolve => setTimeout(resolve, 1500));
     }
 
     console.log('🎉 Обработка завершена!');
