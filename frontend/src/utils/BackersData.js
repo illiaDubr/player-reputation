@@ -267,4 +267,12 @@ export const fundsData = [
         id: 66,
         fundName: "Enigma"
     },
+    {
+        id: 67,
+        fundName: "HSP"
+    },
+    {
+        id: 68,
+        fundName: "MysteryPool"
+    },
 ]
