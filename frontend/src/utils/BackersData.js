@@ -275,4 +275,8 @@ export const fundsData = [
         id: 68,
         fundName: "MysteryPool"
     },
+    {
+        id: 69,
+        fundName: "GoldenChance"
+    },
 ]
