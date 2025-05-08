@@ -55,6 +55,7 @@ class Player extends Model
         'kyc_verified_at',
         'backer_tag',
         'created_by',
+        'sent_at'
     ];
 
     protected $casts = [
