@@ -19,6 +19,7 @@ class ReputationRecord extends Model
         'damage',
         'makeUp',
         'source',
+        'sent_at'
     ];
 
     public function player()
