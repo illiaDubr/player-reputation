@@ -52,7 +52,7 @@ const HomePage = observer(() => {
                 </section>
                 <section className="role__section">
                     <RoleSwitcher player={true}>
-                        <Switcher text={true}/>
+
                     </RoleSwitcher>
                         {/*<RoleSwitcher backer={true}>
                         <Switcher text={true}/>

@@ -10,12 +10,12 @@ const RoleSwitcher = ({player, backer, children}) => {
 
     return (
         <div className="info__wrap" id={backer ? "tasks__section" : "role__section"}>
-            {player && selectedRole === "player" && (
+
                 <h2 className="info__title">
                     Возможности <br/>
-                    Player Reputation
+                    Player`s Reputation
                 </h2>
-            )}
+
 
             {children}
 
