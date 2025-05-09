@@ -279,4 +279,20 @@ export const fundsData = [
         id: 69,
         fundName: "GoldenChance"
     },
+    {
+        id: 70,
+        fundName: "lvlUP"
+    },
+    {
+        id: 71,
+        fundName: "Raise Ace"
+    },
+    {
+        id: 72,
+        fundName: "ITC Junior"
+    },
+    {
+        id: 73,
+        fundName: "Пианисты"
+    },
 ]
