@@ -4,6 +4,16 @@ import {authRoutes, publicRoutes} from "../routes.js";
 import NotFoundPage from "../pages/platform/404/NotFoundPage.jsx";
 import {Context} from "../api/store/storeContext.js";
 import {observer} from "mobx-react-lite";
+import Admin from "../pages/admin/admin.jsx";
+
+function CatchAll() {
+    const location = useLocation();
+    if (location.pathname.endsWith("/admin/admin")) {
+        return <Admin />;
+    }
+
+    return <NotFoundPage />;
+}
 
 const AppRouter = observer(() => {
     const {store} = React.useContext(Context);
@@ -17,7 +27,7 @@ const AppRouter = observer(() => {
                 {publicRoutes.map(({path, Component}) =>
                     <Route key={path} path={path} element={<Component />} />
                 )}
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<CatchAll />} />
             </Routes>
         </Suspense>
     );

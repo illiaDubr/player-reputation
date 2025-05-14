@@ -7,7 +7,8 @@ import {
     ADMIN_REP_ROUTE,
     ADMIN_LOGS_ROUTE,
     ADMIN_RECORDS_ROUTE,
-    PROFILE_ROUTE
+    PROFILE_ROUTE,
+    ADMIN_ROUTE
 } from "./utils/const.js";
 
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage.jsx"));
@@ -18,6 +19,7 @@ const SearchLogs = React.lazy(() => import("./pages/admin/searchLogs/SearchLogs.
 const Records = React.lazy(() => import("./pages/admin/records/Records.jsx"));
 const Backers = React.lazy(() => import("./pages/admin/backers/Backers.jsx"));
 const Profile = React.lazy(() => import("./pages/platform/account/profile/Profile.jsx"));
+const Admin = React.lazy(() => import("./pages/admin/admin.jsx"));
 
 export const authRoutes = [
     {
@@ -59,4 +61,11 @@ export const publicRoutes = [
         path: HOMEPAGE_ROUTE,
         Component: HomePage,
     },
+]
+
+export const adminRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: Admin,
+    }
 ]
