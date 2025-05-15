@@ -75,6 +75,22 @@ const SearchForm = ({checked, setChecked}) => {
             return;
         }
 
+        const tooShort =
+            (formData.last_name && formData.last_name.length < 3) ||
+            (formData.discord && formData.discord.length < 3) ||
+            (formData.nickname && formData.nickname.length < 3);
+
+        if (tooShort) {
+            const shortMessage = 'Минимальная длина для поиска — 3 символа';
+            if (formData.last_name && formData.last_name.length < 3)
+                setError('last_name', { type: 'manual', message: shortMessage });
+            if (formData.discord && formData.discord.length < 3)
+                setError('discord', { type: 'manual', message: shortMessage });
+            if (formData.nickname && formData.nickname.length < 3)
+                setError('nickname', { type: 'manual', message: shortMessage });
+            return;
+        }
+
         const searchData = { ...formData };
 
 
