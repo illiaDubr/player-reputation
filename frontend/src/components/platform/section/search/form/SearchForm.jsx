@@ -7,6 +7,7 @@ import {Context} from "../../../../../api/store/storeContext.js";
 import CountrySelect from "../../../components/CountrySelect.jsx";
 import {SearchSchema} from "../../../components/validation/SearchSchema.js";
 import FormTitle from "./FormTitle.jsx";
+import {NameData} from "../../../../../utils/NameData.js";
 
 function usePrevious(value) {
     const ref = React.useRef();
@@ -88,6 +89,12 @@ const SearchForm = ({checked, setChecked}) => {
                 setError('discord', { type: 'manual', message: shortMessage });
             if (formData.nickname && formData.nickname.length < 3)
                 setError('nickname', { type: 'manual', message: shortMessage });
+            return;
+        }
+
+        // Проверка last_name на вхождение в NameData с учетом регистра
+        if (formData.last_name && NameData.includes(formData.last_name)) {
+            setError('last_name', { type: 'manual', message: 'Укажите фамилию для поиска' });
             return;
         }
 
