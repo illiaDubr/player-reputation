@@ -92,8 +92,11 @@ const SearchForm = ({checked, setChecked}) => {
             return;
         }
 
-        // Проверка last_name на вхождение в NameData с учетом регистра
-        if (formData.last_name && NameData.includes(formData.last_name)) {
+        // Проверка last_name на вхождение в NameData без учета регистра
+        if (
+            formData.last_name &&
+            NameData.some((name) => name.toLowerCase() === formData.last_name.toLowerCase())
+        ) {
             setError('last_name', { type: 'manual', message: 'Укажите фамилию для поиска' });
             return;
         }
