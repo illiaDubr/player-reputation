@@ -156,29 +156,27 @@ class PlayerController extends Controller
     {
         $q = Player::query();
 
-        /* Ищем строго по discord / email, если они заданы */
         if ($request->filled('discord') || $request->filled('email')) {
             return $q->when($request->filled('discord'), fn ($q) =>
-            $q->where('discord', 'like', '%' . $request->discord . '%'))
+            $q->where('discord', $request->discord))
                 ->when($request->filled('email'), fn ($q) =>
-                $q->where('email',   'like', '%' . $request->email   . '%'));
+                $q->where('email', $request->email));
         }
 
-        /* Гибкие фильтры */
         return $q
             ->when($request->filled('first_name'), fn ($q) =>
-            $q->where('first_name', 'like', '%' . $request->first_name . '%'))
+            $q->where('first_name', $request->first_name))
             ->when($request->filled('last_name'), function ($q) use ($request) {
                 $name = $request->last_name;
                 $q->where(function ($sub) use ($name) {
-                    $sub->where('last_name',  'like', "%$name%")
-                        ->orWhere('first_name','like', "%$name%");
+                    $sub->where('last_name', $name)
+                        ->orWhere('first_name', $name);
                 });
             })
             ->when($request->filled('middle_name'), fn ($q) =>
-            $q->where('middle_name', 'like', '%' . $request->middle_name . '%'))
+            $q->where('middle_name', $request->middle_name))
             ->when($request->filled('phonenumber'), fn ($q) =>
-            $q->where('phonenumber', 'like', '%' . $request->phonenumber . '%'))
+            $q->where('phonenumber', $request->phonenumber))
             ->when($request->filled('nickname'), function ($q) use ($request) {
                 $nick = $request->nickname;
                 $fields = ['PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
@@ -186,14 +184,15 @@ class PlayerController extends Controller
                     'chikoPoker','nickiPoker'];
                 $q->where(function ($sub) use ($fields, $nick) {
                     foreach ($fields as $field) {
-                        $sub->orWhere($field, 'like', '%' . $nick . '%');
+                        $sub->orWhere($field, $nick);
                     }
                 });
             })
             ->when($request->filled('fund_name'), function ($q) use ($request) {
                 $fund = $request->fund_name;
                 $q->whereHas('reputationRecords', fn ($r) =>
-                $r->where('fund_name', 'like', '%' . $fund . '%'));
+                $r->where('fund_name', $fund));
             });
     }
+
 }
