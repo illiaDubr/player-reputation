@@ -1,8 +1,6 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import IconSvg from "../../components/IconSvg.jsx";
-import {HOMEPAGE_ROUTE} from "../../../../utils/const.js";
-import LogoutBtn from "../../components/LogoutBtn.jsx";
 import NavAdminList from "../../../admin/components/NavAdminList.jsx";
 import NavList from "./NavList.jsx";
 
