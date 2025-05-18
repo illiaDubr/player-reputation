@@ -17,7 +17,14 @@ services:
       - DB_DATABASE=pr_searching
       - DB_USERNAME=pr_user
       - DB_PASSWORD=password
-
+  reverb:
+    build:
+      context: ./backend
+    command: php artisan reverb:start
+    depends_on:
+      - backend
+    networks:
+      - laravel_net
   db:
     image: mysql:8.2
     container_name: pr_searching
