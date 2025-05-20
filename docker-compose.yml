@@ -23,6 +23,8 @@ services:
     command: php artisan reverb:start
     depends_on:
       - backend
+    ports:
+      - "6001:6001"
     networks:
       - laravel_net
   db:
