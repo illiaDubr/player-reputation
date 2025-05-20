@@ -154,16 +154,42 @@ class PlayerController extends Controller
      |-----------------------------------------------------------------*/
     private function filterPlayers(Request $request)
     {
-        $q = Player::query();
+        $universal = Player::query();
 
+        // Универсальный поиск по всем полям
+        if ($request->filled('universal')) {
+            $term = $request->universal;
+            $nicknameFields = [
+                'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
+                '888poker','WPNpoker','Stretchpoker','Coinpoker',
+                'chikoPoker','nickiPoker'
+            ];
+
+            $q->where(function ($sub) use ($term, $nicknameFields) {
+                $sub->orWhere('first_name', $term)
+                    ->orWhere('last_name', $term)
+                    ->orWhere('middle_name', $term)
+                    ->orWhere('email', $term)
+                    ->orWhere('discord', $term)
+                    ->orWhere('phonenumber', $term);
+
+                foreach ($nicknameFields as $field) {
+                    $sub->orWhere($field, $term);
+                }
+            });
+
+            return $universal;
+        }
+
+        // Старые фильтры (если q не задан)
         if ($request->filled('discord') || $request->filled('email')) {
-            return $q->when($request->filled('discord'), fn ($q) =>
+            return $universal->when($request->filled('discord'), fn ($q) =>
             $q->where('discord', $request->discord))
                 ->when($request->filled('email'), fn ($q) =>
                 $q->where('email', $request->email));
         }
 
-        return $q
+        return $universal
             ->when($request->filled('first_name'), fn ($q) =>
             $q->where('first_name', $request->first_name))
             ->when($request->filled('last_name'), function ($q) use ($request) {
@@ -179,9 +205,11 @@ class PlayerController extends Controller
             $q->where('phonenumber', $request->phonenumber))
             ->when($request->filled('nickname'), function ($q) use ($request) {
                 $nick = $request->nickname;
-                $fields = ['PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
+                $fields = [
+                    'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
                     '888poker','WPNpoker','Stretchpoker','Coinpoker',
-                    'chikoPoker','nickiPoker'];
+                    'chikoPoker','nickiPoker'
+                ];
                 $q->where(function ($sub) use ($fields, $nick) {
                     foreach ($fields as $field) {
                         $sub->orWhere($field, $nick);
@@ -194,5 +222,6 @@ class PlayerController extends Controller
                 $r->where('fund_name', $fund));
             });
     }
+
 
 }
