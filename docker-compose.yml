@@ -36,7 +36,7 @@ services:
       MYSQL_USER: pr_user
       MYSQL_PASSWORD: password
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -54,7 +54,7 @@ services:
     image: nginx:latest
     container_name: PR_nginx
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
