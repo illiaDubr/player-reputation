@@ -154,9 +154,9 @@ class PlayerController extends Controller
      |-----------------------------------------------------------------*/
     private function filterPlayers(Request $request)
     {
-        $universal = Player::query();
+        $query = Player::query();
 
-        // Универсальный поиск по всем полям
+        // Универсальный поиск
         if ($request->filled('universal')) {
             $term = $request->universal;
             $nicknameFields = [
@@ -165,7 +165,7 @@ class PlayerController extends Controller
                 'chikoPoker','nickiPoker'
             ];
 
-            $$universal->where(function ($sub) use ($term, $nicknameFields) {
+            $query->where(function ($sub) use ($term, $nicknameFields) {
                 $sub->orWhere('first_name', $term)
                     ->orWhere('last_name', $term)
                     ->orWhere('middle_name', $term)
@@ -178,18 +178,19 @@ class PlayerController extends Controller
                 }
             });
 
-            return $universal;
+            return $query;
         }
 
-        // Старые фильтры (если q не задан)
+        // Обычные фильтры
         if ($request->filled('discord') || $request->filled('email')) {
-            return $universal->when($request->filled('discord'), fn ($q) =>
-            $q->where('discord', $request->discord))
+            return $query
+                ->when($request->filled('discord'), fn ($q) =>
+                $q->where('discord', $request->discord))
                 ->when($request->filled('email'), fn ($q) =>
                 $q->where('email', $request->email));
         }
 
-        return $universal
+        return $query
             ->when($request->filled('first_name'), fn ($q) =>
             $q->where('first_name', $request->first_name))
             ->when($request->filled('last_name'), function ($q) use ($request) {
@@ -222,6 +223,7 @@ class PlayerController extends Controller
                 $r->where('fund_name', $fund));
             });
     }
+
 
 
 }
