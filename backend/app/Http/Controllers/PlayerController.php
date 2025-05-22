@@ -165,7 +165,7 @@ class PlayerController extends Controller
                 'chikoPoker','nickiPoker'
             ];
 
-            $q->where(function ($sub) use ($term, $nicknameFields) {
+            $$universal->where(function ($sub) use ($term, $nicknameFields) {
                 $sub->orWhere('first_name', $term)
                     ->orWhere('last_name', $term)
                     ->orWhere('middle_name', $term)
