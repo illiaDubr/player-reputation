@@ -158,28 +158,33 @@ class PlayerController extends Controller
 
         // Универсальный поиск
         if ($request->filled('universal')) {
-            $term = $request->universal;
+            $terms = explode(' ', trim($request->universal));
             $nicknameFields = [
                 'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
                 '888poker','WPNpoker','Stretchpoker','Coinpoker',
                 'chikoPoker','nickiPoker'
             ];
 
-            $query->where(function ($sub) use ($term, $nicknameFields) {
-                $sub->orWhere('first_name', $term)
-                    ->orWhere('last_name', $term)
-                    ->orWhere('middle_name', $term)
-                    ->orWhere('email', $term)
-                    ->orWhere('discord', $term)
-                    ->orWhere('phonenumber', $term);
+            $query->where(function ($outer) use ($terms, $nicknameFields) {
+                foreach ($terms as $term) {
+                    $outer->where(function ($sub) use ($term, $nicknameFields) {
+                        $sub->orWhere('first_name', $term)
+                            ->orWhere('last_name', $term)
+                            ->orWhere('middle_name', $term)
+                            ->orWhere('email', $term)
+                            ->orWhere('discord', $term)
+                            ->orWhere('phonenumber', $term);
 
-                foreach ($nicknameFields as $field) {
-                    $sub->orWhere($field, $term);
+                        foreach ($nicknameFields as $field) {
+                            $sub->orWhere($field, $term);
+                        }
+                    });
                 }
             });
 
             return $query;
         }
+
 
         // Обычные фильтры
         if ($request->filled('discord') || $request->filled('email')) {
