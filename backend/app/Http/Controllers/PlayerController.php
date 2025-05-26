@@ -167,9 +167,14 @@ class PlayerController extends Controller
 
             $query->where(function ($outer) use ($terms, $nicknameFields) {
                 foreach ($terms as $term) {
-                    $outer->where(function ($sub) use ($term, $nicknameFields) {
-                        $sub->orWhere('first_name', $term)
-                            ->orWhere('last_name', $term)
+                    $outer->where(function ($sub) use ($term, $terms, $nicknameFields) {
+
+                        // Исключаем только first_name при одном слове
+                        if (count($terms) > 1) {
+                            $sub->orWhere('first_name', $term);
+                        }
+
+                        $sub->orWhere('last_name', $term)
                             ->orWhere('middle_name', $term)
                             ->orWhere('email', $term)
                             ->orWhere('discord', $term)
@@ -184,6 +189,7 @@ class PlayerController extends Controller
 
             return $query;
         }
+
 
 
         // Обычные фильтры
