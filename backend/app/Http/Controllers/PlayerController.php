@@ -169,16 +169,19 @@ class PlayerController extends Controller
                 foreach ($terms as $term) {
                     $outer->where(function ($sub) use ($term, $terms, $nicknameFields) {
 
-                        // Исключаем только first_name при одном слове
+                        // Исключаем first_name при одном слове
                         if (count($terms) > 1) {
                             $sub->orWhere('first_name', $term);
                         }
 
                         $sub->orWhere('last_name', $term)
                             ->orWhere('middle_name', $term)
-                            ->orWhere('email', $term)
                             ->orWhere('discord', $term)
-                            ->orWhere('phonenumber', $term);
+                            ->orWhere('phonenumber', $term)
+
+                            // email: ищем по полной строке и по username части (до @)
+                            ->orWhere('email', $term)
+                            ->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$term]);
 
                         foreach ($nicknameFields as $field) {
                             $sub->orWhere($field, $term);
@@ -187,10 +190,17 @@ class PlayerController extends Controller
                 }
             });
 
+            // Фильтрация по фонду, если передан
+            if ($request->filled('fund_name')) {
+                $fund = $request->fund_name;
+
+                $query->whereHas('reputationRecords', function ($q) use ($fund) {
+                    $q->where('fund_name', $fund);
+                });
+            }
+
             return $query;
         }
-
-
 
         // Обычные фильтры
         if ($request->filled('discord') || $request->filled('email')) {
@@ -234,6 +244,7 @@ class PlayerController extends Controller
                 $r->where('fund_name', $fund));
             });
     }
+
 
 
 
