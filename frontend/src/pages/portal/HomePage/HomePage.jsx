@@ -21,9 +21,11 @@ const HomePage = () => {
                 <Title />
                 <EducationVideo />
             </section>
-            <section className={clsx(styles['role-section'], styles['portal-section'])}>
+            {/*
+           <section className={clsx(styles['role-section'], styles['portal-section'])}>
                 <RoleInfoSection />
             </section>
+            */}
             <section className={clsx(styles['subscription-section'], styles['portal-section'])}>
                 <FeedbackForm />
             </section>
