@@ -43,7 +43,6 @@ const SearchForm = ({checked, setChecked, fund_name}) => {
 
     const onSubmit = async (data) => {
         await searchStore.search(searchData(data));
-        console.log(searchData(data))
     };
 
     return (

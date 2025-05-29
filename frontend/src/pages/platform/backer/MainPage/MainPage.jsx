@@ -21,6 +21,9 @@ const MainPage = () => {
     const fund_name = store.user?.backer?.fund_for_search;
     const backerId = store.user?.backer?.backer_id;
 
+    console.log(store.user);
+    console.log(approvalStatus);
+
     const actions = React.useMemo(() => ({
         null: () => {
             openModal('MainPageModal', {origin: "setup", title: "Заполни полную авторизацию бэкера"});

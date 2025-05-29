@@ -4,6 +4,7 @@ import AuthService from "@shared/api/services/AuthService.js";
 import {API_URL} from "@shared/api/api.js";
 import axios from "axios";
 import mainPageService from "@pages/platform/backer/MainPage/config/services/mainPageService.js";
+import {ROUTES} from "@shared/config/routes.js";
 
 export default class Store {
     user = null;
@@ -71,9 +72,9 @@ export default class Store {
             this.setAuth(true);
             this.setUser(response.data);
         } catch (error) {
-            console.warn("Пользователь не авторизован:", error);
             this.setAuth(false);
             this.setUser({});
+            window.location.href = ROUTES.PORTAL.HOME;
         } finally {
             this.setLoading(false);
         }
