@@ -45,7 +45,6 @@ const ResultItemActionsForm = ({origin, player, backerId}) => {
                     id: player.reputation_records?.[0]?.id,
                     makeUp: 0,
                 }
-                console.log(actionPayload)
                 await searchStore.playerEdit(actionPayload);
             } else if (origin === "report") {
                 actionPayload = {
@@ -54,7 +53,6 @@ const ResultItemActionsForm = ({origin, player, backerId}) => {
                     player_id: player.player_id,
                     backer_tag: player.backer_tag,
                 }
-                console.log(actionPayload)
                 await searchStore.report(actionPayload);
             }
             openModal('Result', {origin: resultModal});
