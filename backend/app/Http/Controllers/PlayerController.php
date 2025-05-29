@@ -177,11 +177,16 @@ class PlayerController extends Controller
                         $sub->orWhere('last_name', $term)
                             ->orWhere('middle_name', $term)
                             ->orWhere('discord', $term)
-                            ->orWhere('phonenumber', $term)
+                            ->orWhere('phonenumber', $term);
 
-                            // email: ищем по полной строке и по username части (до @)
-                            ->orWhere('email', $term)
-                            ->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$term]);
+                        // email: полное совпадение + username часть (до @)
+                        if (str_ends_with($term, '@')) {
+                            $username = rtrim($term, '@');
+                            $sub->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$username]);
+                        } else {
+                            $sub->orWhere('email', $term)
+                                ->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$term]);
+                        }
 
                         foreach ($nicknameFields as $field) {
                             $sub->orWhere($field, $term);
@@ -190,7 +195,7 @@ class PlayerController extends Controller
                 }
             });
 
-            // Фильтрация по фонду, если передан
+            // Доп. фильтр по фонду
             if ($request->filled('fund_name')) {
                 $fund = $request->fund_name;
 
@@ -244,6 +249,7 @@ class PlayerController extends Controller
                 $r->where('fund_name', $fund));
             });
     }
+
 
 
 
