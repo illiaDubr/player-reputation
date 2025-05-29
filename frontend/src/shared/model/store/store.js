@@ -32,6 +32,21 @@ export default class Store {
 
     // --- Методы авторизации / регистрации ---
 
+    async checkAuth() {
+        this.setLoading(true);
+        try {
+            const response = await axios.get(`${API_URL}/api/user`, { withCredentials: true });
+            this.setAuth(true);
+            this.setUser(response.data);
+        } catch (error) {
+            this.setAuth(false);
+            this.setUser({});
+            window.location.href = ROUTES.PORTAL.HOME;
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
     async registration(registrationData) {
         await request({
             asyncFn: () => AuthService.registration(registrationData),
@@ -49,35 +64,14 @@ export default class Store {
     }
 
     async logout() {
-        try {
-            await request({
-                asyncFn: () => AuthService.logout(),
-                defaultMessage: "Ошибка выхода",
-                onSuccess: () => {
-                    this.setAuth(false);
-                    this.setUser({});
-                }
-            });
-        } catch (error) {
-            this.setAuth(false);
-            this.setUser({});
-            throw error;
-        }
-    }
-
-    async checkAuth() {
-        this.setLoading(true);
-        try {
-            const response = await axios.get(`${API_URL}/api/user`, { withCredentials: true });
-            this.setAuth(true);
-            this.setUser(response.data);
-        } catch (error) {
-            this.setAuth(false);
-            this.setUser({});
-            window.location.href = ROUTES.PORTAL.HOME;
-        } finally {
-            this.setLoading(false);
-        }
+        await request({
+            asyncFn: () => AuthService.logout(),
+            defaultMessage: "Ошибка выхода",
+            onSuccess: () => {
+                this.setAuth(false);
+                this.setUser({});
+            }
+        });
     }
 
     async createPlayer(createData) {
