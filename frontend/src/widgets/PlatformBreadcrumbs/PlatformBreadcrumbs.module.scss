@@ -1,0 +1,37 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.breadcrumbs {
+  padding: 0px 0px 40px 0px;
+
+  .breadcrumb__list {
+    display: flex;
+    margin: 0px;
+    padding: 8.5px 0px;
+
+    .breadcrumb__item {
+      display: flex;
+      align-items: center;
+      @include font-style(400, 16, 130, #959595);
+
+      .current__link {
+
+      }
+
+      .separator {
+        padding: 0px 16px;
+      }
+
+      .current__page {
+        @include font-style(500, 24, 130, #FFFFFF);
+      }
+    }
+  }
+}
+
+// === / Styles === //

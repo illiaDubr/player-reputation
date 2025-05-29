@@ -1,0 +1,31 @@
+// === Include your styles here === //
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.select__wrap {
+  width: 100%;
+
+  .select__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
+    @include font-style(400, 16, 130, #ffffff);
+    padding-bottom: 8px;
+
+    .select__error {
+      color: rgba(255, 0, 0, 0.8);
+    }
+  }
+
+  .select__wrap--error {
+    box-shadow: 0 0 15px 0 rgba(255, 0, 0, 0.8);
+    border-radius: 10px;
+  }
+}
+
+// === / Styles === //

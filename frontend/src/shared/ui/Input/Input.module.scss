@@ -1,0 +1,139 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+
+  .label {
+    @include font-style(400, 16, 130, #FFFFFF);
+  }
+
+  .input {
+    width: 100%;
+    @include font-style(400, 16, 130, #FFFFFF);
+    backdrop-filter: blur(20px);
+    background: #080808;
+    border: 1px solid #121317;
+    border-radius: 10px;
+    padding: 18px 24px;
+    caret-color: #fff;
+    transition: all .6s ease;
+
+    &__error {
+      box-shadow: 0 0 15px 0 rgba(255, 0, 0, 0.8);
+    }
+
+    &::placeholder {
+      @include font-style(500, 14, 130, #565656)
+    }
+
+    &:focus {
+      box-shadow: 0 0 15px 0 rgba(125, 140, 161, 0.4);
+      background: #0e0e11;
+    }
+  }
+
+  textarea {
+    field-sizing: content;
+    resize: none;
+    min-height: 6lh;
+    width: 820px;
+    max-width: 100%;
+  }
+
+  .radio__wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .radio {
+      min-width: 150px;
+      height: 58.8px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      justify-content: center;
+      flex-grow: 1;
+      transition: all .4s ease;
+      border: 1px solid transparent;
+      background: #080808;
+      border-radius: 10px;
+      @include font-style(500, null, 130, #FFFFFF);
+      @include font-size(16, 13);
+
+      input {
+        display: none;
+      }
+
+      &:has(input[type="radio"]:checked) {
+        background: #00187a;
+        border: 1px solid #818181;
+      }
+
+      &:hover {
+        background: rgba(0, 24, 122, 0.1);
+        border: 1px solid #818181;
+      }
+    }
+  }
+
+  .input__div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #565656;
+
+    .input__custom {
+      width: 100%;
+      background: transparent;
+      @include font-style(500, 16, 130, #FFFFFF);
+    }
+  }
+
+  .error {
+    width: 100%;
+    height: 22px;
+    position: absolute;
+    top: -6px;
+    @include font-style(500, 12, 100, #FFFFFF);
+    background: #2750f2;
+    padding: 5px;
+    transition-behavior: allow-discrete;
+    display: none;
+    opacity: 0;
+    transition-duration: .6s;
+
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 217%);
+      border: 0 solid transparent;
+      border-left-width: 8px;
+      border-right-width: 8px;
+      border-top: 9px solid #2750f2;
+    }
+
+    &__active {
+      display: block;
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+// === / Styles === //

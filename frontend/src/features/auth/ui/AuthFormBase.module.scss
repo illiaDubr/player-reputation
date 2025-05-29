@@ -1,0 +1,41 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.auth__title {
+  @include font-style(500, 34, 130, #FFFFFF);
+}
+
+.auth__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  flex-grow: 1;
+  padding: 0px 40px;
+
+  .auth__form-btn {
+    width: 100%;
+    padding: 16px 14px;
+    border-radius: 8px;
+    background: #2750f2;
+    transition: all .4s ease;
+    @include font-style(600, null, 130, #FFFFFF);
+    @include font-size(20, 16);
+    letter-spacing: -0.01em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background: #03f;
+    }
+  }
+}
+
+// === / Styles === //

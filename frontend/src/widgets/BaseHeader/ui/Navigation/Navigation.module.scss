@@ -1,0 +1,121 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.navigation {
+  height: 100%;
+
+  &__list {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .navigation__item {
+      display: flex;
+      justify-content: center;
+
+      .navigation__logo-link {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      &:last-child {
+        flex-grow: 1;
+        align-items: flex-end;
+      }
+    }
+  }
+
+  .navigation__list-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 56px 0px 0px 0px;
+    gap: 28px;
+
+    .navigation__item {
+      align-items: center;
+
+      .navigation__list-item__link {
+        width: 100%;
+        height: 44px;
+        transition: all .6s ease;
+        position: relative;
+        overflow: hidden;
+
+        .svg-box {
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+        }
+
+        .navigation__text {
+          width: 140px;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+          @include font-style(500, 14, 143, #FFFFFF);
+          text-align: left;
+        }
+
+        &:hover {
+          background: #080808;
+        }
+
+        .notification__wrap {
+          width: 18px;
+          height: 18px;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+
+          .notification {
+            width: 18px;
+            height: 18px;
+            padding-top: 1px;
+          }
+        }
+      }
+
+      &:first-child {
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+
+.navigation__toggle-button {
+  width: 24px;
+  height: 52px;
+  border-radius: 4px;
+  background: #181817;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    width: 20px;
+    height: 20px;
+    transition: all .4s ease;
+  }
+
+  &--open {
+    span {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+// === / Styles === //

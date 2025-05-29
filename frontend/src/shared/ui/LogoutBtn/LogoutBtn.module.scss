@@ -1,0 +1,52 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.navigation__list-item__link {
+  width: 100%;
+  height: 44px;
+  transition: all .6s ease;
+  position: relative;
+  overflow: hidden;
+
+  .svg-box {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .navigation__text {
+    width: 140px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    @include font-style(500, 14, 143, #FFFFFF);
+    text-align: left;
+  }
+
+  &:hover {
+    background: #080808;
+  }
+
+  .notification__wrap {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    .notification {
+      width: 18px;
+      height: 18px;
+      padding-top: 1px;
+    }
+  }
+}
+
+// === / Styles === //
