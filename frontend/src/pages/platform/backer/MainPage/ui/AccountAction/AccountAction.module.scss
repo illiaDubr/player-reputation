@@ -1,0 +1,125 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.account__link-wrap {
+  display: flex;
+  aspect-ratio: 4 / 3.3;
+  border-radius: 20px;
+  border: 1px solid #36373E;
+  background: url("@shared/assets/image/grid.webp") center center / 22% repeat;
+  overflow: hidden;
+  position: relative;
+  padding: 45px 0px 0px 45px;
+  transition: all .4s ease;
+  opacity: .75;
+
+  img {
+    position: absolute;
+    z-index: 3;
+    right: 0px;
+    bottom: 0px;
+    object-fit: contain;
+  }
+
+  .account__link-title {
+    position: relative;
+    z-index: 4;
+    padding-right: 10px;
+    @include font-style(600, 32, 120, #ffffff);
+    @include font-size(32, 23);
+    text-align: left;
+  }
+
+  &:after, &:before {
+    content: "";
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    background: #2a4bfb;
+  }
+
+  &:first-child {
+    img {
+      width: 50%;
+    }
+
+    &:after {
+      filter: blur(110px);
+      top: 28px;
+      left: 100px;
+    }
+
+    &:before {
+      width: 378px;
+      height: 378px;
+      background: #080808;
+      border: 28px solid #2a4bfb;
+      box-shadow: 0 0 83px 0 #2a4bfb;
+      left: -189px;
+      bottom: -189px;
+    }
+  }
+
+  &:last-child {
+    img {
+      width: 70%;
+    }
+
+    &:after {
+      filter: blur(110px);
+      top: 150px;
+      right: 100px;
+    }
+
+    &:before {
+      display: none;
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 0 15px 0 rgba(125, 140, 161, 0.4);
+    border: 1px solid #ffffff;
+  }
+
+  &--disabled {
+    pointer-events: none;
+    filter: blur(3px) brightness(89%) contrast(92%);
+  }
+}
+
+@media (max-width: 990px) {
+  .account__link-wrap {
+    aspect-ratio: 4 / 2;
+    opacity: 1;
+
+    &:first-child {
+      img {
+        width: 35%;
+      }
+
+      &:before {
+        width: 278px;
+        height: 278px;
+        border: 26px solid #2a4bfb;
+        left: -139px;
+        bottom: -139px;
+      }
+    }
+
+    &:last-child {
+      img {
+        width: 60%;
+      }
+    }
+  }
+}
+
+// === / Styles === //

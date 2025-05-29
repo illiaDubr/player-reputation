@@ -1,0 +1,32 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 120px 0px 48px;
+  @include font-style(400, 16, 130, #FFFFFF);
+
+  .footer__gap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer__copyright{
+    position: relative;
+    z-index: 2;
+  }
+}
+
+// === / Styles === //

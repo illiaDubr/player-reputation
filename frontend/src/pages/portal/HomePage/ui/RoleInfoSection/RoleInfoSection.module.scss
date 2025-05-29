@@ -1,0 +1,13 @@
+.info__wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 48px;
+  z-index: 1;
+
+  .info__title {
+    @include font-style(600, 48, 100, #FFFFFF);
+    text-align: center;
+  }
+}

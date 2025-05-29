@@ -1,0 +1,17 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.auth__btn {
+  padding: 13px 10px;
+  border-radius: 8px;
+  background: #fff;
+  @include font-style(600, 16, 130, #000000);
+  letter-spacing: -.01em;
+}
+
+// === / Styles === //

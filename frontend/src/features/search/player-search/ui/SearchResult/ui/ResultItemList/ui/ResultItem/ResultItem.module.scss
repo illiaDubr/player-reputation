@@ -1,0 +1,71 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.player__item {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+  gap: 12px;
+  border-bottom: 1px solid #121317;
+  @include font-style(400, 16, 130, #FFFFFF);
+
+  .player__item-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    @include font-style(500, 16, 130, #FFFFFF);
+  }
+
+  .player__item-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+
+    .player__item-expand-btn {
+      @include font-style(400, 14, 143, #cfd7ff);
+    }
+  }
+
+  .player__item-tooltip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .player__item-tooltip-btn {
+      width: fit-content;
+      padding: 4px 8px;
+      background: #efefef;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      @include font-style(500, 16, 130, #000000);
+
+      &:disabled {
+        opacity: .8;
+      }
+    }
+  }
+}
+
+.player__item-comment {
+  align-items: flex-start;
+
+  .player__item-icon {
+    .player__item-title {
+      width: 130px;
+    }
+  }
+
+  .player__item-content {
+    text-wrap: wrap;
+    text-overflow: initial;
+    overflow: initial;
+  }
+}
+
+// === / Styles === //
