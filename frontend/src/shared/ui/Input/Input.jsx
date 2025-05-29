@@ -62,6 +62,7 @@ const Input = React.forwardRef(
                             onInput={(e) => {
                                 e.target.value = e.target.value.replace(/\D/g, '');
                             }}
+                            autoComplete="off"
                             ref={ref}
                             {...field}
                         />
@@ -70,6 +71,7 @@ const Input = React.forwardRef(
                     <Tag
                         className={`${styles[`input`]} ${errorMessage ? `${styles[`input__error`]}` : ''}`}
                         ref={ref}
+                        autoComplete="off"
                         {...field}
                     />
                 )}
