@@ -12,7 +12,7 @@ const LogoutBtn = ({className, iconAnimation, textAnimation }) => {
 
     const handleLogout = async () => {
         await store.logout();
-        navigate(ROUTES.PORTAL.BASE)
+        navigate(ROUTES.PORTAL.HOME)
     }
 
     return (
