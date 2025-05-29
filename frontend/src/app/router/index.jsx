@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     },
     {
         path: `${ROUTES.PLATFORM.BASE}/*`,
-        element: <PlatformLayout />,
+        element: <PrivateRoute><PlatformLayout /></PrivateRoute>,
         handle: {
             breadcrumb: "Player`s Reputation",
         },

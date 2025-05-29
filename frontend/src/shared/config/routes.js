@@ -1,7 +1,7 @@
 export const ROUTES = {
     PORTAL: {
         BASE: '/portal',
-        HOME: ''
+        HOME: '/'
     },
     PLATFORM: {
         BASE: '/platform',
@@ -12,5 +12,5 @@ export const ROUTES = {
     ADMIN: {
         BASE: '/admin',
         HOME: ''
-    }
+    },
 }
