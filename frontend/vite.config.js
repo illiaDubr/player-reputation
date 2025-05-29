@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => ({
     css: {
         modules: {
             generateScopedName: mode === 'production'
-                ? '[local]--[hash:base64:1]'//[name]--[hash:base64:6]
+                ? '[name]--[hash:base64:6]'//[name]--[hash:base64:6]
                 : '[local]--[hash:base64:1]',
         },
         preprocessorOptions: {
