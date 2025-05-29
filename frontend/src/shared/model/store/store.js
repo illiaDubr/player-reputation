@@ -36,7 +36,7 @@ export default class Store {
             asyncFn: () => AuthService.registration(registrationData),
             defaultMessage: "Ошибка при регистрации",
         });
-        await this.checkAuth();
+        //await this.checkAuth();
     }
 
     async login(loginData) {
@@ -44,7 +44,7 @@ export default class Store {
             asyncFn: () => AuthService.login(loginData),
             defaultMessage: "Ошибка при логине",
         });
-        await this.checkAuth();
+        //await this.checkAuth();
     }
 
     async logout() {
