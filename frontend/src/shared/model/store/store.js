@@ -41,7 +41,6 @@ export default class Store {
         } catch (error) {
             this.setAuth(false);
             this.setUser({});
-            window.location.href = ROUTES.PORTAL.HOME;
         } finally {
             this.setLoading(false);
         }
