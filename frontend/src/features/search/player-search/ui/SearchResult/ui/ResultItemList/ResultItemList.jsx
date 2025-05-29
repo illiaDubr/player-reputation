@@ -22,7 +22,7 @@ function formatDate(dateString) {
 }
 
 function getBackerTag(tag) {
-    return backerTags[tag] || backerTags.default;
+    return backerTags[tag];
 }
 
 const ResultItemList = ({results = [], checked, backerId}) => {
@@ -54,7 +54,9 @@ const ResultItemList = ({results = [], checked, backerId}) => {
 
             {currentResults.map((result) => {
                 const date = formatDate(result.created_at);
-                const {name, color} = getBackerTag(result.backer_tag);
+                const tagObj = getBackerTag(result.backer_tag);
+                const name = tagObj?.name || "";
+                const color = tagObj?.color || "";
 
                 return (
                     <div className={`${styles[`result__item`]}`} key={result.player_id}>
