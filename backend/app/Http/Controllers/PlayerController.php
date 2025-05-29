@@ -154,16 +154,69 @@ class PlayerController extends Controller
      |-----------------------------------------------------------------*/
     private function filterPlayers(Request $request)
     {
-        $q = Player::query();
+        $query = Player::query();
 
+        // Универсальный поиск
+        if ($request->filled('universal')) {
+            $terms = explode(' ', trim($request->universal));
+            $nicknameFields = [
+                'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
+                '888poker','WPNpoker','Stretchpoker','Coinpoker',
+                'chikoPoker','nickiPoker'
+            ];
+
+            $query->where(function ($outer) use ($terms, $nicknameFields) {
+                foreach ($terms as $term) {
+                    $outer->where(function ($sub) use ($term, $terms, $nicknameFields) {
+
+                        // Исключаем first_name при одном слове
+                        if (count($terms) > 1) {
+                            $sub->orWhere('first_name', $term);
+                        }
+
+                        $sub->orWhere('last_name', $term)
+                            ->orWhere('middle_name', $term)
+                            ->orWhere('discord', $term)
+                            ->orWhere('phonenumber', $term);
+
+                        // email: полное совпадение + username часть (до @)
+                        if (str_ends_with($term, '@')) {
+                            $username = rtrim($term, '@');
+                            $sub->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$username]);
+                        } else {
+                            $sub->orWhere('email', $term)
+                                ->orWhereRaw("SUBSTRING_INDEX(email, '@', 1) = ?", [$term]);
+                        }
+
+                        foreach ($nicknameFields as $field) {
+                            $sub->orWhere($field, $term);
+                        }
+                    });
+                }
+            });
+
+            // Доп. фильтр по фонду
+            if ($request->filled('fund_name')) {
+                $fund = $request->fund_name;
+
+                $query->whereHas('reputationRecords', function ($q) use ($fund) {
+                    $q->where('fund_name', $fund);
+                });
+            }
+
+            return $query;
+        }
+
+        // Обычные фильтры
         if ($request->filled('discord') || $request->filled('email')) {
-            return $q->when($request->filled('discord'), fn ($q) =>
-            $q->where('discord', $request->discord))
+            return $query
+                ->when($request->filled('discord'), fn ($q) =>
+                $q->where('discord', $request->discord))
                 ->when($request->filled('email'), fn ($q) =>
                 $q->where('email', $request->email));
         }
 
-        return $q
+        return $query
             ->when($request->filled('first_name'), fn ($q) =>
             $q->where('first_name', $request->first_name))
             ->when($request->filled('last_name'), function ($q) use ($request) {
@@ -179,9 +232,11 @@ class PlayerController extends Controller
             $q->where('phonenumber', $request->phonenumber))
             ->when($request->filled('nickname'), function ($q) use ($request) {
                 $nick = $request->nickname;
-                $fields = ['PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
+                $fields = [
+                    'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
                     '888poker','WPNpoker','Stretchpoker','Coinpoker',
-                    'chikoPoker','nickiPoker'];
+                    'chikoPoker','nickiPoker'
+                ];
                 $q->where(function ($sub) use ($fields, $nick) {
                     foreach ($fields as $field) {
                         $sub->orWhere($field, $nick);
@@ -194,5 +249,9 @@ class PlayerController extends Controller
                 $r->where('fund_name', $fund));
             });
     }
+
+
+
+
 
 }

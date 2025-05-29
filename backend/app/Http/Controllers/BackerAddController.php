@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Backer;
 use Illuminate\Http\Request;
+use App\Events\NewBackerForModeration;
 
 class BackerAddController extends Controller
 {
@@ -51,6 +52,14 @@ class BackerAddController extends Controller
 
             // Обновление данных
             $backer->update($validated);
+
+            // Обновляем объект, чтобы проверить обновлённое значение
+            $backer->refresh();
+
+            // Если backer теперь требует модерации — отправляем уведомление
+            if ($backer->approved === 'under_review') {
+                event(new NewBackerForModeration($backer));
+            }
 
             return response()->json([
                 'message' => 'Backer updated successfully',

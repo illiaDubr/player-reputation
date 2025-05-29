@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewReportNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Events\NewReportCreated;
 class ReportController extends Controller
 {
     /**
@@ -16,6 +16,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'player_id' => 'required|string|exists:players,player_id',
             'tag'       => 'nullable|string',
@@ -30,6 +31,7 @@ class ReportController extends Controller
         $admins = User::whereIn('role', ['admin', 'superadmin'])->get();
 
         Notification::send($admins, new NewReportNotification($report));
+        event(new NewReportCreated($report));
 
         return response()->json([
             'success' => true,

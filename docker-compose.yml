@@ -17,7 +17,16 @@ services:
       - DB_DATABASE=pr_searching
       - DB_USERNAME=pr_user
       - DB_PASSWORD=password
-
+  reverb:
+    build:
+      context: ./backend
+    command: php artisan reverb:start
+    depends_on:
+      - backend
+    ports:
+      - "6001:6001"
+    networks:
+      - laravel_net
   db:
     image: mysql:8.2
     container_name: pr_searching
@@ -27,7 +36,7 @@ services:
       MYSQL_USER: pr_user
       MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -45,7 +54,7 @@ services:
     image: nginx:latest
     container_name: PR_nginx
     ports:
-      - "80:80"
+      - "8055:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
