@@ -17,7 +17,6 @@ const SearchForm = ({checked, setChecked, fund_name}) => {
         mode: 'onChange',
         resolver: yupResolver(isAdvanced ? advancedSchema : universalSchema),
         shouldFocusError: false,
-        autoComplete: "off",
     });
 
     React.useEffect(() => {
