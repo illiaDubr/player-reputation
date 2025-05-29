@@ -17,7 +17,7 @@ $api.interceptors.response.use(
         if (error.response && error.response.status === 401 && !originalRequest._isRetry) {
             originalRequest._isRetry = true;
             console.warn("Пользователь не авторизован. Перенаправляем на /login");
-            window.location.href = ROUTES.PORTAL.HOME;
+            window.location.href = "/";
         } else if (!error.response) {
             console.error("Ошибка сети:", error.message);
         }
