@@ -4,7 +4,6 @@ import AuthService from "@shared/api/services/AuthService.js";
 import {API_URL} from "@shared/api/api.js";
 import axios from "axios";
 import mainPageService from "@pages/platform/backer/MainPage/config/services/mainPageService.js";
-import {ROUTES} from "@shared/config/routes.js";
 
 export default class Store {
     user = null;
@@ -32,20 +31,6 @@ export default class Store {
 
     // --- Методы авторизации / регистрации ---
 
-    async checkAuth() {
-        this.setLoading(true);
-        try {
-            const response = await axios.get(`${API_URL}/api/user`, { withCredentials: true });
-            this.setAuth(true);
-            this.setUser(response.data);
-        } catch (error) {
-            this.setAuth(false);
-            this.setUser({});
-        } finally {
-            this.setLoading(false);
-        }
-    }
-
     async registration(registrationData) {
         await request({
             asyncFn: () => AuthService.registration(registrationData),
@@ -63,14 +48,35 @@ export default class Store {
     }
 
     async logout() {
-        await request({
-            asyncFn: () => AuthService.logout(),
-            defaultMessage: "Ошибка выхода",
-            onSuccess: () => {
-                this.setAuth(false);
-                this.setUser({});
-            }
-        });
+        try {
+            await request({
+                asyncFn: () => AuthService.logout(),
+                defaultMessage: "Ошибка выхода",
+                onSuccess: () => {
+                    this.setAuth(false);
+                    this.setUser({});
+                }
+            });
+        } catch (error) {
+            this.setAuth(false);
+            this.setUser({});
+            throw error;
+        }
+    }
+
+    async checkAuth() {
+        this.setLoading(true);
+        try {
+            const response = await axios.get(`${API_URL}/api/user`, { withCredentials: true });
+            this.setAuth(true);
+            this.setUser(response.data);
+        } catch (error) {
+            console.warn("Пользователь не авторизован:", error);
+            this.setAuth(false);
+            this.setUser({});
+        } finally {
+            this.setLoading(false);
+        }
     }
 
     async createPlayer(createData) {
