@@ -6,7 +6,7 @@ const axios = require('axios');
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Массив ID каналов, которые слушаем
-const allowedChannelIds = process.env.CHANNEL_IDS.split(',').map(id => id.trim());
+const allowedChannelIds = process.env.LIVE_CHANNEL_IDS.split(',').map(id => id.trim());
 
 const client = new Client({
     intents: [
