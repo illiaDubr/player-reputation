@@ -1,0 +1,39 @@
+// === Include your styles here === //
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.page-home {
+  display: flex;
+  justify-content: center;
+  background: #0a0618;
+  overflow-x: hidden;
+
+  .wrapper {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    max-width: 1530px;
+    padding: 0;
+    flex-direction: column;
+    position: relative;
+  }
+}
+
+.page-platform {
+  display: flex;
+  justify-content: center;
+  background: #080808;
+
+  .wrapper {
+    width: 100%;
+    max-width: 1920px;
+    display: flex;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+}
+
+// === / Styles === //

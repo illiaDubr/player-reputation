@@ -1,0 +1,41 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 40px;
+  min-height: 400px;
+
+  .result__length {
+    width: fit-content;
+    backdrop-filter: blur(10px);
+    background: #00254459;
+    border: 2px solid #000729;
+    border-radius: 8px;
+    padding: 10px;
+    @include font-style(500, 16, 130, #FFFFFF);
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+      content: '';
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      top: 14px;
+      left: 0;
+      border-radius: 100%;
+      filter: blur(36px);
+      background: #2a4bfb;
+    }
+  }
+}
+
+// === / Styles === //

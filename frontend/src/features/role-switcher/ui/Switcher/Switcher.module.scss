@@ -1,0 +1,44 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.info__switch-wrap {
+  .info__switch-box {
+    width: fit-content;
+    @include gradient-box(#0a0618, linear-gradient(to left, #818181, #36373E));
+    border: 1px solid transparent;
+    border-radius: 100px;
+    display: flex;
+
+    .info__switch {
+      cursor: pointer;
+      @include font-style(600, 20, 130, #FFFFFF);
+      border-radius: 100px;
+      border: 1px solid transparent;
+    }
+
+    .active {
+      background: linear-gradient(180deg, #282828 0%, #101010 100%);
+      border: 1px solid #fff;
+    }
+  }
+}
+
+.info__switch-wrap--title {
+  padding: 0px 0px 12px 0px;
+
+  .info__switch-box {
+    padding: 8px;
+    gap: 24px;
+
+    .info__switch {
+      padding: 8px 24px;
+    }
+  }
+}
+
+// === / Styles === //

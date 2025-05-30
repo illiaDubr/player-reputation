@@ -1,0 +1,19 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.slide__title {
+  @include font-style(500, 16, 130, #ffffff);
+}
+
+.slide__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: clamp(1rem, 3vw, 1rem);
+}
+
+// === / Styles === //

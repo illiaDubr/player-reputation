@@ -1,0 +1,41 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.result__warning {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 21px;
+  background: rgba(0, 0, 0, 0.1);
+  border: 4px solid #000729;
+  border-radius: 8px;
+  padding: 30px;
+  @include font-style(500, null, 140, #FFFFFF);
+  @include font-size(16, 14);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: #2a4bfb;
+    border-radius: 50%;
+    filter: blur(137px);
+  }
+}
+
+@media (width < 1024px) {
+  .result__warning {
+    padding: 15px;
+  }
+}
+
+// === / Styles === //

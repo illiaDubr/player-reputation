@@ -1,0 +1,80 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.portal-header {
+  width: 100%;
+  max-width: 1530px;
+  padding: 40px 20px 0px 20px;
+  min-height: 48px;
+  position: absolute;
+  z-index: 2;
+
+  .portal-header__nav-wrap {
+    height: 100%;
+
+    .portal-header__nav {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .portal-header__nav-item {
+
+        .portal-header__nav-link {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          //@include mixin.font-style(500, 20, 130, #FFFFFF);
+        }
+
+        .svg-logo {
+          position: relative;
+
+          &:before {
+            content: 'Сайт работает в BETA-режиме!';
+            position: absolute;
+            left: 100%;
+            right: -145px;
+            padding: 10px 0px;
+            background: black;
+            opacity: 0;
+            visibility: hidden;
+            @include font-style(500, 13, 130, #FFFFFF);
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid #ffffff;
+            transition: all 0.5s ease;
+            z-index: 5;
+          }
+
+          &:hover {
+            &:before {
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+        }
+
+        .auth__button {
+          max-width: 280px;
+          height: 58px;
+          padding: 0px 14px;
+        }
+      }
+
+      .home__nav-list {
+        height: 100%;
+        display: flex;
+        gap: 32px;
+      }
+    }
+  }
+}
+
+
+
+// === / Styles === //
