@@ -72,10 +72,14 @@
           flex-direction: column;
           align-items: center;
           gap: 6px;
-          @include font-style(500, 14, 130, #FFFFFF);
           text-align: center;
           position: relative;
           z-index: 2;
+          @include font-style(500, 14, 130, #FFFFFF);
+
+          div {
+            color: transparent;
+          }
         }
 
         .player__card-tag--wrap {
