@@ -10,7 +10,6 @@ import ResultItemActions from "@features/search/player-search/ui/SearchResult/ui
 import Modal from "@shared/ui/Modal";
 import ResultItemActionsForm
     from "@features/search/player-search/ui/SearchResult/ui/ResultItemList/ui/ResultItemActionsForm/index.js";
-import modal from "@shared/ui/Modal";
 
 const itemsPerPage = 15;
 
@@ -110,6 +109,10 @@ const ResultItemList = ({results = [], checked, backerId}) => {
                                 )}
                             </div>
                             <div className={styles[`player__card-amount`]}>
+                                <ResultItem
+                                    title="Фонд"
+                                    content={result.fund_name}
+                                />
                                 <ClaimAmount
                                     src={result.source}
                                     dmg={result.damage}
