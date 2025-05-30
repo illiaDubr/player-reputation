@@ -1,9 +1,12 @@
 require('dotenv').config();
 const fs = require('fs');
+const path = require('path');
 const { OpenAI } = require('openai');
 const axios = require('axios');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const CHANNEL_KEYS = ['PLAYERS_ON_PAUSE', 'PLAYERS_ON_PAUSEV2'];
 
 async function processMessage(message) {
     try {
@@ -28,6 +31,16 @@ async function processMessage(message) {
   "players": [
     {
       "player_id": "генерируй на используй 1 из ников игрока",
+      ...
+      "backer_tag": "PlayerOnPause",
+      "kyc_status": false
+    }
+  ],
+  "reputation_records": [
+    {
+      "player_id": "",
+      "backer_id": 1,
+      "fund_name": "Используй первую роль пользователя в которой название фонда",
       "first_name": "",
       "last_name": "",
       "middle_name": "",
@@ -58,7 +71,7 @@ async function processMessage(message) {
       "telegram": "",
       "discord": "",
       "skype": "",
-      "backer_tag": "ExArbitrage",
+      "backer_tag": "PlayerOnPause",
       "kyc_status": false
     }
   ],
@@ -70,6 +83,16 @@ async function processMessage(message) {
       "comment": "",
       "damage": "",
       "makeUp": "",
+      "backer_tag": "PlayerOnPause",
+      "kyc_status": false
+    }
+  ],
+  "reputation_records": [
+    {
+      "player_id": "",
+      "backer_id": 1,
+      "fund_name": "Используй первую роль пользователя в которой название фонда",
+      ...
       "source": "discord"
     }
   ]
@@ -79,7 +102,7 @@ async function processMessage(message) {
 { "players": [], "reputation_records": [] }
 
 Не добавляй никакого текста, пояснений или описаний. Только валидный JSON.
-          `
+                    `.trim()
                 },
                 {
                     role: 'user',
@@ -90,7 +113,6 @@ async function processMessage(message) {
         });
 
         const raw = aiResponse.choices[0].message.content;
-
         let parsed;
         try {
             parsed = JSON.parse(raw);
@@ -120,14 +142,23 @@ async function processMessage(message) {
 }
 
 async function processAllMessages() {
-    const data = JSON.parse(fs.readFileSync('histor.json', 'utf-8'));
+    for (const key of CHANNEL_KEYS) {
+        const filePath = path.join(__dirname, `history_${key.toLowerCase()}.json`);
+        if (!fs.existsSync(filePath)) {
+            console.warn(`⚠️ Файл ${filePath} не найден — пропускаем`);
+            continue;
+        }
 
-    for (const message of data) {
-        await processMessage(message);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        console.log(`📂 Обработка файла: ${filePath}`);
+
+        for (const message of data) {
+            await processMessage(message);
+            await new Promise(resolve => setTimeout(resolve, 1500));
+        }
     }
 
-    console.log('🎉 Обработка завершена!');
+    console.log('🎉 Обработка всех каналов завершена!');
 }
 
 processAllMessages();
