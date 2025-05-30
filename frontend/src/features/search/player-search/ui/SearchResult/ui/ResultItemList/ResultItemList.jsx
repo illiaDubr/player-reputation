@@ -91,7 +91,9 @@ const ResultItemList = ({results = [], checked, backerId}) => {
                         </div>
                         <div className={`${styles[`player__card`]} ${styles[`player__card-right`]}`}>
                             <div className={styles[`player__info`]}>
-                                <IconSvg width={48} height={48} id={result.fund_name} variant="funds"/>
+                                <div>
+                                    <IconSvg width={48} height={48} id={result.fund_name} variant="funds"/>
+                                </div>
                                 запись от
                                 <br/>
                                 {date}
@@ -119,14 +121,15 @@ const ResultItemList = ({results = [], checked, backerId}) => {
                                     className="player__item-comment"
                                 />
                             </div>
-                            <ResultItemActions checked={checked} player={result} />
+                            <ResultItemActions checked={checked} player={result}/>
                         </div>
                     </div>
                 )
             })}
 
             <Modal name="Actions" contentClass="actions__modal">
-                {(modal) => <ResultItemActionsForm origin={modal.params?.origin} player={modal.params?.player} backerId={backerId}/>}
+                {(modal) => <ResultItemActionsForm origin={modal.params?.origin} player={modal.params?.player}
+                                                   backerId={backerId}/>}
             </Modal>
             <Modal name="Result" title="Успешно">
             </Modal>
