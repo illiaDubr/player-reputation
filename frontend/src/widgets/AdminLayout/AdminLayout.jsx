@@ -8,19 +8,20 @@ import {AdminNavigation} from "@widgets/BaseHeader/ui/Navigation/variants";
 const AdminHeaderResponsive = () => {
     return (
         <Resize width={864} fallback={null}>
-            <BaseHeader navList={<AdminNavigation />} />
+            <BaseHeader navList={<AdminNavigation/>}/>
         </Resize>
     )
 };
 
-React.useEffect(() => {
-    document.body.classList.add('page-platform');
-    return () => document.body.classList.remove('page-platform');
-}, []);
-
 const AdminLayout = () => {
+
+    React.useEffect(() => {
+        document.body.classList.add('page-platform');
+        return () => document.body.classList.remove('page-platform');
+    }, []);
+
     return (
-        <BaseLayout className="main-platform" header={<AdminHeaderResponsive />}>
+        <BaseLayout className="main-platform" header={<AdminHeaderResponsive/>}>
             <Outlet/>
         </BaseLayout>
     )
