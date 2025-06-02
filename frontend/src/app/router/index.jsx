@@ -13,18 +13,26 @@ const Profile = React.lazy(() => import('../../pages/platform/backer/Profile'));
 
 function Delayed({ children, minDelay = 3000 }) {
     const [showLoader, setShowLoader] = React.useState(true);
+    const [loaderClass, setLoaderClass] = React.useState("loader--active");
 
     React.useEffect(() => {
         if (!showLoader) return;
-        const timeout = setTimeout(() => setShowLoader(false), minDelay);
-        return () => clearTimeout(timeout);
+
+        const classTimeout = setTimeout(() => setLoaderClass(""), minDelay);
+
+        const hideTimeout = setTimeout(() => setShowLoader(false), minDelay + 500);
+
+        return () => {
+            clearTimeout(classTimeout);
+            clearTimeout(hideTimeout);
+        };
     }, [showLoader, minDelay]);
 
     return (
-        <React.Suspense fallback={<Loader />}>
+        <React.Suspense fallback={<Loader className={loaderClass} />}>
             <>
                 {children}
-                {showLoader && <Loader />}
+                {showLoader && <Loader className={loaderClass} />}
             </>
         </React.Suspense>
     );
