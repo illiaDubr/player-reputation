@@ -2,8 +2,9 @@ import React from "react";
 import { useStore } from "@app/providers";
 import { Navigate } from "react-router-dom";
 import Loader from "@shared/ui/Loader/index.js";
+import {ROUTES} from "@shared/config/routes.js";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, allowedRoles }) => {
     const { store } = useStore();
 
     if (store.isLoading ) {
@@ -12,6 +13,10 @@ const PrivateRoute = ({ children }) => {
 
     if (!store.isAuth) {
         return <Navigate to="/" replace />;
+    }
+
+    if (allowedRoles && !allowedRoles.includes(store.user?.role)) {
+        return <Navigate to={ROUTES.PLATFORM.MAIN_PAGE} replace />;
     }
 
     return children;

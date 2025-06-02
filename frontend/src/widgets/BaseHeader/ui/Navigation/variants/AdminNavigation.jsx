@@ -29,7 +29,7 @@ const AdminNavigation = ({isOpen}) => {
                 </Link>
             </li>
             <ul className={styles[`navigation__list-box`]}>
-                {NAV_DATA.PLATFORM.map((item, index) => (
+                {NAV_DATA.ADMIN.map((item, index) => (
                     <li className={styles[`navigation__item`]} key={index}>
                         <Link to={item.link} className={styles[`navigation__list-item__link`]}>
                             <animated.span className={styles[`svg-box`]} style={iconAnimation}>

@@ -13,9 +13,14 @@ const AdminHeaderResponsive = () => {
     )
 };
 
+React.useEffect(() => {
+    document.body.classList.add('page-platform');
+    return () => document.body.classList.remove('page-platform');
+}, []);
+
 const AdminLayout = () => {
     return (
-        <BaseLayout header={<AdminHeaderResponsive />}>
+        <BaseLayout className="main-platform" header={<AdminHeaderResponsive />}>
             <Outlet/>
         </BaseLayout>
     )

@@ -91,7 +91,7 @@ const router = createBrowserRouter([
     },
     {
         path: `${ROUTES.ADMIN.BASE}/*`,
-        element: <PrivateRoute><AdminLayout /></PrivateRoute>,
+        element: <PrivateRoute allowedRoles="admin"><AdminLayout /></PrivateRoute>,
         handle: {
             breadcrumb: "Домашняя страница",
         },
