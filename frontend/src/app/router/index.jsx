@@ -5,11 +5,13 @@ import {ROUTES} from "@shared/config/routes.js";
 import PlatformLayout from "@widgets/PlatformLayout";
 import PrivateRoute from "@app/router/PrivateRoute.jsx";
 import Loader from "@shared/ui/Loader";
+import AdminLayout from "@widgets/AdminLayout";
 
 const HomePage = React.lazy(() => import('../../pages/portal/HomePage'))
 const MainPage = React.lazy(() => import('../../pages/platform/backer/MainPage'));
 const Search = React.lazy(() => import('../../pages/platform/backer/Search'));
 const Profile = React.lazy(() => import('../../pages/platform/backer/Profile'));
+const AdminHomePage = React.lazy(() => import('../../pages/admin/HomePage'));
 
 function Delayed({ children, minDelay = 3000 }) {
     const [showLoader, setShowLoader] = React.useState(true);
@@ -85,6 +87,22 @@ const router = createBrowserRouter([
                     breadcrumb: "Профиль"
                 }
             }
+        ],
+    },
+    {
+        path: `${ROUTES.ADMIN.BASE}/*`,
+        element: <PrivateRoute><AdminLayout /></PrivateRoute>,
+        handle: {
+            breadcrumb: "Домашняя страница",
+        },
+        children: [
+            {
+                path: ROUTES.ADMIN.HOME.replace(`${ROUTES.ADMIN.BASE}/`, ''),
+                element: lazyElement(AdminHomePage),
+                handle: {
+                    breadcrumb: "Домашняя страница"
+                }
+            },
         ],
     },
 ])
