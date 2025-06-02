@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
     }
 
     if (allowedRoles && !allowedRoles.includes(store.user?.role)) {
-        return <Navigate to="/" replace />;
+        return <Navigate to={ROUTES.PLATFORM.MAIN_PAGE} replace />;
     }
 
     return children;
