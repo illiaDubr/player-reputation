@@ -7,9 +7,11 @@ const AppInit = ({ children }) => {
 
     useEffect(() => {
         store.checkAuth().finally(() => setReady(true));
-    }, []);
+    }, [store]);
 
-    if (!ready) return null; // или <Loader />
+    if (!ready) {
+        return <div style={{color: "white"}}>Loading...</div>;
+    }
 
     return children;
 };
