@@ -8,6 +8,11 @@ import {useStore} from "@app/providers/index.jsx";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "@shared/config/routes.js";
 
+const ROLE_REDIRECTS = {
+    admin: ROUTES.ADMIN.HOME,
+    backer: ROUTES.PLATFORM.MAIN_PAGE,
+};
+
 const LoginForm = () => {
     const { store } = useStore();
     const navigate = useNavigate();
@@ -26,7 +31,8 @@ const LoginForm = () => {
         try {
             const loginData = { ...data };
             await store.login(loginData);
-            navigate(ROUTES.PLATFORM.MAIN_PAGE);
+            const role = store.user?.role;
+            navigate(ROLE_REDIRECTS[role] || "/");
         } catch (error) {
             setError("email", {
                 type: "server",
