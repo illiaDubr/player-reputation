@@ -61,7 +61,7 @@ const router = createBrowserRouter([
     },
     {
         path: `${ROUTES.PLATFORM.BASE}/*`,
-        element: <PrivateRoute><PlatformLayout /></PrivateRoute>,
+        element: <PrivateRoute allowedRoles={["backer", "admin"]}><PlatformLayout /></PrivateRoute>,
         handle: {
             breadcrumb: "Player`s Reputation",
         },
