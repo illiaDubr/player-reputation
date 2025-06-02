@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@app/providers";
+import Loader from "@shared/ui/Loader";
 
 const AppInit = ({ children }) => {
     const { store } = useStore();
@@ -10,7 +11,7 @@ const AppInit = ({ children }) => {
     }, [store]);
 
     if (!ready) {
-        return <div style={{color: "white"}}>Loading...</div>;
+        return <Loader />;
     }
 
     return children;
