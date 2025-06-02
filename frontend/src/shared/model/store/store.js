@@ -79,6 +79,8 @@ export default class Store {
         }
     }
 
+    // --- Методы верификации / создания записи ---
+
     async createPlayer(createData) {
         await request({
             asyncFn: () => mainPageService.createPlayer(createData),

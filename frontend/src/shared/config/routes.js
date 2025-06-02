@@ -11,6 +11,7 @@ export const ROUTES = {
     },
     ADMIN: {
         BASE: '/admin',
-        HOME: ''
+        HOME: '/admin/HomePage',
+        BACKER: '/admin/Backer',
     },
 }

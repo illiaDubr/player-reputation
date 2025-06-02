@@ -1,6 +1,5 @@
 import React from "react";
 import {Outlet} from "react-router-dom";
-//import styles from "./PlatformLayout.module.scss";
 import BaseLayout from "@widgets/BaseLayout";
 import BaseHeader from "@widgets/BaseHeader";
 import {PlatformNavigation} from "@widgets/BaseHeader/ui/Navigation/variants";
