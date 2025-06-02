@@ -32,7 +32,7 @@ function Delayed({ children, minDelay = 3000 }) {
 
 function lazyElement(Component) {
     return (
-        <Delayed minDelay={100000}>
+        <Delayed minDelay={2500}>
             <Component />
         </Delayed>
     );

@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./Loader.module.scss";
-import loader from "./assets/image/loader.png"
+import {HashLoader} from "react-spinners";
 
 const Loader = () => {
     return (
         <div className={styles.loader__wrap}>
-            <div className={styles.loader}>
-                <div className={styles.loader__bur}>
-                </div>
-                <img src={loader} alt="loader" />
-            </div>
+            <HashLoader
+                size={150}
+                speedMultiplier={1.6}
+                color="#2750f2"
+            />
         </div>
     )
 }

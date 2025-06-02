@@ -14,26 +14,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .loader {
-    width: 452px;
-    height: 261px;
-    position: relative;
-
-    .loader__bur {
-      position: absolute;
-      bottom: 0;
-      z-index: 1;
-      width: 100%;
-      height: 40%;
-      background: #ffffff;
-    }
-
-    img {
-      position: relative;
-      z-index: 2;
-    }
-  }
 }
 
 // === / Styles === //
