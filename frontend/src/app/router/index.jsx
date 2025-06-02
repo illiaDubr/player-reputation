@@ -4,17 +4,45 @@ import PortalLayout from "@widgets/PortalLayout";
 import {ROUTES} from "@shared/config/routes.js";
 import PlatformLayout from "@widgets/PlatformLayout";
 import PrivateRoute from "@app/router/PrivateRoute.jsx";
+import Loader from "@shared/ui/Loader";
 
 const HomePage = React.lazy(() => import('../../pages/portal/HomePage'))
 const MainPage = React.lazy(() => import('../../pages/platform/backer/MainPage'));
 const Search = React.lazy(() => import('../../pages/platform/backer/Search'));
 const Profile = React.lazy(() => import('../../pages/platform/backer/Profile'));
 
+function Delayed({ children, minDelay = 3000 }) {
+    const [showLoader, setShowLoader] = React.useState(true);
+    const [loaderClass, setLoaderClass] = React.useState("loader--active");
+
+    React.useEffect(() => {
+        if (!showLoader) return;
+
+        const classTimeout = setTimeout(() => setLoaderClass(""), minDelay);
+
+        const hideTimeout = setTimeout(() => setShowLoader(false), minDelay + 500);
+
+        return () => {
+            clearTimeout(classTimeout);
+            clearTimeout(hideTimeout);
+        };
+    }, [showLoader, minDelay]);
+
+    return (
+        <React.Suspense fallback={<Loader className={loaderClass} />}>
+            <>
+                {children}
+                {showLoader && <Loader className={loaderClass} />}
+            </>
+        </React.Suspense>
+    );
+}
+
 function lazyElement(Component) {
     return (
-        <React.Suspense>
+        <Delayed minDelay={2500}>
             <Component />
-        </React.Suspense>
+        </Delayed>
     );
 }
 

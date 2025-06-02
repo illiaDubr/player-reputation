@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@app/providers";
+import Loader from "@shared/ui/Loader";
 
 const AppInit = ({ children }) => {
     const { store } = useStore();
@@ -7,9 +8,11 @@ const AppInit = ({ children }) => {
 
     useEffect(() => {
         store.checkAuth().finally(() => setReady(true));
-    }, []);
+    }, [store]);
 
-    if (!ready) return null; // или <Loader />
+    if (!ready) {
+        return <Loader />;
+    }
 
     return children;
 };
