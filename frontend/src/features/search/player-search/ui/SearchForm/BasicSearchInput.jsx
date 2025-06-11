@@ -8,6 +8,7 @@ const BasicSearchInput = ({methods}) => {
         <Input
             label="Введите данные игрока"
             {...register("universal")}
+            placeholder="Введите любую контактную информацию"
             error={errors.universal}
         />
     )
