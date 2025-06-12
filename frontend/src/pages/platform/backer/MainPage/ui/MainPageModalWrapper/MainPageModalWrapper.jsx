@@ -69,9 +69,14 @@ const MainPageModalWrapper = ({origin, fund_name, backerId}) => {
     };
 
     const getErrorMessage = () => {
-        const rootError = methods.formState.errors.root?.message;
-        const fieldError = methods.formState.errors?.[slides[activeIndex]?.name]?.message;
-        return rootError || fieldError || null;
+        const errors = methods.formState.errors;
+
+        if (errors.root?.message) return errors.root.message;
+
+        const hasFieldErrors = Object.keys(errors).some(key => key !== 'root');
+        if (hasFieldErrors) return 'Заполните все поля';
+
+        return null;
     };
 
     return (
