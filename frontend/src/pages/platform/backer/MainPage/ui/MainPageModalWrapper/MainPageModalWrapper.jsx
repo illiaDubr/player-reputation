@@ -8,8 +8,8 @@ import {
     createSchema,
     setupSchema
 } from "@pages/platform/backer/MainPage/ui/MainPageModalWrapper/model/mainPageSchema.js";
-import IconSvg from "@shared/ui/IconSvg/index.js";
 import {useModal, useStore} from "@app/providers/index.jsx";
+import SlideWarning from "@pages/platform/backer/MainPage/ui/MainPageModalWrapper/ui";
 
 const MainPageModalWrapper = ({origin, fund_name, backerId}) => {
     const {store} = useStore();
@@ -68,6 +68,12 @@ const MainPageModalWrapper = ({origin, fund_name, backerId}) => {
         }
     };
 
+    const getErrorMessage = () => {
+        const rootError = methods.formState.errors.root?.message;
+        const fieldError = methods.formState.errors?.[slides[activeIndex]?.name]?.message;
+        return rootError || fieldError || null;
+    };
+
     return (
         <FormProvider {...methods}>
             <form className={`${styles[`form__wrap`]}`} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -80,13 +86,16 @@ const MainPageModalWrapper = ({origin, fund_name, backerId}) => {
                 ))}
 
                 {activeIndex === 3 && (
-                    <div className={styles[`slide__warning`]}>
-                        <IconSvg width={24} height={24} id="red_notification"/>
-                        <p>
-                            Перед отправкой информации об игроке обязательно перепроверьте все данные и сумму ущерба —
-                            это может повлиять на его дальнейшую карьеру.
-                        </p>
-                    </div>
+                    <SlideWarning>
+                        Перед отправкой информации об игроке обязательно перепроверьте все данные и сумму ущерба —
+                        это может повлиять на его дальнейшую карьеру.
+                    </SlideWarning>
+                )}
+
+                {getErrorMessage() && (
+                    <SlideWarning>
+                        {getErrorMessage()}
+                    </SlideWarning>
                 )}
 
                 {activeIndex > 0 && (

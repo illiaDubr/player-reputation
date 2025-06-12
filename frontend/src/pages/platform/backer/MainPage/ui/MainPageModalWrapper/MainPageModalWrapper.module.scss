@@ -28,27 +28,6 @@
     }
   }
 
-  .slide__warning {
-    width: 100%;
-    border: 4px solid #000729;
-    border-radius: 8px;
-    padding: 14px;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-
-    p {
-      @include font-style(500, 16, 140, #FFFFFF);
-      text-align: left;
-      text-wrap: balance;
-      width: calc(100% - 40px);
-      z-index: 2;
-      position: relative;
-    }
-  }
-
   .slide__btn-prev {
     @include font-style(500, 16, 140, #959595);
     cursor: pointer;
