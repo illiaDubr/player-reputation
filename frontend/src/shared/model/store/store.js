@@ -4,6 +4,7 @@ import AuthService from "@shared/api/services/AuthService.js";
 import {API_URL} from "@shared/api/api.js";
 import axios from "axios";
 import mainPageService from "@pages/platform/backer/MainPage/config/services/mainPageService.js";
+import AdminService from "@pages/admin/config/adminService.js";
 
 export default class Store {
     user = null;
@@ -91,6 +92,22 @@ export default class Store {
     async backerApproval(setupData) {
         await request({
             asyncFn: () => mainPageService.backerApproval(setupData),
+            defaultMessage: "Ошибка при отправке",
+        })
+    }
+
+    // --- Методы админ панели ---
+
+    async getUnApprovedBackers() {
+        await request({
+            asyncFn: () => AdminService.getUnApprovedBackers(),
+            defaultMessage: "Ошибка при отправке",
+        })
+    }
+
+    async getApprovedBackers() {
+        await request({
+            asyncFn: () => AdminService.getApprovedBackers(),
             defaultMessage: "Ошибка при отправке",
         })
     }
