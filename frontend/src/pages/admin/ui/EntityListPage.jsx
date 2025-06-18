@@ -16,7 +16,7 @@ const EntityListPage = observer(({
         let mounted = true;
         getData(store)
             .then((response) => {
-                if (mounted) setData(response.data.data);
+                if (mounted) setData(response.data);
             })
             .catch((error) => {
                 console.error("Ошибка запроса:", error);
