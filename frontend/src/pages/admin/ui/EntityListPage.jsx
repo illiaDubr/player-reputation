@@ -1,7 +1,7 @@
 import React from "react";
-import {Helmet} from "react-helmet-async";
-import {observer} from "mobx-react-lite";
-import {useStore} from "@app/providers/index.jsx";
+import { Helmet } from "react-helmet-async";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@app/providers/index.jsx";
 
 const EntityListPage = observer(({
                                      title = "",
@@ -9,24 +9,25 @@ const EntityListPage = observer(({
                                      renderContent,
                                      initialData = [],
                                  }) => {
-    const {store} = useStore();
+    const { store } = useStore();
     const [data, setData] = React.useState(initialData);
 
     React.useEffect(() => {
         let mounted = true;
+
         getData(store)
             .then((response) => {
+                if (!response || !response.data) return;
                 if (mounted) setData(response.data);
             })
             .catch((error) => {
                 console.error("Ошибка запроса:", error);
             });
+
         return () => {
-            mounted = false
+            mounted = false;
         };
     }, [store, getData]);
-
-    console.log(data);
 
     return (
         <>
