@@ -6,10 +6,8 @@ const Backer = observer(() => {
     return (
         <EntityListPage
             title="Заявки на верификацию"
-            getData={store => store.getUnApprovedBackers()}
-            renderContent={(data, setData) => (
-                {data}
-            )}
+            getData={store => store.getApprovedBackers()}
+            renderContent={(data, setData) => null}
         />
     )
 })
