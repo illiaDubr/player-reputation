@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./AdminLayout.module.scss";
 import {Outlet} from "react-router-dom";
 import BaseLayout from "@widgets/BaseLayout";
 import Resize from "@shared/ui/Resize";
@@ -22,7 +23,9 @@ const AdminLayout = () => {
 
     return (
         <BaseLayout className="main-platform" header={<AdminHeaderResponsive/>}>
-            <Outlet/>
+            <div className={`${styles[`admin__container`]}`}>
+                <Outlet/>
+            </div>
         </BaseLayout>
     )
 }

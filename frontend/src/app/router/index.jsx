@@ -12,6 +12,7 @@ const MainPage = React.lazy(() => import('../../pages/platform/backer/MainPage')
 const Search = React.lazy(() => import('../../pages/platform/backer/Search'));
 const Profile = React.lazy(() => import('../../pages/platform/backer/Profile'));
 const AdminHomePage = React.lazy(() => import('../../pages/admin/HomePage'));
+const Backer = React.lazy(() => import('../../pages/admin/Backer'));
 
 function Delayed({ children, minDelay = 3000 }) {
     const [showLoader, setShowLoader] = React.useState(true);
@@ -101,6 +102,13 @@ const router = createBrowserRouter([
                 element: lazyElement(AdminHomePage),
                 handle: {
                     breadcrumb: "Домашняя страница"
+                }
+            },
+            {
+                path: ROUTES.ADMIN.BACKER.replace(`${ROUTES.ADMIN.BASE}/`, ''),
+                element: lazyElement(Backer),
+                handle: {
+                    breadcrumb: "Заявки на верификацию"
                 }
             },
         ],
