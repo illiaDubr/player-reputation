@@ -2,8 +2,12 @@ FROM php:8.2-fpm
 
 # Установка необходимых пакетов и зависимостей
 RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip git && \
-    docker-php-ext-install pdo pdo_mysql pcntl
+    libzip-dev \
+    libpng-dev \
+    zip \
+    unzip \
+    git \
+    && docker-php-ext-install pdo pdo_mysql pcntl gd zip
 RUN apt-get update && apt-get install -y default-mysql-client
 
 
