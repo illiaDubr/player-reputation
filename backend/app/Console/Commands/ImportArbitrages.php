@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\Player;
 use App\Models\ReputationRecord;
 
-class ImportPlayersAndReputation extends Command
+class ImportArbitrages extends Command
 {
     protected $signature = 'import:players {file}';
     protected $description = 'Импортирует игроков и их репутацию из Excel-файла (4-й лист)';
