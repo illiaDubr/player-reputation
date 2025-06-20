@@ -21,10 +21,25 @@ class ImportArbitrages extends Command
 
         $spreadsheet = IOFactory::load($path);
         $sheet = $spreadsheet->getSheet(1); // 2-й лист
-        $rows = $sheet->toArray(null, true, true, true);
 
-        $headers = array_map('trim', $rows[0]); // заголовки из первой строки
-        $records = array_slice($rows, 1);       // данные со второй строки
+        $rows = $sheet->toArray(null, true, true, true);
+        $this->line('📄 Строк в листе: ' . count($rows));
+
+        if (empty($rows)) {
+            $this->error('❌ Лист пуст!');
+            return;
+        }
+
+        $headers = array_map('trim', $rows[0]);
+        $this->line('🔍 Заголовки: ' . json_encode($headers));
+        $records = array_slice($rows, 1);
+
+        if (empty($records)) {
+            $this->error('❌ Нет данных после заголовков!');
+            return;
+        }
+
+        $this->line('🔍 Пример первой строки данных: ' . json_encode($records[0]));
 
         $total = count($records);
         $success = 0;
