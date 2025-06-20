@@ -19,7 +19,7 @@ class ImportArbitrages extends Command
         $path = storage_path('app/' . $this->argument('file'));
 
         $spreadsheet = IOFactory::load($path);
-        $sheet = $spreadsheet->getSheet(3); // 4-й лист (индексация с нуля)
+        $sheet = $spreadsheet->getSheet(1); // 4-й лист (индексация с нуля)
         $rows = $sheet->toArray(null, true, true, true);
 
         $headers = array_map('trim', $rows[1]); // строка заголовков
@@ -39,7 +39,7 @@ class ImportArbitrages extends Command
                 ['email' => $assoc['Mail'] ?? null],
                 [
                     'player_id'     => Str::uuid()->toString(),
-                    'first_name'    => $assoc['FullName'] ?? null,
+                    'last_name'    => $assoc['FullName'] ?? null,
                     'skype'         => $assoc['Skype'] ?? null,
                     'GipsyTeam'     => $assoc['GipsyTeam'] ?? null,
                     'Pokerstars'    => $assoc['PokerStars'] ?? null,
