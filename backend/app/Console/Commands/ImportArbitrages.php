@@ -20,6 +20,11 @@ class ImportArbitrages extends Command
         $path = storage_path('app/' . $this->argument('file'));
 
         $spreadsheet = IOFactory::load($path);
+        $sheetNames = $spreadsheet->getSheetNames();
+        $this->line('📑 Найденные листы:');
+        foreach ($sheetNames as $index => $name) {
+            $this->line("  [{$index}] {$name}");
+        }
         $sheet = $spreadsheet->getSheet(1); // 2-й лист
 
         $rows = $sheet->toArray(null, true, true, true);
