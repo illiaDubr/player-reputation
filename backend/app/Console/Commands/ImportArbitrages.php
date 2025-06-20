@@ -3,76 +3,81 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Illuminate\Support\Str;
 use App\Models\Player;
 use App\Models\ReputationRecord;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Str;
 
-class ImportPlayersAndReputation extends Command
+class ImportArbitrages extends Command
 {
     protected $signature = 'import:players {file}';
-    protected $description = 'Импортирует игроков и репутации из Excel';
+    protected $description = 'Импортирует игроков и их репутацию из Excel-файла (4-й лист)';
 
     public function handle()
     {
-        $path = storage_path("app/" . $this->argument('file'));
+        $file = storage_path("app/" . $this->argument('file'));
 
-        $rows = Excel::toArray([], $path);
-        $data = $rows[3]; // первая таблица в файле
+        // Получаем 4-й лист
+        $rows = Excel::toArray([], $file);
+        $data = $rows[3] ?? [];
 
-        $headers = $data[0];
+        if (empty($data)) {
+            $this->error('❌ Четвёртый лист пуст или не найден.');
+            return;
+        }
+
+        $headers = array_map('trim', $data[0]);
         $records = array_slice($data, 1);
+        $count = 0;
 
         foreach ($records as $row) {
             $assoc = array_combine($headers, $row);
-            if (!$assoc) continue;
+            if (!$assoc || empty($assoc['NickNames'])) continue;
 
-            // создаем player_id
-            $playerId = Str::uuid()->toString();
+            $email = $assoc['Mail'] ?? null;
 
+            // Игрок
             $player = Player::updateOrCreate(
-                ['email' => $assoc['Mail'] ?? null],
+                ['email' => $email],
                 [
-                    'player_id' => $playerId,
-                    'last_name' => $assoc['FullName'] ?? null,
-                    'skype' => $assoc['Skype'] ?? null,
-                    'GipsyTeam' => $assoc['GipsyTeam'] ?? null,
-                    'Pokerstars' => $assoc['PokerStars'] ?? null,
-                    'PS' => $assoc['PokerStars'] ?? null,
-                    'GG' => null,
-                    'RedStar' => null,
-                    'TigerGaming' => null,
-                    'PartyPoker' => null,
-                    '888poker' => null,
-                    'WPNpoker' => null,
-                    'Stretchpoker' => null,
-                    'Coinpoker' => null,
-                    'chikoPoker' => null,
-                    'nickiPoker' => null,
-                    'Skrill' => $assoc['Skrill'] ?? null,
-                    'Neteller' => $assoc['Neteller'] ?? null,
-                    'Luxon' => null,
-                    'telegram' => null,
-                    'discord' => null,
-                    'email' => $assoc['Mail'] ?? null,
-                    'phonenumber' => $assoc['GoogleAccount'] ?? null,
-                    'backer_tag' => 'arbitrage',
+                    'player_id'     => Str::uuid()->toString(),
+                    'first_name'    => $assoc['FullName'] ?? null,
+                    'skype'         => $assoc['Skype'] ?? null,
+                    'GipsyTeam'     => $assoc['GipsyTeam'] ?? null,
+                    'Pokerstars'    => $assoc['PokerStars'] ?? null,
+                    'PS'            => $assoc['PokerStars'] ?? null,
+                    'phonenumber'   => $assoc['GoogleAccount'] ?? null,
+                    'email'         => $email,
+                    'backer_tag'    => $assoc['TypeOfScum'] ?? null,
                 ]
             );
 
-            // создаём репутационную запись
+            // Репутация
             ReputationRecord::create([
-                'player_id' => $player->player_id,
-                'comment' => $assoc['ArbitrageLink'] ?? null,
-                'source' => "IntTable",
-                'fund_name' => null,
-                'damage' => null,
-                'makeUp' => null,
-                'old_player_id' => null,
-                'old_backer_id' => null,
+                'player_id'             => $player->player_id,
+                'comment'               => $assoc['ArbitrageLink'] ?? null,
+                'source'                => 'WorldTable',
+                'created_at_reputation' => $this->parseDate($assoc['DateAppear'] ?? null),
             ]);
+
+            $count++;
         }
 
-        $this->info('✅ Импорт завершен');
+        $this->info("✅ Импорт завершен. Добавлено {$count} записей.");
+    }
+
+    protected function parseDate($value): ?string
+    {
+        if (!$value) return null;
+
+        try {
+            if (is_numeric($value)) {
+                return Date::excelToDateTimeObject($value)->format('Y-m-d');
+            }
+            return \Carbon\Carbon::parse($value)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
