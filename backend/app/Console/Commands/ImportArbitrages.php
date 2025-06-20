@@ -18,7 +18,7 @@ class ImportPlayersAndReputation extends Command
         $path = storage_path("app/" . $this->argument('file'));
 
         $rows = Excel::toArray([], $path);
-        $data = $rows[0]; // первая таблица в файле
+        $data = $rows[3]; // первая таблица в файле
 
         $headers = $data[0];
         $records = array_slice($data, 1);
