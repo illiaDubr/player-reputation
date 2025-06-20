@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -19,14 +20,25 @@ class ImportArbitrages extends Command
         $this->line('🚀 Команда запущена!');
         $path = storage_path('app/' . $this->argument('file'));
 
-        $spreadsheet = IOFactory::load($path);
+        if (!file_exists($path)) {
+            $this->error("❌ Файл не найден: {$path}");
+            return;
+        }
+
+        try {
+            $spreadsheet = IOFactory::load($path);
+        } catch (\Throwable $e) {
+            $this->error('❌ Ошибка при чтении Excel: ' . $e->getMessage());
+            return;
+        }
+
         $sheetNames = $spreadsheet->getSheetNames();
         $this->line('📑 Найденные листы:');
         foreach ($sheetNames as $index => $name) {
             $this->line("  [{$index}] {$name}");
         }
-        $sheet = $spreadsheet->getSheet(1); // 2-й лист
 
+        $sheet = $spreadsheet->getSheet(1); // 2-й лист
         $rows = $sheet->toArray(null, true, true, true);
         $this->line('📄 Строк в листе: ' . count($rows));
 
@@ -58,7 +70,7 @@ class ImportArbitrages extends Command
             }
 
             if (empty($assoc['NickNames'])) {
-                $this->warn("⏭ Строка ".($rowIndex + 2)." пропущена — отсутствует NickNames.");
+                $this->warn("⏭ Строка " . ($rowIndex + 2) . " пропущена — отсутствует NickNames.");
                 $skipped++;
                 continue;
             }
@@ -67,29 +79,29 @@ class ImportArbitrages extends Command
                 $player = Player::updateOrCreate(
                     ['email' => $assoc['Mail'] ?? null],
                     [
-                        'player_id'     => Str::uuid()->toString(),
-                        'last_name'     => $assoc['FullName'] ?? null,
-                        'skype'         => $assoc['Skype'] ?? null,
-                        'GipsyTeam'     => $assoc['GipsyTeam'] ?? null,
-                        'Pokerstars'    => $assoc['PokerStars'] ?? null,
-                        'PS'            => $assoc['PokerStars'] ?? null,
-                        'phonenumber'   => $assoc['GoogleAccount'] ?? null,
-                        'email'         => $assoc['Mail'] ?? null,
-                        'backer_tag'    => $assoc['TypeOfScum'] ?? null,
+                        'player_id' => Str::uuid()->toString(),
+                        'last_name' => $assoc['FullName'] ?? null,
+                        'skype' => $assoc['Skype'] ?? null,
+                        'GipsyTeam' => $assoc['GipsyTeam'] ?? null,
+                        'Pokerstars' => $assoc['PokerStars'] ?? null,
+                        'PS' => $assoc['PokerStars'] ?? null,
+                        'phonenumber' => $assoc['GoogleAccount'] ?? null,
+                        'email' => $assoc['Mail'] ?? null,
+                        'backer_tag' => $assoc['TypeOfScum'] ?? null,
                     ]
                 );
 
                 ReputationRecord::create([
-                    'player_id'             => $player->player_id,
-                    'comment'               => $assoc['ArbitrageLink'] ?? null,
-                    'source'                => 'WorldTable',
+                    'player_id' => $player->player_id,
+                    'comment' => $assoc['ArbitrageLink'] ?? null,
+                    'source' => 'WorldTable',
                     'created_at_reputation' => $this->parseDate($assoc['DateAppear'] ?? null),
                 ]);
 
                 $this->line("✅ Добавлен: {$player->email} (ID: {$player->player_id})");
                 $success++;
             } catch (\Throwable $e) {
-                $this->error("❌ Ошибка на строке ".($rowIndex + 2).": " . $e->getMessage());
+                $this->error("❌ Ошибка на строке " . ($rowIndex + 2) . ": " . $e->getMessage());
                 $failed++;
             }
         }
