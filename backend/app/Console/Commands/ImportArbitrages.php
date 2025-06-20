@@ -20,11 +20,11 @@ class ImportArbitrages extends Command
         $path = storage_path('app/' . $this->argument('file'));
 
         $spreadsheet = IOFactory::load($path);
-        $sheet = $spreadsheet->getSheet(1); // 2-й индекс = 3-й лист
+        $sheet = $spreadsheet->getSheet(1); // 2-й лист
         $rows = $sheet->toArray(null, true, true, true);
 
-        $headers = array_map('trim', $rows[1]); // заголовки
-        $records = array_slice($rows, 2); // данные с 3 строки
+        $headers = array_map('trim', $rows[0]); // заголовки из первой строки
+        $records = array_slice($rows, 1);       // данные со второй строки
 
         $total = count($records);
         $success = 0;
@@ -38,7 +38,7 @@ class ImportArbitrages extends Command
             }
 
             if (empty($assoc['NickNames'])) {
-                $this->warn("⏭ Строка {$rowIndex} пропущена — отсутствует NickNames.");
+                $this->warn("⏭ Строка ".($rowIndex + 2)." пропущена — отсутствует NickNames.");
                 $skipped++;
                 continue;
             }
@@ -69,7 +69,7 @@ class ImportArbitrages extends Command
                 $this->line("✅ Добавлен: {$player->email} (ID: {$player->player_id})");
                 $success++;
             } catch (\Throwable $e) {
-                $this->error("❌ Ошибка на строке {$rowIndex}: " . $e->getMessage());
+                $this->error("❌ Ошибка на строке ".($rowIndex + 2).": " . $e->getMessage());
                 $failed++;
             }
         }
