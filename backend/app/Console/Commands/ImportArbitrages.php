@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Maatwebsite\Excel\Excel as ExcelReader;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Str;
 use App\Models\Player;
@@ -11,35 +11,32 @@ use App\Models\ReputationRecord;
 
 class ImportArbitrages extends Command
 {
-    protected $signature = 'import:players {file}';
-    protected $description = 'Импортирует игроков и их репутацию из Excel-файла (4-й лист)';
+    protected $signature = 'import:players-raw {file}';
+    protected $description = 'Импортирует игроков и репутацию из Excel без Laravel Excel';
 
-    public function handle(ExcelReader $excel)
+    public function handle()
     {
-        $path = storage_path("app/" . $this->argument('file'));
+        $path = storage_path('app/' . $this->argument('file'));
 
-        // Получаем 4-й лист
-        $rows = $excel->toArray([], $path);
-        $data = $rows[3] ?? [];
+        $spreadsheet = IOFactory::load($path);
+        $sheet = $spreadsheet->getSheet(3); // 4-й лист (индексация с нуля)
+        $rows = $sheet->toArray(null, true, true, true);
 
-        if (empty($data)) {
-            $this->error('❌ Четвёртый лист пуст или не найден.');
-            return;
-        }
+        $headers = array_map('trim', $rows[1]); // строка заголовков
+        $records = array_slice($rows, 2); // данные с 3-й строки
 
-        $headers = array_map('trim', $data[0]);
-        $records = array_slice($data, 1);
         $count = 0;
 
         foreach ($records as $row) {
-            $assoc = array_combine($headers, $row);
-            if (!$assoc || empty($assoc['NickNames'])) continue;
+            $assoc = [];
+            foreach ($headers as $key => $header) {
+                $assoc[$header] = $row[$key] ?? null;
+            }
 
-            $email = $assoc['Mail'] ?? null;
+            if (empty($assoc['NickNames'])) continue;
 
-            // Игрок
             $player = Player::updateOrCreate(
-                ['email' => $email],
+                ['email' => $assoc['Mail'] ?? null],
                 [
                     'player_id'     => Str::uuid()->toString(),
                     'first_name'    => $assoc['FullName'] ?? null,
@@ -48,12 +45,11 @@ class ImportArbitrages extends Command
                     'Pokerstars'    => $assoc['PokerStars'] ?? null,
                     'PS'            => $assoc['PokerStars'] ?? null,
                     'phonenumber'   => $assoc['GoogleAccount'] ?? null,
-                    'email'         => $email,
+                    'email'         => $assoc['Mail'] ?? null,
                     'backer_tag'    => $assoc['TypeOfScum'] ?? null,
                 ]
             );
 
-            // Репутация
             ReputationRecord::create([
                 'player_id'             => $player->player_id,
                 'comment'               => $assoc['ArbitrageLink'] ?? null,
@@ -64,7 +60,7 @@ class ImportArbitrages extends Command
             $count++;
         }
 
-        $this->info("✅ Импорт завершен. Добавлено {$count} записей.");
+        $this->info("✅ Импорт завершён. Обработано: {$count} строк.");
     }
 
     protected function parseDate($value): ?string
@@ -76,7 +72,7 @@ class ImportArbitrages extends Command
                 return Date::excelToDateTimeObject($value)->format('Y-m-d');
             }
             return \Carbon\Carbon::parse($value)->format('Y-m-d');
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return null;
         }
     }
