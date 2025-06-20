@@ -38,7 +38,7 @@ class ImportArbitrages extends Command
             $this->line("  [{$index}] {$name}");
         }
 
-        $sheet = $spreadsheet->getSheet(1); // 2-й лист
+        $sheet = $spreadsheet->getSheet(0); // 2-й лист
         $rows = $sheet->toArray(null, true, true, true);
         $this->line('📄 Строк в листе: ' . count($rows));
 
