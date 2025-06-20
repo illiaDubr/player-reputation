@@ -19,48 +19,66 @@ class ImportArbitrages extends Command
         $path = storage_path('app/' . $this->argument('file'));
 
         $spreadsheet = IOFactory::load($path);
-        $sheet = $spreadsheet->getSheet(1); // 4-й лист (индексация с нуля)
+        $sheet = $spreadsheet->getSheet(1); // 2-й индекс = 3-й лист
         $rows = $sheet->toArray(null, true, true, true);
 
-        $headers = array_map('trim', $rows[1]); // строка заголовков
-        $records = array_slice($rows, 2); // данные с 3-й строки
+        $headers = array_map('trim', $rows[1]); // заголовки
+        $records = array_slice($rows, 2); // данные с 3 строки
 
-        $count = 0;
+        $total = count($records);
+        $success = 0;
+        $skipped = 0;
+        $failed = 0;
 
-        foreach ($records as $row) {
+        foreach ($records as $rowIndex => $row) {
             $assoc = [];
             foreach ($headers as $key => $header) {
                 $assoc[$header] = $row[$key] ?? null;
             }
 
-            if (empty($assoc['NickNames'])) continue;
+            if (empty($assoc['NickNames'])) {
+                $this->warn("⏭ Строка {$rowIndex} пропущена — отсутствует NickNames.");
+                $skipped++;
+                continue;
+            }
 
-            $player = Player::updateOrCreate(
-                ['email' => $assoc['Mail'] ?? null],
-                [
-                    'player_id'     => Str::uuid()->toString(),
-                    'last_name'    => $assoc['FullName'] ?? null,
-                    'skype'         => $assoc['Skype'] ?? null,
-                    'GipsyTeam'     => $assoc['GipsyTeam'] ?? null,
-                    'Pokerstars'    => $assoc['PokerStars'] ?? null,
-                    'PS'            => $assoc['PokerStars'] ?? null,
-                    'phonenumber'   => $assoc['GoogleAccount'] ?? null,
-                    'email'         => $assoc['Mail'] ?? null,
-                    'backer_tag'    => $assoc['TypeOfScum'] ?? null,
-                ]
-            );
+            try {
+                $player = Player::updateOrCreate(
+                    ['email' => $assoc['Mail'] ?? null],
+                    [
+                        'player_id'     => Str::uuid()->toString(),
+                        'last_name'     => $assoc['FullName'] ?? null,
+                        'skype'         => $assoc['Skype'] ?? null,
+                        'GipsyTeam'     => $assoc['GipsyTeam'] ?? null,
+                        'Pokerstars'    => $assoc['PokerStars'] ?? null,
+                        'PS'            => $assoc['PokerStars'] ?? null,
+                        'phonenumber'   => $assoc['GoogleAccount'] ?? null,
+                        'email'         => $assoc['Mail'] ?? null,
+                        'backer_tag'    => $assoc['TypeOfScum'] ?? null,
+                    ]
+                );
 
-            ReputationRecord::create([
-                'player_id'             => $player->player_id,
-                'comment'               => $assoc['ArbitrageLink'] ?? null,
-                'source'                => 'WorldTable',
-                'created_at_reputation' => $this->parseDate($assoc['DateAppear'] ?? null),
-            ]);
+                ReputationRecord::create([
+                    'player_id'             => $player->player_id,
+                    'comment'               => $assoc['ArbitrageLink'] ?? null,
+                    'source'                => 'WorldTable',
+                    'created_at_reputation' => $this->parseDate($assoc['DateAppear'] ?? null),
+                ]);
 
-            $count++;
+                $this->line("✅ Добавлен: {$player->email} (ID: {$player->player_id})");
+                $success++;
+            } catch (\Throwable $e) {
+                $this->error("❌ Ошибка на строке {$rowIndex}: " . $e->getMessage());
+                $failed++;
+            }
         }
 
-        $this->info("✅ Импорт завершён. Обработано: {$count} строк.");
+        $this->newLine();
+        $this->info("📊 Импорт завершён:");
+        $this->info("   ✅ Успешно:  {$success}");
+        $this->info("   ⏭ Пропущено: {$skipped}");
+        $this->info("   ❌ Ошибок:    {$failed}");
+        $this->info("   Всего строк: {$total}");
     }
 
     protected function parseDate($value): ?string
