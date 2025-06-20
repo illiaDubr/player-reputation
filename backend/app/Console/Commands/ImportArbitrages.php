@@ -16,6 +16,7 @@ class ImportArbitrages extends Command
 
     public function handle()
     {
+        $this->line('🚀 Команда запущена!');
         $path = storage_path('app/' . $this->argument('file'));
 
         $spreadsheet = IOFactory::load($path);
