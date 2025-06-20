@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelReader;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Str;
 use App\Models\Player;
@@ -14,12 +14,12 @@ class ImportArbitrages extends Command
     protected $signature = 'import:players {file}';
     protected $description = 'Импортирует игроков и их репутацию из Excel-файла (4-й лист)';
 
-    public function handle()
+    public function handle(ExcelReader $excel)
     {
-        $file = storage_path("app/" . $this->argument('file'));
+        $path = storage_path("app/" . $this->argument('file'));
 
         // Получаем 4-й лист
-        $rows = Excel::toArray([], $file);
+        $rows = $excel->toArray([], $path);
         $data = $rows[3] ?? [];
 
         if (empty($data)) {
