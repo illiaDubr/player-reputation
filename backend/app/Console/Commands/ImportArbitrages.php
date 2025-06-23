@@ -92,4 +92,32 @@ class ImportArbitrages extends Command
                     'created_at_reputation' => $this->parseDate($assoc['DateAppear'] ?? null),
                 ]);
 
-                $this->line("✅ Добавлен: {$player-
+                $this->line("✅ Добавлен: {$player->email} (ID: {$player->player_id})");
+                $success++;
+            } catch (\Throwable $e) {
+                $this->error("❌ Ошибка на строке {$total}: " . $e->getMessage());
+                $failed++;
+            }
+        }
+
+        fclose($handle);
+
+        $this->newLine();
+        $this->info("📊 Импорт завершён:");
+        $this->info("   ✅ Успешно:  {$success}");
+        $this->info("   ⏭ Пропущено: {$skipped}");
+        $this->info("   ❌ Ошибок:    {$failed}");
+        $this->info("   Всего строк: {$total}");
+    }
+
+    protected function parseDate($value): ?string
+    {
+        if (!$value) return null;
+
+        try {
+            return Carbon::parse($value)->format('Y-m-d');
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+}
