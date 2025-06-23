@@ -1,19 +1,17 @@
 <?php
 
-
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Illuminate\Support\Str;
 use App\Models\Player;
 use App\Models\ReputationRecord;
+use Carbon\Carbon;
 
 class ImportArbitrages extends Command
 {
-    protected $signature = 'import:players-raw {file}';
-    protected $description = 'Импортирует игроков и репутацию из Excel без Laravel Excel';
+    protected $signature = 'import:players-csv {file}';
+    protected $description = 'Импортирует игроков и репутацию из CSV файла';
 
     public function handle()
     {
@@ -25,52 +23,33 @@ class ImportArbitrages extends Command
             return;
         }
 
-        try {
-            $spreadsheet = IOFactory::load($path);
-        } catch (\Throwable $e) {
-            $this->error('❌ Ошибка при чтении Excel: ' . $e->getMessage());
+        $handle = fopen($path, 'r');
+        if (!$handle) {
+            $this->error("❌ Не удалось открыть файл.");
             return;
         }
 
-        $sheetNames = $spreadsheet->getSheetNames();
-        $this->line('📑 Найденные листы:');
-        foreach ($sheetNames as $index => $name) {
-            $this->line("  [{$index}] {$name}");
-        }
-
-        $sheet = $spreadsheet->getSheet(0); // 2-й лист
-        $rows = $sheet->toArray(null, true, true, true);
-        $this->line('📄 Строк в листе: ' . count($rows));
-
-        if (empty($rows)) {
-            $this->error('❌ Лист пуст!');
+        $headers = fgetcsv($handle, 10000, ',');
+        if (!$headers) {
+            $this->error("❌ Не удалось прочитать заголовки.");
+            fclose($handle);
             return;
         }
 
-        $headers = array_map('trim', $rows[0]);
+        $headers = array_map('trim', $headers);
         $this->line('🔍 Заголовки: ' . json_encode($headers));
-        $records = array_slice($rows, 1);
 
-        if (empty($records)) {
-            $this->error('❌ Нет данных после заголовков!');
-            return;
-        }
-
-        $this->line('🔍 Пример первой строки данных: ' . json_encode($records[0]));
-
-        $total = count($records);
+        $total = 0;
         $success = 0;
         $skipped = 0;
         $failed = 0;
 
-        foreach ($records as $rowIndex => $row) {
-            $assoc = [];
-            foreach ($headers as $key => $header) {
-                $assoc[$header] = $row[$key] ?? null;
-            }
+        while (($row = fgetcsv($handle, 10000, ',')) !== false) {
+            $total++;
+            $assoc = array_combine($headers, $row);
 
             if (empty($assoc['NickNames'])) {
-                $this->warn("⏭ Строка " . ($rowIndex + 2) . " пропущена — отсутствует NickNames.");
+                $this->warn("⏭ Строка {$total} пропущена — отсутствует NickNames.");
                 $skipped++;
                 continue;
             }
@@ -101,10 +80,12 @@ class ImportArbitrages extends Command
                 $this->line("✅ Добавлен: {$player->email} (ID: {$player->player_id})");
                 $success++;
             } catch (\Throwable $e) {
-                $this->error("❌ Ошибка на строке " . ($rowIndex + 2) . ": " . $e->getMessage());
+                $this->error("❌ Ошибка на строке {$total}: " . $e->getMessage());
                 $failed++;
             }
         }
+
+        fclose($handle);
 
         $this->newLine();
         $this->info("📊 Импорт завершён:");
@@ -119,10 +100,7 @@ class ImportArbitrages extends Command
         if (!$value) return null;
 
         try {
-            if (is_numeric($value)) {
-                return Date::excelToDateTimeObject($value)->format('Y-m-d');
-            }
-            return \Carbon\Carbon::parse($value)->format('Y-m-d');
+            return Carbon::parse($value)->format('Y-m-d');
         } catch (\Throwable $e) {
             return null;
         }
