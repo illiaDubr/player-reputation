@@ -49,13 +49,7 @@ class ImportArbitrages extends Command
             $assoc = array_combine($headers, $row);
 
             try {
-                $email = $assoc['Mail'] ?? null;
 
-                if (!$email) {
-                    $this->warn("⏭ Строка {$total} пропущена — нет email.");
-                    $skipped++;
-                    continue;
-                }
 
                 $player = Player::where('email', $email)->first();
 
