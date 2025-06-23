@@ -8,7 +8,7 @@ use App\Models\Player;
 use App\Models\ReputationRecord;
 use Carbon\Carbon;
 
-class ImportArbitragesCsv extends Command
+class ImportArbitrages extends Command
 {
     protected $signature = 'import:players-csv {file}';
     protected $description = 'Импортирует игроков и репутацию из CSV файла';
