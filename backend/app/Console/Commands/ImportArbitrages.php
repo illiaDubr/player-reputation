@@ -48,11 +48,7 @@ class ImportArbitrages extends Command
             $total++;
             $assoc = array_combine($headers, $row);
 
-            if (empty($assoc['NickNames'])) {
-                $this->warn("⏭ Строка {$total} пропущена — отсутствует NickNames.");
-                $skipped++;
-                continue;
-            }
+
 
             try {
                 $player = Player::updateOrCreate(
