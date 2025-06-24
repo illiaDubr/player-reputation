@@ -111,7 +111,7 @@ const ResultItemList = ({results = [], checked, backerId}) => {
                             <div className={styles[`player__card-amount`]}>
                                 <ResultItem
                                     title="Фонд"
-                                    content={result.fund_name}
+                                    content={result.fund_name || "Player`s Reputation"}
                                 />
                                 <ClaimAmount
                                     src={result.source}
