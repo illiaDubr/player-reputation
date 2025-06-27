@@ -20,12 +20,16 @@ use App\Http\Controllers\ChangeController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\BackerController;
 use App\Http\Controllers\DiscordImportController;
+use App\Http\Controllers\ApiController;
 //Роуты для игроков
 
 Route::post('/messages', [DiscordImportController::class, 'import']);
 // Счётчик запросов
 Route::get('/stats/search-players', [StatsController::class, 'searchPlayersCount']);
 
+Route::prefix('search-player')->group(function () {
+    Route::post('/', [ApiController::class, 'search']);
+});
 Route::prefix('search-players')->group(function () {
     Route::post('/', [PlayerController::class, 'search']);
 });
