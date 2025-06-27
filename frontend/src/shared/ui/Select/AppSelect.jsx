@@ -2,6 +2,7 @@ import React from "react";
 import "./AppSelect.scss";
 import styles from './AppSelect.module.scss'
 import Select from "react-select";
+import PropTypes from "prop-types";
 
 const AppSelect = React.forwardRef(({
                                         rawOptions = [],
@@ -67,5 +68,38 @@ const AppSelect = React.forwardRef(({
         </div>
     )
 });
+
+AppSelect.propTypes = {
+    rawOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    labelKey: PropTypes.string,
+    valueKey: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    placeholder: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
+    onChange: PropTypes.func,
+    isSearchable: PropTypes.bool,
+    name: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
+
+AppSelect.propTypes = {
+    rawOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    labelKey: PropTypes.string,
+    valueKey: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    placeholder: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object,
+        PropTypes.oneOf([null])
+    ]),
+    onChange: PropTypes.func,
+    isSearchable: PropTypes.bool,
+    name: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
 
 export default AppSelect;
