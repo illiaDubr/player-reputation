@@ -1,0 +1,80 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.feedback {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  gap: 20px;
+  padding: 40px;
+  border-radius: 20px;
+  background: url("@shared/assets/image/grid.webp") center / 15% repeat;
+  border: 3px solid #2750f2;
+  overflow: hidden;
+
+  .feedback__title {
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    @include font-style(600, null, 120, #FFFFFF);
+    @include font-size(56, 24);
+  }
+
+  .feedback__form {
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    max-width: 755px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &:before, &:after {
+    content: "";
+    width: 278px;
+    height: 278px;
+    background: #0a0618;
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    border: 27px solid #2a4bfb;
+    box-shadow: 0 0 83px 0 #2a4bfb;
+  }
+
+  &:before {
+    left: -110px;
+    bottom: -160px;
+  }
+
+  &:after {
+    top: -190px;
+    left: 17%;
+  }
+}
+
+@media (max-width: 865px) {
+  .feedback {
+    flex-direction: column;
+
+    .feedback__title {
+      text-align: center;
+    }
+
+    .feedback__form {
+      align-items: center;
+    }
+  }
+}
+
+// === / Styles === //

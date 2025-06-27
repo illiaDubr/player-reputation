@@ -1,0 +1,181 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.result__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: relative;
+  padding: 0px 0px 100px 0px;
+
+  .result__item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    .player__card {
+      display: flex;
+      padding: 17px;
+      border: 2px solid #000729;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      background: rgba(0, 37, 68, 0.35);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+
+      &-left {
+        flex: 1 1 350px;
+        max-width: 390px;
+        flex-direction: column;
+
+        .player__full-name {
+          @include font-style(600, 20, 130, #FFFFFF);
+          padding-bottom: 16px;
+          position: relative;
+          z-index: 2;
+        }
+
+        .player__item-wrap {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 12px;
+          position: relative;
+          z-index: 2;
+        }
+
+        &:after {
+          width: 120px;
+          height: 120px;
+          top: 50%;
+          left: 50%;
+          filter: blur(90px);
+        }
+      }
+
+      &-right {
+        flex: 1 1 440px;
+        position: relative;
+        flex-direction: row;
+        gap: 14px;
+
+        .player__info {
+          min-width: 100px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+          @include font-style(500, 14, 130, #FFFFFF);
+
+          div {
+            color: transparent;
+          }
+        }
+
+        .player__card-tag--wrap {
+          display: flex;
+          gap: 10px;
+          position: absolute;
+          z-index: 2;
+          top: 0px;
+          right: 16px;
+
+          .player__card-tag {
+            border-radius: 0 0 8px 8px;
+            padding: 12px 16px 4px 16px;
+            @include font-style(500, 14, 143, #121317);
+
+            &--red {
+              background: linear-gradient(180deg, #ff2828 0%, #ff3838 27.89%);
+              color: #FFFFFF;
+            }
+
+            &--orange {
+              background: linear-gradient(180deg, #f80 0%, #f79e1b 27.89%);
+            }
+
+            &--yellow {
+              background: linear-gradient(180deg, #fb0 0%, #fc0 27.89%);
+            }
+
+            &--green {
+              background: linear-gradient(180deg, #01d9ff 0%, #0fe 27.89%);
+            }
+
+            &--gray {
+              background: linear-gradient(180deg, #7c7c7c 0%, #9d9d9d 27.89%);
+            }
+
+            &--ds {
+              background: linear-gradient(180deg, #3d4df7 0%, #5865f2 27.89%);
+            }
+          }
+        }
+
+        .player__card-amount {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          padding-bottom: 38px;
+          position: relative;
+          z-index: 2;
+        }
+
+        &:after {
+          width: 320px;
+          height: 320px;
+          top: 80%;
+          right: -27%;
+          filter: blur(160px);
+        }
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        border-radius: 50%;
+        background: #2750f2;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+@media (width < 979px) {
+  .result__wrapper {
+    .result__item {
+      .player__card {
+        &-left {
+          max-width: initial;
+
+          .player__item-wrap {
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+          }
+        }
+
+        &-right {
+          align-items: flex-start;
+          flex-direction: column;
+
+          .player__info {
+            flex-direction: row;
+          }
+        }
+      }
+    }
+  }
+}
+
+// === / Styles === //

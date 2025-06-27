@@ -1,0 +1,56 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.search-mode-switcher {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  @include font-style(400, 14, 130, #FFFFFF);
+
+  input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  .search-mode-switcher__label {
+    width: 60px;
+    height: 24px;
+    cursor: pointer;
+    background: #13236e;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    transition: all .3s ease;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: #2750f2;
+      border-radius: 50%;
+      transition: all .3s ease;
+    }
+
+    &:active:after {
+      width: 50px;
+    }
+  }
+
+  input:checked + label {
+    background: #2a4bfb;
+  }
+
+  input:checked + label:after {
+    right: 0;
+    background: #FFFFFF;
+  }
+}
+
+// === / Styles === //

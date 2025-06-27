@@ -1,0 +1,145 @@
+// === Include your styles here === //
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.css-b62m3t-container {
+  .app-select__control {
+    position: relative;
+    cursor: pointer;
+
+    .app-select__value-container {
+      position: relative;
+      height: 58.8px;
+      min-width: 230px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      background: #181817;
+      transition: all .4s ease;
+
+      .app-select__placeholder {
+        @include font-style(500, 16, 130, #999999);
+        padding-left: 19px;
+      }
+
+      .app-select__single-value {
+        @include font-style(500, 16, 130, #FFFFFF);
+        padding-left: 19px;
+      }
+
+      .app-select__input-container {
+        position: absolute;
+        top: 50%;
+        left: 19px;
+        transform: translate(0%, -50%);
+      }
+
+      .app-select__input-container {
+        @include font-style(500, 16, 130, #FFFFFF);
+        .app-select__input {
+        }
+      }
+    }
+
+    .app-select__indicators {
+      height: 20px;
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translate(0%, -50%);
+
+      .app-select__indicator {
+        height: 20px;
+
+        svg {
+          transition: all .4s ease;
+          fill: #999999;
+        }
+      }
+    }
+
+    &:hover {
+      .app-select__indicators {
+        .app-select__indicator {
+          svg {
+            fill: #FFFFFF;
+          }
+        }
+      }
+    }
+  }
+
+  .app-select__control--menu-is-open {
+    .app-select__value-container {
+      border-radius: 8px 8px 0 0;
+      box-shadow: inset 0 4px 16px -8px rgba(125, 140, 161, 0.04);
+    }
+
+    .app-select__indicators {
+      .app-select__indicator {
+        svg {
+          rotate: 180deg;
+        }
+      }
+    }
+  }
+
+  .app-select__menu {
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+
+    .app-select__menu-list {
+      max-height: 120px;
+      padding: 0px;
+      border-radius: 0 0 8px 8px;
+
+      .app-select__option {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        @include font-style(500, 14, 130, #FFFFFF);
+        background: #202125;
+        border-bottom: 2px solid #181817;
+        padding-left: 20px;
+        cursor: pointer;
+        transition: all .4s ease;
+
+        &:hover {
+          background: #131314;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .app-select__menu-notice {
+        background: #202125;
+        @include font-style(500, 14, 130, #999999);
+      }
+
+      &::-webkit-scrollbar {
+        background: #232428;
+        border-radius: 0px 0px 8px 0px;
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #2750F2;
+        border-radius: 5px;
+      }
+
+      &:root {
+        scrollbar-width: thin;
+        scrollbar-color: #2750F2 #232428;
+      }
+    }
+  }
+}
+
+// === / Styles === //

@@ -1,0 +1,29 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.loader__wrap {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .4s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+// === / Styles === //

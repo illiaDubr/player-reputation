@@ -1,0 +1,22 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.submit {
+  background: #2750f2;
+  width: 100%;
+  padding: 16px 14px;
+  border-radius: 8px;
+  @include font-style(600, 20, 130, #fff);
+  letter-spacing: -.01em;
+
+  &:hover {
+    background: #2750f2;
+  }
+}
+
+// === / Styles === //

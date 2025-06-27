@@ -1,0 +1,137 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.modal {
+  position: fixed;
+  inset: 0;
+  transition: .7s ease-in-out;
+  backdrop-filter: blur(50px);
+  background: rgba(0, 0, 7, 0.8);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal__content {
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+    position: relative;
+    padding: 40px 32px;
+    gap: 28px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.4);
+    background: url("@shared/assets/image/grid.webp") center center / 16% repeat #01030b;
+    overflow: hidden;
+    border: 1px solid rgba(129, 129, 129, .7);
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      @include font-style(500, null, 130, #FFFFFF);
+      @include font-size(24, 20);
+      position: relative;
+      z-index: 2;
+
+      .modal__btn {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .modal__body {
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 6px 11px;
+      position: relative;
+      z-index: 2;
+
+      &::-webkit-scrollbar {
+        background: #121317;
+        border-radius:8px;
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #2750F2;
+        border-radius: 5px;
+      }
+
+      &:root {
+        scrollbar-width: thin;
+        scrollbar-color: #2750F2 #121317;
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(200px);
+      background: #2a4bfb;
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  .modal__auth {
+    flex-direction: row;
+    padding: 0px;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 600px;
+    aspect-ratio: 2/1;
+  }
+
+  .actions__modal {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .modal__slides {
+    width: 100%;
+    max-width: 741px;
+  }
+
+  &__visible {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+    pointer-events: all;
+  }
+
+  &__hidden {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &__visible:not(.modal__first) {
+    .modal__content {
+      top: 0px;
+    }
+  }
+
+  &__hidden:not(.modal__first) {
+    .modal__content {
+      top: -100%;
+    }
+  }
+}
+
+// === / Styles === //

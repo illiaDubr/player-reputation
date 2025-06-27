@@ -1,0 +1,75 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.title {
+  max-width: 448px;
+  padding: 0px 0px 0px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .title__box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .info__switch-wrap {
+      padding: 0px 0px 12px 0px;
+
+      .info__switch-box {
+        padding: 8px;
+        gap: 24px;
+
+        .info__switch {
+          padding: 8px 24px;
+        }
+      }
+    }
+
+    h1 {
+      @include font-style(600, 58, 100, #FFFFFF);
+      text-wrap: balance;
+      margin: 0px;
+    }
+
+    .title__subtitle {
+      @include font-style(400, 20, 130, #FFFFFF);
+    }
+  }
+}
+
+:global(.title__gradient) {
+  @include font-style(500, 20, 130, transparent);
+  letter-spacing: -0.01em;
+  background: linear-gradient(7deg, #6145ff 0%, #ba9dff 100%);
+  background-clip: text;
+}
+
+@media (max-width: 1100px) {
+  .title {
+    max-width: initial;
+    padding: 0px;
+    align-items: center;
+    gap: 20px;
+
+    .title__box {
+      align-items: center;
+
+      h1 {
+        font-size: 35px;
+        text-align: center;
+      }
+
+      .title__subtitle {
+        text-align: center;
+      }
+    }
+  }
+}
+
+// === / Styles === //
