@@ -10,6 +10,62 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/search-players",
+     *     tags={"Players"},
+     *     summary="Поиск игроков с возвратом репутации",
+     *     description="Возвращает игроков с метками, комментариями, фондом, суммой ущерба. Логика ответа зависит от количества совпадений: если только по имени/фамилии — ответ с сообщением о неточных совпадениях; при других совпадениях — подробные данные.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="universal", type="string", example="ivanov"),
+     *             @OA\Property(property="first_name", type="string", example="Иван"),
+     *             @OA\Property(property="last_name", type="string", example="Иванов"),
+     *             @OA\Property(property="middle_name", type="string", example="Петрович"),
+     *             @OA\Property(property="discord", type="string", example="ivan#1234"),
+     *             @OA\Property(property="email", type="string", example="ivanov@example.com"),
+     *             @OA\Property(property="phonenumber", type="string", example="+79991234567"),
+     *             @OA\Property(property="PS", type="string", example="ivanov88"),
+     *             @OA\Property(property="GG", type="string", example="ivan_pro88")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Список игроков с репутацией или сообщение о неточных совпадениях",
+     *         @OA\JsonContent(
+     *             oneOf={
+     *                 @OA\Schema(
+     *                     type="array",
+     *                     @OA\Items(
+     *                         @OA\Property(property="id", type="integer", example=1),
+     *                         @OA\Property(property="first_name", type="string", example="Иван"),
+     *                         @OA\Property(property="last_name", type="string", example="Иванов"),
+     *                         @OA\Property(property="GG", type="string", example="ivan_pro88"),
+     *                         @OA\Property(property="reputation", type="array",
+     *                             @OA\Items(
+     *                                 @OA\Property(property="fund_name", type="string", example="Alpha Fund"),
+     *                                 @OA\Property(property="comment", type="string", example="Нарушил условия сделки"),
+     *                                 @OA\Property(property="damage", type="number", example=700),
+     *                                 @OA\Property(property="created_at", type="string", example="2025-06-01T12:00:00Z")
+     *                             )
+     *                         )
+     *                     )
+     *                 ),
+     *                 @OA\Schema(
+     *                     type="object",
+     *                     @OA\Property(property="message", type="string", example="Нет точных совпадений"),
+     *                     @OA\Property(property="similar_count", type="integer", example=3)
+     *                 )
+     *             }
+     *         )
+     *     )
+     * )
+     */
+
+
+
+
     public function search(Request $request)
     {
 
