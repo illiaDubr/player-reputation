@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Player;
 use App\Models\ReputationRecord;
 use Illuminate\Http\Request;
