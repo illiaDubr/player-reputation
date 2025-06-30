@@ -57,7 +57,7 @@ const SearchForm = ({checked, setChecked, fund_name}) => {
                     ) :(
                         <BasicSearchInput methods={methods} />
                     )}
-                    <Button>
+                    <Button maxWidth="100%">
                         Найти
                     </Button>
                 </form>

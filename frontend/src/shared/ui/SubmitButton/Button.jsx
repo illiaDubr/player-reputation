@@ -14,9 +14,19 @@ import PropTypes from "prop-types";
  * @param {function} [props.onClick] – Колбэк при нажатии
  */
 
-const Button = ({children = "Отправить", isLoading, maxWidth, type = "submit", onClick}) => {
+const Button = ({
+                    children = "Отправить",
+                    isLoading,
+                    maxWidth,
+                    type = "submit",
+                    onClick}) => {
     return (
-        <button type={type} className={`${styles.submit}`} style={{maxWidth: `${maxWidth}px`}} onClick={onClick}>
+        <button
+            type={type}
+            className={`${styles.submit}`}
+            style={{ maxWidth: typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth }}
+            onClick={onClick}
+        >
             {isLoading ? "Загрузка..." : children}
         </button>
     )
@@ -25,7 +35,7 @@ const Button = ({children = "Отправить", isLoading, maxWidth, type = "s
 Button.propTypes = {
     children: PropTypes.node,
     isLoading: PropTypes.bool,
-    maxWidth: PropTypes.number,
+    maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(["button", "submit", "reset"]),
     onClick: PropTypes.func
 };
