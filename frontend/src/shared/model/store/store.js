@@ -113,7 +113,7 @@ export default class Store {
     }
 
     async download() {
-        await request({
+         return await request({
             asyncFn: () => AdminService.download(),
             defaultMessage: "Ошибка при скачивании",
         })
