@@ -10,6 +10,6 @@ export default class AdminService {
     }
 
     static async download() {
-        return $api.get(`/api/backup/download`, { responseType: 'blob' });
+        return $api.get(`/api/backup/download`, { responseType: 'blob', withCredentials: true });
     }
 }
