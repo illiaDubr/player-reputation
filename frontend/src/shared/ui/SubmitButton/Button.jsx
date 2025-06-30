@@ -15,10 +15,10 @@ import PropTypes from "prop-types";
  */
 
 const Button = ({
-                    children = "Отправить",
+                    children,
                     isLoading,
                     maxWidth,
-                    type = "submit",
+                    type,
                     onClick}) => {
     return (
         <button
