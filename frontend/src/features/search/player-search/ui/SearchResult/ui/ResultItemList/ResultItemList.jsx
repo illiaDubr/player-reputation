@@ -73,7 +73,7 @@ const ResultItemList = ({results = [], checked, backerId}) => {
                                         {title: "PS", content: result.Pokerstars_com, iconId: "PS"},
                                         {title: "PS.es", content: result.Pokerstars_es, iconId: "PS"},
                                         {title: "WPN", content: result.WPNpoker, iconId: "WPN"},
-                                        {title: "WMX", content: result.Winamax_es, iconId: "WMX"},
+                                        {title: "WMX.es", content: result.Winamax_es, iconId: "WMX"},
                                         //{title: "IP", content: result., iconId: "IP"},
                                         {title: "GG", content: result.GG, iconId: "GG"},
                                         {title: "GG", content: result.Ggnetwork, iconId: "GG"},
