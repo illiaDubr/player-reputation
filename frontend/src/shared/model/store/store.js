@@ -111,4 +111,11 @@ export default class Store {
             defaultMessage: "Ошибка при отправке",
         })
     }
+
+    async download() {
+        await request({
+            asyncFn: () => AdminService.download(),
+            defaultMessage: "Ошибка при скачивании",
+        })
+    }
 }

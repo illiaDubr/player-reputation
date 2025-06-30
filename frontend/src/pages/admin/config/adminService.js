@@ -8,4 +8,8 @@ export default class AdminService {
     static async getUnApprovedBackers() {
         return $api.get(`api/backers/unapproved`);
     }
+
+    static async download() {
+        return $api.get(`/api/backup/download`, { responseType: 'blob' });
+    }
 }
