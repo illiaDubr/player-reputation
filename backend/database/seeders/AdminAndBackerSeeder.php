@@ -14,7 +14,7 @@ class AdminAndBackerSeeder extends Seeder
             ['email' => 'admin@example.com'], // критерий поиска
             [
                 'name' => 'Главный Админ',
-                'password' => bcrypt('wQev@234sEd'), // обязательно хэш
+                'password' => bcrypt('change-me-locally'), // обязательно хэш
                 'role' => 'admin',
             ]
         );
