@@ -14,8 +14,8 @@ const EntityListPage = observer(({
     React.useEffect(() => {
         let mounted = true;
 
-        getData(store)
-            .then((response) => {
+        getData(store).then((response) => {
+                console.log('RESPONSE:', response);
                 if (!response || !response.data) return;
                 if (mounted) setData(response.data);
             })
