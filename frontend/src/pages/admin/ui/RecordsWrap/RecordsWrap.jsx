@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./InfoWrap.module.scss";
+import styles from "./RecordsWrap.module.scss";
 
 const RecordsWrap = ({children, className}) => {
     return (
