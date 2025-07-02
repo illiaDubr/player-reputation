@@ -99,7 +99,7 @@ export default class Store {
     // --- Методы админ панели ---
 
     async getUnApprovedBackers() {
-        await request({
+        return await request({
             asyncFn: () => AdminService.getUnApprovedBackers(),
             defaultMessage: "Ошибка при отправке",
         })
