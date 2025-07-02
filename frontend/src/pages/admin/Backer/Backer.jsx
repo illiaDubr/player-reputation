@@ -10,21 +10,26 @@ const Backer = observer(() => {
         <EntityListPage
             title="Заявки на верификацию"
             getData={store => store.getUnApprovedBackers()}
-            renderContent={(data, setData) => (
-                <div>
-                    {data.length === 0 ? (
-                        <p>Нет заявок</p>
-                    ) : (
-                        <ul>
-                            {data.map((item) => (
-                                <li key={item.id}>
-                                    {item.fund_name || 'Пусто'}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-            )}
+            renderContent={(data, setData) => {
+                const list = Array.isArray(data) ? data : (data?.data || []);
+
+                console.log(data);
+                return (
+                    <div>
+                        {list.length === 0 ? (
+                            <p>Нет заявок</p>
+                        ) : (
+                            <ul>
+                                {list.map((item) => (
+                                    <li key={item.id}>
+                                        {item.fund_name || 'Пусто'}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )
+            }}
         />
     )
 })

@@ -28,7 +28,7 @@ const EntityListPage = observer(({
         };
     }, [store, getData]);
 
-    console.log(data)
+    console.log(data);
 
     return (
         <>
