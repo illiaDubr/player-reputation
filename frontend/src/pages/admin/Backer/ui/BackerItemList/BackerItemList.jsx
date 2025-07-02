@@ -2,7 +2,7 @@ import React from "react";
 import RecordsWrap from "@pages/admin/ui/RecordsWrap/index.js";
 import RecordItem from "@pages/admin/ui/RecordItem/index.js";
 
-const BackerItemList = ({data}) => {
+const BackerItemList = ({data, approvedControl}) => {
     const list = Array.isArray(data) ? data : (data?.data || []);
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
 
