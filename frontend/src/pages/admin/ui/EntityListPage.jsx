@@ -35,7 +35,7 @@ const EntityListPage = observer(({
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            {renderContent(data, setData)}
+            {data.length === 0 ? <div>Загрузка...</div> : renderContent(data, setData)}
         </>
     );
 });
