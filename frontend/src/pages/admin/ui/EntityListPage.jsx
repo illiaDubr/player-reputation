@@ -29,6 +29,8 @@ const EntityListPage = observer(({
         };
     }, [store, getData]);
 
+    console.log(data)
+
     return (
         <>
             <Helmet>
