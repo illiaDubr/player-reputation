@@ -9,7 +9,7 @@ const Backer = observer(() => {
     return (
         <EntityListPage
             title="Заявки на верификацию"
-            getData={store => store.getApprovedBackers()}
+            getData={store => store.getUnApprovedBackers()}
             renderContent={(data, setData) => (
                 <div>
                     {data.length === 0 ? (
