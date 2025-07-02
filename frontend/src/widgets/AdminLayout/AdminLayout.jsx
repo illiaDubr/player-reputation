@@ -16,22 +16,21 @@ const AdminHeaderResponsive = () => {
 
 const AdminLayout = () => {
     const matches = useMatches();
+    const currentBreadcrumb = matches[matches.length - 1]?.handle?.breadcrumb;
 
     React.useEffect(() => {
         document.body.classList.add('page-platform');
         return () => document.body.classList.remove('page-platform');
     }, []);
 
-    const crumbs = matches.map((match, idx) => (
-        <div className={styles[`admin__title`]} key={idx}>
-            {match.handle?.breadcrumb}
-        </div>
-    ));
-
     return (
         <BaseLayout className="main-platform" header={<AdminHeaderResponsive/>}>
             <div className={styles[`admin__container`]}>
-                {crumbs}
+                {currentBreadcrumb && (
+                    <div className={styles[`admin__title`]}>
+                        {currentBreadcrumb}
+                    </div>
+                )}
                 <Outlet/>
             </div>
         </BaseLayout>

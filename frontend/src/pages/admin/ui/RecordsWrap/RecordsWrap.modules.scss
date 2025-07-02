@@ -1,0 +1,32 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.info_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+  position: relative;
+
+  .info {
+    border: 2px solid #003133;
+    border-radius: 8px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 41, 43, 0.35);
+    overflow: hidden;
+  }
+
+  .backer {
+    width: 100%;
+    min-height: 194px;
+  }
+}
+
+// === / Styles === //
