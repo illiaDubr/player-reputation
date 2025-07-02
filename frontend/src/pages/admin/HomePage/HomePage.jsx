@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "@shared/ui/SubmitButton";
 import {useStore} from "@app/providers";
+import {Helmet} from "react-helmet-async";
 
 const HomePage = () => {
     const { store } = useStore();
@@ -33,14 +34,21 @@ const HomePage = () => {
 
 
     return (
-        <div style={{color: "white"}}>
-            Админка
-            <form method="GET" className="" onSubmit={handleSubmit}>
-                <Button>
-                    Скачать
-                </Button>
-            </form>
-        </div>
+        <>
+            <Helmet>
+                <title>
+                    Админ Панель
+                </title>
+            </Helmet>
+            <div style={{color: "white"}}>
+                Админка
+                <form method="GET" className="" onSubmit={handleSubmit}>
+                    <Button>
+                        Скачать
+                    </Button>
+                </form>
+            </div>
+        </>
     )
 }
 

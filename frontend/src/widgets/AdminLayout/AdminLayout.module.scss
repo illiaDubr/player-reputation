@@ -7,11 +7,34 @@
 // === Styles === //
 
 .admin__container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   border: 1px solid #818181;
   backdrop-filter: blur(40px);
   background: rgba(8, 8, 8, 0.7);
   padding: 36px;
   border-radius: 20px;
+  position: relative;
+
+  .admin__title {
+    @include font-style(600, null, 120, #fff);
+    @include font-size(32, 27);
+  }
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    background: #006e72;
+  }
+
+  &:before {
+
+  }
+
+  &:after {
+
+  }
 }
 
 // === / Styles === //
