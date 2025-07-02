@@ -7,10 +7,9 @@ const EntityListPage = observer(({
                                      title = "",
                                      getData,
                                      renderContent,
-                                     initialData = [],
                                  }) => {
     const { store } = useStore();
-    const [data, setData] = React.useState(initialData);
+    const [data, setData] = React.useState([]);
 
     React.useEffect(() => {
         let mounted = true;
