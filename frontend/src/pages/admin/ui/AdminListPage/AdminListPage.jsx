@@ -4,7 +4,7 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "@app/providers/index.jsx";
 
 const AdminListPage = observer(({
-                                     title = "",
+                                     title = null,
                                      getData,
                                      renderContent,
                                  }) => {

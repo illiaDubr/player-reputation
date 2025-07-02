@@ -16,6 +16,7 @@
   padding: 36px;
   border-radius: 20px;
   position: relative;
+  overflow: hidden;
 
   .admin__title {
     @include font-style(600, null, 120, #fff);
@@ -24,16 +25,23 @@
 
   &:before, &:after {
     content: '';
+    width: 220px;
+    height: 220px;
+    filter: blur(120px);
     position: absolute;
     background: #006e72;
+    border-radius: 50%;
+    z-index: -1;
   }
 
   &:before {
-
+    right: -100px;
+    top: -50px;
   }
 
   &:after {
-
+    left: -100px;
+    bottom: -50px;
   }
 }
 
