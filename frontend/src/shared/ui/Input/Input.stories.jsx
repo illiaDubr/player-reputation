@@ -6,6 +6,13 @@ export default {
     title: 'Shared/Input',
     component: Input,
     tags: ['autodocs'],
+    decorators: [
+        (Story) => (
+            <div style={{ width: '100%', background: '#232323', padding: 32, borderRadius: '10px' }}>
+                <Story />
+            </div>
+        ),
+    ],
     parameters: {
         docs: {
             description: {
@@ -30,17 +37,6 @@ export default {
 <Input as="textarea" label="Описание" />
 <Input as="radio" label="Выберите роль" options={[{label: "A", value: "a"}]} />
 <Input customInput label="Сумма" />
-\`\`\`
-
-##### В связке с react-hook-form:
-\`\`\`jsx
-<Controller
-  name="amount"
-  control={control}
-  render={({ field, fieldState }) => (
-    <Input {...field} label="Сумма" error={fieldState.error?.message} />
-  )}
-/>
 \`\`\`
         `
             }
@@ -77,14 +73,25 @@ CustomInput.args = {
     placeholder: 'Введите сумму'
 };
 
-export const Radio = Template.bind({});
-Radio.args = {
-    as: 'radio',
-    label: 'Выберите опцию',
-    options: [
-        { label: 'Первый', value: 'one' },
-        { label: 'Второй', value: 'two' }
-    ],
-    name: 'radio_example',
-    value: 'one',
+export const Radio = () => {
+    const { control } = useForm({
+        defaultValues: { role: 'one' }
+    });
+    return (
+        <Controller
+            name="role"
+            control={control}
+            render={({ field }) => (
+                <Input
+                    {...field}
+                    as="radio"
+                    label="Выберите опцию"
+                    options={[
+                        { label: 'Первый', value: 'one' },
+                        { label: 'Второй', value: 'two' }
+                    ]}
+                />
+            )}
+        />
+    );
 };

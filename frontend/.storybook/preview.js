@@ -1,3 +1,5 @@
+import '@shared/styles/normalize.scss';
+
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   parameters: {
