@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "@shared/ui/Input/index.jsx";
+import Input from "@shared/ui/Input/index.js";
 
 const BasicSearchInput = ({methods}) => {
     const { register, formState: { errors } } = methods;
