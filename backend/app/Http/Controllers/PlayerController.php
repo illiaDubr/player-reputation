@@ -162,7 +162,7 @@ class PlayerController extends Controller
             $nicknameFields = [
                 'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
                 '888poker','WPNpoker','Stretchpoker','Coinpoker',
-                'chikoPoker','nickiPoker'
+                'chikoPoker','nickiPoker','Winamax_es','Winamax_fr','Pokerstars_es','Pokerstars_com','Ggnetwork','Ggpokerok'
             ];
 
             $query->where(function ($outer) use ($terms, $nicknameFields) {

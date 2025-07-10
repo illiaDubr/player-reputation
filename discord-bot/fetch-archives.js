@@ -4,10 +4,6 @@ const path = require('path');
 const { Client, GatewayIntentBits } = require('discord.js');
 
 const CHANNEL_ENV_KEYS = [
-    'PULL_OF_PROBLEMATIC_PLAYERS',
-    'PLAYERS_ON_PAUSE',
-    'PUBLICATION_OF_ARBITRATIONS',
-    'PUBLICATION_OF_REHABILITATED_PLAYERS',
     'PULL_OF_PROBLEMATIC_PLAYERSV2',
     'PLAYERS_ON_PAUSEV2',
     'PUBLICATION_OF_ARBITRATIONSV2',
@@ -26,6 +22,8 @@ const client = new Client({
 client.once('ready', async () => {
     console.log(`✅ Авторизовались как ${client.user.tag}`);
 
+    const allMessages = [];
+
     for (const key of CHANNEL_ENV_KEYS) {
         const channelId = process.env[key];
         if (!channelId) {
@@ -39,7 +37,6 @@ client.once('ready', async () => {
             continue;
         }
 
-        const allMessages = [];
         let lastMessageId = null;
         let done = false;
 
@@ -61,6 +58,8 @@ client.once('ready', async () => {
 
                 allMessages.push({
                     id: msg.id,
+                    channel_id: channel.id,
+                    channel_name: channel.name,
                     author: msg.author.username,
                     roles,
                     content: msg.content,
@@ -72,11 +71,11 @@ client.once('ready', async () => {
             console.log(`📦 Получено: ${messages.size}, всего: ${allMessages.length}`);
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
-
-        const filename = `history_${key.toLowerCase()}.json`;
-        fs.writeFileSync(path.join(__dirname, filename), JSON.stringify(allMessages, null, 2));
-        console.log(`✅ Сохранено в ${filename}`);
     }
+
+    const filename = 'historyqq.json';
+    fs.writeFileSync(path.join(__dirname, filename), JSON.stringify(allMessages, null, 2));
+    console.log(`✅ Все сообщения сохранены в ${filename}`);
 
     client.destroy();
 });
