@@ -7,6 +7,7 @@ use App\Models\ReputationRecord;
 use App\Models\RouteCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ApiController extends Controller
 {
@@ -68,7 +69,18 @@ class ApiController extends Controller
 
     public function search(Request $request)
     {
+        $ip = $request->ip();
+        $key = 'search_limit:' . $ip;
+        $limit = 30;
 
+        $current = Cache::get($key, 0);
+        if ($current >= $limit) {
+            return response()->json([
+                'message' => 'Превышен лимит запросов на сегодня (30)',
+            ], 429);
+        }
+
+        Cache::put($key, $current + 1, now()->endOfDay());
         // Поиск игроков
         $results = $this->filterPlayers($request)
             ->with('reputationRecords')
@@ -85,7 +97,7 @@ class ApiController extends Controller
             'discord', 'email', 'phonenumber',
             'PS','GG','RedStar','TigerGaming','PartyPoker','Pokerstars',
             '888poker','WPNpoker','Stretchpoker','Coinpoker',
-            'chikoPoker','nickiPoker'
+            'chikoPoker','nickiPoker','Winamax_es','Winamax_fr','Pokerstars_es','Pokerstars_com','Ggnetwork','Ggpokerok'
         ];
 
         foreach ($results as $player) {

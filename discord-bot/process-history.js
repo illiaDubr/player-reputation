@@ -120,7 +120,7 @@ async function processMessage(message) {
 }
 
 async function processAllMessages() {
-    const data = JSON.parse(fs.readFileSync('history.json', 'utf-8'));
+    const data = JSON.parse(fs.readFileSync('historyqq.json', 'utf-8'));
 
     for (const message of data) {
         await processMessage(message);
