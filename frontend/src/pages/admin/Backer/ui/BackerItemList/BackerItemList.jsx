@@ -1,8 +1,9 @@
 import React from "react";
 import RecordsWrap from "@pages/admin/ui/RecordsWrap/index.js";
 import RecordItem from "@pages/admin/ui/RecordItem/index.js";
+import BackerForm from "@pages/admin/Backer/ui/BackerForm/index.js";
 
-const BackerItemList = ({data, approvedControl}) => {
+const BackerItemList = ({data, approvedControl, freezeControl}) => {
     const list = Array.isArray(data) ? data : (data?.data || []);
     const hasContent = (value) => value !== undefined && value !== null && value !== "";
 
@@ -10,6 +11,7 @@ const BackerItemList = ({data, approvedControl}) => {
         <>
             {list.map((item, index) => (
                 <RecordsWrap className="backer" key={index}>
+                    <BackerForm backerId={item.backer_id}/>
                     <div className="">
                         {
                             [
