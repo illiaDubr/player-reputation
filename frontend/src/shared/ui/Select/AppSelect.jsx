@@ -16,6 +16,7 @@ const AppSelect = React.forwardRef(({
                                         isSearchable = false,
                                         name,
                                         error,
+                                        className = '',
                                     }, ref) => {
     const options = rawOptions.map(opt => ({
         label: opt[labelKey],
@@ -50,7 +51,7 @@ const AppSelect = React.forwardRef(({
                     name={name}
                     placeholder={placeholder}
                     isSearchable={isSearchable}
-                    classNamePrefix="app-select"
+                    classNamePrefix={className ? `app-select ${className}` : "app-select"}
                     styles={{
                         control: () => ({}),
                         input: () => ({}),
