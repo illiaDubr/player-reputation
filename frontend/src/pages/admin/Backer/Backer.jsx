@@ -9,7 +9,7 @@ const Backer = observer(() => {
             title="Заявки на верификацию"
             getData={store => store.getUnApprovedBackers()}
             renderContent={(data, setData) => (
-                <BackerItemList data={data} approvedControl={true}/>
+                <BackerItemList data={data} approvedControl={true} freezeControl={false}/>
             )}
         />
     )
