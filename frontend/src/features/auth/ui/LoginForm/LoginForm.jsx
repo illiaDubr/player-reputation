@@ -2,7 +2,7 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {schemaLogin} from "@features/auth/model/authSchema.js";
-import Input from "@shared/ui/Input";
+import Input from "@shared/ui/Input/index.js";
 import styles from "../AuthFormBase.module.scss"
 import {useStore} from "@app/providers/index.jsx";
 import {useNavigate} from "react-router-dom";

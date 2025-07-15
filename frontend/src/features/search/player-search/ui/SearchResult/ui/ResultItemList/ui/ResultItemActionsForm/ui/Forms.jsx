@@ -1,4 +1,4 @@
-import Input from "@shared/ui/Input";
+import Input from "@shared/ui/Input/index.js";
 import {Controller} from "react-hook-form";
 import AppSelect from "@shared/ui/Select";
 import {backerTags} from "@shared/config/backerTags.js";

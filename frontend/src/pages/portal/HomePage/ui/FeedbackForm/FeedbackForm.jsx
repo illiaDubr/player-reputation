@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./FeedbackForm.module.scss"
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import Input from "@shared/ui/Input";
+import Input from "@shared/ui/Input/index.js";
 import {feedbackSchema} from "./model/feedbackSchema.js";
 import Button from "@shared/ui/SubmitButton/index.js";
 

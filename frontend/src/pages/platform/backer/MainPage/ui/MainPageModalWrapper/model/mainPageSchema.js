@@ -3,6 +3,13 @@ import * as yup from 'yup';
 export const createSchema = yup.object().shape({
     last_name: yup.string().required("Это поле обязательно"),
     first_name: yup.string().required("Это поле обязательно"),
+    email: yup.string()
+        .notRequired()
+        .test(
+            "is-email",
+            "Неверный формат почты",
+            value => !value || yup.string().email().isValidSync(value)
+        ),
     backer_tag: yup.string().required("Это поле обязательно"),
     comment: yup.string().required("Это поле обязательно"),
 });

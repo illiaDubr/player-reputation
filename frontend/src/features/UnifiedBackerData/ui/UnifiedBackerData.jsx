@@ -1,5 +1,5 @@
 import SlideContentWrap from "@features/UnifiedBackerData/ui/layout/index.js";
-import Input from "@shared/ui/Input/index.jsx";
+import Input from "@shared/ui/Input/index.js";
 import {BackerSetupData} from "@features/UnifiedBackerData/ui/config/BackerSetupData.js";
 import {Controller} from "react-hook-form";
 import AppSelect from "@shared/ui/Select/index.js";

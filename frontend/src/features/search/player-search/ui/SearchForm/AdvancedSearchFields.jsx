@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "@shared/ui/Input/index.jsx";
+import Input from "@shared/ui/Input/index.js";
 import {SearchData} from "@features/search/player-search/ui/config/SearchData.js";
 import styles from "./SearchForm.module.scss";
 

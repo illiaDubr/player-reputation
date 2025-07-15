@@ -106,7 +106,7 @@ export default class Store {
     }
 
     async getApprovedBackers() {
-        await request({
+        return await request({
             asyncFn: () => AdminService.getApprovedBackers(),
             defaultMessage: "Ошибка при отправке",
         })
