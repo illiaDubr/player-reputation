@@ -143,13 +143,15 @@
 }
 
 .css-b62m3t-container {
+  max-width: 250px;
+
   .admin__select__control {
     position: relative;
     cursor: pointer;
 
     .admin__select__value-container {
       position: relative;
-      height: 58.8px;
+      height: 40px;
       min-width: 230px;
       min-height: 32px;
       display: flex;
@@ -159,12 +161,12 @@
       transition: all .4s ease;
 
       .admin__select__placeholder {
-        @include font-style(500, 16, 130, #999999);
+        @include font-style(500, 13, 130, #999999);
         padding-left: 19px;
       }
 
       .admin__select__single-value {
-        @include font-style(500, 16, 130, #FFFFFF);
+        @include font-style(500, 13, 130, #FFFFFF);
         padding-left: 19px;
       }
 
@@ -236,10 +238,10 @@
       border-radius: 0 0 8px 8px;
 
       .admin__select__option {
-        height: 40px;
+        height: 31px;
         display: flex;
         align-items: center;
-        @include font-style(500, 14, 130, #FFFFFF);
+        @include font-style(500, 12, 130, #FFFFFF);
         background: #202125;
         border-bottom: 2px solid #181817;
         padding-left: 20px;
