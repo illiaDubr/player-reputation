@@ -1,0 +1,39 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.backer_form-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .backer_form-btn--wrap {
+    display: flex;
+    gap: 1rem;
+
+    .backer_form-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      padding: 4px 10px;
+      transition: all .5s ease;
+      @include font-style(400, 14, 143, #FFFFFF);
+
+      &:hover {
+        border: 1px solid #01ff55;
+      }
+
+      &:disabled {
+        filter: invert(50%) sepia(6%) saturate(234%) hue-rotate(182deg) brightness(89%) contrast(89%);
+      }
+    }
+  }
+}
+
+// === / Styles === //
