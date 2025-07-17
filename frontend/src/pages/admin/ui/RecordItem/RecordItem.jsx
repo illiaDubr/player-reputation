@@ -21,23 +21,23 @@ const RecordItem = ({ content, title, className, link }) => {
             </div>
 
             {link ? (
-                <a href={content} className="record__text" data-tooltip-id={contentTooltipId}>
+                <a href={content} className={styles[`record__text`]} data-tooltip-id={contentTooltipId}>
                     {content}
                 </a>
             ) : (
-                <div className="record__text" data-tooltip-id={contentTooltipId}>
+                <div className={styles[`record__text`]} data-tooltip-id={contentTooltipId}>
                     {content}
                 </div>
             )}
 
             {showTitleTooltip && (
                 <Tooltip id={titleTooltipId} place="top" clickable>
-                    <div className="record__tooltip">{title}</div>
+                    <div className={styles[`record__tooltip`]}>{title}</div>
                 </Tooltip>
             )}
 
             <Tooltip id={contentTooltipId} place="top" clickable>
-                <div className="record__tooltip">{content}</div>
+                <div className={styles[`record__tooltip`]}>{content}</div>
             </Tooltip>
         </div>
     );
