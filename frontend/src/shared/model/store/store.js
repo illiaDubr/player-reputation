@@ -112,6 +112,20 @@ export default class Store {
         })
     }
 
+    async approvedBacker(approved) {
+        await request({
+            asyncFn: () => AdminService.approvedBacker(approved),
+            defaultMessage: "Ошибка отправки данных",
+        })
+    }
+
+    async changeFundBacker(fundData) {
+        await request({
+            asyncFn: () => AdminService.changeFundBacker(fundData),
+            defaultMessage: "Ошибка отправки данных",
+        })
+    }
+
     async download() {
          return await request({
             asyncFn: () => AdminService.download(),
