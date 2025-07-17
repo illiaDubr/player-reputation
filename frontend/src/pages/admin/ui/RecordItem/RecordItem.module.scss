@@ -1,0 +1,56 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.record__item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0px 0px 5px 0px;
+  border-bottom: 1px solid #121317;
+
+  .record__title-wrap {
+    @include font-style(500, 18, 130, #FFFFFF);
+
+    .record__title {
+      text-wrap: nowrap;
+    }
+
+    .record__title--hidden {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+    }
+  }
+
+  .record__text {
+    @include font-style(400, 16, 130, #FFFFFF);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a.record__text {
+    transition: all .4s ease;
+
+    &:hover {
+      color: #006e72;
+    }
+  }
+
+  .record__tooltip {
+    max-width: 500px;
+    @include font-style(400, 12, 130, #FFFFFF);
+  }
+
+  .react-tooltip {
+    z-index: 4;
+  }
+}
+
+// === / Styles === //

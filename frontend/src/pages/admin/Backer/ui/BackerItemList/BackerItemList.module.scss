@@ -1,0 +1,18 @@
+// === Include your styles here === //
+
+
+
+// === / Include your styles here === //
+
+// === Styles === //
+
+.backer__wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 3;
+  padding-top: 20px;
+}
+
+// === / Styles === //

@@ -2,6 +2,7 @@ import React from "react";
 import RecordsWrap from "@pages/admin/ui/RecordsWrap/index.js";
 import RecordItem from "@pages/admin/ui/RecordItem/index.js";
 import BackerForm from "@pages/admin/Backer/ui/BackerForm/index.js";
+import styles from "./BackerItemList.module.scss";
 
 const BackerItemList = ({data, approvedControl, freezeControl}) => {
     const list = Array.isArray(data) ? data : (data?.data || []);
@@ -12,15 +13,15 @@ const BackerItemList = ({data, approvedControl, freezeControl}) => {
             {list.map((item, index) => (
                 <RecordsWrap className="backer" key={index}>
                     <BackerForm backerId={item.backer_id}/>
-                    <div className="">
+                    <div className={styles[`backer__wrap`]}>
                         {
                             [
                                 {title: "Имя фонда", content: approvedControl ? item.fund_name : item.fund_for_search },
                                 {title: "Email", content: item.email},
                                 {title: "Описание фонда", content: item.fundDescr},
                                 {title: "Ссылка на сайт", content: item.siteLink, link: true},
-                                {title: "Гостевой домик в Discord", content: item.discordHouse, className: "backer__title--hidden", link: true},
-                                {title: "Контакт представителя в Discord", content: item.discordRepresentative, className: "backer__title--hidden"},
+                                {title: "Гостевой домик в Discord", content: item.discordHouse, className: "record__title--hidden", link: true},
+                                {title: "Контакт представителя в Discord", content: item.discordRepresentative, className: "record__title--hidden"},
                                 {title: "Количество тренеров", content: item.numberCoach},
                                 {title: "Количество игроков", content: item.numberPlayer},
                                 {title: "Рейкбек", content: item.rakeback},

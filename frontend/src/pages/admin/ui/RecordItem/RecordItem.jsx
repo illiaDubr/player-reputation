@@ -1,6 +1,7 @@
 import React from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import styles from "./RecordItem.module.scss";
 
 const RecordItem = ({ content, title, className, link }) => {
     const idSuffix = Math.random().toString(36).slice(2, 9);
@@ -9,35 +10,34 @@ const RecordItem = ({ content, title, className, link }) => {
     const contentTooltipId = `contentTooltip-${idSuffix}`;
 
     return (
-        <div className="backer__item">
-            <div className="backer__title-wrap">
+        <div className={styles[`record__item`]}>
+            <div className={styles[`record__title-wrap`]}>
                 <div
-                    className={`backer__title${className ? ` ${className}` : ""}`}
+                    className={`${styles["record__title"]}${className ? ` ${styles[className]}` : ""}`}
                     data-tooltip-id={showTitleTooltip ? titleTooltipId : undefined}
                 >
-                    {title}
+                    {title}:
                 </div>
-                <div className="">:</div>
             </div>
 
             {link ? (
-                <a href={content} className="backer__text" data-tooltip-id={contentTooltipId}>
+                <a href={content} className="record__text" data-tooltip-id={contentTooltipId}>
                     {content}
                 </a>
             ) : (
-                <div className="backer__text" data-tooltip-id={contentTooltipId}>
+                <div className="record__text" data-tooltip-id={contentTooltipId}>
                     {content}
                 </div>
             )}
 
             {showTitleTooltip && (
                 <Tooltip id={titleTooltipId} place="top" clickable>
-                    <div className="backer__tooltip">{title}</div>
+                    <div className="record__tooltip">{title}</div>
                 </Tooltip>
             )}
 
             <Tooltip id={contentTooltipId} place="top" clickable>
-                <div className="backer__tooltip">{content}</div>
+                <div className="record__tooltip">{content}</div>
             </Tooltip>
         </div>
     );
