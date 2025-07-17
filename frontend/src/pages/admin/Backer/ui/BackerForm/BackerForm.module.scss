@@ -37,4 +37,11 @@
   }
 }
 
+@media (max-width: 1080px) {
+  .backer_form-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
 // === / Styles === //
