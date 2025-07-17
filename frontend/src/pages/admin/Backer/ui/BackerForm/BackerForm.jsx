@@ -4,6 +4,7 @@ import AppSelect from "@shared/ui/Select/index.js";
 import {funds} from "@shared/config/funds.js";
 import {Controller, useForm} from "react-hook-form";
 import IconSvg from "@shared/ui/IconSvg/index.js";
+import {useStore} from "@app/providers/index.jsx";
 
 const fundsOptions = funds.map(fund => ({
     value: fund.fundName,
@@ -12,6 +13,7 @@ const fundsOptions = funds.map(fund => ({
 
 
 const BackerForm = ({backerId}) => {
+    const { store } = useStore();
     const {
         control,
         watch,
@@ -36,6 +38,13 @@ const BackerForm = ({backerId}) => {
         const fundData = {
             ...data,
             id: backerId,
+        }
+
+        try {
+            await store.approvedBacker(approved);
+            await store.changeFundBacker(fundData);
+        } catch (error) {
+            console.error("Ошибка:", error);
         }
 
         console.log(fundData, approved);
