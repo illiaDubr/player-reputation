@@ -295,4 +295,8 @@ export const funds = [
         id: 73,
         fundName: "Пианисты"
     },
+    {
+        id: 74,
+        fundName: "Steel Phoenix"
+    },
 ]
