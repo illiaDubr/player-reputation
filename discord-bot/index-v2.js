@@ -1,15 +1,27 @@
 // discord-parser.js
+// npm i cron
 require('dotenv').config();
-const { Client, GatewayIntentBits } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { OpenAI } = require('openai');
 const axios = require('axios');
+const { CronJob } = require('cron');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// --- Настройки каналов, которые слушаем
+// --- Каналы, которые слушаем
 const allowedChannelIds = process.env.LIVE_CHANNEL_IDS
     ? process.env.LIVE_CHANNEL_IDS.split(',').map(id => id.trim())
     : [];
+
+// --- Канал для отчётов и алертов
+const REPORT_CHANNEL_ID = process.env.REPORT_CHANNEL_ID || '';
+const REPORT_TZ = process.env.REPORT_TZ || 'Europe/Kyiv';
+const ALERT_USER_IDS = process.env.ALERT_USER_IDS
+    ? process.env.ALERT_USER_IDS.split(',').map(s => s.trim()).filter(Boolean)
+    : [];
+const REPORT_USE_EMBED = (process.env.REPORT_USE_EMBED ?? '1') !== '0';
 
 // --- Инициализация Discord клиента
 const client = new Client({
@@ -21,7 +33,50 @@ const client = new Client({
     ]
 });
 
-// --- Хелперы для дат под MySQL DATETIME ---
+// --- Хранилище для статистики (с сохранением на диск)
+const STATE_FILE = path.join(process.cwd(), 'report_state.json');
+
+function defaultState() {
+    return {
+        sinceIso: new Date().toISOString(),
+        totalMessages: 0,        // X — сколько сообщений в каналах с прошлого отчёта
+        importedCount: 0,        // Y — сколько записей мы перенесли в БД
+        lastImportedText: null,  // W — текст о последней перенесённой записи
+        errors: [],              // массив строк/объектов ошибок с момента последнего отчёта
+        alertSent: false         // был ли уже отправлен мгновенный алерт до дневного отчёта
+    };
+}
+
+function loadState() {
+    try {
+        if (fs.existsSync(STATE_FILE)) {
+            const raw = fs.readFileSync(STATE_FILE, 'utf8');
+            const st = JSON.parse(raw);
+            return { ...defaultState(), ...st };
+        }
+    } catch (e) {
+        console.warn('⚠️ Не удалось прочитать report_state.json, используем состояние по умолчанию:', e.message);
+    }
+    return defaultState();
+}
+
+function saveState(state) {
+    try {
+        fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+    } catch (e) {
+        console.warn('⚠️ Не удалось записать report_state.json:', e.message);
+    }
+}
+
+let state = loadState();
+
+// --- Хелперы
+const truncate = (str, n = 500) =>
+    (typeof str === 'string' && str.length > n) ? str.slice(0, n) + '…' : str;
+
+const mentionString = () =>
+    ALERT_USER_IDS.length ? ALERT_USER_IDS.map(id => `<@${id}>`).join(' ') : '';
+
 const toMysqlDateTime = (dateLike) => {
     const d = (dateLike instanceof Date) ? dateLike : new Date(dateLike);
     if (isNaN(d.getTime())) return null;
@@ -32,7 +87,6 @@ const toMysqlDateTime = (dateLike) => {
     const h = pad(d.getUTCHours());
     const m = pad(d.getUTCMinutes());
     const s = pad(d.getUTCSeconds());
-    // Возвращаем строго "YYYY-MM-DD HH:MM:SS"
     return `${Y}-${M}-${D} ${h}:${m}:${s}`;
 };
 
@@ -56,10 +110,152 @@ const normalizePayloadDates = (payload, fallbackIso) => {
     return payload;
 };
 
+// --- Сообщения в канал отчётов
+async function sendReportText() {
+    const lines = [
+        `Кол-во записей в канале с последнего отчета - ${state.totalMessages}`,
+        `Кол-во перенесенных записей в базу - ${state.importedCount}`,
+        `Последняя перенесенная запись - ${state.lastImportedText ?? '—'}`,
+        state.errors.length === 0
+            ? 'Ошибок в работе бота не выявлено , все записи перенесены'
+            : `Обнаружены ошибки (${state.errors.length}). ${mentionString()}`
+    ];
+    await sendToReportChannel(lines.join('\n'));
+}
+
+function buildReportEmbed() {
+    const colorOk = 0x3FB950;     // зелёный
+    const colorWarn = 0xDA3633;   // красный
+    const hasErrors = state.errors.length > 0;
+
+    const embed = new EmbedBuilder()
+        .setTitle('Ежедневный отчёт по боту')
+        .setColor(hasErrors ? colorWarn : colorOk)
+        .setTimestamp(new Date())
+        .addFields(
+            { name: 'С отсчёта:', value: new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ }), inline: true },
+            { name: 'Сообщений (X):', value: String(state.totalMessages), inline: true },
+            { name: 'Импортировано (Y):', value: String(state.importedCount), inline: true },
+            { name: 'Последняя запись (W):', value: state.lastImportedText ?? '—', inline: false },
+        );
+
+    embed.setDescription(
+        state.errors.length === 0
+            ? 'Ошибок в работе бота не выявлено, все записи перенесены.'
+            : `Обнаружены ошибки (${state.errors.length}).`
+    );
+
+    if (state.errors.length > 0) {
+        const errPreview = state.errors.slice(-3).map(e =>
+            `• ${typeof e === 'string' ? e : (e.message || JSON.stringify(e))}`
+        ).join('\n');
+        embed.addFields({ name: 'Последние ошибки', value: truncate(errPreview, 1000) });
+    }
+
+    return embed;
+}
+
+async function sendReportEmbed() {
+    const content = state.errors.length > 0 && ALERT_USER_IDS.length
+        ? mentionString()
+        : undefined;
+    await sendToReportChannel({ content, embeds: [buildReportEmbed()] });
+}
+
+async function sendToReportChannel(payload) {
+    if (!REPORT_CHANNEL_ID) {
+        console.warn('⚠️ REPORT_CHANNEL_ID не задан — отчёт/алерт не будет отправлен.');
+        return;
+    }
+    try {
+        const channel = await client.channels.fetch(REPORT_CHANNEL_ID);
+        if (!channel || !channel.isTextBased?.()) {
+            console.warn('⚠️ Канал отчётов не текстовый или недоступен.');
+            return;
+        }
+        await channel.send(typeof payload === 'string' ? { content: payload } : payload);
+    } catch (e) {
+        console.error('❌ Не удалось отправить сообщение в канал отчётов:', e.message);
+    }
+}
+
+// --- Мгновенный алерт при первой ошибке
+async function sendImmediateAlert(errObj) {
+    if (state.alertSent) return; // уже слали алерт до дневного отчёта
+
+    const errText = typeof errObj === 'string'
+        ? errObj
+        : (errObj?.message || JSON.stringify(errObj));
+
+    const content = [
+        '⚠️ Обнаружена ошибка в работе бота!',
+        mentionString()
+    ].filter(Boolean).join(' ');
+
+    const embed = new EmbedBuilder()
+        .setTitle('Алерт: ошибка бота')
+        .setColor(0xDA3633)
+        .setTimestamp(new Date())
+        .setDescription(truncate(errText, 1800))
+        .addFields(
+            { name: 'С момента отчёта', value: new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ }), inline: true },
+            { name: 'Сообщений обработано', value: String(state.totalMessages), inline: true },
+            { name: 'Импортировано', value: String(state.importedCount), inline: true }
+        );
+
+    await sendToReportChannel({ content, embeds: [embed] });
+
+    state.alertSent = true;
+    saveState(state);
+}
+
+// --- Ежедневный отчёт и сброс
+async function runDailyReport() {
+    try {
+        if (REPORT_USE_EMBED) {
+            await sendReportEmbed();
+        } else {
+            await sendReportText();
+        }
+
+        // Сброс состояния после успешной отправки
+        state = {
+            sinceIso: new Date().toISOString(),
+            totalMessages: 0,
+            importedCount: 0,
+            lastImportedText: null,
+            errors: [],
+            alertSent: false
+        };
+        saveState(state);
+        console.log('🧾 Отчёт отправлен и статистика сброшена.');
+    } catch (e) {
+        console.error('❌ Ошибка при формировании/отправке отчёта:', e.message);
+    }
+}
+
+// --- Планировщик (ежедневно в 10:00 по REPORT_TZ)
+let dailyJob = null;
+function initScheduler() {
+    try {
+        dailyJob = new CronJob(
+            '0 10 * * *',     // 10:00 каждый день
+            runDailyReport,
+            null,
+            true,             // start
+            REPORT_TZ         // таймзона
+        );
+        console.log(`🗓 Запущен ежедневный отчёт в 10:00 (${REPORT_TZ}). Канал: ${REPORT_CHANNEL_ID || 'не задан'}`);
+    } catch (e) {
+        console.error('❌ Не удалось запустить CronJob для отчётов:', e.message);
+    }
+}
+
 // --- Логирование статуса
 client.once('ready', () => {
     console.log(`✅ Бот подключен как ${client.user.tag}`);
     console.log(`📡 Слушаем каналы: ${allowedChannelIds.length ? allowedChannelIds.join(', ') : '(список пуст)'}`);
+    initScheduler();
 });
 
 // --- Основной обработчик сообщений
@@ -74,7 +270,11 @@ client.on('messageCreate', async (message) => {
         const timestampIso = message.createdAt?.toISOString?.() ?? new Date().toISOString();
         let roleName = null;
 
-        // Получаем ПЕРВУЮ пользовательскую роль (кроме @everyone)
+        // Считаем сообщение для отчёта
+        state.totalMessages += 1;
+        saveState(state);
+
+        // Получаем первую пользовательскую роль (кроме @everyone)
         try {
             const member = await message.guild.members.fetch(message.author.id);
             roleName = member.roles.cache
@@ -176,8 +376,12 @@ client.on('messageCreate', async (message) => {
         try {
             parsed = JSON.parse(raw);
         } catch (jsonErr) {
-            console.error('❌ Ошибка парсинга JSON от OpenAI:', jsonErr.message);
-            console.log('⛔ RAW от AI:\n', raw);
+            const msg = `OpenAI JSON parse error: ${jsonErr.message}. RAW: ${truncate(raw, 400)}`;
+            console.error('❌', msg);
+            state.errors.push({ at: new Date().toISOString(), message: msg });
+            saveState(state);
+            // Мгновенный алерт при ПЕРВОЙ ошибке
+            await sendImmediateAlert(msg);
             return;
         }
 
@@ -204,15 +408,54 @@ client.on('messageCreate', async (message) => {
         console.log('✅ Успешно импортировано в Laravel API');
         console.dir(response.data, { depth: null });
 
+        // Обновляем статистику перенесённых записей
+        const importedItems = [];
+        if (Array.isArray(parsed.players)) {
+            for (const p of parsed.players) {
+                importedItems.push({
+                    type: 'player',
+                    id: p.player_id || p.discord || p.telegram || '(без id)',
+                    when: p.sent_at || toMysqlDateTime(timestampIso)
+                });
+            }
+        }
+        if (Array.isArray(parsed.reputation_records)) {
+            for (const r of parsed.reputation_records) {
+                importedItems.push({
+                    type: 'reputation',
+                    id: r.player_id || '(без player_id)',
+                    when: r.sent_at || toMysqlDateTime(timestampIso)
+                });
+            }
+        }
+
+        if (importedItems.length > 0) {
+            const last = importedItems[importedItems.length - 1];
+            state.lastImportedText =
+                `${last.type === 'player' ? 'Игрок' : 'Реп.запись'}: ${last.id} @ ${last.when}`;
+            state.importedCount += importedItems.length;
+            saveState(state);
+        }
+
     } catch (err) {
         if (err.response) {
-            console.error(`❌ Ошибка Laravel API (status ${err.response.status}):`);
-            console.dir(err.response.data, { depth: null });
+            const msg = `Laravel API error ${err.response.status}: ${truncate(JSON.stringify(err.response.data), 500)}`;
+            console.error('❌', msg);
+            state.errors.push({ at: new Date().toISOString(), message: msg });
+            saveState(state);
+            await sendImmediateAlert(msg);
         } else {
-            console.error('❌ Ошибка:', err.message);
+            const msg = `Unhandled error: ${err.message}`;
+            console.error('❌', msg);
+            state.errors.push({ at: new Date().toISOString(), message: msg });
+            saveState(state);
+            await sendImmediateAlert(msg);
         }
     }
 });
 
 // --- Запуск бота
+client.once('ready', () => {
+    // уже есть вверху, но оставим для совместимости
+});
 client.login(process.env.DISCORD_TOKEN);
