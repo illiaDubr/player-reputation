@@ -110,6 +110,31 @@ const normalizePayloadDates = (payload, fallbackIso) => {
     return payload;
 };
 
+// ГЛУБОКАЯ нормализация всех ключей sent_at в объекте/массиве
+const normalizeAnySentAtDeep = (obj, fallbackIso) => {
+    const fallback = toMysqlDateTime(fallbackIso);
+    if (obj === null || typeof obj !== 'object') return obj;
+
+    if (Array.isArray(obj)) {
+        return obj.map(item => normalizeAnySentAtDeep(item, fallbackIso));
+    }
+
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+        if (k === 'sent_at') {
+            out[k] = toMysqlDateTime(v) || fallback;
+        } else if (v && typeof v === 'object') {
+            out[k] = normalizeAnySentAtDeep(v, fallbackIso);
+        } else {
+            out[k] = v;
+        }
+    }
+    return out;
+};
+
+// Диагностика: остались ли ISO-строки с 'T...Z' после нормализации
+const hasIsoWithZ = (payload) => /T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z/.test(JSON.stringify(payload));
+
 // --- Сообщения в канал отчётов
 async function sendReportText() {
     const lines = [
@@ -394,7 +419,19 @@ client.on('messageCreate', async (message) => {
         }
 
         // Гарантируем корректный формат дат перед POST
+        // 1) Нормализация старым способом (плоские уровни players/reputation_records)
         parsed = normalizePayloadDates(parsed, timestampIso);
+
+// 2) ГЛУБОКАЯ нормализация на весь объект (любой sent_at в любом месте)
+        parsed = normalizeAnySentAtDeep(parsed, timestampIso);
+
+// 3) Проверка: если всё ещё где-то есть ISO с Z — нормализуем повторно (на случай мутаций)
+        if (hasIsoWithZ(parsed)) {
+            console.warn('⚠️ Найден ISO с Z после нормализации — выполняю повторную глубокую нормализацию.');
+            parsed = normalizeAnySentAtDeep(parsed, timestampIso);
+        }
+
+
 
         console.log('📦 JSON для Laravel (после нормализации дат):');
         console.dir(parsed, { depth: null });
