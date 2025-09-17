@@ -1,6 +1,7 @@
 // discord-parser.js
 // npm i cron
 require('dotenv').config();
+
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
@@ -12,7 +13,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // --- Каналы, которые слушаем
 const allowedChannelIds = process.env.LIVE_CHANNEL_IDS
-    ? process.env.LIVE_CHANNEL_IDS.split(',').map(id => id.trim())
+    ? process.env.LIVE_CHANNEL_IDS.split(',').map(id => id.trim()).filter(Boolean)
     : [];
 
 // --- Канал для отчётов и алертов
@@ -23,7 +24,7 @@ const ALERT_USER_IDS = process.env.ALERT_USER_IDS
     : [];
 const REPORT_USE_EMBED = (process.env.REPORT_USE_EMBED ?? '1') !== '0';
 
-// --- Инициализация Discord клиента
+// --- Discord клиент
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -33,17 +34,21 @@ const client = new Client({
     ]
 });
 
-// --- Хранилище для статистики (с сохранением на диск)
+// --- Состояние с диском
 const STATE_FILE = path.join(process.cwd(), 'report_state.json');
 
 function defaultState() {
     return {
         sinceIso: new Date().toISOString(),
-        totalMessages: 0,        // X — сколько сообщений в каналах с прошлого отчёта
-        importedCount: 0,        // Y — сколько записей мы перенесли в БД
-        lastImportedText: null,  // W — текст о последней перенесённой записи
-        errors: [],              // массив строк/объектов ошибок с момента последнего отчёта
-        alertSent: false         // был ли уже отправлен мгновенный алерт до дневного отчёта
+        // Счётчики
+        totalMessages: 0,          // X — всего сообщений, увиденных ботом
+        importedMessages: 0,       // Y — сообщений, в которых был импорт (1 сообщение = 1)
+        importedPlayers: 0,        // суммарно добавлено игроков
+        importedReps: 0,           // суммарно добавлено реп.записей
+        lastImportedText: null,    // подпись о последней записи
+        errors: [],                // последние ошибки
+        alertSent: false,          // отправлялся ли алерт с момента отчёта
+        processedMessageIds: []    // защита от повторной обработки (кольцевой буфер)
     };
 }
 
@@ -55,14 +60,14 @@ function loadState() {
             return { ...defaultState(), ...st };
         }
     } catch (e) {
-        console.warn('⚠️ Не удалось прочитать report_state.json, используем состояние по умолчанию:', e.message);
+        console.warn('⚠️ Не удалось прочитать report_state.json, используем дефолт:', e.message);
     }
     return defaultState();
 }
 
-function saveState(state) {
+function saveState(next) {
     try {
-        fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+        fs.writeFileSync(STATE_FILE, JSON.stringify(next, null, 2), 'utf8');
     } catch (e) {
         console.warn('⚠️ Не удалось записать report_state.json:', e.message);
     }
@@ -72,7 +77,7 @@ let state = loadState();
 
 // --- Хелперы
 const truncate = (str, n = 500) =>
-    (typeof str === 'string' && str.length > n) ? str.slice(0, n) + '…' : str;
+    typeof str === 'string' && str.length > n ? str.slice(0, n) + '…' : str;
 
 const mentionString = () =>
     ALERT_USER_IDS.length ? ALERT_USER_IDS.map(id => `<@${id}>`).join(' ') : '';
@@ -81,43 +86,14 @@ const toMysqlDateTime = (dateLike) => {
     const d = (dateLike instanceof Date) ? dateLike : new Date(dateLike);
     if (isNaN(d.getTime())) return null;
     const pad = (n) => String(n).padStart(2, '0');
-    const Y = d.getUTCFullYear();
-    const M = pad(d.getUTCMonth() + 1);
-    const D = pad(d.getUTCDate());
-    const h = pad(d.getUTCHours());
-    const m = pad(d.getUTCMinutes());
-    const s = pad(d.getUTCSeconds());
-    return `${Y}-${M}-${D} ${h}:${m}:${s}`;
+    return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
 };
 
-const normalizePayloadDates = (payload, fallbackIso) => {
-    const fallback = toMysqlDateTime(fallbackIso);
-
-    if (Array.isArray(payload.players)) {
-        payload.players = payload.players.map(p => ({
-            ...p,
-            sent_at: toMysqlDateTime(p.sent_at) || fallback,
-        }));
-    }
-
-    if (Array.isArray(payload.reputation_records)) {
-        payload.reputation_records = payload.reputation_records.map(r => ({
-            ...r,
-            sent_at: toMysqlDateTime(r.sent_at) || fallback,
-        }));
-    }
-
-    return payload;
-};
-
-// ГЛУБОКАЯ нормализация всех ключей sent_at в объекте/массиве
 const normalizeAnySentAtDeep = (obj, fallbackIso) => {
     const fallback = toMysqlDateTime(fallbackIso);
     if (obj === null || typeof obj !== 'object') return obj;
 
-    if (Array.isArray(obj)) {
-        return obj.map(item => normalizeAnySentAtDeep(item, fallbackIso));
-    }
+    if (Array.isArray(obj)) return obj.map(v => normalizeAnySentAtDeep(v, fallbackIso));
 
     const out = {};
     for (const [k, v] of Object.entries(obj)) {
@@ -132,58 +108,66 @@ const normalizeAnySentAtDeep = (obj, fallbackIso) => {
     return out;
 };
 
-// Диагностика: остались ли ISO-строки с 'T...Z' после нормализации
-const hasIsoWithZ = (payload) => /T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z/.test(JSON.stringify(payload));
+const hasIsoWithZ = (payload) =>
+    /T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z/.test(JSON.stringify(payload));
+
+// защита от повторной обработки одного и того же сообщения
+function alreadyProcessed(messageId) {
+    return state.processedMessageIds.includes(messageId);
+}
+function markProcessed(messageId) {
+    if (!messageId) return;
+    state.processedMessageIds.push(messageId);
+    // ограничим буфер, чтобы файл не разрастался
+    if (state.processedMessageIds.length > 2000) {
+        state.processedMessageIds = state.processedMessageIds.slice(-1500);
+    }
+    saveState(state);
+}
 
 // --- Сообщения в канал отчётов
 async function sendReportText() {
     const lines = [
-        `Кол-во записей в канале с последнего отчета - ${state.totalMessages}`,
-        `Кол-во перенесенных записей в базу - ${state.importedCount}`,
-        `Последняя перенесенная запись - ${state.lastImportedText ?? '—'}`,
+        `С отсчёта: ${new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ })}`,
+        `Сообщений (X): ${state.totalMessages}`,
+        `Импортировано сообщений (Y): ${state.importedMessages}`,
+        `Игроков: ${state.importedPlayers} · Реп.записей: ${state.importedReps}`,
+        `Последняя запись: ${state.lastImportedText ?? '—'}`,
         state.errors.length === 0
-            ? 'Ошибок в работе бота не выявлено , все записи перенесены'
+            ? 'Ошибок в работе бота не выявлено.'
             : `Обнаружены ошибки (${state.errors.length}). ${mentionString()}`
     ];
     await sendToReportChannel(lines.join('\n'));
 }
 
 function buildReportEmbed() {
-    const colorOk = 0x3FB950;     // зелёный
-    const colorWarn = 0xDA3633;   // красный
     const hasErrors = state.errors.length > 0;
-
     const embed = new EmbedBuilder()
         .setTitle('Ежедневный отчёт по боту')
-        .setColor(hasErrors ? colorWarn : colorOk)
+        .setColor(hasErrors ? 0xDA3633 : 0x3FB950)
         .setTimestamp(new Date())
         .addFields(
-            { name: 'С отсчёта:', value: new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ }), inline: true },
-            { name: 'Сообщений (X):', value: String(state.totalMessages), inline: true },
-            { name: 'Импортировано (Y):', value: String(state.importedCount), inline: true },
-            { name: 'Последняя запись (W):', value: state.lastImportedText ?? '—', inline: false },
-        );
+            { name: 'С отсчёта', value: new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ }), inline: true },
+            { name: 'Сообщений (X)', value: String(state.totalMessages), inline: true },
+            { name: 'Импортировано сообщений (Y)', value: String(state.importedMessages), inline: true },
+            { name: 'Игроков / Реп.записей', value: `${state.importedPlayers} / ${state.importedReps}`, inline: true },
+            { name: 'Последняя запись', value: state.lastImportedText ?? '—', inline: false },
+        )
+        .setDescription(hasErrors
+            ? `Обнаружены ошибки (${state.errors.length}).`
+            : 'Ошибок в работе бота не выявлено.');
 
-    embed.setDescription(
-        state.errors.length === 0
-            ? 'Ошибок в работе бота не выявлено, все записи перенесены.'
-            : `Обнаружены ошибки (${state.errors.length}).`
-    );
-
-    if (state.errors.length > 0) {
+    if (hasErrors) {
         const errPreview = state.errors.slice(-3).map(e =>
             `• ${typeof e === 'string' ? e : (e.message || JSON.stringify(e))}`
         ).join('\n');
         embed.addFields({ name: 'Последние ошибки', value: truncate(errPreview, 1000) });
     }
-
     return embed;
 }
 
 async function sendReportEmbed() {
-    const content = state.errors.length > 0 && ALERT_USER_IDS.length
-        ? mentionString()
-        : undefined;
+    const content = state.errors.length > 0 && ALERT_USER_IDS.length ? mentionString() : undefined;
     await sendToReportChannel({ content, embeds: [buildReportEmbed()] });
 }
 
@@ -206,16 +190,8 @@ async function sendToReportChannel(payload) {
 
 // --- Мгновенный алерт при первой ошибке
 async function sendImmediateAlert(errObj) {
-    if (state.alertSent) return; // уже слали алерт до дневного отчёта
-
-    const errText = typeof errObj === 'string'
-        ? errObj
-        : (errObj?.message || JSON.stringify(errObj));
-
-    const content = [
-        '⚠️ Обнаружена ошибка в работе бота!',
-        mentionString()
-    ].filter(Boolean).join(' ');
+    if (state.alertSent) return;
+    const errText = typeof errObj === 'string' ? errObj : (errObj?.message || JSON.stringify(errObj));
 
     const embed = new EmbedBuilder()
         .setTitle('Алерт: ошибка бота')
@@ -224,10 +200,11 @@ async function sendImmediateAlert(errObj) {
         .setDescription(truncate(errText, 1800))
         .addFields(
             { name: 'С момента отчёта', value: new Date(state.sinceIso).toLocaleString('uk-UA', { timeZone: REPORT_TZ }), inline: true },
-            { name: 'Сообщений обработано', value: String(state.totalMessages), inline: true },
-            { name: 'Импортировано', value: String(state.importedCount), inline: true }
+            { name: 'Сообщений (X)', value: String(state.totalMessages), inline: true },
+            { name: 'Импортировано сообщений (Y)', value: String(state.importedMessages), inline: true }
         );
 
+    const content = ['⚠️ Обнаружена ошибка в работе бота!', mentionString()].filter(Boolean).join(' ');
     await sendToReportChannel({ content, embeds: [embed] });
 
     state.alertSent = true;
@@ -237,20 +214,20 @@ async function sendImmediateAlert(errObj) {
 // --- Ежедневный отчёт и сброс
 async function runDailyReport() {
     try {
-        if (REPORT_USE_EMBED) {
-            await sendReportEmbed();
-        } else {
-            await sendReportText();
-        }
+        if (REPORT_USE_EMBED) await sendReportEmbed();
+        else await sendReportText();
 
         // Сброс состояния после успешной отправки
         state = {
             sinceIso: new Date().toISOString(),
             totalMessages: 0,
-            importedCount: 0,
+            importedMessages: 0,
+            importedPlayers: 0,
+            importedReps: 0,
             lastImportedText: null,
             errors: [],
-            alertSent: false
+            alertSent: false,
+            processedMessageIds: state.processedMessageIds.slice(-1500) // не теряем базу id
         };
         saveState(state);
         console.log('🧾 Отчёт отправлен и статистика сброшена.');
@@ -263,16 +240,10 @@ async function runDailyReport() {
 let dailyJob = null;
 function initScheduler() {
     try {
-        dailyJob = new CronJob(
-            '0 10 * * *',     // 10:00 каждый день
-            runDailyReport,
-            null,
-            true,             // start
-            REPORT_TZ         // таймзона
-        );
-        console.log(`🗓 Запущен ежедневный отчёт в 10:00 (${REPORT_TZ}). Канал: ${REPORT_CHANNEL_ID || 'не задан'}`);
+        dailyJob = new CronJob('0 10 * * *', runDailyReport, null, true, REPORT_TZ);
+        console.log(`🗓 Ежедневный отчёт в 10:00 (${REPORT_TZ}). Канал: ${REPORT_CHANNEL_ID || 'не задан'}`);
     } catch (e) {
-        console.error('❌ Не удалось запустить CronJob для отчётов:', e.message);
+        console.error('❌ Не удалось запустить CronJob:', e.message);
     }
 }
 
@@ -290,26 +261,30 @@ client.on('messageCreate', async (message) => {
         if (message.author.bot) return;
         if (allowedChannelIds.length && !allowedChannelIds.includes(message.channel.id)) return;
 
+        // Защита от повторов по message.id
+        if (alreadyProcessed(message.id)) {
+            console.log(`⏭️ Повтор сообщения ${message.id} — пропуск импорта/счётчиков.`);
+            return;
+        }
+
         const content = message.content?.trim() ?? '';
         const author = message.author?.username ?? 'unknown';
         const timestampIso = message.createdAt?.toISOString?.() ?? new Date().toISOString();
-        let roleName = null;
 
-        // Считаем сообщение для отчёта
+        // Считаем входящее сообщение
         state.totalMessages += 1;
         saveState(state);
 
-        // Получаем первую пользовательскую роль (кроме @everyone)
+        // Роль (первая пользовательская, кроме @everyone)
+        let roleName = null;
         try {
             const member = await message.guild.members.fetch(message.author.id);
-            roleName = member.roles.cache
-                .map(role => role.name)
-                .find(name => name !== '@everyone') || null;
+            roleName = member.roles.cache.map(r => r.name).find(n => n !== '@everyone') || null;
         } catch {
             console.warn('⚠️ Не удалось получить роли пользователя');
         }
 
-        console.log(`\n📩 Новое сообщение от ${author}: ${content}`);
+        console.log(`\n📩 Сообщение от ${author}: ${content}`);
         if (roleName) console.log(`👑 Роль: ${roleName}`);
         console.log(`🕒 Время ISO: ${timestampIso}`);
 
@@ -321,19 +296,12 @@ client.on('messageCreate', async (message) => {
                 {
                     role: 'system',
                     content: `
-Ты интеллектуальный парсер сообщений из Discord. Твоя задача — разобрать текст и превратить его в валидный JSON для Laravel-приложения.
-
-Всегда соблюдай правила:
-- Поле "sent_at" ВСЕГДА возвращай в формате MYSQL DATETIME: "YYYY-MM-DD HH:MM:SS" в UTC (без миллисекунд и без таймзоны).
-- Логические значения возвращай булевыми (true/false), числа — числовыми.
-- Если данных нет — верни строго: { "players": [], "reputation_records": [] }
-
-Доступны входные данные:
-- текст сообщения
-- роль пользователя (fund_name)
-- время отправки (sent_at, это ISO-время)
-
-Формат результата (строго следуй ключам, даже если значения пустые):
+Ты интеллектуальный парсер сообщений из Discord. Верни ВАЛИДНЫЙ JSON.
+Требования:
+- Всегда возвращай "sent_at" в формате MYSQL DATETIME "YYYY-MM-DD HH:MM:SS" (UTC).
+- Булевы — как true/false, числа — числовыми.
+- Если данных нет — строго {"players":[],"reputation_records":[]}.
+Формат результата:
 {
   "players": [
     {
@@ -370,7 +338,7 @@ client.on('messageCreate', async (message) => {
       "skype": "",
       "backer_tag": "",
       "kyc_status": false,
-      "sent_at": "время отправки в формате YYYY-MM-DD HH:MM:SS (UTC)"
+      "sent_at": "время отправки"
     }
   ],
   "reputation_records": [
@@ -382,10 +350,13 @@ client.on('messageCreate', async (message) => {
       "damage": "",
       "makeUp": "",
       "source": "discord",
-      "sent_at": "время отправки в формате YYYY-MM-DD HH:MM:SS (UTC)"
+      "sent_at": "время отправки"
     }
   ]
 }
+
+Если данных нет — верни: { "players": [], "reputation_records": [] }
+Никаких пояснений, только JSON.
           `.trim()
                 },
                 {
@@ -397,7 +368,6 @@ client.on('messageCreate', async (message) => {
 
         const raw = aiResponse?.choices?.[0]?.message?.content ?? '';
         let parsed;
-
         try {
             parsed = JSON.parse(raw);
         } catch (jsonErr) {
@@ -405,33 +375,22 @@ client.on('messageCreate', async (message) => {
             console.error('❌', msg);
             state.errors.push({ at: new Date().toISOString(), message: msg });
             saveState(state);
-            // Мгновенный алерт при ПЕРВОЙ ошибке
             await sendImmediateAlert(msg);
             return;
         }
 
-        // Если пусто — ничего не отправляем
-        const noPlayers = !parsed.players || parsed.players.length === 0;
-        const noReps = !parsed.reputation_records || parsed.reputation_records.length === 0;
-        if (noPlayers && noReps) {
+        const hasPlayers = Array.isArray(parsed.players) && parsed.players.length > 0;
+        const hasReps = Array.isArray(parsed.reputation_records) && parsed.reputation_records.length > 0;
+        if (!hasPlayers && !hasReps) {
             console.log('⏭️ Пропуск — нет данных для импорта');
+            // отметим сообщение как обработанное, чтобы не пытаться снова
+            markProcessed(message.id);
             return;
         }
 
-        // Гарантируем корректный формат дат перед POST
-        // 1) Нормализация старым способом (плоские уровни players/reputation_records)
-        parsed = normalizePayloadDates(parsed, timestampIso);
-
-// 2) ГЛУБОКАЯ нормализация на весь объект (любой sent_at в любом месте)
+        // Нормализация дат
         parsed = normalizeAnySentAtDeep(parsed, timestampIso);
-
-// 3) Проверка: если всё ещё где-то есть ISO с Z — нормализуем повторно (на случай мутаций)
-        if (hasIsoWithZ(parsed)) {
-            console.warn('⚠️ Найден ISO с Z после нормализации — выполняю повторную глубокую нормализацию.');
-            parsed = normalizeAnySentAtDeep(parsed, timestampIso);
-        }
-
-
+        if (hasIsoWithZ(parsed)) parsed = normalizeAnySentAtDeep(parsed, timestampIso);
 
         console.log('📦 JSON для Laravel (после нормализации дат):');
         console.dir(parsed, { depth: null });
@@ -445,34 +404,26 @@ client.on('messageCreate', async (message) => {
         console.log('✅ Успешно импортировано в Laravel API');
         console.dir(response.data, { depth: null });
 
-        // Обновляем статистику перенесённых записей
-        const importedItems = [];
-        if (Array.isArray(parsed.players)) {
-            for (const p of parsed.players) {
-                importedItems.push({
-                    type: 'player',
-                    id: p.player_id || p.discord || p.telegram || '(без id)',
-                    when: p.sent_at || toMysqlDateTime(timestampIso)
-                });
-            }
-        }
-        if (Array.isArray(parsed.reputation_records)) {
-            for (const r of parsed.reputation_records) {
-                importedItems.push({
-                    type: 'reputation',
-                    id: r.player_id || '(без player_id)',
-                    when: r.sent_at || toMysqlDateTime(timestampIso)
-                });
-            }
-        }
+        // Обновляем статистику (БЕЗ удвоений — 1 сообщение = максимум +1 к importedMessages)
+        const playersN = parsed.players?.length ?? 0;
+        const repsN = parsed.reputation_records?.length ?? 0;
 
-        if (importedItems.length > 0) {
-            const last = importedItems[importedItems.length - 1];
-            state.lastImportedText =
-                `${last.type === 'player' ? 'Игрок' : 'Реп.запись'}: ${last.id} @ ${last.when}`;
-            state.importedCount += importedItems.length;
-            saveState(state);
-        }
+        state.importedMessages += 1;
+        state.importedPlayers += playersN;
+        state.importedReps += repsN;
+
+        // Последняя запись — берём приоритетно репутацию, иначе игрока
+        const lastWhen = parsed.reputation_records?.at(-1)?.sent_at
+            || parsed.players?.at(-1)?.sent_at
+            || toMysqlDateTime(timestampIso);
+        const lastId = parsed.reputation_records?.at(-1)?.player_id
+            || parsed.players?.at(-1)?.player_id
+            || '(id неизвестен)';
+        state.lastImportedText = `${repsN ? 'Реп.запись' : 'Игрок'}: ${lastId} @ ${lastWhen}`;
+
+        // Помечаем сообщение как обработанное (анти-дубль)
+        markProcessed(message.id);
+        saveState(state);
 
     } catch (err) {
         if (err.response) {
@@ -492,7 +443,4 @@ client.on('messageCreate', async (message) => {
 });
 
 // --- Запуск бота
-client.once('ready', () => {
-    // уже есть вверху, но оставим для совместимости
-});
 client.login(process.env.DISCORD_TOKEN);
