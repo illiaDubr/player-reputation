@@ -9,13 +9,19 @@ function formatDamage(damage) {
 
     return `$${number.toLocaleString("en-US", {
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2 
     })}`;
 }
 
+function parseNumber(value) {
+    if (value == null || value === "") return 0;
+    return parseFloat(value.toString().replace(",", ".")) || 0;
+}
+
+
 const ClaimAmount = ({ dmg, src, makeUp }) => {
-    const damage = parseFloat(dmg) || 0;
-    const makeup = parseFloat(makeUp) || 0;
+    const damage = parseNumber(dmg);
+    const makeup = parseNumber(makeUp);
     const hasDmg = dmg !== null && dmg !== undefined;
     const hasMakeUp = makeUp !== null && makeUp !== undefined;
 
