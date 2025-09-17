@@ -15,7 +15,10 @@ function formatDamage(damage) {
 
 function parseNumber(value) {
     if (value == null || value === "") return 0;
-    return parseFloat(value.toString().replace(",", ".")) || 0;
+    //return parseFloat(value.toString().replace(",", ".")) || 0;
+    const cleaned = value.toString().replace(/\$/g, "").replace(",", ".");
+
+    return parseFloat(cleaned) || 0;
 }
 
 
