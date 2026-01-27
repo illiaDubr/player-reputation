@@ -11,10 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->timestamp('sent_at')->nullable()->after('kyc_status');
-        });
-
+       
         Schema::table('reputation_records', function (Blueprint $table) {
             $table->timestamp('sent_at')->nullable()->after('source');
         });
@@ -22,10 +19,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->dropColumn('sent_at');
-        });
-
+        
         Schema::table('reputation_records', function (Blueprint $table) {
             $table->dropColumn('sent_at');
         });
