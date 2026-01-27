@@ -20,8 +20,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('route_counters', function (Blueprint $table) {
-            $table->dropUnique(['route', 'fund_name']);
-            $table->dropColumn('fund_name');
+            $table->dropUnique(['route']);
         });
     }
 };
