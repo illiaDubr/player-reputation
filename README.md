@@ -5,6 +5,15 @@
 **Player's Reputation** — это веб-приложение, предназначенное для сообщества игроков в покер.  
 Оно служит хабом для отслеживания репутации игроков, предоставляя бэкерам (спонсорам) и администраторам инструменты для проверки, добавления и управления данными об игроках.
 
+## 👥 О проекте и вкладе
+
+Проект разрабатывался по заказу и работает в продакшене для сообщества. Над ним работали двое:
+
+* **[illiaDubr](https://github.com/illiaDubr)** — бэкенд на Laravel (API, аутентификация и роли, схема БД и миграции, очереди, WebSocket), Discord-бот на Node.js с интеграцией OpenAI, Docker/Nginx и развёртывание.
+* **[Maniken228](https://github.com/Maniken228)** — клиентская часть на React (`frontend/`).
+
+> Реальные данные об игроках, дампы БД и конфигурационные файлы в репозиторий не входят. Для запуска используются `.env.example` в каждой части проекта и сидер администратора.
+
 ## ✨ Ключевые возможности
 
 * **Аутентификация и авторизация:** Надёжная регистрация и вход для пользователей с использованием Laravel Sanctum.
@@ -83,16 +92,23 @@
 
 1. **Клонируйте репозиторий:**
    ```bash
-   git clone https://github.com/illiaDubr/PrDev.git
-   cd PrDev
+   git clone https://github.com/illiaDubr/player-reputation.git
+   cd player-reputation
    ```
 
-2. **Запустите сервисы:**
+2. **Подготовьте окружение** (скопируйте примеры и заполните значения):
+   ```bash
+   cp backend/.env.example backend/.env
+   cp frontend/.env.example frontend/.env
+   cp discord-bot/.env.example discord-bot/.env
+   ```
+
+3. **Запустите сервисы** (пароли БД в `docker-compose.yml` — только для локальной разработки):
    ```bash
    docker-compose up --build
    ```
 
-3. **Приложение будет доступно по адресу:**
+4. **Приложение будет доступно по адресу:**
    - Frontend: http://localhost:8055
    - Backend API: http://localhost:8055/api
    - WebSocket (Reverb): ws://localhost:6001
@@ -118,9 +134,10 @@
 
 4. Настройте базу данных в `.env` (используйте локальный MySQL или SQLite).
 
-5. Запустите миграции:
+5. Запустите миграции и создайте тестовых пользователей (в `.env` должен быть задан `SEED_ADMIN_PASSWORD`):
    ```bash
    php artisan migrate
+   php artisan db:seed
    ```
 
 6. Запустите сервер:
@@ -192,7 +209,7 @@ npm run test
 ## 📁 Структура проекта
 
 ```
-PrDev/
+player-reputation/
 ├── backend/                 # Laravel API сервер
 │   ├── app/                 # Приложение Laravel
 │   ├── config/              # Конфигурации
