@@ -1,286 +1,137 @@
 # Player's Reputation
 
-Проект построен по принципам Feature-Sliced Design (FSD) для достижения масштабируемости, читаемости и переиспользуемости кода.
+Веб-платформа для покерных бэкеров (фондов), на которой они проверяют игроков по общей базе репутации, отправляют отчёты о нарушениях и ведут записи об игроках. Состоит из Laravel API, React-клиента и Discord-бота, который собирает данные из каналов фондов с помощью GPT-4.
 
-**Player's Reputation** — это веб-приложение, предназначенное для сообщества игроков в покер.  
-Оно служит хабом для отслеживания репутации игроков, предоставляя бэкерам (спонсорам) и администраторам инструменты для проверки, добавления и управления данными об игроках.
+Проект разработан по заказу и работает в продакшене.
 
-## 👥 О проекте и вкладе
+## О вкладе
 
-Проект разрабатывался по заказу и работает в продакшене для сообщества. Над ним работали двое:
-
-* **[illiaDubr](https://github.com/illiaDubr)** — бэкенд на Laravel (API, аутентификация и роли, схема БД и миграции, очереди, WebSocket), Discord-бот на Node.js с интеграцией OpenAI, Docker/Nginx и развёртывание.
+* **[illiaDubr](https://github.com/illiaDubr)** — бэкенд на Laravel (API, аутентификация и роли, схема БД и миграции, события и уведомления, импорт данных), Discord-бот на Node.js с разбором сообщений через OpenAI, Docker/Nginx и развёртывание.
 * **[Maniken228](https://github.com/Maniken228)** — клиентская часть на React (`frontend/`).
 
-> Реальные данные об игроках, дампы БД и конфигурационные файлы в репозиторий не входят. Для запуска используются `.env.example` в каждой части проекта и сидер администратора.
+> Реальные данные об игроках, дампы БД и рабочие конфигурации в репозиторий не входят: история очищена, для запуска есть `.env.example` в каждой части проекта.
 
-## ✨ Ключевые возможности
+## Что умеет система
 
-* **Аутентификация и авторизация:** Надёжная регистрация и вход для пользователей с использованием Laravel Sanctum.
-* **Ролевая модель:** Разграничение доступа для различных типов пользователей (бэкер, администратор).
-* **Поиск игроков:** Мощная система поиска с базовыми и расширенными фильтрами.
-* **Управление записями:** Возможность для верифицированных бэкеров добавлять и редактировать записи об игроках.
-* **Процесс верификации бэкеров:** Бэкеры проходят процедуру проверки для получения полного доступа к платформе.
-* **Административная панель:** Инструменты для администраторов по управлению заявками на верификацию и другими системными задачами.
-* **Интеграция с Discord:** Бот для автоматизации процессов в Discord-сообществе, включая обработку истории сообщений и арбитраж.
-* **Информационный портал:** Главная страница с общей информацией о проекте и формой обратной связи.
-* **Real-time обновления:** Использование Laravel Reverb для WebSocket соединений.
+**Поиск игроков**
+* Открытый поиск с лимитом 30 запросов в сутки с одного IP: сопоставляет введённые данные с базой по именам, контактам и никам в покер-румах (около двух десятков полей) и считает, сколько полей совпало.
+* Поиск для бэкеров (авторизованных): результаты с записями репутации (фонд, комментарий, ущерб, возмещение, источник), счётчик запросов по каждому фонду, базовый и расширенный режимы на клиенте.
 
-## 🏗️ Архитектура проекта
+**Репутация и модерация**
+* Записи репутации привязаны к игроку и фонду; у игрока есть метка бэкера (`arbitration`, `left poker`, `pays off debt`, `closed issue`, `no tag`).
+* Бэкеры отправляют отчёты об игроках, администраторы получают уведомления и обрабатывают их (список, редактирование, смена статуса, удаление проверенных отчётов).
+* Правки данных игроков сохраняются в журнале изменений (`old_data` / `new_data`); администратор может просмотреть изменение, сменить его статус или откатить.
+* Новые бэкеры проходят модерацию (список неподтверждённых и подтверждённых, смена статуса, редактирование данных фонда).
 
-Проект состоит из трех основных компонентов:
+**Администрирование**
+* Уведомления администраторов, список изменений и отчётов, выгрузка и загрузка резервной копии БД.
 
-### Backend (Laravel)
-- **Путь:** `backend/`
-- **Описание:** REST API сервер на Laravel 11, обрабатывающий бизнес-логику, аутентификацию, базу данных и интеграции.
+**Импорт данных**
+* Discord-бот слушает настроенные каналы, отправляет текст сообщения и роль автора (название фонда) в GPT-4, получает структурированный JSON (игроки и записи репутации) и передаёт его в API.
+* Скрипты бота выгружают историю каналов и обрабатывают её пачками; на стороне Laravel есть artisan-команды импорта (`ImportPlayerData`, `ImportFundsData`, `ImportArbHistory`, `ImportArbitrages`, пошаговая обработка JSON/NDJSON).
 
-### Frontend (React)
-- **Путь:** `frontend/`
-- **Описание:** Клиентское веб-приложение на React 18 с Vite, предоставляющее пользовательский интерфейс.
+**Клиентская часть**
+* Три раздела: публичный портал (описание ролей, обучающее видео, форма обратной связи), платформа бэкера (главная, поиск, профиль) и админ-панель.
+* Вход через модальное окно, переключатель ролей, архитектура Feature-Sliced Design.
 
-### Discord Bot (Node.js)
-- **Путь:** `discord-bot/`
-- **Описание:** Автономный бот на Node.js для взаимодействия с Discord API, обработки сообщений и интеграции с OpenAI.
+## Архитектура
 
-## 🛠️ Технологический стек
+```mermaid
+flowchart LR
+    D[Discord-каналы фондов] --> B[Discord-бот<br/>discord.js]
+    B -->|текст сообщения| G[OpenAI GPT-4]
+    G -->|JSON: игроки и записи| B
+    B -->|POST| API
+    U[Пользователь] --> N[Nginx]
+    N --> F[React-клиент]
+    N --> API[Laravel 11 API]
+    F -->|REST, Sanctum| API
+    API --> DB[(MySQL 8)]
+    API -.-> R[Laravel Reverb<br/>WebSocket]
+```
 
-### Backend
-* **Фреймворк:** Laravel 11
-* **Язык:** PHP 8.2+
-* **База данных:** MySQL 8.2
-* **Аутентификация:** Laravel Sanctum
-* **API документация:** L5-Swagger
-* **WebSocket:** Laravel Reverb
-* **Тестирование:** Pest PHP
-* **Интеграции:** OpenAI API, Discord API
+Бэкенд транслирует события (`NewBackerForModeration`, `AdminNotify` и др.) через Laravel Reverb; подписка на WebSocket на стороне React в этом репозитории не подключена.
 
-### Frontend
-* **Основа:** React 18
-* **Сборщик:** Vite
-* **Язык:** JavaScript (ESNext)
-* **Стилизация:** Sass (SCSS) с CSS Modules
-* **Управление состоянием:** MobX
-* **Роутинг:** React Router DOM v7
-* **Работа с API:** Axios
-* **Управление формами:** React Hook Form
-* **Валидация схем:** Yup
-* **Анимации:** GSAP, React-spring
-* **UI Компоненты:** Storybook для изолированной разработки и тестирования компонентов
-* **Тестирование:** Vitest
+## Роли
 
-### Discord Bot
-* **Фреймворк:** Discord.js 14
-* **Язык:** Node.js
-* **Интеграции:** OpenAI API, Axios для HTTP запросов
+| Роль | Доступ |
+|---|---|
+| `user` | Регистрация, вход, публичный поиск |
+| `backer` | Поиск с записями репутации, отправка отчётов, данные своего фонда, метки игроков |
+| `admin` / `superadmin` | Модерация бэкеров, отчёты, журнал изменений и откат, уведомления, резервные копии |
 
-### Инфраструктура
-* **Контейнеризация:** Docker & Docker Compose
-* **Веб-сервер:** Nginx
-* **База данных:** MySQL (в Docker)
-* **Очереди:** Laravel Queues
+## Стек
 
-## 🚀 Начало работы
+| Часть | Технологии |
+|---|---|
+| Backend | PHP 8.2, Laravel 11, Sanctum, Reverb, L5-Swagger, openai-php/client, MySQL 8, Pest |
+| Frontend | React 18, Vite 6, MobX, React Router 7, Axios, React Hook Form + Yup, SCSS-модули, GSAP, React Spring, Storybook 9, Vitest |
+| Discord-бот | Node.js, discord.js 14, OpenAI SDK, Axios |
+| Инфраструктура | Docker Compose (PHP-FPM, MySQL, Reverb, Nginx, сборка клиента) |
 
-### Требования
-* Docker & Docker Compose
-* Node.js (версия >=22.0.0) — для локальной разработки без Docker
-* PHP 8.2+ — для локальной разработки без Docker
-* Composer — для управления PHP зависимостями
-* NPM или Yarn — для управления JS зависимостями
+## Структура репозитория
 
-### Установка и запуск с Docker (рекомендуется)
+```
+player-reputation/
+├── backend/        # Laravel: контроллеры, модели, события, artisan-команды, миграции, тесты
+├── frontend/       # React (FSD: app, pages, widgets, features, shared)
+├── discord-bot/    # Бот и скрипты выгрузки/разбора истории каналов
+├── docker-compose.yml
+└── nginx.conf
+```
 
-1. **Клонируйте репозиторий:**
-   ```bash
-   git clone https://github.com/illiaDubr/player-reputation.git
-   cd player-reputation
-   ```
+## Запуск локально
 
-2. **Подготовьте окружение** (скопируйте примеры и заполните значения):
+1. Скопируйте файлы окружения и заполните значения:
    ```bash
    cp backend/.env.example backend/.env
    cp frontend/.env.example frontend/.env
    cp discord-bot/.env.example discord-bot/.env
    ```
+   В `backend/.env` задайте `SEED_ADMIN_PASSWORD`, `REVERB_APP_ID`, `REVERB_APP_KEY`, `REVERB_APP_SECRET`.
 
-3. **Запустите сервисы** (пароли БД в `docker-compose.yml` — только для локальной разработки):
+2. Поднимите сервисы (пароли БД в `docker-compose.yml` — только для локальной разработки):
    ```bash
-   docker-compose up --build
+   docker-compose up --build -d
    ```
 
-4. **Приложение будет доступно по адресу:**
-   - Frontend: http://localhost:8055
-   - Backend API: http://localhost:8055/api
-   - WebSocket (Reverb): ws://localhost:6001
-
-### Локальная разработка (без Docker)
-
-#### Backend
-1. Перейдите в директорию backend:
+3. Установите зависимости и подготовьте базу внутри контейнера backend:
    ```bash
-   cd backend
+   docker-compose exec backend composer install
+   docker-compose exec backend php artisan key:generate
+   docker-compose exec backend php artisan migrate --seed
    ```
 
-2. Установите PHP зависимости:
-   ```bash
-   composer install
-   ```
+4. Откройте приложение: http://localhost:8055 (API — `/api`, WebSocket Reverb — `ws://localhost:6001`).
 
-3. Настройте окружение:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. Настройте базу данных в `.env` (используйте локальный MySQL или SQLite).
-
-5. Запустите миграции и создайте тестовых пользователей (в `.env` должен быть задан `SEED_ADMIN_PASSWORD`):
-   ```bash
-   php artisan migrate
-   php artisan db:seed
-   ```
-
-6. Запустите сервер:
-   ```bash
-   php artisan serve
-   ```
-
-#### Frontend
-1. Перейдите в директорию frontend:
-   ```bash
-   cd frontend
-   ```
-
-2. Установите зависимости:
-   ```bash
-   npm install
-   ```
-
-3. Настройка окружения:
-   Создайте файл `.env` и добавьте:
-   ```
-   VITE_API_URL=http://localhost:8000
-   ```
-
-4. Запуск в режиме разработки:
-   ```bash
-   npm run dev
-   ```
-
-#### Discord Bot
-1. Перейдите в директорию discord-bot:
-   ```bash
-   cd discord-bot
-   ```
-
-2. Установите зависимости:
-   ```bash
-   npm install
-   ```
-
-3. Настройте `.env` с Discord токеном и OpenAI API ключом.
-
-4. Запустите бота:
-   ```bash
-   node index.js
-   ```
-
-## 📖 API Документация
-
-API документация генерируется автоматически с помощью L5-Swagger.
-
-- **Доступ:** `/api/documentation` (после запуска backend)
-- **Генерация:** `php artisan l5-swagger:generate`
-
-## 🧪 Тестирование
-
-### Backend
+Discord-бот в `docker-compose.yml` не входит. Запуск отдельно, после заполнения `discord-bot/.env`:
 ```bash
-cd backend
-./vendor/bin/pest
+cd discord-bot
+npm install
+node index.js
 ```
 
-### Frontend
-```bash
-cd frontend
-npm run test
-```
+Очередь уведомлений использует драйвер `database` (`QUEUE_CONNECTION=database`), для обработки фоновых заданий нужен `php artisan queue:work`.
 
-## 📁 Структура проекта
+## API
 
-```
-player-reputation/
-├── backend/                 # Laravel API сервер
-│   ├── app/                 # Приложение Laravel
-│   ├── config/              # Конфигурации
-│   ├── database/            # Миграции, сиды, фабрики
-│   ├── public/              # Публичные файлы
-│   ├── resources/           # Представления, assets
-│   ├── routes/              # Маршруты API
-│   ├── storage/             # Логи, кэш
-│   ├── tests/               # Тесты (Pest)
-│   ├── composer.json        # PHP зависимости
-│   └── Dockerfile           # Docker для backend
-├── frontend/                # React клиент
-│   ├── src/
-│   │   ├── app/             # Основное приложение
-│   │   ├── features/        # Фичи (FSD)
-│   │   ├── pages/           # Страницы
-│   │   ├── shared/          # Общие компоненты
-│   │   └── widgets/         # Виджеты
-│   ├── public/              # Статические файлы
-│   ├── package.json         # JS зависимости
-│   └── Dockerfile           # Docker для frontend
-├── discord-bot/             # Discord бот
-│   ├── index.js             # Основной файл бота
-│   ├── package.json         # Зависимости
-│   └── Dockerfile           # Docker для бота
-├── docker-compose.yml       # Docker Compose конфиг
-├── nginx.conf               # Nginx конфигурация
-└── README.md                # Этот файл
-```
+Основные группы маршрутов (`backend/routes/api.php`):
 
-## 🚀 Развертывание
+| Группа | Маршруты |
+|---|---|
+| Аутентификация | `POST /register`, `/login`, `/logout`, `/forgot-password`, `/reset-password`, подтверждение email |
+| Поиск | `POST /search-player` (открытый, с лимитом), `POST /search-players` (для бэкеров) |
+| Игроки | `PUT /players/{id}`, `PATCH /players/{id}/reputation/{recordId}`, `PATCH /players/{id}/backer-tag`, `POST /playerAdd` |
+| Бэкеры | `GET /backers/approved`, `/backers/unapproved`, `PATCH /backers/{id}/status`, `PUT /backers/{id}`, `PATCH /backers/{id}/fund-info` |
+| Отчёты | `POST /reports`, `GET /reports`, `PATCH /reports/{id}/status`, `DELETE /reports/{id}` |
+| Изменения | `GET /changes`, `PATCH /changes/{id}`, `POST /changes/{id}/rollback` |
+| Администрирование | `GET /admin/notifications`, `GET /backup/download`, `POST /backup/upload` |
+| Импорт и статистика | `POST /messages`, `POST /process-json`, `GET /stats/search-players` |
 
-1. Соберите production версии:
-   ```bash
-   cd frontend && npm run build:prod
-   cd ../backend && php artisan config:cache && php artisan route:cache
-   ```
+Swagger-аннотации (L5-Swagger) добавлены только в части контроллеров, поэтому автоматическая документация неполная.
 
-2. Используйте Docker Compose для продакшена с соответствующими переменными окружения.
+## Тесты и состояние проекта
 
-## 🤝 Контрибьютинг
-
-1. Форкните репозиторий
-2. Создайте feature branch (`git checkout -b feature/AmazingFeature`)
-3. Зафиксируйте изменения (`git commit -m 'Add some AmazingFeature'`)
-4. Запушьте в branch (`git push origin feature/AmazingFeature`)
-5. Откройте Pull Request
-
-## 📄 Лицензия
-
-Этот проект лицензирован под MIT License.
-
-## 📞 Контакты
-
-Для вопросов и предложений обращайтесь к разработчикам проекта.
-
-**Собрать билд Storybook:**
-```bash
-npm run build-storybook
-```
-
----
-
-## 📁 Структура проекта
-
-Проект организован по принципам **Feature-Sliced Design (FSD)**, что обеспечивает высокую модульность, переиспользуемость и масштабируемость кода.
-
-- `src/app`: Основные файлы приложения — инициализация, роутинг, провайдеры, глобальные стили.
-- `src/pages`: Компоненты страниц, разделённые по ролям и назначениям (например, `admin`, `platform`, `portal`).
-- `src/widgets`: Крупные переиспользуемые блоки интерфейса (например, Header, Footer, Layouts и другие).
-- `src/features`: Функциональные модули, реализующие конкретные возможности (аутентификация, поиск, управление ролями и прочее).
-- `src/shared`: Общие ресурсы — компоненты, утилиты, API, UI-элементы, используемые во всех слоях приложения.
-
----
+* Backend (Pest): тесты аутентификации — вход, выход, регистрация, сброс пароля, подтверждение email. Бизнес-логика (поиск, отчёты, откат изменений) тестами пока не покрыта.
+* Frontend: Vitest подключён, но тестов и скрипта запуска пока нет; для компонентов есть истории Storybook (`npm run storybook`).
+* Лицензия не указана: код опубликован для демонстрации.
