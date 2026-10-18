@@ -9,12 +9,17 @@ class AdminAndBackerSeeder extends Seeder
 {
     public function run()
     {
+        $password = env('SEED_ADMIN_PASSWORD');
+        if (empty($password)) {
+            throw new \RuntimeException('Set SEED_ADMIN_PASSWORD in backend/.env before running this seeder.');
+        }
+
         // Создаём/обновляем Админа
         User::updateOrCreate(
             ['email' => 'admin@example.com'], // критерий поиска
             [
                 'name' => 'Главный Админ',
-                'password' => bcrypt('change-me-locally'), // обязательно хэш
+                'password' => bcrypt($password), // обязательно хэш
                 'role' => 'admin',
             ]
         );
@@ -24,7 +29,7 @@ class AdminAndBackerSeeder extends Seeder
             ['email' => 'backer@example.com'],
             [
                 'name' => 'Test Backer',
-                'password' => bcrypt('backer123'),
+                'password' => bcrypt($password),
                 'role' => 'backer',
             ]
         );
