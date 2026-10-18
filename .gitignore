@@ -1,0 +1,29 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+vendor/
+dist/
+storage/logs/*.log
+
+# Database dumps and data exports (never commit real data)
+*.sql
+*.nosql
+*.sqlite
+*.sqlite3
+*.dump
+*.bak
+backend/*.csv
+backend/*.xlsx
+backend/*.json
+!backend/composer.json
+!backend/package.json
+!backend/package-lock.json
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
